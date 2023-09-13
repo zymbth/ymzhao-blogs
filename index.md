@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Yuemin Zhao's Blog"
-  text: "A VitePress Site of blogs"
-  tagline: My great project tagline
+  name: "Corner Blog by Yuemin Zhao"
+  text: "VitePress Powered Blogs"
+  tagline: This is my little corner, a place to record miscellaneous technical summaries and share my personal experiences from work.
   actions:
     - theme: brand
       text: Article

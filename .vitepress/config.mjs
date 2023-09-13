@@ -2,11 +2,16 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Yuemin Zhao's Blog",
-  description: "A VitePress Site of blogs",
+  title: "Corner Blog",
+  description: "这是我的小角落，记录个人工作中琐碎的技术总结与分享。",
   base: '/ymzhao-blogs/',
+  cleanUrls: true,
+  head: [
+    ['link', { rel: 'icon', href: '/icon.svg' }],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    logo: '/icon.svg',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Articles', link: '/article/basic/js-doc' }
