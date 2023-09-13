@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/ymzhao-blogs/',
   cleanUrls: true,
   head: [
-    ['link', { rel: 'icon', href: '/icon.svg' }],
+    ['link', { rel: 'icon', href: '/ymzhao-blogs/icon.svg' }],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
