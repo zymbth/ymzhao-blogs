@@ -34,6 +34,13 @@ export default defineConfig({
           { text: '实践：新手使用 ESLint 进行项目代码检测与格式化', link: '/article/engineering/uniform-code-style' },
           { text: '优化Webpack打包流程：打包完成后再删除旧文件，确保网站访问稳定', link: '/article/engineering/package-optimize' },
         ]
+      },
+      {
+        text: 'Element Plus 使用',
+        items: [
+          { text: '虚拟化表格组件的使用(排序、筛选、自定义单元格渲染)', link: '/article/element-plus/tablev2' },
+          // { text: '优化Webpack打包流程：打包完成后再删除旧文件，确保网站访问稳定', link: '/article/engineering/package-optimize' },
+        ]
       }
     ],
 
