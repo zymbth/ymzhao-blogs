@@ -95,10 +95,10 @@ beforeRouteUpdate函数内，**同步获取**路由参数，获取到的是`from
 
 打印结果：
 
-```text
-to: /search {query: 'bbbb'}
-from: /search {query: 'aaaa'}
-initFunc queryStr: aaaa
+```js
+// to: /search {query: 'bbbb'}
+// from: /search {query: 'aaaa'}
+// initFunc queryStr: aaaa
 ```
 
 可以看到，刷新页面后，在钩子函数`beforeRouteUpdate`内同步执行初始化方法`initFunc()`，其获取的路由参数是跳转前的
@@ -171,11 +171,11 @@ export default {
 
 打印的结果是：
 
-```text
-beforeRouteUpdate
-route.params.id changed 2 1
-initFunc: 1
-prop: id changed 2 1
+```js
+// beforeRouteUpdate
+// route.params.id changed 2 1
+// initFunc: 1
+// prop: id changed 2 1
 ```
 
 钩子函数`beforeRouteUpdate`最先触发，其次是监听到路由参数变化，然后监听到组件参数变化。尽管后两者都指路由参数`id`，但上述示例中的监听方式仍然会导致初始化方法读取到旧`id`的问题。可以选择直接监听`id`，或者使用 `this.$route.params.id` 获取用户详情
