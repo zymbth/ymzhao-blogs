@@ -6,7 +6,7 @@
 
 本文参照官网文档、示例，结合个人使用总结，演示虚拟化表格的基本使用，记录上述附加功能的基本实现。除组件的相关接口需要按照官网规范使用外，示例中的其它具体实现的方法**仅作参考**，提供使用思路。
 
-创建了一个项目收纳本文的一些demos:
+创建了一个项目收纳本文的一些 demos:
 
 [element-plus-tablev2-demo](https://github.com/zymbth/element-plus-tablev2-demo) / [element-plus-tablev2-demo (gitee)](https://gitee.com/ymzhao/element-plus-tablev2-demo)
 
@@ -14,8 +14,8 @@
 
 官方介绍：
 
-*“在前端开发领域，表格一直都是一个高频出现的组件，尤其是在中后台和数据分析场景。 但是，对于 Table V1来说，当一屏里超过 1000 条数据记录时，就会出现卡顿等性能问题，体验不是很好。
-通过虚拟化表格组件，超大数据渲染将不再是一个头疼的问题。”*
+_“在前端开发领域，表格一直都是一个高频出现的组件，尤其是在中后台和数据分析场景。 但是，对于 Table V1 来说，当一屏里超过 1000 条数据记录时，就会出现卡顿等性能问题，体验不是很好。
+通过虚拟化表格组件，超大数据渲染将不再是一个头疼的问题。”_
 
 官方提示：
 
@@ -43,26 +43,25 @@
 
 ```html
 <script setup>
-const columns = [
-	{ prop: 'name', label: 'Name', width: 100 },
-	{ prop: 'age', label: 'Age', width: 100 },
-	{ prop: 'gender', label: 'Gender', width: 100 },
-	{ prop: 'tel', label: 'Tel', width: 100 }
-]
-const tableData = [
-	{ name: '', age: '', gender: '', tel: '' },
-	// ...
-]
+  const columns = [
+    { prop: 'name', label: 'Name', width: 100 },
+    { prop: 'age', label: 'Age', width: 100 },
+    { prop: 'gender', label: 'Gender', width: 100 },
+    { prop: 'tel', label: 'Tel', width: 100 },
+  ]
+  const tableData = [
+    { name: '', age: '', gender: '', tel: '' },
+    // ...
+  ]
 </script>
 <template>
   <el-table :data="tableData">
-  	<el-table-column
-  		v-for="col in columns"
-  		:key="col.prop"
-  		:prop="col.prop"
-      	:label="col.label"
-  		:width="col.width"
-  	/>
+    <el-table-column
+      v-for="col in columns"
+      :key="col.prop"
+      :prop="col.prop"
+      :label="col.label"
+      :width="col.width" />
   </el-table>
 </template>
 ```
@@ -71,25 +70,19 @@ const tableData = [
 
 ```html
 <script setup>
-const columns = [
-	{ key: 'name', dataKey: 'name', title: 'Name', width: 100 },
-	{ key: 'age', dataKey: 'age', title: 'Age', width: 100 },
-	{ key: 'gender', dataKey: 'gender', title: 'Gender', width: 100 },
-	{ key: 'tel', dataKey: 'tel', title: 'Tel', width: 100 }
-]
-const tableData = [
-	{ name: '', age: '', gender: '', tel: '' },
-	// ...
-]
+  const columns = [
+    { key: 'name', dataKey: 'name', title: 'Name', width: 100 },
+    { key: 'age', dataKey: 'age', title: 'Age', width: 100 },
+    { key: 'gender', dataKey: 'gender', title: 'Gender', width: 100 },
+    { key: 'tel', dataKey: 'tel', title: 'Tel', width: 100 },
+  ]
+  const tableData = [
+    { name: '', age: '', gender: '', tel: '' },
+    // ...
+  ]
 </script>
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="tableData"
-    :width="700"
-    :height="400"
-    fixed
-  />
+  <el-table-v2 :columns="columns" :data="tableData" :width="700" :height="400" fixed />
 </template>
 ```
 
@@ -103,27 +96,21 @@ const tableData = [
 
 ### 准备工作
 
-本文采用 `jsx` 实现， Vue CLI 创建的项目可直接在vue单文件组件的 script 标签中添加 lang="jsx" (`<script setup lang="jsx">`)
+本文采用 `jsx` 实现， Vue CLI 创建的项目可直接在 vue 单文件组件的 script 标签中添加 lang="jsx" (`<script setup lang="jsx">`)
 
-> _“_`_create-vue_`_ 和 Vue CLI 都有预置的 JSX 语法支持。如果你想手动配置 JSX，请参阅 _[_@vue/babel-plugin-jsx_](https://github.com/vuejs/jsx-next)_ 文档获取更多细节。”_
-
+> _“`create-vue` 和 Vue CLI 都有预置的 JSX 语法支持。如果你想手动配置 JSX，请参阅 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next) 文档获取更多细节。”_
 
 - `jsx` 用法可参考：
 
-> [Vue 3 Babel JSX 插件](https://github.com/vuejs/babel-plugin-jsx/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md)
-[vue官网 - 渲染函数 & JSX - JSX / TSX](https://cn.vuejs.org/guide/extras/render-function.html#jsx-tsx)
-[element-plus虚拟化表格组件el-table-v2渲染自定义组件的其中两种方式(js和jsx)及注意事项](https://blog.csdn.net/Mr_WangGeGe/article/details/127275868)
-[在Vue中使用JSX，很easy的](https://juejin.cn/post/7018742119082754062)
-
+> [Vue 3 Babel JSX 插件](https://github.com/vuejs/babel-plugin-jsx/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md) > [vue 官网 - 渲染函数 & JSX - JSX / TSX](https://cn.vuejs.org/guide/extras/render-function.html#jsx-tsx) > [element-plus 虚拟化表格组件 el-table-v2 渲染自定义组件的其中两种方式(js 和 jsx)及注意事项](https://blog.csdn.net/Mr_WangGeGe/article/details/127275868) > [在 Vue 中使用 JSX，很 easy 的](https://juejin.cn/post/7018742119082754062)
 
 需掌握最基本的 插值、v-if、v-for、v-on、事件修饰符、组件的 jsx 语法，以及组件的插槽语法
 
-- Element Plus官方文档：
+- Element Plus 官方文档：
 
 > [Element Plus - Virtualized Table 虚拟化表格](https://element-plus.gitee.io/zh-CN/component/table-v2.html)
 
-
-需了解该组件的常用属性方法、Column属性
+需了解该组件的常用属性方法、Column 属性
 本节的重点是单元格自定义渲染，在于 `cellRenderer` 方法，其参数类型如下：
 
 ```typescript
@@ -150,44 +137,46 @@ type CellRenderProps<T> = {
     :key="col.prop"
     :prop="col.prop"
     :label="col.label"
-    :width="col.width"
-  >
-		<template #default="scope">
-			<!-- 自定义单元格渲染 -->
-			<el-tag v-if="col.prop === 'tag'">{{ scope.row[col.prop] }}</el-tag>
+    :width="col.width">
+    <template #default="scope">
+      <!-- 自定义单元格渲染 -->
+      <el-tag v-if="col.prop === 'tag'">{{ scope.row[col.prop] }}</el-tag>
 
-			<template v-else-if="col.prop === 'link'">
-				<router-link
-		          v-if="!!scope.row.id"
-		          :to="{ name: 'TargetRouteName', params: { id: scope.row.id } }"
-		        >{{ scope.row[col.prop] }}</router-link>
-		        <span v-else>{{ scope.row[col.prop] }}</span>
-			</template>
+      <template v-else-if="col.prop === 'link'">
+        <router-link
+          v-if="!!scope.row.id"
+          :to="{ name: 'TargetRouteName', params: { id: scope.row.id } }"
+          >{{ scope.row[col.prop] }}</router-link
+        >
+        <span v-else>{{ scope.row[col.prop] }}</span>
+      </template>
 
-			<template v-else>{{ scope.row[col.prop] }}</template>
-		</template>
+      <template v-else>{{ scope.row[col.prop] }}</template>
+    </template>
   </el-table-column>
 </el-table>
 ```
 
 `el-table-v2` 中常用的自定义单元格渲染方式（定义在 column 配置列表中）：
 
-**vue单文件组件需要在script中加上**`**lang="jsx"**`
+**vue 单文件组件需要在 script 中加上`lang="jsx"`**
 
 ```html
 <script lang="jsx" setup>
-const columns = [
-	{
-		key: 'link',
-		title: 'Link',
-		dataKey: 'link',
-		width: 100,
-		cellRenderer: ({ cellData, rowData }) => (
-			<a href={ rowData.link } target="_blank">Go</a>
-		)
-	},
-	// ...
-]
+  const columns = [
+    {
+      key: 'link',
+      title: 'Link',
+      dataKey: 'link',
+      width: 100,
+      cellRenderer: ({ cellData, rowData }) => (
+        <a href={rowData.link} target='_blank'>
+          Go
+        </a>
+      ),
+    },
+    // ...
+  ]
 </script>
 ```
 
@@ -205,20 +194,25 @@ const columns = [
     (scope.row.view?.includes($store.getters.userId) || $checkRolePermission(scope.row.view))"
     :to="{ name: 'Target', params: { tid: scope.row.id } }"
     class="gene-text"
-  >{{ scope.row[col.prop] || '-' }}</router-link>
+    >{{ scope.row[col.prop] || '-' }}</router-link
+  >
   <span v-else class="gene-text">{{ scope.row[col.prop] || '-' }}</span>
 </template>
 ```
 
 ```javascript
 const cellRenderer = ({ cellData, rowData: row }) => {
-  const tmp = row.id && row.view && (row.view?.includes($store.getters.userId) || $checkRolePermission(row.view))
-  return tmp
-    ? <router-link
-      to={ { name: 'Target', params: { tid: row.id } } }
-      class="gene-text"
-    >{ cellData ?? '-' }</router-link>
-    : <span class="gene-text">{ cellData ?? '-' }</span>
+  const tmp =
+    row.id &&
+    row.view &&
+    (row.view?.includes($store.getters.userId) || $checkRolePermission(row.view))
+  return tmp ? (
+    <router-link to={{ name: 'Target', params: { tid: row.id } }} class='gene-text'>
+      {cellData ?? '-'}
+    </router-link>
+  ) : (
+    <span class='gene-text'>{cellData ?? '-'}</span>
+  )
 }
 ```
 
@@ -231,8 +225,7 @@ const cellRenderer = ({ cellData, rowData: row }) => {
   <router-link
     class="gene-source-tag"
     v-for="tag in scope.row[col.prop]"
-    :to="{ name: 'TargetAnalysis', params: { tid: scope.row.id, type: tag } }"
-  >
+    :to="{ name: 'TargetAnalysis', params: { tid: scope.row.id, type: tag } }">
     <el-tag>{{ tag }}</el-tag>
   </router-link>
 </template>
@@ -240,20 +233,21 @@ const cellRenderer = ({ cellData, rowData: row }) => {
 
 ```javascript
 const cellRenderer = ({ cellData, rowData: row }) => {
-  return <>{
-    cellData?.map(tag => (
-      <router-link
-        class="gene-source-tag"
-        to={ { name: 'TargetAnalysis', params: { tid: row.id, type: tag } } }
-      >
-        <el-tag>{ tag }</el-tag>
-      </router-link>
-    )) ?? ''
-  }</>
+  return (
+    <>
+      {cellData?.map(tag => (
+        <router-link
+          class='gene-source-tag'
+          to={{ name: 'TargetAnalysis', params: { tid: row.id, type: tag } }}>
+          <el-tag>{tag}</el-tag>
+        </router-link>
+      )) ?? ''}
+    </>
+  )
 }
 ```
 
-包含 v-for、组件、空标签。若并未全局引入Element Plus，需手动引入相关组件，其它自定义组件同样如此。
+包含 v-for、组件、空标签。若并未全局引入 Element Plus，需手动引入相关组件，其它自定义组件同样如此。
 
 ## 三、排序
 
@@ -271,30 +265,30 @@ TableV2 排序的实现在我看来是“自由度很高”的，除了根据单
 
 其次，组件提供了排序监听事件(`@column-sort`)，但具体的排序方法需自行定义；
 
-再次，不同于 TableV1 同时只进行一项排序，TableV2 允许多重排序。它可以记录所有可排序项的排序状态，但如何实现多重排序需要你自己在监听事件中实现。（自由度很高，一方面需要手动实现多重排序方法，另一方面需要通过管理排序状态变量控制表头UI上的三种状态: 升/降/无。为了避免UI上的疑惑，这两方面需要协调一致）
+再次，不同于 TableV1 同时只进行一项排序，TableV2 允许多重排序。它可以记录所有可排序项的排序状态，但如何实现多重排序需要你自己在监听事件中实现。（自由度很高，一方面需要手动实现多重排序方法，另一方面需要通过管理排序状态变量控制表头 UI 上的三种状态: 升/降/无。为了避免 UI 上的疑惑，这两方面需要协调一致）
 
 ### 关键属性、事件、方法说明
 
 先放上从官网上粘过来的相关的属性、事件、方法说明，方便对照后续示例参考
 
-- TableV2属性
+- TableV2 属性
 
-| 属性名 | 描述说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| sort-by | 排序方式 | Object | {} |
+| 属性名     | 描述说明 | 类型   | 默认值    |
+| ---------- | -------- | ------ | --------- |
+| sort-by    | 排序方式 | Object | {}        |
 | sort-state | 多个排序 | Object | undefined |
 
-- TableV2事件
+- TableV2 事件
 
-| 事件名 | 描述 | 参数 |
-| --- | --- | --- |
+| 事件名      | 描述         | 参数   |
+| ----------- | ------------ | ------ |
 | column-sort | 列排序时调用 | Object |
 
-- Column属性
+- Column 属性
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| sortable | 设置列是否可排序 | Boolean | - |
+| 属性名   | 描述             | 类型    | 默认值 |
+| -------- | ---------------- | ------- | ------ |
+| sortable | 设置列是否可排序 | Boolean | -      |
 
 - 相关类型
 
@@ -321,23 +315,19 @@ type SortState = Record<KeyType, SortOrder>
 一般想要的就是表格若干项可以排序，但只进行单项排序
 
 ```html
-<el-table-v2
-	:sort-by="sortState"
-	@column-sort="onSort"
-	...
-/>
+<el-table-v2 :sort-by="sortState" @column-sort="onSort" ... />
 ```
 
 ```javascript
 // 自行编写排序事件处理方法
 const handleSort = () => {}
 // 记录排序状态, key: 排序项的key, order: 升/降序
-const sortState = ref({ key: "no", order: 'asc' });
+const sortState = ref({ key: 'no', order: 'asc' })
 // 监听排序事件
 const onSort = ({ key, order }) => {
   handleSort()
-  sortState.value = { key, order };
-};
+  sortState.value = { key, order }
+}
 ```
 
 #### 多重排序
@@ -345,11 +335,7 @@ const onSort = ({ key, order }) => {
 举个例子，有个人员表，希望按城市排序，同一城市的按性别排序，同一性别的按年龄排序
 
 ```html
-<el-table-v2
-	v-model:sort-state="sortState"
-	@column-sort="onSort"
-	...
-/>
+<el-table-v2 v-model:sort-state="sortState" @column-sort="onSort" ... />
 ```
 
 ```javascript
@@ -359,13 +345,13 @@ const handleSort = () => {}
 const sortState = ref({
   city: 'desc',
   gender: 'asc',
-  age: 'asc'
-});
+  age: 'asc',
+})
 // 监听排序事件
 const onSort = ({ key, order }) => {
   handleSort()
-  sortState.value[key] = order;
-};
+  sortState.value[key] = order
+}
 ```
 
 #### 在线演示
@@ -386,21 +372,21 @@ const onSort = ({ key, order }) => {
 
 ```javascript
 const columns = [
-	{
-		// key, dataKey, title, ...
-		headerCellRenderer: (props) => {
-			return props.column.title
-		}
-	},
+  {
+    // key, dataKey, title, ...
+    headerCellRenderer: props => {
+      return props.column.title
+    },
+  },
   // ...
 ]
 ```
 
-Column属性
+Column 属性
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| headerCellRenderer | 自定义头部渲染器 | VueComponent/(props: HeaderRenderProps) => VNode | - |
+| 属性名             | 描述             | 类型                                             | 默认值 |
+| ------------------ | ---------------- | ------------------------------------------------ | ------ |
+| headerCellRenderer | 自定义头部渲染器 | VueComponent/(props: HeaderRenderProps) => VNode | -      |
 
 类型
 
@@ -421,20 +407,27 @@ type HeaderRenderProps<T> = {
 
 #### 实现过程
 
-首先，需要标识哪些 `column` 需要添加筛选功能，延续个人在TableV1中的使用习惯，在 `columns` 数组中添加相关属性，`filterable` 标识该项是否可筛选， `filterMethod` 指定筛选方法
+首先，需要标识哪些 `column` 需要添加筛选功能，延续个人在 TableV1 中的使用习惯，在 `columns` 数组中添加相关属性，`filterable` 标识该项是否可筛选， `filterMethod` 指定筛选方法
 
 ```javascript
 import { generalArrFilterHandler } from '@/use/el-table-v2-utils'
 
 const columnData = ref([
-  { key: "no", dataKey: "no", title: "No.", width: 60 },
-  { key: "code", dataKey: "code", title: "code", width: 80 },
-  { key: "name", dataKey: "name", title: "name", width: 80 },
-  { key: "age", dataKey: "age", title: "Age", width: 60 },
-  { key: "gender", dataKey: "gender", title: "gender", width: 80, filterable: true },
-  { key: "city", dataKey: "city", title: "City", width: 80, filterable: true },
-  { key: "tags", dataKey: "tags", title: "Tags", width: 150, filterable: true, filterMethod: generalArrFilterHandler }
-]);
+  { key: 'no', dataKey: 'no', title: 'No.', width: 60 },
+  { key: 'code', dataKey: 'code', title: 'code', width: 80 },
+  { key: 'name', dataKey: 'name', title: 'name', width: 80 },
+  { key: 'age', dataKey: 'age', title: 'Age', width: 60 },
+  { key: 'gender', dataKey: 'gender', title: 'gender', width: 80, filterable: true },
+  { key: 'city', dataKey: 'city', title: 'City', width: 80, filterable: true },
+  {
+    key: 'tags',
+    dataKey: 'tags',
+    title: 'Tags',
+    width: 150,
+    filterable: true,
+    filterMethod: generalArrFilterHandler,
+  },
+])
 ```
 
 为了避免对 TableV2 的潜在影响，表格组件所使用的 columns 数组中过滤掉一些不必要的属性，`headerCellRenderer` 方法也需要定义在此。
@@ -443,46 +436,58 @@ const columnData = ref([
 
 ```js
 const columns = columnData.value.map(col => {
-	return {
-		key: col.dataKey,
-	    title: col.title,
-	    dataKey: col.dataKey,
-	    width: col.width ?? 100,
-	    headerCellRenderer: (props) => {
-	      if(!col.filterable) return props.column.title
-	      return <div class="tbv2-th-filter">
-	        <span class="th-cell">{ props.column.title }</span>
-	        <el-popover trigger="hover" {...{ width: 200 }}>
-	          {{
-	            default: () => (
-	            	<div class="filter-wrapper">
-	                <div class="filter-group">
-	                  <el-checkbox-group v-model={ filterableCols[col.dataKey].selected }>
-	                    {
-	                      filterableCols[col.dataKey].list.map(f => <el-checkbox key={ f.value } label={ f.value }>{ f.text }</el-checkbox>)
-	                    }
-	                  </el-checkbox-group>
-	                </div>
-	                <div class="el-table-v2__demo-filter">
-	                  <el-button text onClick={ onFilter }>Confirm</el-button>
-	                  <el-button text onClick={ () => onReset(col.dataKey) }>Reset</el-button>
-	                </div>
-	              </div>
-	            ),
-	            reference: () => (
-	              <svg
-	                viewBox="0 0 1024 1024"
-	                xmlns="http://www.w3.org/2000/svg"
-	                width="14" height="14" style="cursor:pointer"
-	              >
-	                <path fill="currentColor" d="M735.086 796.233c0-15.58 12.727-28.818 28.891-28.818h230.4a29.257 29.257 0 0 1 28.818 28.818 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818zm0-127.927c0-15.506 12.727-28.745 28.891-28.745h230.4a29.257 29.257 0 0 1 28.818 28.745 28.891 28.891 0 0 1-28.745 28.819H763.977a29.257 29.257 0 0 1-28.818-28.819zm28.891-156.672h230.4a29.257 29.257 0 0 1 28.818 28.819 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818 29.257 29.257 0 0 1 28.818-28.819zM901.632 0c50.176 0 122.149 49.006 121.051 127.927 1.098 35.694-13.897 66.267-42.642 96.768-216.064 189.586-300.178 227.62-306.468 285.257-5.267 45.495-1.829 472.357-2.926 478.135a39.497 39.497 0 0 1-5.778 22.455c-18.432 18.432-37.45 12.141-47.25 4.023-72.046-58.734-232.741-189.514-251.173-228.133-21.358-41.472-13.24-126.757-13.24-276.48 0-34.085-253.512-235.154-308.296-285.257C31.744 210.285 0 181.54 0 128 0 49.59 63.927 0 134.802 0h766.83zM76.069 164.79c1.682 2.341 4.022 5.12 6.875 8.047l8.63 8.63-3.437-3.437a9235.017 9235.017 0 0 0 147.53 125.074l14.92 12.654c134.29 115.2 167.132 147.456 167.132 194.706 0 27.648 0 51.273-.585 88.137-1.756 114.103 0 145.774 8.045 161.353 3.438 6.876 47.836 49.518 108.325 101.961l17.262 14.41c32.914 27.648 57.051 54.125 57.051 51.273V747.813c0-139.996.585-221.184 3.438-244.298 1.755-13.165 5.193-25.892 10.386-38.034 15.58-35.108 40.96-59.246 105.472-111.689l89.234-72.046c40.375-34.596 81.262-69.12 121.637-104.887l-4.608 4.096c19.017-20.187 25.893-35.181 25.307-53.613C959.27 93.915 926.501 64 901.632 64h-766.83c-41.472 0-70.875 26.478-70.875 63.927 0 14.994 4.023 25.892 12.142 36.864z" />
-	              </svg>
-	            )
-	          }}
-	        </el-popover>
-	      </div>
-	    }
-	}
+  return {
+    key: col.dataKey,
+    title: col.title,
+    dataKey: col.dataKey,
+    width: col.width ?? 100,
+    headerCellRenderer: props => {
+      if (!col.filterable) return props.column.title
+      return (
+        <div class='tbv2-th-filter'>
+          <span class='th-cell'>{props.column.title}</span>
+          <el-popover trigger='hover' {...{ width: 200 }}>
+            {{
+              default: () => (
+                <div class='filter-wrapper'>
+                  <div class='filter-group'>
+                    <el-checkbox-group v-model={filterableCols[col.dataKey].selected}>
+                      {filterableCols[col.dataKey].list.map(f => (
+                        <el-checkbox key={f.value} label={f.value}>
+                          {f.text}
+                        </el-checkbox>
+                      ))}
+                    </el-checkbox-group>
+                  </div>
+                  <div class='el-table-v2__demo-filter'>
+                    <el-button text onClick={onFilter}>
+                      Confirm
+                    </el-button>
+                    <el-button text onClick={() => onReset(col.dataKey)}>
+                      Reset
+                    </el-button>
+                  </div>
+                </div>
+              ),
+              reference: () => (
+                <svg
+                  viewBox='0 0 1024 1024'
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='14'
+                  height='14'
+                  style='cursor:pointer'>
+                  <path
+                    fill='currentColor'
+                    d='M735.086 796.233c0-15.58 12.727-28.818 28.891-28.818h230.4a29.257 29.257 0 0 1 28.818 28.818 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818zm0-127.927c0-15.506 12.727-28.745 28.891-28.745h230.4a29.257 29.257 0 0 1 28.818 28.745 28.891 28.891 0 0 1-28.745 28.819H763.977a29.257 29.257 0 0 1-28.818-28.819zm28.891-156.672h230.4a29.257 29.257 0 0 1 28.818 28.819 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818 29.257 29.257 0 0 1 28.818-28.819zM901.632 0c50.176 0 122.149 49.006 121.051 127.927 1.098 35.694-13.897 66.267-42.642 96.768-216.064 189.586-300.178 227.62-306.468 285.257-5.267 45.495-1.829 472.357-2.926 478.135a39.497 39.497 0 0 1-5.778 22.455c-18.432 18.432-37.45 12.141-47.25 4.023-72.046-58.734-232.741-189.514-251.173-228.133-21.358-41.472-13.24-126.757-13.24-276.48 0-34.085-253.512-235.154-308.296-285.257C31.744 210.285 0 181.54 0 128 0 49.59 63.927 0 134.802 0h766.83zM76.069 164.79c1.682 2.341 4.022 5.12 6.875 8.047l8.63 8.63-3.437-3.437a9235.017 9235.017 0 0 0 147.53 125.074l14.92 12.654c134.29 115.2 167.132 147.456 167.132 194.706 0 27.648 0 51.273-.585 88.137-1.756 114.103 0 145.774 8.045 161.353 3.438 6.876 47.836 49.518 108.325 101.961l17.262 14.41c32.914 27.648 57.051 54.125 57.051 51.273V747.813c0-139.996.585-221.184 3.438-244.298 1.755-13.165 5.193-25.892 10.386-38.034 15.58-35.108 40.96-59.246 105.472-111.689l89.234-72.046c40.375-34.596 81.262-69.12 121.637-104.887l-4.608 4.096c19.017-20.187 25.893-35.181 25.307-53.613C959.27 93.915 926.501 64 901.632 64h-766.83c-41.472 0-70.875 26.478-70.875 63.927 0 14.994 4.023 25.892 12.142 36.864z'
+                  />
+                </svg>
+              ),
+            }}
+          </el-popover>
+        </div>
+      )
+    },
+  }
 })
 ```
 
@@ -491,8 +496,8 @@ const columns = columnData.value.map(col => {
 ```javascript
 import { generalFilterHandler } from '@/use/el-table-v2-utils'
 
-const originData = ref([]);
-const tableData = ref([]);
+const originData = ref([])
+const tableData = ref([])
 
 /**
  * 筛选信息列表
@@ -504,11 +509,11 @@ const tableData = ref([]);
 const filterableCols = reactive(
   columnData.value
     .filter(c => c.filterable)
-    .reduce((prev,curr) => {
+    .reduce((prev, curr) => {
       prev[curr.dataKey] = {
         selected: [],
         list: [],
-        filterMethod: curr.filterMethod ?? generalFilterHandler
+        filterMethod: curr.filterMethod ?? generalFilterHandler,
       }
       return prev
     }, {})
@@ -516,11 +521,16 @@ const filterableCols = reactive(
 
 // 自动获取各项筛选列表
 const getFiltersFromResp = () => {
-  for(let dataKey in filterableCols) {
+  for (let dataKey in filterableCols) {
     let list
-    if(dataKey === 'tags') { // tags 项可筛选列表固定
-      list = ['developer','Ph.D','Bachelor','Master','CEO','HRBP','HR'].map(p1 => ({ text: p1, value: p1 }))
-    } else { // 其它项取所有非重复项
+    if (dataKey === 'tags') {
+      // tags 项可筛选列表固定
+      list = ['developer', 'Ph.D', 'Bachelor', 'Master', 'CEO', 'HRBP', 'HR'].map(p1 => ({
+        text: p1,
+        value: p1,
+      }))
+    } else {
+      // 其它项取所有非重复项
       list = originData.value.map(p => p[dataKey]).filter(Boolean)
       // 去重、转对象
       list = [...new Set(list)].map(p1 => ({ text: p1, value: p1 }))
@@ -531,182 +541,204 @@ const getFiltersFromResp = () => {
 }
 
 // const getTableData = () => { ... }
-const getData = (total) => {
-  getTableData(total).then((res) => {
-    originData.value = res ?? [];
-    tableData.value = originData.value;
+const getData = total => {
+  getTableData(total).then(res => {
+    originData.value = res ?? []
+    tableData.value = originData.value
     getFiltersFromResp()
-  });
-};
+  })
+}
 ```
 
 筛选方法需自行定义
 
 ```javascript
 const onFilter = () => {
-  const allFilters = Object.entries(filterableCols).filter(([_,configs]) => {
+  const allFilters = Object.entries(filterableCols).filter(([_, configs]) => {
     return configs.selected?.length > 0
   })
   tableData.value = originData.value.filter(p => {
-    return allFilters.every(([dataKey,configs]) => {
+    return allFilters.every(([dataKey, configs]) => {
       return !configs.filterMethod || configs.filterMethod(p[dataKey], configs.selected)
     })
   })
-};
-const onReset = (dataKey) => {
+}
+const onReset = dataKey => {
   filterableCols[dataKey].selected = []
-  onFilter();
-};
+  onFilter()
+}
 ```
 
 #### 完整代码
 
 ```html
 <script lang="jsx" setup>
-import { ref, reactive, onMounted } from "vue"
-import { generalFilterHandler, generalArrFilterHandler } from '@/use/el-table-v2-utils'
+  import { ref, reactive, onMounted } from 'vue'
+  import { generalFilterHandler, generalArrFilterHandler } from '@/use/el-table-v2-utils'
 
-onMounted(() => {
-  getData()
-})
-
-const originData = ref([]);
-const tableData = ref([]);
-const columnData = ref([
-  { key: "no", dataKey: "no", title: "No.", width: 60 },
-  { key: "code", dataKey: "code", title: "code", width: 80 },
-  { key: "name", dataKey: "name", title: "name", width: 80 },
-  { key: "age", dataKey: "age", title: "Age", width: 60 },
-  { key: "gender", dataKey: "gender", title: "gender", width: 80, filterable: true },
-  { key: "city", dataKey: "city", title: "City", width: 80, filterable: true },
-  { key: "tags", dataKey: "tags", title: "Tags", width: 150, filterable: true, filterMethod: generalArrFilterHandler }
-]);
-const columns = columnData.value.map(col => {
-	return {
-		key: col.dataKey,
-	    title: col.title,
-	    dataKey: col.dataKey,
-	    width: col.width ?? 100,
-	    headerCellRenderer: (props) => {
-	      if(!col.filterable) return props.column.title
-	      return <div class="tbv2-th-filter">
-	        <span class="th-cell">{ props.column.title }</span>
-	        <el-popover trigger="hover" {...{ width: 200 }}>
-	          {{
-	            default: () => (
-	            	<div class="filter-wrapper">
-	                <div class="filter-group">
-	                  <el-checkbox-group v-model={ filterableCols[col.dataKey].selected }>
-	                    {
-	                      filterableCols[col.dataKey].list.map(f => <el-checkbox key={ f.value } label={ f.value }>{ f.text }</el-checkbox>)
-	                    }
-	                  </el-checkbox-group>
-	                </div>
-	                <div class="el-table-v2__demo-filter">
-	                  <el-button text onClick={ onFilter }>Confirm</el-button>
-	                  <el-button text onClick={ () => onReset(col.dataKey) }>Reset</el-button>
-	                </div>
-	              </div>
-	            ),
-	            reference: () => (
-	              <svg
-	                viewBox="0 0 1024 1024"
-	                xmlns="http://www.w3.org/2000/svg"
-	                width="14" height="14"
-	              	style={ {
-	                    cursor: 'pointer',
-	                    color: filterableCols[col.dataKey].selected?.length > 0 ? '#387FE5' : 'inherit'
-	                  } }
-	              >
-	                <path fill="currentColor" d="M735.086 796.233c0-15.58 12.727-28.818 28.891-28.818h230.4a29.257 29.257 0 0 1 28.818 28.818 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818zm0-127.927c0-15.506 12.727-28.745 28.891-28.745h230.4a29.257 29.257 0 0 1 28.818 28.745 28.891 28.891 0 0 1-28.745 28.819H763.977a29.257 29.257 0 0 1-28.818-28.819zm28.891-156.672h230.4a29.257 29.257 0 0 1 28.818 28.819 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818 29.257 29.257 0 0 1 28.818-28.819zM901.632 0c50.176 0 122.149 49.006 121.051 127.927 1.098 35.694-13.897 66.267-42.642 96.768-216.064 189.586-300.178 227.62-306.468 285.257-5.267 45.495-1.829 472.357-2.926 478.135a39.497 39.497 0 0 1-5.778 22.455c-18.432 18.432-37.45 12.141-47.25 4.023-72.046-58.734-232.741-189.514-251.173-228.133-21.358-41.472-13.24-126.757-13.24-276.48 0-34.085-253.512-235.154-308.296-285.257C31.744 210.285 0 181.54 0 128 0 49.59 63.927 0 134.802 0h766.83zM76.069 164.79c1.682 2.341 4.022 5.12 6.875 8.047l8.63 8.63-3.437-3.437a9235.017 9235.017 0 0 0 147.53 125.074l14.92 12.654c134.29 115.2 167.132 147.456 167.132 194.706 0 27.648 0 51.273-.585 88.137-1.756 114.103 0 145.774 8.045 161.353 3.438 6.876 47.836 49.518 108.325 101.961l17.262 14.41c32.914 27.648 57.051 54.125 57.051 51.273V747.813c0-139.996.585-221.184 3.438-244.298 1.755-13.165 5.193-25.892 10.386-38.034 15.58-35.108 40.96-59.246 105.472-111.689l89.234-72.046c40.375-34.596 81.262-69.12 121.637-104.887l-4.608 4.096c19.017-20.187 25.893-35.181 25.307-53.613C959.27 93.915 926.501 64 901.632 64h-766.83c-41.472 0-70.875 26.478-70.875 63.927 0 14.994 4.023 25.892 12.142 36.864z" />
-	              </svg>
-	            )
-	          }}
-	        </el-popover>
-	      </div>
-	    }
-	}
-})
-
-/**
- * 筛选信息列表
- * props:
- * - {Array} list 可筛选值列表
- * - {Array} selected 已勾选列表
- * - {Function} [filterMethod] 筛选方法
- */
- const filterableCols = reactive(
-  columnData.value
-    .filter(c => c.filterable)
-    .reduce((prev,curr) => {
-      prev[curr.dataKey] = {
-        selected: [],
-        list: [],
-        filterMethod: curr.filterMethod ?? generalFilterHandler
-      }
-      return prev
-    }, {})
-)
-
-const onFilter = () => {
-  const allFilters = Object.entries(filterableCols).filter(([_,configs]) => {
-    return configs.selected?.length > 0
+  onMounted(() => {
+    getData()
   })
-  tableData.value = originData.value.filter(p => {
-    return allFilters.every(([dataKey,configs]) => {
-      return !configs.filterMethod || configs.filterMethod(p[dataKey], configs.selected)
-    })
-  })
-};
-const onReset = (dataKey) => {
-  filterableCols[dataKey].selected = []
-  onFilter();
-};
 
-const tagList = ['developer','Ph.D','Bachelor','Master','CEO','HRBP','HR']
-// 自动获取各项筛选列表
-const getFiltersFromResp = () => {
-  for(let dataKey in filterableCols) {
-    let list
-    if(dataKey === 'tags') { // tags 项可筛选列表固定
-      list = tagList.map(p1 => ({ text: p1, value: p1 }))
-    } else { // 其它项取所有非重复项
-      list = originData.value.map(p => p[dataKey]).filter(Boolean)
-      // 去重、转对象
-      list = [...new Set(list)].map(p1 => ({ text: p1, value: p1 }))
+  const originData = ref([])
+  const tableData = ref([])
+  const columnData = ref([
+    { key: 'no', dataKey: 'no', title: 'No.', width: 60 },
+    { key: 'code', dataKey: 'code', title: 'code', width: 80 },
+    { key: 'name', dataKey: 'name', title: 'name', width: 80 },
+    { key: 'age', dataKey: 'age', title: 'Age', width: 60 },
+    { key: 'gender', dataKey: 'gender', title: 'gender', width: 80, filterable: true },
+    { key: 'city', dataKey: 'city', title: 'City', width: 80, filterable: true },
+    {
+      key: 'tags',
+      dataKey: 'tags',
+      title: 'Tags',
+      width: 150,
+      filterable: true,
+      filterMethod: generalArrFilterHandler,
+    },
+  ])
+  const columns = columnData.value.map(col => {
+    return {
+      key: col.dataKey,
+      title: col.title,
+      dataKey: col.dataKey,
+      width: col.width ?? 100,
+      headerCellRenderer: props => {
+        if (!col.filterable) return props.column.title
+        return (
+          <div class='tbv2-th-filter'>
+            <span class='th-cell'>{props.column.title}</span>
+            <el-popover trigger='hover' {...{ width: 200 }}>
+              {{
+                default: () => (
+                  <div class='filter-wrapper'>
+                    <div class='filter-group'>
+                      <el-checkbox-group v-model={filterableCols[col.dataKey].selected}>
+                        {filterableCols[col.dataKey].list.map(f => (
+                          <el-checkbox key={f.value} label={f.value}>
+                            {f.text}
+                          </el-checkbox>
+                        ))}
+                      </el-checkbox-group>
+                    </div>
+                    <div class='el-table-v2__demo-filter'>
+                      <el-button text onClick={onFilter}>
+                        Confirm
+                      </el-button>
+                      <el-button text onClick={() => onReset(col.dataKey)}>
+                        Reset
+                      </el-button>
+                    </div>
+                  </div>
+                ),
+                reference: () => (
+                  <svg
+                    viewBox='0 0 1024 1024'
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='14'
+                    height='14'
+                    style={{
+                      cursor: 'pointer',
+                      color:
+                        filterableCols[col.dataKey].selected?.length > 0 ? '#387FE5' : 'inherit',
+                    }}>
+                    <path
+                      fill='currentColor'
+                      d='M735.086 796.233c0-15.58 12.727-28.818 28.891-28.818h230.4a29.257 29.257 0 0 1 28.818 28.818 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818zm0-127.927c0-15.506 12.727-28.745 28.891-28.745h230.4a29.257 29.257 0 0 1 28.818 28.745 28.891 28.891 0 0 1-28.745 28.819H763.977a29.257 29.257 0 0 1-28.818-28.819zm28.891-156.672h230.4a29.257 29.257 0 0 1 28.818 28.819 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818 29.257 29.257 0 0 1 28.818-28.819zM901.632 0c50.176 0 122.149 49.006 121.051 127.927 1.098 35.694-13.897 66.267-42.642 96.768-216.064 189.586-300.178 227.62-306.468 285.257-5.267 45.495-1.829 472.357-2.926 478.135a39.497 39.497 0 0 1-5.778 22.455c-18.432 18.432-37.45 12.141-47.25 4.023-72.046-58.734-232.741-189.514-251.173-228.133-21.358-41.472-13.24-126.757-13.24-276.48 0-34.085-253.512-235.154-308.296-285.257C31.744 210.285 0 181.54 0 128 0 49.59 63.927 0 134.802 0h766.83zM76.069 164.79c1.682 2.341 4.022 5.12 6.875 8.047l8.63 8.63-3.437-3.437a9235.017 9235.017 0 0 0 147.53 125.074l14.92 12.654c134.29 115.2 167.132 147.456 167.132 194.706 0 27.648 0 51.273-.585 88.137-1.756 114.103 0 145.774 8.045 161.353 3.438 6.876 47.836 49.518 108.325 101.961l17.262 14.41c32.914 27.648 57.051 54.125 57.051 51.273V747.813c0-139.996.585-221.184 3.438-244.298 1.755-13.165 5.193-25.892 10.386-38.034 15.58-35.108 40.96-59.246 105.472-111.689l89.234-72.046c40.375-34.596 81.262-69.12 121.637-104.887l-4.608 4.096c19.017-20.187 25.893-35.181 25.307-53.613C959.27 93.915 926.501 64 901.632 64h-766.83c-41.472 0-70.875 26.478-70.875 63.927 0 14.994 4.023 25.892 12.142 36.864z'
+                    />
+                  </svg>
+                ),
+              }}
+            </el-popover>
+          </div>
+        )
+      },
     }
-    filterableCols[dataKey].list = list
-    filterableCols[dataKey].selected = []
-  }
-}
-
-const getData = (total) => {
-  getTableData(total).then((res) => {
-    originData.value = res ?? []
-    tableData.value = originData.value
-    getFiltersFromResp()
   })
-}
 
-const getTableData = (total) => {
-  if (!total) total = Math.floor(Math.random() * 2000 + 1000)
-  return new Promise((resolve, reject) => {
-    resolve(
-      Array.from({ length: total }).map((_, idx) => {
-        return {
-          no: idx + 1,
-          code: Math.floor(Math.random() * 100000).toString(16),
-          name: Math.floor(Math.random() * 100000).toString(16),
-          age: Math.floor(Math.random() * 30 + 18),
-          gender: Math.random() > 0.5 ? "男" : "女",
-          city: ["北京", "上海", "深圳"][Math.floor(Math.random() * 3)],
-          tags: tagList.sort((a,b) => Math.random() - 0.5)
-            .slice(0, Math.floor(Math.random() * 4))
+  /**
+   * 筛选信息列表
+   * props:
+   * - {Array} list 可筛选值列表
+   * - {Array} selected 已勾选列表
+   * - {Function} [filterMethod] 筛选方法
+   */
+  const filterableCols = reactive(
+    columnData.value
+      .filter(c => c.filterable)
+      .reduce((prev, curr) => {
+        prev[curr.dataKey] = {
+          selected: [],
+          list: [],
+          filterMethod: curr.filterMethod ?? generalFilterHandler,
         }
+        return prev
+      }, {})
+  )
+
+  const onFilter = () => {
+    const allFilters = Object.entries(filterableCols).filter(([_, configs]) => {
+      return configs.selected?.length > 0
+    })
+    tableData.value = originData.value.filter(p => {
+      return allFilters.every(([dataKey, configs]) => {
+        return !configs.filterMethod || configs.filterMethod(p[dataKey], configs.selected)
       })
-    )
-  })
-}
+    })
+  }
+  const onReset = dataKey => {
+    filterableCols[dataKey].selected = []
+    onFilter()
+  }
+
+  const tagList = ['developer', 'Ph.D', 'Bachelor', 'Master', 'CEO', 'HRBP', 'HR']
+  // 自动获取各项筛选列表
+  const getFiltersFromResp = () => {
+    for (let dataKey in filterableCols) {
+      let list
+      if (dataKey === 'tags') {
+        // tags 项可筛选列表固定
+        list = tagList.map(p1 => ({ text: p1, value: p1 }))
+      } else {
+        // 其它项取所有非重复项
+        list = originData.value.map(p => p[dataKey]).filter(Boolean)
+        // 去重、转对象
+        list = [...new Set(list)].map(p1 => ({ text: p1, value: p1 }))
+      }
+      filterableCols[dataKey].list = list
+      filterableCols[dataKey].selected = []
+    }
+  }
+
+  const getData = total => {
+    getTableData(total).then(res => {
+      originData.value = res ?? []
+      tableData.value = originData.value
+      getFiltersFromResp()
+    })
+  }
+
+  const getTableData = total => {
+    if (!total) total = Math.floor(Math.random() * 2000 + 1000)
+    return new Promise((resolve, reject) => {
+      resolve(
+        Array.from({ length: total }).map((_, idx) => {
+          return {
+            no: idx + 1,
+            code: Math.floor(Math.random() * 100000).toString(16),
+            name: Math.floor(Math.random() * 100000).toString(16),
+            age: Math.floor(Math.random() * 30 + 18),
+            gender: Math.random() > 0.5 ? '男' : '女',
+            city: ['北京', '上海', '深圳'][Math.floor(Math.random() * 3)],
+            tags: tagList
+              .sort((a, b) => Math.random() - 0.5)
+              .slice(0, Math.floor(Math.random() * 4)),
+          }
+        })
+      )
+    })
+  }
 </script>
 
 <template>
@@ -718,8 +750,7 @@ const getTableData = (total) => {
         :data="tableData"
         :width="width"
         :height="666"
-        :fixed="true"
-      />
+        :fixed="true" />
     </template>
   </el-auto-resizer>
   <div>Total: {{ tableData.length }}</div>
@@ -737,8 +768,7 @@ const getTableData = (total) => {
  * @returns {boolean}
  */
 export function generalFilterHandler(value, filters) {
-  if(filters instanceof Array)
-    return filterHandler(value, filters)
+  if (filters instanceof Array) return filterHandler(value, filters)
   return selectFilterHandler(value, filters)
 }
 
@@ -759,7 +789,7 @@ function filterHandler(value, filters) {
  * @returns {boolean}
  */
 function selectFilterHandler(value, filter) {
-  return !filter && filter !== 0 || filter === value
+  return (!filter && filter !== 0) || filter === value
 }
 
 /**
@@ -769,10 +799,8 @@ function selectFilterHandler(value, filter) {
  * @returns {boolean}
  */
 export function generalArrFilterHandler(value, filters) {
-  if(!(value instanceof Array))
-    return generalFilterHandler(value, filters)
-  if(filters instanceof Array)
-    return arrayFilterHandler(value, filters)
+  if (!(value instanceof Array)) return generalFilterHandler(value, filters)
+  if (filters instanceof Array) return arrayFilterHandler(value, filters)
   return selectArrayFilterHandler(value, filters)
 }
 
@@ -793,7 +821,7 @@ function arrayFilterHandler(value, filters) {
  * @returns {boolean}
  */
 function selectArrayFilterHandler(value, filter) {
-  return !filter && filter !== 0 || value?.includes(filter)
+  return (!filter && filter !== 0) || value?.includes(filter)
 }
 ```
 
@@ -820,16 +848,16 @@ import CustomSelector from '@/components/custom-selector.vue'
 const columnData = ref([
   // ...
   {
-    key: "gender",
-    dataKey: "gender",
-    title: "gender",
+    key: 'gender',
+    dataKey: 'gender',
+    title: 'gender',
     width: 80,
     filterable: true,
     filterSingle: true,
-    filteredValue: '男'
+    filteredValue: '男',
   },
   // ...
-]);
+])
 
 /**
  * 筛选信息列表
@@ -844,47 +872,52 @@ const columnData = ref([
 const filterableCols = reactive(
   columnData.value
     .filter(c => c.filterable)
-    .reduce((prev,curr) => {
+    .reduce((prev, curr) => {
       prev[curr.dataKey] = {
         selected: [],
         list: [],
         singleSelect: undefined,
         filterMethod: curr.filterMethod ?? generalFilterHandler,
         filteredValue: curr.filteredValue,
-        filterSingle: curr.filterSingle ?? false
+        filterSingle: curr.filterSingle ?? false,
       }
       return prev
     }, {})
 )
 
 const onFilter = () => {
-  const allFilters = Object.entries(filterableCols).filter(([_,configs]) => {
+  const allFilters = Object.entries(filterableCols).filter(([_, configs]) => {
     return configs.filterSingle
-      ? ![null,undefined].includes(configs.singleSelect)
+      ? ![null, undefined].includes(configs.singleSelect)
       : configs.selected?.length > 0
   })
   tableData.value = originData.value.filter(p => {
-    return allFilters.every(([dataKey,configs]) => {
-      return !configs.filterMethod ||
-        configs.filterMethod(p[dataKey], configs.filterSingle ? configs.singleSelect : configs.selected)
+    return allFilters.every(([dataKey, configs]) => {
+      return (
+        !configs.filterMethod ||
+        configs.filterMethod(
+          p[dataKey],
+          configs.filterSingle ? configs.singleSelect : configs.selected
+        )
+      )
     })
   })
-};
+}
 
 // 自动获取各项筛选列表
 const getFiltersFromResp = () => {
-  for(let dataKey in filterableCols) {
+  for (let dataKey in filterableCols) {
     // ...
     // 根据是否多选，获取对应默认排序（值/列表）
     filterableCols[dataKey].selected = !filterableCols[dataKey].filterSingle
       ? filterableCols[dataKey].filteredValue instanceof Array
-    		? filterableCols[dataKey].filteredValue
-    		: []
-    	: []
+        ? filterableCols[dataKey].filteredValue
+        : []
+      : []
     filterableCols[dataKey].singleSelect = filterableCols[dataKey].filterSingle
       ? typeof filterableCols[dataKey].filteredValue !== 'object'
-    		? filterableCols[dataKey].filteredValue
-    		: undefined
+        ? filterableCols[dataKey].filteredValue
+        : undefined
       : undefined
   }
 }
@@ -895,72 +928,89 @@ const columns = columnData.value.map(col => {
     title: col.title,
     dataKey: col.dataKey,
     width: col.width ?? 100,
-    headerCellRenderer: (props) => {
-      if(!col.filterable) return props.column.title
-      return <div class="tbv2-th-filter">
-        <span class="th-cell">{props.column.title}</span>
-        <el-popover trigger="hover" {...{ width: 200 }}>
-          {{
-            default: () => {
-              return filterableCols[col.dataKey].filterSingle
-                ? <CustomSelector
-                  v-model={ filterableCols[col.dataKey].singleSelect }
-                  onChange={ onFilter }
-                  list={ filterableCols[col.dataKey].list }
-                />
-                : <div class="filter-wrapper">
-                  <div class="filter-group">
-                    <el-checkbox-group v-model={ filterableCols[col.dataKey].selected }>
-                      {
-                        filterableCols[col.dataKey].list.map(f => <el-checkbox key={ f.value } label={ f.value }>{ f.text }</el-checkbox>)
-                      }
-                    </el-checkbox-group>
+    headerCellRenderer: props => {
+      if (!col.filterable) return props.column.title
+      return (
+        <div class='tbv2-th-filter'>
+          <span class='th-cell'>{props.column.title}</span>
+          <el-popover trigger='hover' {...{ width: 200 }}>
+            {{
+              default: () => {
+                return filterableCols[col.dataKey].filterSingle ? (
+                  <CustomSelector
+                    v-model={filterableCols[col.dataKey].singleSelect}
+                    onChange={onFilter}
+                    list={filterableCols[col.dataKey].list}
+                  />
+                ) : (
+                  <div class='filter-wrapper'>
+                    <div class='filter-group'>
+                      <el-checkbox-group v-model={filterableCols[col.dataKey].selected}>
+                        {filterableCols[col.dataKey].list.map(f => (
+                          <el-checkbox key={f.value} label={f.value}>
+                            {f.text}
+                          </el-checkbox>
+                        ))}
+                      </el-checkbox-group>
+                    </div>
+                    <div class='el-table-v2__demo-filter'>
+                      <el-button text onClick={onFilter}>
+                        Confirm
+                      </el-button>
+                      <el-button text onClick={() => onReset(col.dataKey)}>
+                        Reset
+                      </el-button>
+                    </div>
                   </div>
-                  <div class="el-table-v2__demo-filter">
-                    <el-button text onClick={ onFilter }>Confirm</el-button>
-                    <el-button text onClick={ () => onReset(col.dataKey) }>Reset</el-button>
-                  </div>
-                </div>
-            },
-            reference: () => (
-              <svg
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-                width="14" height="14"
-                style={ {
+                )
+              },
+              reference: () => (
+                <svg
+                  viewBox='0 0 1024 1024'
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='14'
+                  height='14'
+                  style={{
                     cursor: 'pointer',
-                    color: (filterableCols[col.dataKey].filterSingle
-                      ? ![null,undefined].includes(filterableCols[col.dataKey].singleSelect)
-                      : filterableCols[col.dataKey].selected?.length > 0) ? '#387FE5' : 'inherit'
-                  } }
-              >
-                <path fill="currentColor" d="M735.086 796.233c0-15.58 12.727-28.818 28.891-28.818h230.4a29.257 29.257 0 0 1 28.818 28.818 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818zm0-127.927c0-15.506 12.727-28.745 28.891-28.745h230.4a29.257 29.257 0 0 1 28.818 28.745 28.891 28.891 0 0 1-28.745 28.819H763.977a29.257 29.257 0 0 1-28.818-28.819zm28.891-156.672h230.4a29.257 29.257 0 0 1 28.818 28.819 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818 29.257 29.257 0 0 1 28.818-28.819zM901.632 0c50.176 0 122.149 49.006 121.051 127.927 1.098 35.694-13.897 66.267-42.642 96.768-216.064 189.586-300.178 227.62-306.468 285.257-5.267 45.495-1.829 472.357-2.926 478.135a39.497 39.497 0 0 1-5.778 22.455c-18.432 18.432-37.45 12.141-47.25 4.023-72.046-58.734-232.741-189.514-251.173-228.133-21.358-41.472-13.24-126.757-13.24-276.48 0-34.085-253.512-235.154-308.296-285.257C31.744 210.285 0 181.54 0 128 0 49.59 63.927 0 134.802 0h766.83zM76.069 164.79c1.682 2.341 4.022 5.12 6.875 8.047l8.63 8.63-3.437-3.437a9235.017 9235.017 0 0 0 147.53 125.074l14.92 12.654c134.29 115.2 167.132 147.456 167.132 194.706 0 27.648 0 51.273-.585 88.137-1.756 114.103 0 145.774 8.045 161.353 3.438 6.876 47.836 49.518 108.325 101.961l17.262 14.41c32.914 27.648 57.051 54.125 57.051 51.273V747.813c0-139.996.585-221.184 3.438-244.298 1.755-13.165 5.193-25.892 10.386-38.034 15.58-35.108 40.96-59.246 105.472-111.689l89.234-72.046c40.375-34.596 81.262-69.12 121.637-104.887l-4.608 4.096c19.017-20.187 25.893-35.181 25.307-53.613C959.27 93.915 926.501 64 901.632 64h-766.83c-41.472 0-70.875 26.478-70.875 63.927 0 14.994 4.023 25.892 12.142 36.864z" />
-              </svg>
-            )
-          }}
-        </el-popover>
-      </div>
-    }
+                    color: (
+                      filterableCols[col.dataKey].filterSingle
+                        ? ![null, undefined].includes(filterableCols[col.dataKey].singleSelect)
+                        : filterableCols[col.dataKey].selected?.length > 0
+                    )
+                      ? '#387FE5'
+                      : 'inherit',
+                  }}>
+                  <path
+                    fill='currentColor'
+                    d='M735.086 796.233c0-15.58 12.727-28.818 28.891-28.818h230.4a29.257 29.257 0 0 1 28.818 28.818 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818zm0-127.927c0-15.506 12.727-28.745 28.891-28.745h230.4a29.257 29.257 0 0 1 28.818 28.745 28.891 28.891 0 0 1-28.745 28.819H763.977a29.257 29.257 0 0 1-28.818-28.819zm28.891-156.672h230.4a29.257 29.257 0 0 1 28.818 28.819 28.891 28.891 0 0 1-28.745 28.818H763.977a29.257 29.257 0 0 1-28.818-28.818 29.257 29.257 0 0 1 28.818-28.819zM901.632 0c50.176 0 122.149 49.006 121.051 127.927 1.098 35.694-13.897 66.267-42.642 96.768-216.064 189.586-300.178 227.62-306.468 285.257-5.267 45.495-1.829 472.357-2.926 478.135a39.497 39.497 0 0 1-5.778 22.455c-18.432 18.432-37.45 12.141-47.25 4.023-72.046-58.734-232.741-189.514-251.173-228.133-21.358-41.472-13.24-126.757-13.24-276.48 0-34.085-253.512-235.154-308.296-285.257C31.744 210.285 0 181.54 0 128 0 49.59 63.927 0 134.802 0h766.83zM76.069 164.79c1.682 2.341 4.022 5.12 6.875 8.047l8.63 8.63-3.437-3.437a9235.017 9235.017 0 0 0 147.53 125.074l14.92 12.654c134.29 115.2 167.132 147.456 167.132 194.706 0 27.648 0 51.273-.585 88.137-1.756 114.103 0 145.774 8.045 161.353 3.438 6.876 47.836 49.518 108.325 101.961l17.262 14.41c32.914 27.648 57.051 54.125 57.051 51.273V747.813c0-139.996.585-221.184 3.438-244.298 1.755-13.165 5.193-25.892 10.386-38.034 15.58-35.108 40.96-59.246 105.472-111.689l89.234-72.046c40.375-34.596 81.262-69.12 121.637-104.887l-4.608 4.096c19.017-20.187 25.893-35.181 25.307-53.613C959.27 93.915 926.501 64 901.632 64h-766.83c-41.472 0-70.875 26.478-70.875 63.927 0 14.994 4.023 25.892 12.142 36.864z'
+                  />
+                </svg>
+              ),
+            }}
+          </el-popover>
+        </div>
+      )
+    },
   }
 })
 ```
 
-CustomSelector组件：单选列表（展开的 el-select ）
+CustomSelector 组件：单选列表（展开的 el-select ）
 
 ```html
 <script setup>
-const props = defineProps({
-  modelValue: { default: '' },
-  list: { type: Array, default: [] }
-})
+  const props = defineProps({
+    modelValue: { default: '' },
+    list: { type: Array, default: [] },
+  })
 
-const emit = defineEmits(['change','update:modelValue'])
+  const emit = defineEmits(['change', 'update:modelValue'])
 
-function handleOptionClick(val) {
-  if(props.modelValue === val) return
-  emit('update:modelValue', val)
-  emit('change', val)
-}
+  function handleOptionClick(val) {
+    if (props.modelValue === val) return
+    emit('update:modelValue', val)
+    emit('change', val)
+  }
 </script>
 <template>
   <div class="wrap">
@@ -968,23 +1018,29 @@ function handleOptionClick(val) {
       v-for="option in list"
       :key="option.value"
       :class="['item', { active: modelValue === option.value }]"
-      @click="handleOptionClick(option.value)"
-    >{{ option.text }}</div>
+      @click="handleOptionClick(option.value)">
+      {{ option.text }}
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
-.wrap {
-  width: 100%;
-  font-size: 14px;
-  color: #666;
-  .item {
-    line-height: 32px;
-    padding: 0 12px;
-    cursor: pointer;
-    &.active {color: #387FE5;font-weight: bold;}
-    &:hover {background-color: #f9f9f9;}
+  .wrap {
+    width: 100%;
+    font-size: 14px;
+    color: #666;
+    .item {
+      line-height: 32px;
+      padding: 0 12px;
+      cursor: pointer;
+      &.active {
+        color: #387fe5;
+        font-weight: bold;
+      }
+      &:hover {
+        background-color: #f9f9f9;
+      }
+    }
   }
-}
 </style>
 ```
 
@@ -992,23 +1048,18 @@ function handleOptionClick(val) {
 
 官方文档在 TableV2 上给出的说法是“表头分组”，效果同 TableV1 不大一样。
 
-V1是通过 `<el-table-column>` 嵌套实现，意义明确、实现简单，创建一个嵌套的 `columns` 列表就可以。
+V1 是通过 `<el-table-column>` 嵌套实现，意义明确、实现简单，创建一个嵌套的 `columns` 列表就可以。
 
-V2的实现是通过表格组件提供的 `header` 插槽
+V2 的实现是通过表格组件提供的 `header` 插槽
 
 ```html
 <script setup>
-const CustomizedHeader  = ({ cells, columns, headerIndex }) => {
-	return cells
-}
+  const CustomizedHeader = ({ cells, columns, headerIndex }) => {
+    return cells
+  }
 </script>
 <template>
-  <el-table-v2
-    :columns="columns"
-    :data="tableData"
-    :width="666"
-    :height="666"
-  >
+  <el-table-v2 :columns="columns" :data="tableData" :width="666" :height="666">
     <template #header="props">
       <CustomizedHeader v-bind="props" />
     </template>
@@ -1026,24 +1077,27 @@ type HeaderSlotProps = {
 }
 ```
 
-官方给出的示例中，`CustomizedHeader` 的生成过程非常sao，对理解造成了很大干扰
+官方给出的示例中，`CustomizedHeader` 的生成过程非常 sao，对理解造成了很大干扰
 
 我的理解就是，官方已经把默认生成的表头 VNode 列表返回给我们了，我们自行处理。需要实现表头分级，并保持对齐
 
-假设 cells 长度为5，也就是原有5个表头单元格，想要将第3、4个上加上一级表头
+假设 cells 长度为 5，也就是原有 5 个表头单元格，想要将第 3、4 个上加上一级表头
 
 ```javascript
 const CustomizedHeader = ({ cells, columns, headerIndex }) => {
   const groupCells = []
-  for(let i = 0, len = columns.length; i < len; i++) {
-    if(i === 2) {
-      const width = cells[i].props.column.width + cells[i+1].props.column.width
-      groupCells.push(<div
-        style={{ width: `${width}px` }}
-      >
-        <div>Group</div>
-        <div style="display:flex">{cells[i]}{cells[i+1]}</div>
-      </div>)
+  for (let i = 0, len = columns.length; i < len; i++) {
+    if (i === 2) {
+      const width = cells[i].props.column.width + cells[i + 1].props.column.width
+      groupCells.push(
+        <div style={{ width: `${width}px` }}>
+          <div>Group</div>
+          <div style='display:flex'>
+            {cells[i]}
+            {cells[i + 1]}
+          </div>
+        </div>
+      )
       i++
     } else {
       groupCells.push(cells[i])
@@ -1053,12 +1107,12 @@ const CustomizedHeader = ({ cells, columns, headerIndex }) => {
 }
 ```
 
-上例返回的 VNode 数比原本少了一个，将第3、4个单元格放在一个自定义的 div 元素中去了。该元素的内容及样式均需要自行处理
+上例返回的 VNode 数比原本少了一个，将第 3、4 个单元格放在一个自定义的 div 元素中去了。该元素的内容及样式均需要自行处理
 
 ##### 多选时，不点击确定
 
 单选组件设置了监听事件，无需点击确定即可触发筛选事件
-而多选使用的多选框组，存储选中筛选值的变量是直接绑定到组件上的，示例中通过点击确定按钮手动触发筛选事件，不点击会导致的UI与实际筛选不符的问题
+而多选使用的多选框组，存储选中筛选值的变量是直接绑定到组件上的，示例中通过点击确定按钮手动触发筛选事件，不点击会导致的 UI 与实际筛选不符的问题
 
 想到两种解决方案，一是使用多选框组提供的 `change` 事件，代价是可能会筛选过于频繁。另一种是创建一个变量存储前一次筛选状态，每次执行筛选前与当前筛选状态进行对比，相同则不执行筛选
 
@@ -1072,29 +1126,34 @@ const CustomizedHeader = ({ cells, columns, headerIndex }) => {
 ```javascript
 const prevFilters = ref([])
 const compareFilters = currFilters => {
-  return prevFilters.value.length === currFilters.length
-    && prevFilters.value.every((f,idx) => {
-      let [
-        currDataKey,
-        { selected: currSelected, singleSelect: currSingleSelect }
-      ] = currFilters[idx]
+  return (
+    prevFilters.value.length === currFilters.length &&
+    prevFilters.value.every((f, idx) => {
+      let [currDataKey, { selected: currSelected, singleSelect: currSingleSelect }] =
+        currFilters[idx]
       currSelected = currSelected.slice(0).sort()
-      return f.dataKey === currDataKey
-        && f.singleSelect === currSingleSelect
-        && f.selected.slice(0).sort().every((p,idx1) => p === currSelected[idx1])
+      return (
+        f.dataKey === currDataKey &&
+        f.singleSelect === currSingleSelect &&
+        f.selected
+          .slice(0)
+          .sort()
+          .every((p, idx1) => p === currSelected[idx1])
+      )
     })
+  )
 }
 
 const onFilter = () => {
   // const allFilters = ...
-  if(compareFilters(allFilters)) return
-  prevFilters.value = allFilters.map(([dataKey,configs]) => ({
+  if (compareFilters(allFilters)) return
+  prevFilters.value = allFilters.map(([dataKey, configs]) => ({
     dataKey,
     selected: configs.selected,
-    singleSelect: configs.singleSelect
+    singleSelect: configs.singleSelect,
   }))
   // ...
-};
+}
 ```
 
 ## 五、排序、筛选同时使用
@@ -1123,7 +1182,7 @@ tableData.value = originData.value.filter(filterMethod)
 
 #### 方案一：创建中间变量
 
-额外创建一个变量 `tempData`，用它记录筛选后的数据，tableData记录排序后的值
+额外创建一个变量 `tempData`，用它记录筛选后的数据，tableData 记录排序后的值
 `originData` -> `tempData` -> `tableData`
 
 - `originData` 更新时，`tempData`, `tableData` 重置为 `originData`
@@ -1133,19 +1192,16 @@ tableData.value = originData.value.filter(filterMethod)
 看起来有点绕，其实就两条依赖关系，添加两个相应的 `watch` 就可以了
 
 ```html
-<el-table-v2
-  :data="tableData"
-  ...
-/>
+<el-table-v2 :data="tableData" ... />
 ```
 
 ```javascript
-const tableData = ref([])  // 表格当前数据（排序、筛选后）
-const tempData = ref([])   // 中间变量，对源数据的筛选
+const tableData = ref([]) // 表格当前数据（排序、筛选后）
+const tempData = ref([]) // 中间变量，对源数据的筛选
 const originData = ref([]) // 表格源数据
 
 // 源数据更新 -> 更新筛选项各自的可筛选列表, 执行筛选
-watch(originData, (newVal) => {
+watch(originData, newVal => {
   getFiltersFromResp()
   onFilter() // 执行筛选会更新 tempData
 })
@@ -1168,8 +1224,8 @@ watch(
 
 // handle filter
 const onFilter = () => {
-	// ...
-	tempData.value = originData.value.filter(execFilter)
+  // ...
+  tempData.value = originData.value.filter(execFilter)
 }
 ```
 
@@ -1178,12 +1234,12 @@ const onFilter = () => {
 筛选事件处理方法中，标识数据是否通过筛选(例如：添加 hidden 属性)，与方案一相比，代码改动较小：
 
 ```javascript
-const tableData = ref([])  // 表格当前数据（排序、筛选后）
+const tableData = ref([]) // 表格当前数据（排序、筛选后）
 // const tempData = ref([])   // 中间变量，对源数据的筛选
 const originData = ref([]) // 表格源数据
 
 // 源数据更新 -> 更新筛选项各自的可筛选列表, 执行筛选
-watch(originData, (newVal) => {
+watch(originData, newVal => {
   getFiltersFromResp()
   onFilter()
 })
@@ -1204,11 +1260,11 @@ watch(
 )
 
 const onFilter = () => {
-	// ...
+  // ...
   // tempData.value = originData.value.filter(execFilter)
-	originData.value.forEach(val => {
-		val.hidden = !execFilter(val)
-	})
+  originData.value.forEach(val => {
+    val.hidden = !execFilter(val)
+  })
 }
 ```
 
@@ -1238,7 +1294,7 @@ TableV2 的问题在于它目前是全部重新加载，哪怕是纵向滑动了
 
 调试发现，目前 TableV2 每滚动一次就重新加载一次表格内及预加载的行数，总单元格过多时，会让体验感在上面的场景下变得极差。
 
-以本人实际生产环境中的一个表格为例，表格一行有17个的单元格，一页显示20条数据，预先多加载的行数是2，每一次需要渲染 17*24=408 个单元格。连续纵向滚动会触发多次表格内容加载，轻微卡顿，有待优化，感觉可以提供一个属性作为连续滚动的节流处理开关。另一方面就是全部重新加载这个策略。
+以本人实际生产环境中的一个表格为例，表格一行有 17 个的单元格，一页显示 20 条数据，预先多加载的行数是 2，每一次需要渲染 17\*24=408 个单元格。连续纵向滚动会触发多次表格内容加载，轻微卡顿，有待优化，感觉可以提供一个属性作为连续滚动的节流处理开关。另一方面就是全部重新加载这个策略。
 
 上面说的是正常流程，不正常的是，当设置了动态高度且超出设定高度的行数不少时，一次滚动就会重复触发四五次，再加上连续滚动。假设一个只触发三次的连续滚动，408 *4*3=4896 个单元格渲染。如果你够年轻，手速够快，轻松破万。再加上，某些自定义渲染的单元格够“大”够“重”，那。。。
 
