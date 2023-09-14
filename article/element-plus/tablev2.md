@@ -8,9 +8,7 @@
 
 创建了一个项目收纳本文的一些demos:
 
-[element-plus-tablev2-demo](https://github.com/zymbth/element-plus-tablev2-demo)
-
-[element-plus-tablev2-demo (gitee)](https://gitee.com/ymzhao/element-plus-tablev2-demo)
+[element-plus-tablev2-demo](https://github.com/zymbth/element-plus-tablev2-demo) / [element-plus-tablev2-demo (gitee)](https://gitee.com/ymzhao/element-plus-tablev2-demo)
 
 ## 一、Element Plus 表格基础
 
@@ -22,14 +20,13 @@
 官方提示：
 
 > TIP
->  
+>
 > 该组件**仍在测试中**，生产环境使用可能有风险。 若您发现了 bug 或问题，请于 [GitHub](https://github.com/element-plus/element-plus/issues) 报告给我们以便修复。 同时，有一些 API 并未在此文档中提及，因为部分还没有开发完全，因此我们不在此提及。
-**即使**虚拟化的表格是高效的，但是当数据负载过大时，**网络**和**内存容量**也会成为您应用程序的瓶颈。 因此请牢记，虚拟化表格永远不是最完美的解决方案，请考虑数据分页、过滤器等优化方案。
-
+>
+> **即使**虚拟化的表格是高效的，但是当数据负载过大时，**网络**和**内存容量**也会成为您应用程序的瓶颈。 因此请牢记，虚拟化表格永远不是最完美的解决方案，请考虑数据分页、过滤器等优化方案。
 
 > TIP
-在 SSR 场景下，您需要将组件包裹在 `<client-only></client-only>` 之中 (如: [Nuxt](https://nuxt.com/v3)) 和 SSG (例如: [VitePress](https://vitepress.vuejs.org/)).
-
+> 在 SSR 场景下，您需要将组件包裹在 `<client-only></client-only>` 之中 (如: [Nuxt](https://nuxt.com/v3)) 和 SSG (例如: [VitePress](https://vitepress.vuejs.org/)).
 
 ### 属性
 
@@ -263,7 +260,9 @@ const cellRenderer = ({ cellData, rowData: row }) => {
 ### 介绍
 
 TableV1 组件排序的实现过程：
+
 设置 `el-table-column` 的 `sortable` 属性为 `true` 即可。
+
 多个排序间相互独立
 
 TableV2 排序的实现在我看来是“自由度很高”的，除了根据单项排序表格外，它还提供了一种叫“受控排序”的东西（可以实现多重排序）：
