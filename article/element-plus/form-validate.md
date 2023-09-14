@@ -12,7 +12,7 @@
 
 本文示例基于 `element-plus@1.0.x` ，与最新版本相比，表单验证这块的用法区别不大
 
-<span style="color:red">注意：</span>
+**注意：**
 
 亲试发现，`element-plus@2.0.6` 及之后的版本，表单验证不再是同步执行的了 [在线示例](https://codepen.io/zymbth/pen/yLvZxgv?editors=1000)
 

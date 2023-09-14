@@ -75,7 +75,7 @@ export default {
 
 ### 实例一
 
-<span style="color:red">beforeRouteUpdate函数内，**同步获取**路由参数，获取到的是`from`的值</span>
+beforeRouteUpdate函数内，**同步获取**路由参数，获取到的是`from`的值
 
 ```javascript
   beforeRouteUpdate(to, from) {
@@ -115,7 +115,7 @@ setTimeout(() => {
 
 ### 实例二
 
-<span style="color:red">监听路由并不能保证“上一页”的老数据不被读取</span>
+监听路由并不能保证“上一页”的老数据不被读取
 
 用户页面路由如下：
 
