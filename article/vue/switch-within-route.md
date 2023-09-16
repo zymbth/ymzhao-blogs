@@ -65,8 +65,6 @@ export default {
 }
 ```
 
-<hr style=" border:solid; width:100px; height:1px;" color=#000000 size=1">
-
 ## 注意
 
 上述解决方案实际上是将组件需重新执行的初始化代码(`created()`、`mounted()`)放进初始化方法中，通过两类监听方式，手动执行组件的初始化方法
