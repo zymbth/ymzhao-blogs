@@ -6,13 +6,15 @@ hero:
   name: "Corner Blog by Yuemin Zhao"
   text: "VitePress Powered Blogs"
   tagline: This is my little corner, a place to record miscellaneous technical summaries and share my personal experiences from work.
-  actions:
-    - theme: brand
-      text: Article
-      link: /article/basic/js-doc
-    # - theme: alt
-    #   text: API Examples
-    #   link: /api-examples
+  image:
+    src: /icon.svg
+#   actions:
+#     - theme: brand
+#       text: Article
+#       link: /article/basic/js-doc
+#     - theme: alt
+#       text: API Examples
+#       link: /api-examples
 
 # features:
 #   - title: Feature A
