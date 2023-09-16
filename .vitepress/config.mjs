@@ -15,7 +15,7 @@ export default defineConfig({
     logo: '/icon.svg',
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Articles', link: '/article/basic/js-doc' }
+      { text: 'Articles', link: '/article/basic/encapsulate-axios' }
     ],
 
     sidebar: [
@@ -51,7 +51,8 @@ export default defineConfig({
       {
         text: 'Element Plus 使用',
         items: [
-          { text: 'element-plus表单验证使用 个人总结', link: '/article/element-plus/form-validate' },
+          { text: 'Element Plus可编辑表格', link: '/article/element-plus/editable-table' },
+          { text: 'Element Plus表单验证使用 个人总结', link: '/article/element-plus/form-validate' },
           { text: '跟踪表格数据(更新查询、筛选条件下)', link: '/article/element-plus/tablev1-track-data' },
           { text: '表格 shift 连选', link: '/article/element-plus/tablev1-multi-select' },
           { text: '虚拟化表格组件的使用(排序、筛选、自定义单元格渲染)', link: '/article/element-plus/tablev2' },
