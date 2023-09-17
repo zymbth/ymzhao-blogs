@@ -3,11 +3,11 @@
 layout: home
 
 hero:
-  name: "Corner Blog by Yuemin Zhao"
-  text: "VitePress Powered Blogs"
+  name: "Corner Blog"
+  text: "VitePress Powered Blogs by Yuemin Zhao"
   tagline: This is my little corner, a place to record miscellaneous technical summaries and share my personal experiences from work.
   image:
-    src: /icon.svg
+    src: /blog.svg
 #   actions:
 #     - theme: brand
 #       text: Article
