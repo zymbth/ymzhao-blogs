@@ -350,13 +350,34 @@ request({
 })
 ```
 
-#### 下载总大小未知的处理
+#### 下载大小未知时的处理
 
-如果下载总大小未知，那上面的监听方法中，会直接将进度置为 100，而实际上并不是，仍在下载中。
-可以作如下假进度：
+如果下载大小未知，那上面的监听方法中，会直接将进度置为100，而实际上并不是，仍在下载中。
+
+可以作假进度。但监听下载进度就是为了知道进度，并在前端页面上作下载进度提示，假进度毫无意义。在服务器未返回大小的情况下，可以将进度置为一个特定值，在对应页面监听到该特定进度值时，不作下载进度提示，转为普通loading提示。
 
 ```javascript
 // 下载进度监听事件（更新封装方法传入的响应式变量——进度）
+const handleDownloadProcess = (progressEvent, progress) => {
+  if (progressEvent.lengthComputable) {
+    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    progress.value = percentCompleted
+  } else {
+    progress.value = -1
+  }
+}
+// response handler
+const respHandler = response => {
+  if (response.config.downloadProgress) {
+    response.config.downloadProgress.value = 100
+  }
+  // ...
+}
+```
+
+如果要作假进度提示的话，参考如下：
+
+```js
 const handleDownloadProcess = (progressEvent, progress) => {
   if (progressEvent.lengthComputable) {
     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
@@ -368,14 +389,9 @@ const handleDownloadProcess = (progressEvent, progress) => {
     progress.value = tmp
   }
 }
-// response handler
-const respHandler = response => {
-  if (response.config.downloadProgress) {
-    response.config.downloadProgress.value = 100
-  }
-  // ...
-}
 ```
+
+注意，都需要在响应完成时，将进度值置为100。仅作参考，具体实现因人而异。
 
 ### 接口 loading
 
@@ -495,6 +511,30 @@ onBeforeUnmount(() => {
 
 通过 `useCancelToken` 属性开启 axios Cancellation，组件销毁前中断当前组件内的请求。
 axios 的中断封装到此结束。
+
+### 手动中断后的提示
+
+当请求被手动中断后，会触发响应拦截器的错误处理方法(`respErrorHandler`)：
+
+```js
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
+
+// ...
+
+service.interceptors.response.use(
+  response => {
+    // ...
+  },
+  error => {
+    // do something with response error
+    if (error instanceof axios.Cancel) ElMessage(error.message || 'Request cancelled')
+    return Promise.reject(error)
+  }
+)
+```
+
+当手动中断时，此error的类型为 `axios.Cancel`，如果有需求，可添加手动中断后的提示
 
 #### 中断功能的使用封装
 
