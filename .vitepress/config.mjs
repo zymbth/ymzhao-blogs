@@ -57,6 +57,7 @@ export default defineConfig({
           items: [
             { text: 'Element Plus可编辑表格', link: '/front-end/element-plus/editable-table' },
             { text: 'Element Plus表单验证使用 个人总结', link: '/front-end/element-plus/form-validate' },
+            { text: '预加载模态框组件', link: '/front-end/element-plus/prevload-dialog' },
             { text: '跟踪表格数据(更新查询、筛选条件下)', link: '/front-end/element-plus/tablev1-track-data' },
             { text: '表格 shift 连选', link: '/front-end/element-plus/tablev1-multi-select' },
             { text: '虚拟化表格组件的使用(排序、筛选、自定义单元格渲染)', link: '/front-end/element-plus/tablev2' },
