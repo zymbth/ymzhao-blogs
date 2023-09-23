@@ -44,7 +44,7 @@
 
 然后使用每一张图片：`new Image().src = curr_image`
 
-```javascript
+```js
 export default {
   name: 'App',
   created() {
@@ -67,6 +67,26 @@ export default {
     }
   }
 }
+```
+
+vue setup 中：
+
+```html
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const preloadImgs = import.meta.glob('@/assets/img/preload/*.{jpg,jpeg,png}')
+
+  preloadImg(preloadImgs)
+})
+
+function preloadImg(preloadImgs) {
+  Object.keys(preloadImgs).forEach(image => {
+    new Image().src = image
+  })
+}
+</script>
 ```
 
 首屏包含的图片无需预加载，window.onload意味着文档及图片加载完毕，也就是说，首屏加载完毕时才会去执行上述的图片预加载代码
