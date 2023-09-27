@@ -4,9 +4,19 @@
 
 第一个思路得自于网友的讨论，将单元格数据转对象，通过添加控制属性实现编辑状态与显示状态的切换。尽管思路简单，但实现的过程有些看着头大，不够简洁优美。采用这种方法的话，建议浏览了解后自行理清思路实现。
 
-前段时间看到同事在类似问题上找了一个插件，简单得通过一个输入框就实现了对所有数据的编辑。仔细想想，只要能实现数据的“定位”，这种思路显然更加友好。
+前段时间看到同事在类似问题上找了一个插件，简单得通过一个输入框就实现了对所有数据的编辑。仔细想想，只要能实现数据的“定位”，这种思路在实现过程上显得更加友好。
 
-注意，示例基于 vue3 & element-plus@1.1.0-beta.12，高版本的element-plus中图标引入方式不同
+注意，示例基于 `vue3` & `element-plus@1.1.0-beta.12`，高版本的 `element-plus` 中图标引入方式不同
+
+> 代码仓库：[editable-table](https://github.com/zymbth/editable-table)
+>
+> [Github Page](https://zymbth.github.io/editable-table/)
+>
+> [在线演示 - 方案一](https://codepen.io/zymbth/full/BaJpvoO)
+>
+> [在线演示 - 方案二](https://codepen.io/zymbth/full/gOogZMK)
+
+**注意**：示例项目及文章写于2020年，基于 `vue2` & `element-ui`，后来更新至 `vue3` & `element-plus`，老版本在分支vue2上。由于只是demo，介绍解决方案方便理解与讨论，上生产环境的话肯定存在一些bug，有些必要的会修复，不必要的还请大家自行本地调试😉
 
 ## 一、思路一：单元格数据转对象
 
@@ -23,8 +33,8 @@
 
 ```javascript
 tableData: [
-	{date: '2016-05-02', name: '王小虎', address: '上海市普陀区金沙江路 1518 弄'},
-	{date: '2016-05-04', name: '王小虎', address: '上海市普陀区金沙江路 1517 弄'}
+  {date: '2016-05-02', name: '王小虎', address: '上海市普陀区金沙江路 1518 弄'},
+  {date: '2016-05-04', name: '王小虎', address: '上海市普陀区金沙江路 1517 弄'}
 ]
 ```
 
@@ -98,46 +108,67 @@ testDatas: [{
 ```
 
 ```html
-<el-table :data="testDatas" border style="width: 100%">
-  <!-- 额外添加的编号项（可删除） -->
-  <el-table-column v-if="columnList.length > 0" type="index" :label="'编号'" :width="50"></el-table-column>
-  <!-- 自定义表项 -->
-  <el-table-column v-for="column in columnList" :key="column.prop">
-    <!-- 自定义表头 -->
-    <template #header>
-      <!-- 段落：show为true -->
-      <p v-show="column.show" @dblclick="column.show = false">
-        {{column.label}} 
-        <i class="el-icon-edit-outline" @click="column.show = false"></i>
-      </p>
-      <!-- 输入框：show为false -->
-      <el-input
-        size="mini"
-        v-show="!column.show"
-        v-model="column.label"
-        @blur="column.show = true">
-      </el-input>
-    </template>
+<div class="tb-container" ref="tbContainerRef">
+  <el-table :data="testDatas" border style="width: 100%">
+    <!-- 额外添加的编号项（可删除） -->
+    <el-table-column v-if="columnList.length > 0" type="index" :label="'编号'" :width="50"></el-table-column>
+    <!-- 自定义表项 -->
+    <el-table-column v-for="column in columnList" :key="column.prop">
+      <!-- 自定义表头 -->
+      <template #header>
+        <!-- 段落：show为true -->
+        <p v-show="column.show" @dblclick="$event => handleEdit(col, $event.target)">
+          {{column.label}} 
+          <i class="el-icon-edit-outline" @click="$event => handleEdit(col, $event.target.parentNode)"></i>
+        </p>
+        <!-- 输入框：show为false -->
+        <el-input
+          size="mini"
+          v-show="!column.show"
+          v-model="column.label"
+          @blur="column.show = true">
+        </el-input>
+      </template>
 
-    <!-- 自定义表项/单元格内容 -->
-    <template #default="scope">
-      <!-- 双击文字或点击修改图标以更改"show"属性 -->
-      <!-- scope.row为元数据，column.col为该列的'键' -->
-      <p v-show="scope.row[column.prop].show" @dblclick="scope.row[column.prop].show = false">
-        {{scope.row[column.prop].content}} 
-        <i class="el-icon-edit-outline" @click="scope.row[column.prop].show = false"/>
-      </p>
-      <!-- 失去焦点时更改"show"属性，显示文本 -->
-      <el-input
-        type="textarea"
-        :autosize="{minRows:2,maxRows:4}"
-        v-show="!scope.row[column.prop].show"
-        v-model="scope.row[column.prop].content"
-        @blur="scope.row[column.prop].show=true"
-      />
-    </template>
-  </el-table-column>
-</el-table>
+      <!-- 自定义表项/单元格内容 -->
+      <template #default="{ row }">
+        <!-- 双击文字或点击修改图标以更改"show"属性 -->
+        <!-- row为元数据，column.col为该列的'键' -->
+        <p v-show="row[column.prop].show" @dblclick="$event => handleEdit(row[col.prop], $event.target)">
+          {{row[column.prop].content}} 
+          <i class="el-icon-edit-outline" @click="$event => handleEdit(row[col.prop], $event.target.parentNode)"/>
+        </p>
+        <!-- 失去焦点时更改"show"属性，显示文本 -->
+        <el-input
+          type="textarea"
+          :autosize="{minRows:2,maxRows:4}"
+          v-show="!row[column.prop].show"
+          v-model="row[column.prop].content"
+          @blur="row[column.prop].show=true"
+        />
+      </template>
+    </el-table-column>
+  </el-table>
+</div>
+```
+
+```js
+// ...
+methods: {
+  /**
+   * 表头/单元格编辑处理：切换编辑输入框/文本输入框，自动聚焦
+   *
+   * @param {Object} cell - The cell object to edit.
+   * @param {HTMLElement} pEl - The parent element of the cell.
+   */
+  handleEdit(cell, pEl) {
+    const editIputEl = Array.from(pEl.nextSibling.childNodes).find(n => ['INPUT','TEXTAREA'].includes(n.tagName))
+    cell.show = false
+    editIputEl && this.$nextTick(() => {
+      editIputEl.focus()
+    })
+  },
+}
 ```
 
 ![在这里插入图片描述](./assets/ea781fa8dcb5460882ae7db8f82ba9db.png)
@@ -154,23 +185,25 @@ testDatas: [{
   - `@row-contextmenu`：数据行右键事件
 
 ```html
-<!-- 表格 -->
-<el-table
-  :data="testDatas"
-  @header-contextmenu="(column, event) => rightClick(null, column, event)"
-  @row-contextmenu="rightClick"
-  :row-class-name="tableRowClassName"
->
-  <el-table-column v-if="columnList.length > 0" type="index" :label="'编号'" :width="50"></el-table-column>
-  <el-table-column v-for="(column, idx) in columnList" :key="idx" :index="idx">
-    <!-- ... -->
-  </el-table-column>
-</el-table>
-
-<!-- 表头右键菜单 -->
-<div v-show="showMenu" id="contextmenu">
-  <i class="el-icon-circle-close hideContextMenu" @click="showMenu = false"></i>
-  <el-button size="mini" type="primary">功能</el-button>
+<div class="tb-container" ref="tbContainerRef">
+  <!-- 表格 -->
+  <el-table
+    :data="testDatas"
+    @header-contextmenu="(column, $event) => rightClick(null, column, $event)"
+    @row-contextmenu="rightClick"
+    :row-class-name="tableRowClassName"
+  >
+    <el-table-column v-if="columnList.length > 0" type="index" :label="'编号'" :width="50"></el-table-column>
+    <el-table-column v-for="(column, idx) in columnList" :key="idx" :index="idx">
+      <!-- ... -->
+    </el-table-column>
+  </el-table>
+  
+  <!-- 表头右键菜单 -->
+  <div v-show="showMenu" id="contextmenu">
+    <i class="el-icon-circle-close hideContextMenu" @click="showMenu = false"></i>
+    <el-button size="mini" type="primary">功能</el-button>
+  </div>
 </div>
 ```
 
@@ -179,14 +212,26 @@ testDatas: [{
 tableRowClassName({row, rowIndex}) {
   row.row_index = rowIndex
 },
-rightClick(row, column, event) {
+/**
+ * 右键事件处理，仅作参考
+ * 菜单定位方案：相对表格容器进行定位
+ *
+ * @param {Object} row - The row object.
+ * @param {Object} column - The column object.
+ * @param {Event} $event - The right click event.
+ */
+rightClick(row, column, $event) {
   // 阻止浏览器自带的右键菜单弹出
-  event.preventDefault() // window.event.returnValue = false
+  $event.preventDefault()
   if(column.index == null) return
+  // 表格容器的位置
+  const { x: tbX, y: tbY } = this.$refs.tbContainerRef.getBoundingClientRect()
+  // 当前鼠标位置
+  const { x: pX, y: pY } = $event
   // 定位菜单
-  let ele = document.getElementById('contextmenu')
-  ele.style.top = event.clientY - 25 + 'px'
-  ele.style.left = event.clientX - 25 + 'px'
+  const ele = document.getElementById('contextmenu')
+  ele.style.top = pY - tbY - 6 + 'px'
+  ele.style.left = pX - tbX - 6 + 'px'
   this.showMenu = true
 },
 ```
@@ -195,7 +240,7 @@ rightClick(row, column, event) {
 
 ### 1.5 完整代码
 
-[Git链接](https://github.com/zymbth/Editable_table/blob/master/src/views/editable-table.vue)
+[Git链接](https://github.com/zymbth/editable-table/blob/master/src/views/editable-table.vue)
 
 [在线演示](https://codepen.io/zymbth/full/BaJpvoO)
 
@@ -210,7 +255,7 @@ addColumn(idx) { // 新增列
   var obj = {col: 'col_' + this.count_col++, txt: '', show: true} // 新增列对象
   this.testDatas.map(p => {
     _this.$set(p, obj.col, {content: '', show: true})
-    //	p[obj.col] = {content: '', show: true}
+    // p[obj.col] = {content: '', show: true}
   })
 }
 ```
@@ -240,7 +285,7 @@ addColumn(idx) { // 新增列
 <el-table
   :data="testDatas"
   @cell-dblclick="cellDblclick"
-  @header-contextmenu="(column, event) => rightClick(null, column, event)"
+  @header-contextmenu="(column, $event) => rightClick(null, column, $event)"
   @row-contextmenu="rightClick"
   :row-class-name="tableRowClassName"
 >
@@ -286,7 +331,7 @@ addColumn(idx) { // 新增列
 
 ### 完整代码
 
-[Git链接](https://github.com/zymbth/Editable_table/blob/master/src/views/editable-table-v2.vue)
+[Git链接](https://github.com/zymbth/editable-table/blob/master/src/views/editable-table-v2.vue)
 
 [在线演示](https://codepen.io/zymbth/full/gOogZMK)
 
