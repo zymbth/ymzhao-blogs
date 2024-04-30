@@ -34,11 +34,11 @@ jobs:
         with:
           version: 9
       # - uses: oven-sh/setup-bun@v1 # Uncomment this if you're using Bun
-      # - name: Setup Node
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 18
-      #     cache: yarn # npm or pnpm / yarn
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm # npm or pnpm / yarn
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Install dependencies
