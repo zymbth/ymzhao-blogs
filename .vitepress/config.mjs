@@ -15,7 +15,7 @@ export default defineConfig({
     siteTitle: 'Corner Blog',
     logo: '/icon.svg',
     nav: [
-      { text: 'Home', link: '/' },
+      { text: '首页', link: '/' },
       { text: '前端', link: '/front-end/basic/encapsulate-axios' },
       { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' }
     ],
@@ -61,6 +61,12 @@ export default defineConfig({
             { text: '跟踪表格数据(更新查询、筛选条件下)', link: '/front-end/element-plus/tablev1-track-data' },
             { text: '表格 shift 连选', link: '/front-end/element-plus/tablev1-multi-select' },
             { text: '虚拟化表格组件的使用(排序、筛选、自定义单元格渲染)', link: '/front-end/element-plus/tablev2' },
+          ]
+        },
+        {
+          text: '其他',
+          items: [
+            { text: '代码语法高亮 + markdown解析', link: '/front-end/others/syntactic-highlighting-and-marked' },
           ]
         }
       ],
