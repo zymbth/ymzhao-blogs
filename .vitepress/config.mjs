@@ -2,13 +2,14 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  lang: 'zh-Hans',
   title: 'Corner Blog',
   description: '这是我的小角落，记录个人工作中琐碎的技术总结与分享。',
   // base: '/ymzhao-blogs/',
   cleanUrls: true,
   head: [
     // ['link', { rel: 'icon', href: '/ymzhao-blogs/icon.svg' }],
-    ['link', { rel: 'icon', href: 'icon.svg' }],
+    ['link', { rel: 'icon', href: '/icon.svg' }],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
