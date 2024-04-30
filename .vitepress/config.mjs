@@ -7,12 +7,8 @@ export default defineConfig({
   description: '这是我的小角落，记录个人工作中琐碎的技术总结与分享。',
   // base: '/ymzhao-blogs/',
   cleanUrls: true,
-  head: [
-    // ['link', { rel: 'icon', href: '/ymzhao-blogs/icon.svg' }],
-    ['link', { rel: 'icon', href: '/icon.svg' }],
-  ],
+  head: [['link', { rel: 'icon', href: '/icon.svg' }]],
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     siteTitle: 'Corner Blog',
     logo: '/icon.svg',
     nav: [
@@ -25,6 +21,7 @@ export default defineConfig({
           { text: 'VUE', link: '/front-end/vue/vue3-grammar' },
           { text: '前端工程', link: '/front-end/engineering/uniform-code-style' },
           { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
+          { text: 'Node.js', link: '/front-end/nodejs/mailer-service' },
           { text: '其他', link: '/front-end/others/syntactic-highlighting-and-marked' },
         ],
       },
@@ -78,6 +75,9 @@ export default defineConfig({
           text: '虚拟化表格组件的使用(排序、筛选、自定义单元格渲染)',
           link: '/front-end/element-plus/tablev2',
         },
+      ],
+      '/front-end/nodejs/': [
+        { text: '基于 nodejs 的邮件服务', link: '/front-end/nodejs/mailer-service' },
       ],
       '/front-end/others/': [
         {
@@ -151,7 +151,7 @@ export default defineConfig({
 
     search: {
       provider: 'local',
-    }
+    },
   },
   lastUpdated: true,
 })
