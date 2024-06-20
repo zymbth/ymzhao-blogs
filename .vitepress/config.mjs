@@ -17,7 +17,7 @@ export default defineConfig({
       {
         text: '前端',
         items: [
-          { text: '基础', link: '/front-end/basic/encapsulate-axios' },
+          { text: '基础', link: '/front-end/basic/js/encapsulate-async' },
           { text: 'VUE', link: '/front-end/vue/vue3-grammar' },
           { text: '前端工程', link: '/front-end/engineering/uniform-code-style' },
           { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
@@ -30,33 +30,31 @@ export default defineConfig({
 
     sidebar: {
       '/front-end/basic/': [
-        { text: 'HTML', collapsed: false, items: [] },
+        { text: 'HTML', collapsed: true, items: [] },
         {
           text: 'Javascript',
           collapsed: false,
           items: [
-            { text: 'async 封装', link: '/front-end/basic/encapsulate-async' },
-            { text: 'js 文档注释规范', link: '/front-end/basic/js-doc' },
-            { text: '图片base64编码、解码、下载', link: '/front-end/basic/image-base64-appl' },
-            { text: 'js 实现图片预加载', link: '/front-end/basic/image-preload' },
-            // { text: '正则表达式', link: '/front-end/basic/regex' },
+            { text: 'async 封装', link: '/front-end/basic/js/encapsulate-async' },
+            { text: 'js 文档注释规范', link: '/front-end/basic/js/js-doc' },
+            { text: '图片base64编码、解码、下载', link: '/front-end/basic/js/image-base64-appl' },
+            { text: 'js 实现图片预加载', link: '/front-end/basic/js/image-preload' },
+            // { text: '正则表达式', link: '/front-end/basic/js/regex' },
+            { text: '导入/导出Excel', link: '/front-end/basic/js/load-and-export-excel' },
           ],
         },
         {
           text: 'CSS',
           collapsed: false,
           items: [
-            { text: 'CSS 移动端适配', link: '/front-end/basic/style-adaptation' },
-            { text: 'css媒体查询总结', link: '/front-end/basic/css-media' },
+            { text: 'CSS 移动端适配', link: '/front-end/basic/css/style-adaptation' },
+            { text: 'css媒体查询总结', link: '/front-end/basic/css/css-media' },
           ],
         },
         {
           text: 'Others',
           collapsed: false,
-          items: [
-            { text: 'axios 封装', link: '/front-end/basic/encapsulate-axios' },
-            { text: '导入/导出Excel', link: '/front-end/basic/load-and-export-excel' },
-          ],
+          items: [{ text: 'axios 封装', link: '/front-end/basic/others/encapsulate-axios' }],
         },
       ],
       '/front-end/vue/': [
