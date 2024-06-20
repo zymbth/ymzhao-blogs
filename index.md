@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Corner Blog"
   text: "VitePress Powered Blogs by Yuemin Zhao"
-  tagline: This is my little corner, a place to record miscellaneous technical summaries and share my personal experiences from work.
+  tagline: Welcome to my tech corner! Here, I document my technical musings and share my work experiences.
   image:
     src: /blog.svg
 #   actions:

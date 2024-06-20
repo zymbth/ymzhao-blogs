@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lang: 'zh-Hans',
   title: 'Corner Blog',
-  description: '这是我的小角落，记录个人工作中琐碎的技术总结与分享。',
+  description: '欢迎来到我的角落，记录琐碎的技术思考与经验分享。',
   // base: '/ymzhao-blogs/',
   cleanUrls: true,
   head: [['link', { rel: 'icon', href: '/icon.svg' }]],
