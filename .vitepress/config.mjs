@@ -61,6 +61,7 @@ export default defineConfig({
         { text: 'vue3 组合式API要点', link: '/front-end/vue/vue3-grammar' },
         { text: 'vue项目中使用svg组件', link: '/front-end/vue/vue-svg-comp' },
         { text: '基于 vue3 & element-plus 的暗黑模式', link: '/front-end/vue/dark-mode' },
+        { text: 'vue3局部状态管理', link: '/front-end/vue/data-store' },
         {
           text: 'vue相同的组件实例间跳转页面不刷新的问题分析',
           link: '/front-end/vue/switch-within-route',
