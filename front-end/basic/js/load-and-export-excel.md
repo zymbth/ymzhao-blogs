@@ -90,7 +90,7 @@ httpRequest(e) {
 
 ![在这里插入图片描述](./assets/20200507103903359.png)
 
-如图所示，实现导出excel功能（表格可编辑的实现见我的另一篇博文：[vue + elementUI动态生成表格，并实现内容可编辑](../element-plus/editable-table.md)）
+如图所示，实现导出excel功能（表格可编辑的实现见我的另一篇博文：[vue + elementUI动态生成表格，并实现内容可编辑](../../element-plus/editable-table.md)）
 
 ```javascript
 getExcel(tCols, tDatas){
