@@ -30,14 +30,34 @@ export default defineConfig({
 
     sidebar: {
       '/front-end/basic/': [
-        { text: 'axios 封装', link: '/front-end/basic/encapsulate-axios' },
-        { text: 'async 封装', link: '/front-end/basic/encapsulate-async' },
-        { text: 'js 文档注释规范', link: '/front-end/basic/js-doc' },
-        { text: 'js 实现图片预加载', link: '/front-end/basic/image-preload' },
-        { text: 'CSS 移动端适配', link: '/front-end/basic/style-adaptation' },
-        // { text: '正则表达式', link: '/front-end/basic/regex' },
-        { text: 'css媒体查询总结', link: '/front-end/basic/css-media' },
-        { text: '导入/导出Excel', link: '/front-end/basic/load-and-export-excel' },
+        { text: 'HTML', collapsed: false, items: [] },
+        {
+          text: 'Javascript',
+          collapsed: false,
+          items: [
+            { text: 'async 封装', link: '/front-end/basic/encapsulate-async' },
+            { text: 'js 文档注释规范', link: '/front-end/basic/js-doc' },
+            { text: '图片base64编码、解码、下载', link: '/front-end/basic/image-base64-appl' },
+            { text: 'js 实现图片预加载', link: '/front-end/basic/image-preload' },
+            // { text: '正则表达式', link: '/front-end/basic/regex' },
+          ],
+        },
+        {
+          text: 'CSS',
+          collapsed: false,
+          items: [
+            { text: 'CSS 移动端适配', link: '/front-end/basic/style-adaptation' },
+            { text: 'css媒体查询总结', link: '/front-end/basic/css-media' },
+          ],
+        },
+        {
+          text: 'Others',
+          collapsed: false,
+          items: [
+            { text: 'axios 封装', link: '/front-end/basic/encapsulate-axios' },
+            { text: '导入/导出Excel', link: '/front-end/basic/load-and-export-excel' },
+          ],
+        },
       ],
       '/front-end/vue/': [
         { text: 'vue3 组合式API要点', link: '/front-end/vue/vue3-grammar' },
