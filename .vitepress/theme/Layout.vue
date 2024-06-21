@@ -4,11 +4,11 @@ import Theme from 'vitepress/theme'
 import Comment from './Comment.vue'
 
 const { Layout } = Theme
-const { theme, frontmatter, page } = useData()
+const { page } = useData()
 </script>
 <template>
   <Layout>
-    <template #doc-footer-before>
+    <template #doc-after>
       <Comment :key="page.relativePath" />
     </template>
   </Layout>
