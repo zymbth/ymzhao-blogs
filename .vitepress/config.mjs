@@ -20,7 +20,7 @@ export default withPwa(
         {
           text: '前端',
           items: [
-            { text: '基础', link: '/front-end/basic/js/encapsulate-async' },
+            { text: '基础', link: '/front-end/basic/js/utils' },
             { text: 'VUE', link: '/front-end/vue/vue3-grammar' },
             { text: '前端工程', link: '/front-end/engineering/uniform-code-style' },
             { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
@@ -38,8 +38,10 @@ export default withPwa(
             text: 'Javascript',
             collapsed: false,
             items: [
+              { text: '实用js工具方法', link: 'front-end/basic/js/utils' },
               { text: 'async 封装', link: '/front-end/basic/js/encapsulate-async' },
               { text: 'js 文档注释规范', link: '/front-end/basic/js/js-doc' },
+              { text: '中文字符串base64编码、解码', link: '/front-end/basic/js/base64-zh' },
               { text: '图片base64编码、解码、下载', link: '/front-end/basic/js/image-base64-appl' },
               { text: 'js 实现图片预加载', link: '/front-end/basic/js/image-preload' },
               // { text: '正则表达式', link: '/front-end/basic/js/regex' },
