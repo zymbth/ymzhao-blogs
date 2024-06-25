@@ -38,7 +38,7 @@ export default withPwa(
             text: 'Javascript',
             collapsed: false,
             items: [
-              { text: '实用js工具方法', link: 'front-end/basic/js/utils' },
+              { text: '实用js工具方法', link: '/front-end/basic/js/utils' },
               { text: 'async 封装', link: '/front-end/basic/js/encapsulate-async' },
               { text: 'js 文档注释规范', link: '/front-end/basic/js/js-doc' },
               { text: '中文字符串base64编码、解码', link: '/front-end/basic/js/base64-zh' },
