@@ -108,6 +108,7 @@ export default withPwa(
             text: '代码语法高亮 + markdown解析',
             link: '/front-end/others/syntactic-highlighting-and-marked',
           },
+          { text: 'vitepress静态站点生成', link: '/front-end/others/vitepress-usage' },
         ],
         '/back-end/': [
           {

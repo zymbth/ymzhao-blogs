@@ -299,10 +299,9 @@ const isIOS = () => {
 }
 ```
 
-### 发
+### 复制字符串至剪切板
 
 ```js
-// 手动复制字符串至剪切板
 function copyText(text) {
   const textarea = document.createElement('input') //创建input对象
   const currentFocus = document.activeElement //当前获得焦点的元素
