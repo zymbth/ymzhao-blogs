@@ -82,6 +82,10 @@ export default withPwa(
             text: '优化Webpack打包流程：打包完成后再删除旧文件，确保网站访问稳定',
             link: '/front-end/engineering/package-optimize',
           },
+          {
+            text: 'Github Actions 使用记录',
+            link: '/front-end/engineering/github-actions',
+          },
         ],
         '/front-end/element-plus/': [
           { text: 'Element Plus可编辑表格', link: '/front-end/element-plus/editable-table' },

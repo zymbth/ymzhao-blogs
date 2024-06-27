@@ -3,16 +3,23 @@
 ## 前言
 
 个人猜测很多程序员不使用 ESLint，应该有一部分的原因是被满屏的错误报告吓的；也应该有些新手对代码风格没有概念，喜爱自由；又或者是被繁多的配置劝退。
+
 万事开头难，不熟悉的话，ESLint 确实会让人敬而远之。基于本人经验，在意识到统一代码风格的必要性后，首先会有这么几个问题：如何安装使用？海量的错误与警告报告如何处理？已有项目下如何安全应用？要如何处理已有文件？如何保障代码风格？等等
+
 那么，应用的目的是什么呢？肯定不是对 ESLint / Prettier 这些工具的深度使用与剖析，而是以最快、最高效地实现“项目代码检测与格式化”，最小代价地应用到已有项目中。
+
 先了解下 ESLint 吧，官网超大号字体告诉你，它的作用是“检测并修复 JavaScript 代码中的问题”，更详细一点的描述是“ESLint 是一个根据方案识别并报告 ECMAScript/JavaScript 代码问题的工具，其目的是使代码风格更加一致并避免错误。”这句话非常到位，请细读。目的和作用我们知道了，复杂或者说强大的是**方案**。
+
 新手一般也不会需要复杂的方案，先能格式化代码就好了。ESLint 可以使用第三方格式化工具，这里我们选择最常用的 Prettier。
+
 简单应用的话，为了避免恶心自己，我们可以使用 ESLint 插件 [eslint-plugin-only-warn](https://github.com/bfanger/eslint-plugin-only-warn) 让代码不会因为 ESLint 报告错误。
+
 现在，我们目的明确（只需要 ESLint 使用 Prettier 格式化代码，将错误报告改为警告），可以浏览正文了。
 
 ---
 
 本文远非对 ESLint / Prettier 的深度使用与剖析，而是讲述以最小代价、最快、最高效地应用为目的，借助 ESLint & Prettier 实现项目代码自动检测与格式化的过程。当然，基于本人的使用经验较浅，实现过程肯定不是最小代价、最快、最高效的，策略也很初级。但对于未尝试过的新手程序员来讲，可以对相关概念有大概了解，提供一个快速上手、应用实践的参考示范。
+
 思路最重要，具体配置因人而异，示例仅作参考。
 
 ## 一、工具介绍
@@ -21,14 +28,22 @@
 
 > 参考
 >
-> [ESLint 中文网](https://zh-hans.eslint.org/) > [ESLint 英文官网](https://eslint.org/) > [Prettier 中文网](https://www.prettier.cn/) > [Prettier 英文官网](https://prettier.io/)
+> [ESLint 中文网](https://zh-hans.eslint.org/)
+>
+> [ESLint 英文官网](https://eslint.org/)
+>
+> [Prettier 中文网](https://www.prettier.cn/)
+>
+> [Prettier 英文官网](https://prettier.io/)
 
 如果你对这两个工具尚很陌生，请花点时间访问下它们的官网，了解下它们的功能、核心概念及基本配置。
+
 除了 Prettier 外，ESLint 还可以使用其它的格式化工具。
 
 ### ESLint 简介
 
 ESLint 是一个用于静态代码分析的工具，用于帮助开发人员在编写代码时检测和修复常见的代码错误和潜在问题。它可以在开发过程中自动检测和报告代码中的问题，并提供一致的代码风格和最佳实践建议。
+
 ESLint 的作用：
 
 1. 代码质量提升：ESLint 可以帮助检测和修复潜在的代码错误和问题，从而提高代码的质量和可靠性。
@@ -42,6 +57,7 @@ ESLint 的作用：
 ### Prettier 简介
 
 Prettier 是一个代码格式化工具，可以自动格式化代码，使其符合统一的代码风格和规范。与 ESLint 不同，Prettier 主要关注代码的排版和格式，而不是代码质量和潜在问题的检测。
+
 Prettier 的作用：
 
 1. 一致的代码风格：Prettier 可以根据预定义的代码格式规则，自动格式化代码，使其具有统一的代码风格。这有助于提高代码的可读性和可维护性，并减少团队成员之间的代码风格差异。
@@ -54,19 +70,29 @@ Prettier 的作用：
 ## 二、安装
 
 可以按照官网指引安装。我们目的明确，可以直接安装相应的包：
+
 `eslint`
+
 `prettier`
+
 `eslint-config-prettier`
+
 `eslint-plugin-prettier`
+
 `eslint-plugin-only-warn`：避免检测不通过直接报告错误，揪心
+
 使用 npm/yarn 或其他包管理器安装上述开发依赖：
+
 `npm install -D eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-only-warn`
+
 OR
+
 `yarn add -D eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-only-warn`
 
 ## 三、配置
 
 由于我们的目的是快速实践应用，配置的自定义与调整可以延后到成功应用后。
+
 本文配置分为两类：一是代码格式化，一是行尾符规范。行尾符平时不起眼，一旦与方案不符，它会影响代码的每一行，逼死强迫症。
 
 ### 配置 ESLint
@@ -121,6 +147,7 @@ module.exports = {
 > - A .prettierrc.toml file.
 
 Prettier 的配置非常简单，参照[官网](https://www.prettier.cn/docs/options.html)自定义你想要的配置项就好了
+
 添加 prettier 配置文件 .prettierrc
 
 ```json
@@ -154,8 +181,11 @@ Prettier 的配置非常简单，参照[官网](https://www.prettier.cn/docs/opt
 ## 四、编辑器
 
 统一代码编辑器，推荐 vscode
+
 可以在项目中添加 vscode 配置文件，进一步统一代码风格
+
 项目根目录下创建 .vscode 文件夹
+
 .vscode/extensions.json：项目插件配置，将“esbenp.prettier-vscode”设置为推荐的代码美化插件。此插件可在 vscode 内根据项目 prettier 配置格式化代码
 
 ```json
@@ -182,6 +212,7 @@ Prettier 的配置非常简单，参照[官网](https://www.prettier.cn/docs/opt
 ```
 
 上面的示例中设置了格式化工具为编辑器插件“esbenp.prettier-vscode”，换行符，保存、粘贴时格式化等等。
+
 此配置只作用于本项目，优先级大于 vscode 的全局配置。
 
 ## 五、CLI
@@ -252,6 +283,7 @@ yarn lint
 ### 更改 git 全局配置
 
 `git config --global core.autocrlf  [true | input | false]`
+
 不建议使用，会影响所有本地项目的所有文件
 
 ### 项目中添加 gitattributes 文档
@@ -264,7 +296,7 @@ yarn lint
 
 根目录下创建 .gitattributes 文件
 
-```
+```text
 *.html   text eol=lf
 *.htm    text eol=lf
 *.css    text eol=lf
