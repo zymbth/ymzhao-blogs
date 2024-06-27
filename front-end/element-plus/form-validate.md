@@ -1,3 +1,11 @@
+---
+description: 基于个人使用经验，总结elementplus的表单验证使用
+head:
+  - - meta
+    - name: keywords
+      content: elementplus,elementui,表单验证
+---
+
 # element-plus 表单验证使用 个人总结
 
 ## 前言

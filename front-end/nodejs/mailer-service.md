@@ -1,3 +1,11 @@
+---
+description: 基于 nodejs 的邮件服务
+head:
+  - - meta
+    - name: keywords
+      content: nodejs,nodemailer,express,邮件服务
+---
+
 # 基于 nodejs 的邮件服务
 
 实现一个接口用于发送邮件

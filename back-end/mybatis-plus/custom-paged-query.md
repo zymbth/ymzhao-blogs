@@ -1,3 +1,11 @@
+---
+description: 实例：MyBatis-Plus自定义分页查询
+head:
+  - - meta
+    - name: keywords
+      content: MyBatis-Plus,分页,实例
+---
+
 # 实例：MyBatis-Plus自定义分页查询
 
 ## 系列文章

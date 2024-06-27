@@ -1,3 +1,11 @@
+---
+description: vue 项目中使用 svg 组件
+head:
+  - - meta
+    - name: keywords
+      content: vue,svg,封装,性能优化
+---
+
 # vue 项目中使用 svg 组件
 
 ## 参考

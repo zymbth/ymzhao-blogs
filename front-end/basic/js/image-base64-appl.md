@@ -1,3 +1,11 @@
+---
+description: 图片base64编码、解码、下载，介绍图片base64编码解码，Blob/File 的URL创建、访问与下载
+head:
+  - - meta
+    - name: keywords
+      content: image,图片,base64,blob,download
+---
+
 # 图片base64编码、解码、下载
 
 > 参考：

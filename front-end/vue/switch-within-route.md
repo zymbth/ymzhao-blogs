@@ -1,3 +1,11 @@
+---
+description: vue相同的组件实例间跳转页面不刷新的问题分析
+head:
+  - - meta
+    - name: keywords
+      content: vue,路径参数,不刷新
+---
+
 # vue相同的组件实例间跳转页面不刷新的问题分析
 
 vue相同的组件实例间跳转，即路径参数更改，但页面未刷新

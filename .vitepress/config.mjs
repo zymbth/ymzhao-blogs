@@ -15,7 +15,7 @@ export default withPwa(
       siteTitle: 'Corner Blog',
       logo: '/icon.svg',
       nav: [
-        { text: '首页', link: '/' },
+        // { text: '首页', link: '/' },
         // { text: '前端', link: '/front-end/basic/encapsulate-axios' },
         {
           text: '前端',
@@ -43,7 +43,10 @@ export default withPwa(
               { text: 'js 文档注释规范', link: '/front-end/basic/js/js-doc' },
               { text: '中文字符串base64编码、解码', link: '/front-end/basic/js/base64-zh' },
               { text: '图片base64编码、解码、下载', link: '/front-end/basic/js/image-base64-appl' },
-              { text: 'js 实现图片预加载', link: '/front-end/basic/js/image-preload' },
+              {
+                text: '网页性能优化——图片：压缩、云存储、预加载、懒加载、渐进式图片',
+                link: '/front-end/basic/js/performance-optimization-of-image',
+              },
               // { text: '正则表达式', link: '/front-end/basic/js/regex' },
               { text: '导入/导出Excel', link: '/front-end/basic/js/load-and-export-excel' },
             ],

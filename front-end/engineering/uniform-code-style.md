@@ -1,3 +1,11 @@
+---
+description: 实践：新手使用 ESLint 进行项目代码检测与格式化
+head:
+  - - meta
+    - name: keywords
+      content: ESLint,prettier,代码分析,格式化,换行符
+---
+
 # 实践：新手使用 ESLint 进行项目代码检测与格式化
 
 ## 前言

@@ -1,3 +1,11 @@
+---
+description: PgSQL数组及json类型在Mybatis项目中的类型转换
+head:
+  - - meta
+    - name: keywords
+      content: postgresql,数组,json,Mybatis,类型转换
+---
+
 # PgSQL数组及json类型在Mybatis项目中的类型转换
 
 ## 一、类型转换

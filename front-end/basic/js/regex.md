@@ -1,3 +1,11 @@
+---
+description: 正则表达式使用
+head:
+  - - meta
+    - name: keywords
+      content: javascript,正则表达式
+---
+
 # 正则表达式使用
 
 > 依据 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp) 整理下正则表达式相关使用、方法定义、正则语法

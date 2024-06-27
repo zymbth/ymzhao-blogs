@@ -1,3 +1,11 @@
+---
+description: Mybatis-Plus条件构造器and or嵌套使用
+head:
+  - - meta
+    - name: keywords
+      content: Mybatis-Plus,条件构造器,and,or,嵌套
+---
+
 # Mybatis-Plus条件构造器and or嵌套使用
 
 > Mybatis-Plus的条件构造器可以很方便的构造查询语句，但有时，条件并不是简单拼接的，需要注意优先级导致的问题。

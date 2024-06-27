@@ -1,3 +1,11 @@
+---
+description: 实现 element-plus 表格多选时按 shift 进行连选的功能
+head:
+  - - meta
+    - name: keywords
+      content: elementplus,表格,连选,多选,shift
+---
+
 # 实现 element-plus 表格多选时按 shift 进行连选的功能
 
 ## 前言

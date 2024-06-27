@@ -1,3 +1,11 @@
+---
+description: Github Actions使用记录,收集了部分使用Github Actions实现自动构建发布项目的案例
+head:
+  - - meta
+    - name: keywords
+      content: Github Actions,实践,vue,nuxt,vitepress
+---
+
 # Github Actions 使用记录
 
 > 相关链接：

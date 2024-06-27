@@ -1,3 +1,11 @@
+---
+description: 基于vue3和Element Plus动态生成表格，并实现内容可编辑
+head:
+  - - meta
+    - name: keywords
+      content: vue,elementplus,可编辑,表格
+---
+
 # vue3 + Element Plus动态生成表格，并实现内容可编辑
 
 ## 前言

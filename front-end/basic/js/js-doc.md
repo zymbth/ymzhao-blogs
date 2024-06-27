@@ -1,3 +1,11 @@
+---
+description: js文档注释规范相关参考及文档
+head:
+  - - meta
+    - name: keywords
+      content: javascript,文档注释,规范,文档
+---
+
 # js 文档注释规范
 
 ## 参考

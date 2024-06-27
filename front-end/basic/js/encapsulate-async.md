@@ -1,3 +1,11 @@
+---
+description: 封装async...await...语法糖的异常捕捉，避免try...catch...影响代码可读性，形成块级作用域
+head:
+  - - meta
+    - name: keywords
+      content: async,await,封装,trycatch
+---
+
 # async...await...异常捕捉封装
 
 ## 前言

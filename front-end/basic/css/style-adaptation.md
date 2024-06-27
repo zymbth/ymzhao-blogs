@@ -1,3 +1,11 @@
+---
+description: 网页移动端样式适配，基于css媒体查询与rem实现
+head:
+  - - meta
+    - name: keywords
+      content: css,h5,移动端,适配,媒体查询,rem
+---
+
 # CSS移动端适配
 
 ## 前言

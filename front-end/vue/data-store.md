@@ -1,3 +1,11 @@
+---
+description: vue3 局部状态管理，父子组件通讯、provide/inject、store模式、状态管理
+head:
+  - - meta
+    - name: keywords
+      content: vue,组件通讯,provide,inject,store,状态管理,pinia
+---
+
 # vue3 局部状态管理
 
 vue3 父子组件通信能满足大部分的需求，无需应用状态管理。但某功能模块内组件多、层级深时，就可能有状态管理的需求。

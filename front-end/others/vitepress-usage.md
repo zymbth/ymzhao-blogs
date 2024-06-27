@@ -1,3 +1,11 @@
+---
+description: vitepress静态站点生成，学习路线，使用经验
+head:
+  - - meta
+    - name: keywords
+      content: vitepress,blogs,markdown,学习路线
+---
+
 # vitepress静态站点生成
 
 ## 介绍

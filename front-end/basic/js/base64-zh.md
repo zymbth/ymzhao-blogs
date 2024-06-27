@@ -1,3 +1,11 @@
+---
+description: 使用TextEncoder实现含中文字符串的base64编码、解码
+head:
+  - - meta
+    - name: keywords
+      content: base64,中文,TextEncoder,utf8
+---
+
 # 中文字符串base64编码、解码
 
 > [Base64](https://developer.mozilla.org/zh-CN/docs/Glossary/Base64)

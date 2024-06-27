@@ -1,3 +1,11 @@
+---
+description: axios封装，包括基本封装及axios实例方法封装、上传下载进度监听、接口loading、中断请求
+head:
+  - - meta
+    - name: keywords
+      content: axios,封装,下载进度,中断
+---
+
 # axios 封装
 
 ## 前言

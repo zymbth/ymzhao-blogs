@@ -1,3 +1,11 @@
+---
+description: 上手 vue3 组合式API (Composition API) --- 语法要点总结
+head:
+  - - meta
+    - name: keywords
+      content: vue,composition,语法,学习路线
+---
+
 # 上手 vue3 组合式API (Composition API) --- 语法要点总结
 
 ## 前言

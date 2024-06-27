@@ -1,3 +1,11 @@
+---
+description: vue组件中监听键盘/按键事件
+head:
+  - - meta
+    - name: keywords
+      content: vue,keyup
+---
+
 # vue组件中监听键盘/按键事件
 
 ## 问题描述

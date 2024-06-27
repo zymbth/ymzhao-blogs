@@ -1,3 +1,11 @@
+---
+description: 预加载 Element Plus 的 Dialog 组件
+head:
+  - - meta
+    - name: keywords
+      content: elementplus,dialog,预加载
+---
+
 # 预加载 Element Plus 的 Dialog 组件
 
 对于 Element Plus 的 Dialog 组件，浏览器调试发现，正常使用 Dialog 组件时，它的蒙层和模态框元素会随页面初始加载完毕，但模态框内部的元素却只有在首次显示时浏览器再去渲染。

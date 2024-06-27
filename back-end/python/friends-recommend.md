@@ -1,3 +1,11 @@
+---
+description: python实现用户好友推荐
+head:
+  - - meta
+    - name: keywords
+      content: python,好友推荐
+---
+
 # python实现用户好友推荐
 
 如果能获取通讯录权限，可通过用户通讯录推荐

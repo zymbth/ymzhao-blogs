@@ -1,3 +1,11 @@
+---
+description: python 基于 item-item filtering 实现话题推荐
+head:
+  - - meta
+    - name: keywords
+      content: python,item-item filtering,话题推荐
+---
+
 # python 基于 item-item filtering 实现话题推荐
 
 itemCF 计算 item 间的相似度，生成相似度矩阵。然后根据输入 items 计算最相似的 items。

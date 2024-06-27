@@ -1,3 +1,11 @@
+---
+description: css媒体查询总结，包括定义、语法、屏幕宽度断点
+head:
+  - - meta
+    - name: keywords
+      content: css,media,媒体查询,宽度断点
+---
+
 # css媒体查询总结
 
 ## 一、定义及基本用法

@@ -1,3 +1,11 @@
+---
+description: 基于 vue3 & element-plus 的暗黑模式
+head:
+  - - meta
+    - name: keywords
+      content: vue,elementplus,dark,暗黑模式
+---
+
 # 基于 vue3 & element-plus 的暗黑模式
 
 ## 前言

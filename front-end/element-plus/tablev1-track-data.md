@@ -1,3 +1,12 @@
+---
+description: Element Plus 跟踪表格数据总数，包括查询、筛选等操作
+head:
+  - - meta
+    - name: keywords
+      content: elementplus,表格,总数,实时,筛选
+---
+
+
 # Element Plus 跟踪表格数据总数，包括查询、筛选等操作
 
 ## 前言

@@ -1,3 +1,11 @@
+---
+description: Element Plus 虚拟化表格组件的使用(排序、筛选、自定义单元格渲染) - 个人使用总结
+head:
+  - - meta
+    - name: keywords
+      content: elementplus,虚拟化表格,排序,筛选,自定义
+---
+
 # Element Plus 虚拟化表格组件的使用(排序、筛选、自定义单元格渲染) - 个人使用总结
 
 ## 前言

@@ -1,3 +1,11 @@
+---
+description: docker部署nuxt3前端+nodejs后端
+head:
+  - - meta
+    - name: keywords
+      content: docker,nuxt,nodejs
+---
+
 # docker部署nuxt3前端+nodejs后端
 
 项目环境：

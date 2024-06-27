@@ -1,3 +1,11 @@
+---
+description: 代码语法高亮 + markdown解析
+head:
+  - - meta
+    - name: keywords
+      content: syntax,highlight,markdown
+---
+
 # 代码语法高亮 + markdown解析
 
 目的：vue项目页面中显示语法高亮的代码，解析渲染 markdown 格式文本
