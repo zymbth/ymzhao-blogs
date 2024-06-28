@@ -3,7 +3,7 @@ description: vue3 局部状态管理，父子组件通讯、provide/inject、sto
 head:
   - - meta
     - name: keywords
-      content: vue,组件通讯,provide,inject,store,状态管理,pinia
+      content: vue,组件通讯,provide,store,状态管理,eventbus
 ---
 
 # vue3 局部状态管理
@@ -149,3 +149,38 @@ function handleSetInfo() {
   store.setInfo({ age: 18, gender: 'male' })
 }
 ```
+
+## EventBus
+
+组件间通信利器
+
+> [mitt](https://github.com/developit/mitt): `mitt` 是一个轻量级的JavaScript事件总线库，拥有简单而强大的API，总体大小仅为200字节。它具有与Node.js的EventEmitter类似的API和命名约定，并且没有依赖项。它支持IE9+以及任何JavaScript运行时环境。
+
+::: details 使用示例
+
+```js
+import mitt from 'mitt'
+
+const emitter = mitt()
+
+// listen to an event
+emitter.on('foo', e => console.log('foo', e) )
+
+// listen to all events
+emitter.on('*', (type, e) => console.log(type, e) )
+
+// fire an event
+emitter.emit('foo', { a: 'b' })
+
+// clearing all events
+emitter.all.clear()
+
+// working with handler references:
+function onFoo() {}
+emitter.on('foo', onFoo)   // listen
+emitter.off('foo', onFoo)  // unlisten
+```
+
+:::
+
+有时间可以看看它的[源码](https://github.com/developit/mitt/blob/main/src/index.ts)，非常精简，几分钟就能看完

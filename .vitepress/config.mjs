@@ -29,6 +29,7 @@ export default withPwa(
           ],
         },
         { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
+        { text: '笔记', link: '/notes/source-code/mitt' },
       ],
 
       sidebar: {
@@ -150,6 +151,7 @@ export default withPwa(
             ],
           },
         ],
+        '/notes/source-code/': [{ text: 'Mitt源码学习', link: '/notes/source-code/mitt' }],
       },
 
       outline: {
