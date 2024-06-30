@@ -282,10 +282,39 @@ export default function mitt<Events extends Record<EventType, unknown>>(
 
 使用 `all.clear()` 清空所有事件的事件监听，通过源码可以知道，由于 `all` 是直接暴露出来的 `Map` 对象，`all.clear()` 实际上就是 `Map.prototype.clear()` 方法。（完全可以使用 `all.has()`, `all.get()`, `all.keys()` 方法读取事件相关信息。通过 `all.delete(type)` 移除事件虽然可行，却是不规范的。）
 
-[在线练习一下吧](https://play.vuejs.org/#eNq1V81y2zYQfhUMexDdkSlLSS+spCZ2fWinTjpNegp7oEjQYkwBHAKU5VH07v0W4A9oy05S15oRCewfdhffAsu997Ysg23NvdCbq6TKS80U13W5jES+KWWl2Z5VPGMHllVyw0YQHTmsWvHLLRf6vFadSDBxqMFn1ctfyE057aTMjNYeCswGArNGIBKJFIqWlGLMZJaNWVwUY8Y3ucbKC9cT/4TkpfBHP47GzNd3JYfgVp+wxZLtI8EY2ZIFDwp57Y+kYCS3Z50gO8AC/ecTmxNkAxPNN2URa44ZY/M037KkiJVaRN5tFZeRZ+jgrH9aIqvzCd4NxQY+caezZjqfwBBG84ljfq70XUGDgCxbn1eySnkVTssdg+95yn44Ozv7ueecVnGa1ypkr8udIZdxmubiOpyeNYRNXF3nIpzOYII0DyZAs5I39rRCVrL8GjsmBeBgFo28BL7mBa/elzpH1iIvtO4QDzsgb383NF3VfNzSkzVPbo7QP6sd0SLvz4orXm155HU8Dee4tuzLD+/4DuOOuZFpXUD6CeZfHFmpyUcrdl6LFG47csbb3wzQkJaP6nKnuVBtUOQoSR6MfOQBdrRNj4Xeu/sqeG30kE9kEXDUyCDyx3cG0inP4rrQLKtFQmYYSfjw5QTGKtLEGPil55cvTPBbdhWXgLDhVajFSrSSRnbcjgFwi9h1bELtDNLPVkvDUdZ+AI+NSmOcfnnG/FZqYIB1ykFZq3Ur5KgeGC8UH+rQKjg/Gsc+NUr/uFrtEIluA8myl43EYd3jOFGqssgT3pkIcpHy3fusV1wul+xszKbOmseT8CANbvxOBo4mgw4098hyLBf8/9pRZUI9CTZAWh+gOR2PJccnTwYhHNvQ3r7jHI7gF/atz9VXPWwG5kXFOrynULPNNUQl2t1CTUWPSKm796Q455ms+N9iI2tBN5BzPUKQ/ha4tJ+aV0iJKXzjFv2b48EKudfogvnSHDhu0JS4ltrloTEd4CCwvEDEG+SimSTYg1Wc3HRL2kNj4Ljv309tZxRF6Vjt0tkm1iTx+CElRej45pa5Q8cN7sbRc+jdsRBCz8HE3UB6YBO7NuIrLQzyIq4oZp7S8In9++725vubEytf5HgsyDn/E8W1Z0KGbDoGKlIeslEcx6PmQrKsVx0rSZIha9axVquVZeHYMX1QE3W319Ch5qjiW9Qb/wNOUJtkmohe4mGTNJRHrKRgWiVzOIEcbOOi5oionwRafkAuafV4vHLNtyc7WgE6LwIh2Slb4dWyG1jZZRaLBfKhEPQvRiNkp3h1kCRQND0bRXwc4xQ3UD0I/LmNnkGf2+qVS7IbzieEP0Mh/e0pHIJ+yXJhshN5LLzhd0QKaN86o1Ao4hUvlu+wqfOJHc9VGQu23O9ZSXk6HMZgEe2+0oWBwDE1WgSKA7W293ykC22Ky7TgL/t98F8LqMGGqaAR7WUkuj7L3g8XeF1zn9OxiTjN7XoP+cCoaeYsYAkQAzuaK42O7IrrtUyxujU0mZgrLuW4lPkDSBm+Wz8ku47VPcHHJM3F+U2SgBBcsj4/C8MzF8MtKhxgkRs23WiCu9oHnBqkrar26wYquShrbT6nsBx9lkjAPU8xQQVjaBLdz07RwfMCc2MVlDeJ2TVQ3E0Ew1nDrMtsVRk7y7cqad35Bk9SPnClnT7bF2to+SteQ2/6YsN4VWsNbL1J0OzcQGsIMuh/BIE+BFhDmk+syhPVevgXXKEjUw==)
+### 演练
+
+在vue中跨组件使用时，需要注意它的作用域
+
+下面提供一个简单的hook, `useEventBus.js`:
+
+```js
+import mitt from 'mitt'
+
+const emitter = mitt()
+
+export const useEventBus = () => {
+  return {
+    on: emitter.on,
+    off: emitter.off,
+    emit: emitter.emit,
+    all: emitter.all
+  }
+}
+```
+
+使用：
+
+```js
+import { useEventBus } from 'path/to/useEventBus.js'
+
+const { on, off, all, emit } = useEventBus()
+```
+
+[在线练习一下吧](https://play.vuejs.org/#eNq1V81y2zYQfhUMe5DckSlbSS+spCZxfWinTjpNegp7oMilxZgCOQQoy6Po3fstwB/QlpO0jjUjAdg/7C6+BVZ773VZ+tuavMCbq7jKSi0U6bpchjLblEWlxV5UlIqDSKtiI0YQHTmsWtHllqR+U6tOxJ86VP+T6uUvik153kmZFe89FJgNBGaNQCjjQirespATUaTpRER5PhG0yTR2XriejE9YvpDj0Y+jiRjru5IguNUnYrEU+1AKwbaKnPy8uB6PCilYbi86QXGABf7OpzYnyAYWmjZlHmnCSoh5km1FnEdKLULvtorK0DN0cNY/LZHV+RRjQ7GBT93lrFnOpzCE2XzqmJ8rfZfzxGfL1udVUSVUBeflTsD3LBE/nJ2d/dxzTqsoyWoViJflzpDLKEkyeR2cnzWETVRdZzI4n8EEax5MgGYnb+Jphayk2TVOrJCAg9k09GL4muVUvSt1hqyFXmDdYR5OoLj93dB0VdOkpcdrim+O0D+pHdNC78+KFFVbCr2Op+Ecacu+fP+Wdph3zE2R1Dmkv8D8i5CVmn20Ym9qmcBtR854+5sBGtLyQV3uNEnVBsWOsuTByIceYMfH9Fjovbsv/JdGD/lEFgFHjQwif7QzkE4ojepci7SWMZsRLDGGLycwVrEm5sAv/37+LCTdiquoBIQNr0ItVrKVNLKTdg6AW8SuIxNqZ5A/tloajrL2fXhsVBrj/MlSMW6lBgZEp+yXtVq3Qo7qQVCuaKjDu+D+aBz72Cj942q1UyS6DSRNnzcSh3WP40SpyjyLqTPhZzKh3bu0V1wul+JsIs6dPY8n4UEa3PidDBxNBl9o7pXlWM7pe52oMqGe+BsgrQ/Q3I7HkjNmTwYhHDvQ3r7jHK7gZ/atz9VXPWwmZuBiHb5TqNnmGeIS7V6hpqJHrMRfi0c+Jk0VIjX1bHbjb1P1Vsh9HRdi7EZxv7ALGbQ2fbxwTmk4dLx6Lkx6Do8dC6nvOVi4QfMPAu+e3q88+3hp5VVRS00JT99QWlT0t9ww6YktwX9/0K18nuFnwc6NP3JceyGLQJxPkPKEAjGKomjUXOKW9aJjxXE8ZM061mq1siyUqukdmqjH7aFBhxuKirbAKP0BJ7i1MA9vL/GwsRjKI1ZWMO2FKWiQ/W2U14SI+oWvi/fIJe8eTVau+fY2xPPJNebLQpyKFYaW3cDKbrNYLJAPhaB/MRqBOMXQlIJxoe1zOOLB4Q7ixvU8CPypzZFBn9selUu2G8ynjD9DYf3tKRyCfikyabITeiK4oTsm+XxunVEo5NGK8uVbHOp8audzVUZSLPd7UXKeDocJWEy7r3RhIHBMjTeB4kCt7dce6dya4jJt6/P21P+3gBpsmAoa8VmGsutN7J16geGaxsQ3NOI0L9I95AOjpgGygGVADOxoUhpdzBXpdZFgd2toOjXPQkJ4yOgBpAzfrR+WXUfqnuBjkuax+SZJQAguWZ+fhOGZi+EWFQ6w2A2bbjSOXe0DTg3SVlX7jwAqmSxrbf6CYDtu5QvAPUuwQAVjahLdr07R9VKOtbEKyqvYnBoo7iGC4exh9hW2qoyd5WsVt+58gycJDVxpl0/2xRpa/oph6E1fbJivaq2BrVcxGoQbaA1BBv0PIHDzLBrSfGpVvlCth38B2bHcYg==)
 
 ### 总结
 
-实际上事件监听事件(`handler`)的添加就是定义回调函数，以便在未来触发(`emit`)时找到并执行它们。
+实际上事件监听(`handler`)的添加就是定义回调函数，以便在未来触发(`emit`)时找到并执行它们。
 
 通过 on 添加监听，off 移除监听(一个或全部)，emit 触发事件，all.clear 清空所有事件监听。
