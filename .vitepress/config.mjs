@@ -14,9 +14,8 @@ export default withPwa(
     themeConfig: {
       siteTitle: 'Corner Blog',
       logo: '/icon.svg',
+      // 📖📚📓📔📃📜📝✒✏
       nav: [
-        // { text: '首页', link: '/' },
-        // { text: '前端', link: '/front-end/basic/encapsulate-axios' },
         {
           text: '前端',
           items: [
@@ -29,7 +28,7 @@ export default withPwa(
           ],
         },
         { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
-        { text: '笔记', link: '/notes/source-code/mitt' },
+        { text: '✒笔记', link: '/notes/source-code/mitt' },
       ],
 
       sidebar: {
