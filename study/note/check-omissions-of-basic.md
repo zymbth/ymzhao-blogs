@@ -19,7 +19,7 @@ head:
 >
 > 复习顺序与官网目录顺序一致，如有错误，欢迎指正😊
 
-## 创建 vue 应用实例
+## 1. 创建 vue 应用实例
 
 **多个应用实例**：应用实例并不只限于一个。createApp API 允许你在同一个页面中创建多个共存的 Vue 应用，而且每个应用都拥有自己的用于配置和全局资源的作用域。
 
@@ -35,7 +35,7 @@ const app2 = createApp({
 app2.mount('#container-2')
 ```
 
-## 模板语法
+## 2. 模板语法
 
 Vue 使用一种基于 HTML 的模板语法，使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上。
 
@@ -65,9 +65,9 @@ Infinity, undefined, NaN, isFinite, isNaN, parseFloat, parseInt, decodeURI, deco
 
 动态参数可使用变量、响应式变量、js 表达式(包括调用函数)、计算属性(替换复杂的表达式)等
 
-## 响应式基础
+## 3. 响应式基础
 
-- **shallowRef()**
+### shallowRef()
 
 ::: details 参考
 > [深层响应性](https://cn.vuejs.org/guide/essentials/reactivity-fundamentals.html#deep-reactivity)
@@ -83,7 +83,7 @@ ref() 的浅层作用形式，放弃深层响应性。对于浅层 ref，只有 
 
 浅层 ref 可以用于避免对大型数据的响应性开销来优化性能、或者有外部库管理其内部状态的情况。
 
-- **reactive()**
+### reactive()
 
 `reactive()` 返回的是一个原始对象的 Proxy，它和原始对象不相等：
 
@@ -111,7 +111,7 @@ proxy.nested = raw
 console.log(proxy.nested === raw) // false
 ```
 
-- **解包**
+### 解包
 
 作为 reactive 对象的属性，如果将一个新的 ref 赋值给一个关联了已有 ref 的属性，那么它会替换掉旧的 ref
 
@@ -139,13 +139,13 @@ const map = reactive(new Map([['count', ref(0)]]))
 console.log(map.get('count').value)
 ```
 
-- **SFC**
+### SFC
 
 > 参考：[单文件组件](https://cn.vuejs.org/guide/scaling-up/sfc.html)
 
 Vue 的单文件组件是网页开发中 HTML、CSS 和 JavaScript 三种语言经典组合的自然延伸。`<template>`、`<script>` 和 `<style>` 三个块在同一个文件中封装、组合了组件的视图、逻辑和样式。
 
-- **为什么要使用 SFC**
+### 为什么要使用 SFC
 
 使用 SFC 必须使用构建工具，但作为回报带来了以下优点：
 
@@ -168,7 +168,7 @@ SFC 是 Vue 框架提供的一个功能，并且在下列场景中都是官方�
   2) 静态站点生成 (SSG)
   3) 任何值得引入构建步骤以获得更好的开发体验 (DX) 的项目
 
-- **SFC 是如何工作的**
+### SFC 是如何工作的
 
 Vue SFC 是一个框架指定的文件格式，因此必须交由 `@vue/compiler-sfc` 编译为标准的 JavaScript 和 CSS，一个编译后的 SFC 是一个标准的 JavaScript(ES) 模块。
 
@@ -176,7 +176,7 @@ SFC 中的 `<style>` 标签一般会在开发时注入成原生的 `<style>` 标
 
 在实际项目中，我们一般会使用集成了 SFC 编译器的构建工具，比如 Vite 或者 Vue CLI (基于 webpack)，Vue 官方也提供了脚手架工具来帮助你尽可能快速地上手开发 SFC。
 
-## 计算属性
+## 4. 计算属性
 
 computed() 方法期望接收一个 getter 函数，返回值为一个计算属性 ref
 
@@ -205,7 +205,7 @@ const publishedBooksMessage = computed(() => {
 
 Vue 的计算属性会自动追踪响应式依赖。它会检测到 publishedBooksMessage 依赖于 author.books，所以当 author.books 改变时，任何依赖于 publishedBooksMessage 的绑定都会同时更新。
 
-- **计算属性缓存 vs 方法**
+### 计算属性缓存 vs 方法
 
 在表达式中像这样调用一个函数也会获得和计算属性相同的结果：
 
@@ -224,7 +224,7 @@ function calculateBooksMessage() {
 
 相比之下，方法调用**总是**会在重渲染发生时再次执行函数。
 
-- **可写计算属性**
+### 可写计算属性
 
 计算属性默认是只读的。当你尝试修改一个计算属性时，你会收到一个运行时警告。只在某些特殊场景中你可能才需要用到“可写”的属性，你可以通过同时提供 getter 和 setter 来创建。
 
@@ -256,11 +256,11 @@ const plusOne = computed(() => count.value + 1, {
 })
 ```
 
-- **Getter 不应有副作用**
+### Getter 不应有副作用
 
 计算属性的 getter 应只做计算而没有任何其他的副作用，举例来说，不要在 getter 中做异步请求或者更改 DOM！getter 的职责应该仅为计算和返回该值。可使用侦听器根据其他响应式状态的变更来创建副作用。
 
-- **避免直接修改计算属性值**
+### 避免直接修改计算属性值
 
 从计算属性返回的值是派生状态。可以把它看作是一个“临时快照”，每当源状态发生变化时，就会创建一个新的快照。更改快照是没有意义的，因此计算属性的返回值应该被视为只读的，并且永远不应该被更改——应该**更新它所依赖的源状态以触发新的计算**。
 
@@ -300,7 +300,7 @@ const plusOne = computed(() => count.value + 1, {
 
 :::
 
-## 类绑定
+## 5. 类绑定
 
 - 绑定内联对象
 
@@ -328,7 +328,7 @@ const errorClass = ref('text-danger')
 <div :class="[{ active: isActive }, errorClass]"></div>
 ```
 
-- **在组件上使用**
+### 在组件上使用
 
 对于只有一个根元素的组件，当你使用了 class attribute 时，这些 class 会被添加到根元素上并与该元素上已有的 class 合并。
 
@@ -349,9 +349,9 @@ const errorClass = ref('text-danger')
 <span>This is a child component</span>
 ```
 
-## 样式绑定
+## 6. 样式绑定
 
-- **绑定内联样式**
+### 绑定内联样式
 
 - 绑定内联对象
 
@@ -369,30 +369,30 @@ const errorClass = ref('text-danger')
 
 `<div :style="[baseStyles, overridingStyles]"></div>`
 
-- **自动前缀**
+### 自动前缀
 
 当你在 `:style` 中使用了需要[浏览器特殊前缀](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)的 CSS 属性时，Vue 会**自动**为他们加上相应的前缀。Vue 是在运行时检查该属性是否支持在当前浏览器中使用。如果浏览器不支持某个属性，那么将尝试加上各个浏览器特殊前缀，以找到哪一个是被支持的。
 
-- **样式多值**
+### 样式多值
 
 你可以对一个样式属性提供多个值，数组仅会渲染浏览器支持的最后一个值
 
 `<div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>`
 
-## 条件渲染
+## 7. 条件渲染
 
 使用包装器元素 `<template>` 包装多个元素，在包装器元素上使用 `v-if` 完成统一切换。
 
-- **v-if 与 v-show 对比**
+### v-if 与 v-show 对比
 
 - `v-show`不支持在 `<template>` 元素上使用。
 - `v-if` 是“真实的”按条件渲染，因为它确保了在切换时，条件区块内的事件监听器和子组件都会被销毁与重建。
 - `v-if` 也是惰性的：如果在初次渲染时条件值为 false，则不会做任何事。（惰性渲染有利于提升性能及用户体验）
 - `v-show` 初始始终会被渲染，切换时，会在 DOM 渲染中保留元素；`v-show` 仅切换了该元素上名为 display 的 CSS 属性。
 
-## 列表渲染
+## 8. 列表渲染
 
-- **用法**
+### 用法
 
 `v-for`内定义变量别名时可像 forEach 一样使用解构
 
@@ -404,7 +404,7 @@ const errorClass = ref('text-danger')
 
 `v-for`支持在 `<template>` 元素上使用。
 
-- **遍历对象**
+### 遍历对象
 
 可以使用 v-for 来遍历一个**对象**的所有属性。遍历的顺序会基于对该对象调用 Object.keys() 的返回值来决定。
 
@@ -435,7 +435,7 @@ const myObject = reactive({
 
 :::
 
-- **使用范围值**
+### 使用范围值
 
 v-for 可以直接接受一个整数值。在这种用例中，会将该模板基于 1...n 的取值范围重复多次。
 
@@ -443,7 +443,7 @@ v-for 可以直接接受一个整数值。在这种用例中，会将该模板�
 
 **注意**此处 n 的初值是从 1 开始而非 0
 
-- **v-for 与 v-if**
+### v-for 与 v-if
 
 不推荐同时使用 `v-if` 与 `v-for`，同时存在于同一元素上时，前者优先级更高，先执行。这意味着 `v-if` 的条件将无法访问到 `v-for`作用域内定义的变量别名
 
@@ -455,7 +455,7 @@ v-for 可以直接接受一个整数值。在这种用例中，会将该模板�
 </template>
 ```
 
-- **通过 key 管理状态**
+### 通过 key 管理状态
 
 Vue 默认按照“就地更新”的策略来更新通过 v-for 渲染的元素列表。当数据项的顺序改变时，Vue 不会随之移动 DOM 元素的顺序，而是就地更新每个元素，确保它们在原本指定的索引位置上渲染。
 
@@ -469,7 +469,7 @@ Vue 默认按照“就地更新”的策略来更新通过 v-for 渲染的元素
 
 key 的更多用途细节，请参阅 [API 文档](https://cn.vuejs.org/api/built-in-special-attributes.html#key)。
 
-## 事件处理
+## 9. 事件处理
 
 事件处理器（handler）的值可以是：
 
@@ -485,7 +485,7 @@ key 的更多用途细节，请参阅 [API 文档](https://cn.vuejs.org/api/buil
 
 方法事件处理器会自动接收原生 DOM 事件并触发执行
 
-- **在内联处理器中调用方法**
+### 在内联处理器中调用方法
 
 `const say = val => console.log(val)`
 
@@ -493,7 +493,7 @@ key 的更多用途细节，请参阅 [API 文档](https://cn.vuejs.org/api/buil
 
 这允许我们向方法传入自定义参数以代替原生事件
 
-- **在内联事件处理器中访问事件参数**
+### 在内联事件处理器中访问事件参数
 
 向处理器方法传入一个特殊的 $event 变量，或者使用内联箭头函数：
 
@@ -517,7 +517,7 @@ function warn(message, event) {
 >
 > `@click="(event) => warn('msg', event)"` 是函数，这个函数在执行时调用 warn 函数
 
-- **事件修饰符**
+### 事件修饰符
 
 | 修饰符 | 介绍 | 简单示例 |
 | --- | --- | --- |
@@ -528,7 +528,7 @@ function warn(message, event) {
 | .once | 事件只触发一次 | `<button @click.once="handleClick">点击</button>` |
 | .passive | 禁用事件的默认行为 | `div @touchstart.passive="handleTouchStart">触摸</div>` |
 
-- **按键修饰符**
+### 按键修饰符
 
 可以直接使用 KeyboardEvent.key 暴露的按键名称作为修饰符，但需要转为 kebab-case 形式
 
@@ -558,7 +558,7 @@ function warn(message, event) {
 
 .left, .right, .middle：限定鼠标按键，注意与键盘左右按键的区别
 
-## 表单输入绑定
+## 10. 表单输入绑定
 
 `<input v-model="text">`
 
@@ -582,7 +582,7 @@ function warn(message, event) {
 
 注意，绑定了输入时，DOM 元素原生属性值会被忽略
 
-- **复选框组**
+### 复选框组
 
 将多个复选框绑定到同一个数组或集合的值
 
@@ -603,7 +603,7 @@ function warn(message, event) {
 
 > vue 通过绑定同一数组或集合实现**复选框组**。而在原生 js 中，则需通过设置同一 `name` 属性，获取复选框组的值需自行遍历实现
 
-- **单选按钮**
+### 单选按钮
 
 ```html
 <div>Picked: {{ picked }}</div>
@@ -667,7 +667,7 @@ function warn(message, event) {
 </template>
 ```
 
-- **修饰符**
+### 修饰符
 
 - `.lazy`：在每次 change 事件后更新数据（默认为 input 事件）
 - `.number`：让用户输入自动转换为数字
@@ -695,7 +695,7 @@ function func () {
 
 - `trim`：自动去除用户输入内容中两端的空格
 
-## 生命周期
+## 11. 生命周期
 
 ![image.png](./assets/vue-life-circle.png)
 
@@ -703,13 +703,13 @@ function func () {
 
 周期钩子应当在组件初始化时被同步注册，可以在一个外部函数中调用，只要调用栈是同步的，且最终起源自 setup() 就可以。
 
-## 侦听器
+## 12. 侦听器
 
-- **侦听数据源类型**
+### 侦听数据源类型
 
 watch 的第一个参数可以是不同形式的“数据源”：它可以是一个 ref (包括计算属性)、一个响应式对象、一个 getter 函数、或多个数据源组成的数组
 
-- **深层侦听器**
+### 深层侦听器
 
 直接给 watch() 传入一个响应式对象，会隐式地创建一个深层侦听器
 
@@ -727,7 +727,7 @@ obj.count++
 
 > watch 响应式数组则不会。手动设置深层侦听时，newValue, oldValue 也是相等的
 
-- **watchEffect()**
+### watchEffect()
 
 自动跟踪回调的响应式依赖，并立即执行回调
 
@@ -754,7 +754,7 @@ watchEffect(async () => {
 
 `watchEffect` 仅会在其同步执行期间，才追踪依赖。在使用异步回调时，只有在第一个 `await` 正常工作前访问到的属性才会被追踪。
 
-- **回调的触发时机**
+### 回调的触发时机
 
 当你更改了响应式状态，它可能会同时触发 Vue 组件更新和侦听器回调。默认情况下，侦听器回调会在 Vue 组件更新**之前**被调用。可通过 `flush: 'post'` 选项更改为之后调用
 
@@ -764,7 +764,7 @@ watchEffect(async () => {
 
 `watchPostEffect(callback)`
 
-- **停止侦听器**
+### 停止侦听器
 
 在 setup() 或 `<script setup>` 中用同步语句创建的侦听器，会自动绑定到宿主组件实例上，并且会在宿主组件卸载时自动停止。
 
@@ -791,7 +791,7 @@ watchEffect(() => {
 
 > 不要因为异步数据而选择异步创建侦听器，回调函数中做条件判断即可。
 
-## 模板引用
+## 13. 模板引用
 
 通过声明一个同名的 ref 来获得 DOM 元素的模板引用
 
@@ -801,7 +801,7 @@ watchEffect(() => {
 
 **注意：组件挂载后**才能访问模板引用
 
-- **v-for 中的模板引用**
+### v-for 中的模板引用
 
 > 需要 v3.2.25 及以上版本
 
@@ -809,12 +809,12 @@ watchEffect(() => {
 
 注意，ref 数组并不保证与源数组相同的顺序
 
-- **函数模板引用**
+### 函数模板引用
 
 ref 还可以绑定为一个函数，会在每次组件更新时都被调用。该函数会收到元素引用作为其第一个参数
 `<input :ref="(el) => { /* 将 el 赋值给一个数据属性或 ref 变量 */ }">`
 
-- **组件上的 ref**
+### 组件上的 ref
 
 模板引用也可以被用在一个子组件上。这种情况下引用中获得的值是组件实例。如果该子组件使用的是选项式 API 或没有使用 `<script setup>`，被引用的组件实例和该子组件的 `this` 完全一致，这意味着父组件对子组件的每一个属性和方法都有完全的访问权。这使得在父组件和子组件之间创建紧密耦合的实现细节变得很容易，当然也因此，应该只在绝对需要时才使用组件引用。大多数情况下，你应该首先使用标准的 props 和 emit 接口来实现父子组件交互。
 
