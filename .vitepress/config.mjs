@@ -164,6 +164,13 @@ export default withPwa(
             text: '源码学习',
             items: [{ text: 'Mitt源码学习', link: '/study/source-code/mitt' }],
           },
+          {
+            text: '红宝书笔记',
+            items: [
+              { text: '第7章 迭代器与生成器', link: '/study/book/pro-js/chapter7' },
+              { text: '第8章 对象、类与面向对象编程', link: '/study/book/pro-js/chapter8' },
+            ],
+          }
         ],
       },
 
