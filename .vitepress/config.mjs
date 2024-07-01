@@ -151,7 +151,11 @@ export default withPwa(
             ],
           },
         ],
-        '/notes/source-code/': [{ text: 'Mitt源码学习', link: '/notes/source-code/mitt' }],
+        // '/notes/source-code/': [{ text: 'Mitt源码学习', link: '/notes/source-code/mitt' }],
+        '/notes/': [
+          { text: 'Set新方法学习', link: '/notes/read/set-methods' },
+          { text: 'Mitt源码学习', link: '/notes/source-code/mitt' },
+        ],
       },
 
       outline: {
@@ -188,6 +192,11 @@ export default withPwa(
       },
     },
     lastUpdated: true,
+    markdown: {
+      image: {
+        lazyLoading: true,
+      },
+    },
     /* Vite PWA Options */
     pwa,
     sitemap: {
