@@ -28,7 +28,7 @@ export default withPwa(
           ],
         },
         { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
-        { text: '✒笔记', link: '/notes/source-code/mitt' },
+        { text: '📝笔记', link: '/study/note/check-omissions-of-basic' },
       ],
 
       sidebar: {
@@ -150,10 +150,20 @@ export default withPwa(
             ],
           },
         ],
-        // '/notes/source-code/': [{ text: 'Mitt源码学习', link: '/notes/source-code/mitt' }],
-        '/notes/': [
-          { text: 'Set新方法学习', link: '/notes/read/set-methods' },
-          { text: 'Mitt源码学习', link: '/notes/source-code/mitt' },
+        // '/study/source-code/': [{ text: 'Mitt源码学习', link: '/study/source-code/mitt' }],
+        '/study/': [
+          { text: '阅读', items: [{ text: 'Set新方法学习', link: '/study/read/set-methods' }] },
+          {
+            text: '笔记',
+            items: [
+              { text: 'vue3查缺补漏-基础', link: '/study/note/check-omissions-of-basic' },
+              { text: 'vue3查缺补漏-组件', link: '/study/note/check-omissions-of-component' },
+            ],
+          },
+          {
+            text: '源码学习',
+            items: [{ text: 'Mitt源码学习', link: '/study/source-code/mitt' }],
+          },
         ],
       },
 
