@@ -1,3 +1,11 @@
+---
+description: Set新方法学习，包括 intersection,union,difference,symmetricDifference,isSubsetOf,isSupersetOf,isDisjointFrom
+head:
+  - - meta
+    - name: keywords
+      content: set,intersection,union,symmetricDifference,isSubsetOf,isDisjointFrom
+---
+
 # Set新方法学习
 
 > 原文：[New JavaScript Set methods](https://developer.mozilla.org/en-US/blog/javascript-set-methods/)
