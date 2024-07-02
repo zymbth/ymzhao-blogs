@@ -1,5 +1,5 @@
 ---
-description: JS红宝书(Professional Javascript for Web Developers)学习笔记，供个人复习使用
+description: JS红宝书(Professional Javascript for Web Developers)第7章 迭代器与生成器学习笔记，供个人复习使用
 head:
   - - meta
     - name: keywords

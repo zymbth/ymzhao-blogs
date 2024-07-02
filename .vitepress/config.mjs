@@ -21,7 +21,7 @@ export default withPwa(
           items: [
             { text: '基础', link: '/front-end/basic/js/utils' },
             { text: 'VUE', link: '/front-end/vue/vue3-grammar' },
-            { text: '前端工程', link: '/front-end/engineering/uniform-code-style' },
+            { text: '前端工程', link: '/front-end/engineering/pack-svg' },
             { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
             { text: 'Node.js', link: '/front-end/nodejs/mailer-service' },
             { text: '其他', link: '/front-end/others/syntactic-highlighting-and-marked' },
@@ -77,6 +77,7 @@ export default withPwa(
           { text: 'vue组件中监听键盘/按键事件', link: '/front-end/vue/watch-keyup-event' },
         ],
         '/front-end/engineering/': [
+          { text: 'vue项目中封装使用svg组件', link: '/front-end/engineering/pack-svg' },
           {
             text: '实践：新手使用 ESLint 进行项目代码检测与格式化',
             link: '/front-end/engineering/uniform-code-style',
@@ -169,8 +170,9 @@ export default withPwa(
             items: [
               { text: '第7章 迭代器与生成器', link: '/study/book/pro-js/chapter7' },
               { text: '第8章 对象、类与面向对象编程', link: '/study/book/pro-js/chapter8' },
+              { text: '第11章 第2节 期约', link: '/study/book/pro-js/chapter11-2' },
             ],
-          }
+          },
         ],
       },
 

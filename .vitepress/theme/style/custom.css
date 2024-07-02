@@ -16,8 +16,8 @@
   background: #efefef;
 }
 ::-webkit-scrollbar {
-  width: 10px !important;
-  height: 10px !important;
+  width: 12px !important;
+  height: 12px !important;
   background: transparent;
 }
 ::-webkit-scrollbar:hover {
