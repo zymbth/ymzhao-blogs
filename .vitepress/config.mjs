@@ -62,7 +62,10 @@ export default withPwa(
           {
             text: 'Others',
             collapsed: false,
-            items: [{ text: 'axios 封装', link: '/front-end/basic/others/encapsulate-axios' }],
+            items: [
+              { text: 'axios 封装', link: '/front-end/basic/others/encapsulate-axios' },
+              { text: 'Git基本使用', link: '/front-end/basic/others/git-basic-usage' },
+            ],
           },
         ],
         '/front-end/vue/': [
