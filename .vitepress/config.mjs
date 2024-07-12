@@ -93,6 +93,10 @@ export default withPwa(
             text: 'Github Actions 使用记录',
             link: '/front-end/engineering/github-actions',
           },
+          {
+            text: '常见前端部署方式',
+            link: '/front-end/engineering/deploy',
+          },
         ],
         '/front-end/element-plus/': [
           { text: 'Element Plus可编辑表格', link: '/front-end/element-plus/editable-table' },
