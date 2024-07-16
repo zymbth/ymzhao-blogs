@@ -1,8 +1,16 @@
+---
+description: 前端常见的几种项目部署方式，包括本地服务器、nginx web服务器、docker自动部署
+head:
+  - - meta
+    - name: keywords
+      content: 前端,部署,docker,服务器
+---
+
 # 前端项目部署
 
 ## 本地服务器
 
-一般用来本地预览、测试
+一般用来本地构建产物的预览、测试
 
 本地构建：`npm run build`
 
@@ -19,6 +27,10 @@
 npm全局安装 `http-server` 或经 `npx` 使用
 
 集成终端中打开构建根目录，`http-server` 直接在本地8080端口启动一个服务器，端口等配置参考官方文档
+
+### 3. vite preview
+
+vite 项目中可使用 [preview](https://cn.vitejs.dev/guide/cli.html#vite-preview) 命令预览构建产物
 
 ## 远程服务器
 
@@ -45,7 +57,7 @@ server {
 }
 ```
 
-### 1. sftp上传项目构建文件
+### 1. sftp上传项目构建产物
 
 前端本地构建好，将文件上传至服务器。
 
@@ -72,7 +84,7 @@ npm run build
 可编写shell脚本完成上一过程，但存在几个问题要注意：
 
 - shell脚本文件本身需赋予可执行权限
-- git权限，使用ssh连接git仓库，通过ssh密钥访问仓库，具体参考官方文档[通过 SSH 连接到 GitHub](https://docs.github.com/zh/authentication/connecting-to-github-with-ssh)
+- git权限，使用ssh连接git仓库，通过ssh密钥访问仓库，具体参考官方文档[通过 SSH 连接到 GitHub](https://docs.github.com/zh/authentication/connecting-to-github-with-ssh)。按说明将生成的一对密钥保存在 `~/.ssh/` 下。
 
 ```shell
 #!/bin/bash
@@ -91,7 +103,11 @@ npm run build
 
 ### 4. docker部署
 
-前三种方法最终都是分别配置nginx、构建项目，完成 nginx web服务器配置。docker可以将这两部都配置在项目中，更新更加方便，但对服务器有一定要求，不适合老旧、低配的服务器。
+前三种方法最终都是分别配置nginx、构建项目，完成 nginx web服务器配置。
+
+docker完全可以完成这两步，更新也更加方便，但对服务器有一定要求，不适合老旧、低配的服务器。
+
+docker部署方法很多，最好自行查询文档攻略编写。
 
 ::: code-group
 
@@ -137,9 +153,9 @@ EXPOSE 9091
 ```yml [/docker-compose.yml]
 version: '3'
 services:
-  xxxxxx:
-    container_name: xxxxxx
-    image: xxxxxx
+  your.server.name:
+    container_name: your.server.name
+    image: your.server.name
     build:
       context: ./
       dockerfile: Dockerfile
@@ -208,37 +224,20 @@ pull-nginx:
 		echo "Docker image 'nginx:stable-alpine-slim' already exists."; \
 	fi
 
-# 清除本服务悬空镜像（测试环境）
-.PHONY: prune-test
-prune-test:
-	@if docker images -f "dangling=true" --filter "label=com.docker.compose.service=revir.website.test" --quiet | grep -q .; then \
-		dangling_images=$$(docker images -f "dangling=true" --filter "label=com.docker.compose.service=revir.website.test" --quiet); \
-		if [ -n "$$dangling_images" ]; then \
-			echo "Dangling images was found in service revir.website.test:"; \
-			echo $$dangling_images; \
-			docker rmi $$dangling_images; \
-		else \
-			echo "No dangling images was found in service revir.website.test."; \
-		fi \
-	else \
-		echo "No dangling images was found in service revir.website.test."; \
-	fi
-
-
-# 清除本服务悬空镜像（正式环境）
+# 清除本服务悬空镜像
 .PHONY: prune
 prune:
-	@if docker images -f "dangling=true" --filter "label=com.docker.compose.service=revir.website" --quiet | grep -q .; then \
-		dangling_images=$$(docker images -f "dangling=true" --filter "label=com.docker.compose.service=revir.website" --quiet); \
+	@if docker images -f "dangling=true" --filter "label=com.docker.compose.service=your.server.name" --quiet | grep -q .; then \
+		dangling_images=$$(docker images -f "dangling=true" --filter "label=com.docker.compose.service=your.server.name" --quiet); \
 		if [ -n "$$dangling_images" ]; then \
-			echo "Dangling images was found in service revir.website:"; \
+			echo "Dangling images was found in service your.server.name:"; \
 			echo $$dangling_images; \
 			docker rmi $$dangling_images; \
 		else \
-			echo "No dangling images was found in service revir.website."; \
+			echo "No dangling images was found in service your.server.name."; \
 		fi \
 	else \
-		echo "No dangling images was found in service revir.website."; \
+		echo "No dangling images was found in service your.server.name."; \
 	fi
 
 # 运行
