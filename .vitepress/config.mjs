@@ -223,6 +223,16 @@ export default withPwa(
     },
     lastUpdated: true,
     markdown: {
+      /**
+       * 代码高亮主题
+       *
+       * @see https://shiki.tmrs.site/themes
+       * 备选：
+       * - { light: 'min-light', dark: 'min-dark' }
+       * - { light: 'slack-ochin', dark: 'slack-dark' }
+       * - dark: monokai, night-owl, material-theme, nord, tokyo-night, dracula, houston
+       */
+      theme: { light: 'material-theme-lighter', dark: 'material-theme-darker' },
       image: {
         lazyLoading: true,
       },

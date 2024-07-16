@@ -6,6 +6,7 @@
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview",
     "docs-git:build": "vitepress build --base /ymzhao-blogs/",
     "docs-mpa:build": "vitepress build --mpa",
     "docs-mpa-git:build": "vitepress build --mpa --base /ymzhao-blogs/"
