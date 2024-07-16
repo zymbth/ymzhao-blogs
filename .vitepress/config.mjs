@@ -25,6 +25,7 @@ export default withPwa(
             { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
             { text: 'Node.js', link: '/front-end/nodejs/mailer-service' },
             { text: '其他', link: '/front-end/others/syntactic-highlighting-and-marked' },
+            { text: '代码片段', link: '/front-end/snippets/package-manager-warn' },
           ],
         },
         { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
@@ -124,6 +125,9 @@ export default withPwa(
             link: '/front-end/others/syntactic-highlighting-and-marked',
           },
           { text: 'vitepress静态站点生成', link: '/front-end/others/vitepress-usage' },
+        ],
+        '/front-end/snippets/': [
+          { text: '处理packageManager的异常', link: '/front-end/snippets/package-manager-warn' },
         ],
         '/back-end/': [
           {
