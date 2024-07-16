@@ -10,6 +10,9 @@
   --vp-font-family-base: 'ComicShannsMono Regular', '思源黑体', '微软雅黑'; /* normal text font */
   --vp-font-family-mono: 'ComicShannsMono Regular'; /* code font */
 
+  /* 代码高亮bg */
+  --vp-code-line-highlight-color: rgb(96, 215, 255, 0.2);
+
   /* 滚动条 */
   --scrollbar-bg: rgb(239, 239, 239);
   --scrollbar-thumb-bg: rgba(144, 147, 153, 0.3);
@@ -21,6 +24,8 @@
 }
 
 .dark {
+  --vp-code-line-highlight-color: rgb(0, 110, 146, 0.2);
+
   --scrollbar-bg: rgb(66, 66, 66);
   --scrollbar-thumb-bg: rgba(192, 192, 192, 0.3);
   --scrollbar-thumb-hover-bg: rgba(192, 192, 192, 0.5);

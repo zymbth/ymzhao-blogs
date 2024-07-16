@@ -396,7 +396,9 @@ const errorClass = ref('text-danger')
 
 `v-for`内定义变量别名时可像 forEach 一样使用解构
 
-`<li v-for="{ message } in items">{{ message }}<li>`
+```vue
+<li v-for="{ message } in items">{{ message }}</li>
+```
 
 可以使用 of 作为分隔符来替代 in，这更接近 JavaScript 的迭代器语法
 
@@ -439,7 +441,9 @@ const myObject = reactive({
 
 v-for 可以直接接受一个整数值。在这种用例中，会将该模板基于 1...n 的取值范围重复多次。
 
-`<span v-for="n in 10">{{ n }}</span>`
+```vue
+<span v-for="n in 10">{{ n }}</span>
+```
 
 **注意**此处 n 的初值是从 1 开始而非 0
 

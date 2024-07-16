@@ -14,7 +14,7 @@ export default withPwa(
     themeConfig: {
       siteTitle: 'Corner Blog',
       logo: '/icon.svg',
-      // 📖📚📓📔📃📜📝✒✏
+      // 📖📚📓📔📃📜📝💾📋
       nav: [
         {
           text: '前端',
@@ -25,7 +25,7 @@ export default withPwa(
             { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
             { text: 'Node.js', link: '/front-end/nodejs/mailer-service' },
             { text: '其他', link: '/front-end/others/syntactic-highlighting-and-marked' },
-            { text: '代码片段', link: '/front-end/snippets/package-manager-warn' },
+            { text: '🧩代码片段', link: '/front-end/snippets/package-manager-warn' },
           ],
         },
         { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
@@ -228,11 +228,12 @@ export default withPwa(
        *
        * @see https://shiki.tmrs.site/themes
        * 备选：
+       * - { light: 'material-theme-lighter', dark: 'material-theme-darker' }
        * - { light: 'min-light', dark: 'min-dark' }
        * - { light: 'slack-ochin', dark: 'slack-dark' }
        * - dark: monokai, night-owl, material-theme, nord, tokyo-night, dracula, houston
        */
-      theme: { light: 'material-theme-lighter', dark: 'material-theme-darker' },
+      theme: { light: 'min-light', dark: 'min-dark' },
       image: {
         lazyLoading: true,
       },
