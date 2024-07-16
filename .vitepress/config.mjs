@@ -128,6 +128,7 @@ export default withPwa(
         ],
         '/front-end/snippets/': [
           { text: '处理packageManager的异常', link: '/front-end/snippets/package-manager-warn' },
+          { text: 'docker部署前端项目', link: '/front-end/snippets/deploy-via-docker' },
         ],
         '/back-end/': [
           {
