@@ -20,6 +20,8 @@ head:
 
 ## 基本概念
 
+对git很熟练的可以跳过本节
+
 ### 1. 分支
 
 #### 1.1 简单介绍
@@ -197,15 +199,94 @@ git rebase --continue | --skip | --abort | --quit | --edit-todo
 
 虽然都能实现，但从理解难易程度以及使用习惯上来讲，个人更常用的是后者
 
+## 仓库连接问题
+
+由于众所周知的原因，国内访问github是需要点技巧的。连接不上仓库，啥都白搭
+
+- 方案一：使用gitee替换github
+
+虽然码云行事有点难以形容，但仅作远程仓库来管理个人项目或小公司小项目的话是没什么问题的，注重私密性的都会公司内网搭建(如gitlab)代码仓库，也不存在连接问题。
+
+- 方案二：使用ssh连接而不是https
+
+ssh连接不会被墙，而后者会。参阅官方文档[通过 SSH 连接到 GitHub](https://docs.github.com/zh/authentication/connecting-to-github-with-ssh)，另外说一句，码云的ssh连接方式与github完全相同😄
+
+具体参阅官网或自行关键字搜索。总的来说就是，本地生成ssh密钥，公钥+私钥。将公钥添加到仓库上对应 setting 中，本地启动 `ssh-agent` 并将私钥添加到 `ssh-agent`。
+
+别人开源的项目fork到自己的仓库中，就可以使用ssh连接了。
+
+- 方案三：本地hosts更新
+
+此方案不总能生效，允许的话，建议选择前两种方案。
+
+参考：[GitHub 访问不了？教你几招轻松解决](https://zhuanlan.zhihu.com/p/358183268)
+
+[GitHub520](https://github.com/521xueweihan/GitHub520): 自动方式更新host，下载 [SwitchHosts](https://github.com/oldj/SwitchHosts/releases/tag/v4.1.2)，例如: SwitchHosts_windows_installer_x64_4.1.2.6086.exe
+
+> 添加配置：
+>
+> Title: 随意
+>
+> Type: Remote
+>
+> URL: `https://raw.hellogithub.com/hosts`
+>
+> Auto Refresh: 最好选 1 hour
+
+问题：[github可以ping通，但是无法正常访问](https://zhuanlan.zhihu.com/p/356817630)
+
+解决方案：使用命令 `ipconfig /flushdns`，刷新dns即可
+
 ## 案例分析
 
-### 1. 冲突处理
+### 1. 初始提交
+
+将本地项目首次上传到已建好的git仓库中
+
+```bash
+# 在本地项目中使用 Git 初始化仓库（如果尚未完成）
+git init
+# 将本地代码提交到本地 Git 仓库中
+git add .
+git commit -m "first commit"
+# 在 GitHub 上创建一个新的空仓库，但不要在仓库中添加任何文件
+# 将 GitHub 仓库的 URL 添加为本地 Git 仓库的远程地址（假设您的远程名称是 origin）
+git remote add origin <repo-url>
+# 将本地 Git 仓库中的代码推送到远程 GitHub 仓库
+# 如果您想将本地分支推送到不同的远程分支
+# 请使用命令 git push <远程名称> <本地分支名称>:<远程分支名称>
+git push -u origin master
+```
+
+如果远程仓库**不为空**，需要**合并**处理。
+
+如果只是不小心在创建远程代码仓库时添加了 readme/lisence/.gitignore 等文件，可重新建一个空项目，再按上面的初始提交步骤操作最简单。
+
+```bash {4,13}
+git init
+git remote add origin <repo-url>
+# 将init后，当前的分支名更改下
+git branch -m local-master
+git add .
+git commit -m "first commit"
+# 获取远程分支
+git fetch origin
+# 切换到远程主分支
+git checkout -b master origin/master
+# 合并本地与远程主分支
+# 由于两个分支无共同祖先，需要加上 --allow-unrelated-histories
+git merge --allow-unrelated-histories local-master
+# 解决冲突，无冲突 :wq 退出交互UI
+git push
+```
+
+### 2. 冲突处理
 
 参照Git Book - [分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6)：
 
 ![conflict](./assets/git-6.jpg)
 
-### 2. 临时任务
+### 3. 临时任务
 
 开发中会出现一种情况，手头上的功能还没完成，就有计划外的任务出现，并且优先级更高。例如：bug修复、更紧急的功能等等
 
@@ -249,7 +330,7 @@ git rebase --continue | --skip | --abort | --quit | --edit-todo
 
 长期存在的分支都有各自的用处，不及时清理临时分支的话，会给版本控制带来不必要的麻烦。
 
-### 3. 撤销操作 reset
+### 4. 撤销操作 reset
 
 参考：
 
@@ -279,11 +360,11 @@ git rebase --continue | --skip | --abort | --quit | --edit-todo
 
 `git reset --mixed commit_id`
 
-### 4. 修改commit
+### 5. 修改commit
 
 > [GIT 修改commit message](https://blog.csdn.net/weixin_39709292/article/details/124467997)
 
-### 5. 合并多条commit
+### 6. 合并多条commit
 
 > [Git 合并多个 commit，保持历史简洁](https://cloud.tencent.com/developer/article/1690638)
 >

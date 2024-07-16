@@ -25,7 +25,7 @@ export default withPwa(
             { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
             { text: 'Node.js', link: '/front-end/nodejs/mailer-service' },
             { text: '其他', link: '/front-end/others/syntactic-highlighting-and-marked' },
-            { text: '🧩代码片段', link: '/front-end/snippets/package-manager-warn' },
+            { text: '🧩代码片段', link: '/front-end/snippets/vue-watch-resize' },
           ],
         },
         { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
@@ -81,6 +81,7 @@ export default withPwa(
           { text: 'vue组件中监听键盘/按键事件', link: '/front-end/vue/watch-keyup-event' },
         ],
         '/front-end/engineering/': [
+          { text: 'node环境管理', link: '/front-end/engineering/manage-node' },
           { text: 'vue项目中封装使用svg组件', link: '/front-end/engineering/pack-svg' },
           {
             text: '实践：新手使用 ESLint 进行项目代码检测与格式化',
@@ -94,10 +95,7 @@ export default withPwa(
             text: 'Github Actions 使用记录',
             link: '/front-end/engineering/github-actions',
           },
-          {
-            text: '常见前端部署方式',
-            link: '/front-end/engineering/deploy',
-          },
+          { text: '常见前端部署方式', link: '/front-end/engineering/deploy' },
         ],
         '/front-end/element-plus/': [
           { text: 'Element Plus可编辑表格', link: '/front-end/element-plus/editable-table' },
@@ -127,8 +125,10 @@ export default withPwa(
           { text: 'vitepress静态站点生成', link: '/front-end/others/vitepress-usage' },
         ],
         '/front-end/snippets/': [
+          { text: 'vue中监听window.resize事件', link: '/front-end/snippets/vue-watch-resize' },
           { text: '处理packageManager的异常', link: '/front-end/snippets/package-manager-warn' },
           { text: 'docker部署前端项目', link: '/front-end/snippets/deploy-via-docker' },
+          { text: '导出svg为图片', link: '/front-end/snippets/export-svg-image' },
         ],
         '/back-end/': [
           {
@@ -185,6 +185,12 @@ export default withPwa(
               { text: '第11章 第2节 期约', link: '/study/book/pro-js/chapter11-2' },
             ],
           },
+          {
+            text: '速查表',
+            items: [
+              { text: 'Typescript速查表', link: '/study/cheatsheets/typescript' },
+            ]
+          }
         ],
       },
 
