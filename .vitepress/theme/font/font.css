@@ -2,3 +2,8 @@
   font-family: 'ComicShannsMono Regular';
   src: url(./ComicShannsMono-Regular.ttf);
 }
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url(./JetBrainsMono-Regular.woff2) format('woff2');
+}

@@ -76,11 +76,9 @@ VitePress 使用基于文件的路由：每个 `.md` 文件将在相同的路径
 
 [侧边栏](https://vitepress.dev/zh/reference/default-theme-sidebar)：侧边栏更复杂一点。它可以是页面链接组成的一维数组，体现在页面上就是所有链接顺序展示在侧边栏上。可以将链接嵌套(最多6层)实现多级分组，还可以设置多侧边栏，搭配菜单使用。
 
-::: details 示例
+::: code-group
 
-- 一级
-
-```js
+```js [一级]
 export default {
   cleanUrls: true,
   themeConfig: {
@@ -93,9 +91,7 @@ export default {
 }
 ```
 
-- 嵌套(最多6层)
-
-```js
+```js [多级(最多嵌套6层)]
 export default {
   cleanUrls: true,
   themeConfig: {
@@ -115,9 +111,7 @@ export default {
 }
 ```
 
-- 多侧边栏
-
-```js
+```js [多侧边栏]
 export default {
   cleanUrls: true,
   themeConfig: {
@@ -154,9 +148,9 @@ export default {
 
 其它的还有社交链接、深色模式等等，选配方便
 
-## 附加功能
+## 案例分析
 
-介绍一些使用过的附加功能
+记录一些实践中遇到的功能场景
 
 ### 字体更换
 
@@ -188,7 +182,96 @@ export default DefaultTheme
 ```
 
 :::
-其实也就是简单的样式更改
+
+其实也就是简单的样式更改，关键在于规范引入样式
+
+### 深色主题样式补充
+
+基于上一小节，添加样式及深色样式。以滚动条样式为例：
+
+::: code-group
+
+```js [theme/index.js]
+import DefaultTheme from 'vitepress/theme-without-fonts'
+import Layout from './Layout.vue'
+import './font/font.css'
+import './style/custom.css'
+import './style/scrollbar.css' // [!code ++]
+
+export default {
+  ...DefaultTheme,
+  Layout,
+}
+```
+
+```css [theme/style/custom.css]
+:root {
+  /* 代码高亮bg */
+  --vp-code-line-highlight-color: rgb(96, 215, 255, 0.2);
+  /* 滚动条 */
+  --scrollbar-bg: rgb(239, 239, 239);
+  --scrollbar-thumb-bg: rgba(144, 147, 153, 0.3);
+  --scrollbar-thumb-hover-bg: rgba(144, 147, 153, 0.5);
+  --scrollbar-thumb-active-bg: rgba(144, 147, 153, 0.4);
+  --scrollbar-thumb-border-color: rgba(255, 255, 255, 0.4);
+  --scrollbar-corner-bg: rgba(255, 255, 255, 0.3);
+  --scrollbar-corner-hover-bg: rgba(144, 147, 153, 0.15);
+}
+.dark {
+  --vp-code-line-highlight-color: rgb(0, 110, 146, 0.2);
+  --scrollbar-bg: rgb(66, 66, 66);
+  --scrollbar-thumb-bg: rgba(192, 192, 192, 0.3);
+  --scrollbar-thumb-hover-bg: rgba(192, 192, 192, 0.5);
+  --scrollbar-thumb-active-bg: rgba(192, 192, 192, 0.4);
+  --scrollbar-thumb-border-color: rgba(0, 0, 0, 0.4);
+  --scrollbar-corner-bg: rgba(192, 192, 192, 0.3);
+  --scrollbar-corner-hover-bg: rgba(192, 192, 192, 0.15);
+}
+```
+
+```css [theme/style/scrollbar.css]
+/* scrollbar */
+::-webkit-scrollbar-track-piece {
+  background: var(--scrollbar-bg);
+}
+::-webkit-scrollbar {
+  width: 12px !important;
+  height: 12px !important;
+  background: transparent;
+}
+::-webkit-scrollbar:hover {
+  background: rgba(128, 128, 128, 0.2);
+}
+/* thumb */
+::-webkit-scrollbar-thumb {
+  border: 1px solid var(--scrollbar-thumb-border-color) !important;
+  background-color: var(--scrollbar-thumb-bg) !important;
+  z-index: 2147483647;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  background-clip: content-box;
+  transition: 0.3s background-color;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover-bg) !important;
+}
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-thumb-active-bg) !important;
+}
+/* corner */
+::-webkit-scrollbar-corner {
+  background-color: var(--scrollbar-corner-bg);
+  border: 1px solid transparent;
+}
+::-webkit-scrollbar-corner:hover {
+  background-color: var(--scrollbar-corner-hover-bg) !important;
+}
+```
+
+:::
+
+常见适配方案均可
 
 ### 接入评论
 
@@ -199,6 +282,8 @@ export default DefaultTheme
 这里就需要稍微更改下vitepress的默认主题了([扩展默认主题](https://vitepress.dev/zh/guide/extending-default-theme))
 
 初始目录结构：
+
+<div class="code-JetBrains" />
 
 ```text
 .vitepress
@@ -281,6 +366,8 @@ function updUtteranceTheme(isDark) {
 实际上，`Layout.vue` 中并没有重写 `Layout`，仅仅只是通过其插槽渲染评论组件而已。当然，你完全可以重写以完全自定义。更多插槽参见官网[扩展默认主题-布局插槽](https://vitepress.dev/zh/guide/extending-default-theme#layout-slots)
 
 最终的目录结构：
+
+<div class="code-JetBrains" />
 
 ```text
 .vitepress

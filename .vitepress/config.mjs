@@ -229,6 +229,7 @@ export default withPwa(
     },
     lastUpdated: true,
     markdown: {
+      lineNumbers: true,
       /**
        * 代码高亮主题
        *
