@@ -282,6 +282,12 @@ export default function mitt<Events extends Record<EventType, unknown>>(
 
 使用 `all.clear()` 清空所有事件的事件监听，通过源码可以知道，由于 `all` 是直接暴露出来的 `Map` 对象，`all.clear()` 实际上就是 `Map.prototype.clear()` 方法。（完全可以使用 `all.has()`, `all.get()`, `all.keys()` 方法读取事件相关信息。通过 `all.delete(type)` 移除事件虽然可行，却是不规范的。）
 
+### 小结
+
+实际上事件监听(`handler`)的添加就是定义回调函数，以便在未来触发(`emit`)时找到并执行它们。
+
+通过 on 添加监听，off 移除监听(一个或全部)，emit 触发事件，all.clear 清空所有事件监听。
+
 ### 演练
 
 在vue中跨组件使用时，需要注意它的作用域
@@ -313,8 +319,129 @@ const { on, off, all, emit } = useEventBus()
 
 [在线练习一下吧](https://play.vuejs.org/#eNq1V81y2zYQfhUMe5DckSlbSS+spCZxfWinTjpNegp7oMilxZgCOQQoy6Po3fstwB/QlpO0jjUjAdg/7C6+BVZ773VZ+tuavMCbq7jKSi0U6bpchjLblEWlxV5UlIqDSKtiI0YQHTmsWtHllqR+U6tOxJ86VP+T6uUvik153kmZFe89FJgNBGaNQCjjQirespATUaTpRER5PhG0yTR2XriejE9YvpDj0Y+jiRjru5IguNUnYrEU+1AKwbaKnPy8uB6PCilYbi86QXGABf7OpzYnyAYWmjZlHmnCSoh5km1FnEdKLULvtorK0DN0cNY/LZHV+RRjQ7GBT93lrFnOpzCE2XzqmJ8rfZfzxGfL1udVUSVUBeflTsD3LBE/nJ2d/dxzTqsoyWoViJflzpDLKEkyeR2cnzWETVRdZzI4n8EEax5MgGYnb+Jphayk2TVOrJCAg9k09GL4muVUvSt1hqyFXmDdYR5OoLj93dB0VdOkpcdrim+O0D+pHdNC78+KFFVbCr2Op+Ecacu+fP+Wdph3zE2R1Dmkv8D8i5CVmn20Ym9qmcBtR854+5sBGtLyQV3uNEnVBsWOsuTByIceYMfH9Fjovbsv/JdGD/lEFgFHjQwif7QzkE4ojepci7SWMZsRLDGGLycwVrEm5sAv/37+LCTdiquoBIQNr0ItVrKVNLKTdg6AW8SuIxNqZ5A/tloajrL2fXhsVBrj/MlSMW6lBgZEp+yXtVq3Qo7qQVCuaKjDu+D+aBz72Cj942q1UyS6DSRNnzcSh3WP40SpyjyLqTPhZzKh3bu0V1wul+JsIs6dPY8n4UEa3PidDBxNBl9o7pXlWM7pe52oMqGe+BsgrQ/Q3I7HkjNmTwYhHDvQ3r7jHK7gZ/atz9VXPWwmZuBiHb5TqNnmGeIS7V6hpqJHrMRfi0c+Jk0VIjX1bHbjb1P1Vsh9HRdi7EZxv7ALGbQ2fbxwTmk4dLx6Lkx6Do8dC6nvOVi4QfMPAu+e3q88+3hp5VVRS00JT99QWlT0t9ww6YktwX9/0K18nuFnwc6NP3JceyGLQJxPkPKEAjGKomjUXOKW9aJjxXE8ZM061mq1siyUqukdmqjH7aFBhxuKirbAKP0BJ7i1MA9vL/GwsRjKI1ZWMO2FKWiQ/W2U14SI+oWvi/fIJe8eTVau+fY2xPPJNebLQpyKFYaW3cDKbrNYLJAPhaB/MRqBOMXQlIJxoe1zOOLB4Q7ixvU8CPypzZFBn9selUu2G8ynjD9DYf3tKRyCfikyabITeiK4oTsm+XxunVEo5NGK8uVbHOp8audzVUZSLPd7UXKeDocJWEy7r3RhIHBMjTeB4kCt7dce6dya4jJt6/P21P+3gBpsmAoa8VmGsutN7J16geGaxsQ3NOI0L9I95AOjpgGygGVADOxoUhpdzBXpdZFgd2toOjXPQkJ4yOgBpAzfrR+WXUfqnuBjkuax+SZJQAguWZ+fhOGZi+EWFQ6w2A2bbjSOXe0DTg3SVlX7jwAqmSxrbf6CYDtu5QvAPUuwQAVjahLdr07R9VKOtbEKyqvYnBoo7iGC4exh9hW2qoyd5WsVt+58gycJDVxpl0/2xRpa/oph6E1fbJivaq2BrVcxGoQbaA1BBv0PIHDzLBrSfGpVvlCth38B2bHcYg==)
 
-### 总结
+> **mitt VS vue$emit**
+>
+> vue父子组件通信中，emit是非常重要的方法之一。父组件内调用子组件时绑定方法/事件，子组件内使用 $emit 调用/触发。
+>
+> 对比之下，和 mitt 的 on/emit 是否很相似呢？最大的不同之处在于vue只能在父子组件上使用
+>
+> mitt无需同组件绑定，使用起来要方便得多。但代价就是项目中大量使用时，你需要花更多的时间理清依赖关系
 
-实际上事件监听(`handler`)的添加就是定义回调函数，以便在未来触发(`emit`)时找到并执行它们。
+- via mitt
 
-通过 on 添加监听，off 移除监听(一个或全部)，emit 触发事件，all.clear 清空所有事件监听。
+::: code-group
+
+```js [useEventBus.js]
+import mitt from 'mitt'
+import { onBeforeUnmount } from 'vue'
+
+const emitter = mitt()
+
+export const useEventBus = (option) => {
+  if (Array.isArray(option)) {
+    option.forEach((item) => {
+      emitter.on(item.name, item.callback)
+    })
+    onBeforeUnmount(() => {
+      option.forEach((item) => {
+        emitter.off(item.name)
+      })
+    })
+  } else if (option) {
+    emitter.on(option.name, option.callback)
+    onBeforeUnmount(() => {
+      emitter.off(option.name)
+    })
+  }
+
+  return {
+    on: emitter.on,
+    off: emitter.off,
+    emit: emitter.emit,
+    all: emitter.all
+  }
+}
+```
+
+```vue [App.vue]
+<script setup>
+import { useEventBus } from './useEventBus'
+import Grandson from './Grandson.vue'
+
+useEventBus({
+  name: 'nameChange',
+  callback: handleNameChange
+})
+
+function handleNameChange(val) {
+  console.log('Name changed:', val)
+}
+</script>
+<template>
+  <div>
+    <!-- import Grandson somewhere -->
+    <Grandson />
+  </div>
+</template>
+```
+
+```vue [Grandson.vue]
+<script setup>
+import { ref } from 'vue'
+import { useEventBus } from './useEventBus'
+
+const { emit } = useEventBus()
+
+const name = ref('abc')
+</script>
+<template>
+  <input v-model="name" @input="emit('nameChange', name)">
+</template>
+```
+
+:::
+
+[在线演练](https://play.vuejs.org/#eNq1Vt9vmzAQ/lcsXiATI5u2pyiJ1lZ52KS10348jT1QciS0YCPbpKnS/O+7M2BMkrab1EYiGN935+8+n3/svLOqijY1eBNvqlKZV5op0HU1j3leVkJqtmO1gsUGuD6vFduzTIqS+dHY6fUt+EKUlUXQB8VGc8wdeLCLOWM8KWHCfHpdrBO+Aj+k7jQpiuskvZ0w7FwWcGntMd+PKFJW81Tngh8Bgk1SjJgJngquRAFRIVaBTwiWGshy4oeMYBgs5tNxkzImO9VQVkWiAduMTU0eY+ofW4MXelph4CxfRTdKcJTMjBV7KaLzAuRVRbxU7E0aFmTDdMTdF9OnZQ0mR+OzhvT2RP+N2lJf7H2ToEBuIPasTSdyBboxL35cwhbb1liKZV0g+gnjd0BRauLYwM5rElA6OMP2s5nLnK9+qsVWA1ddUkSUkHuDjz2cWxLqsdR7uh+ij8YPVUcVy1xrVBD1g62pmiVkSV1oZmeWEAFyodmU5IltNjP/Dw+Mwx37mlTBqLFJrFfJO6TBhl1b8EDfVxC2tSJtQPpRkejOopr4ETI2Lm1w+uUZCzrUIACzzlFVq3UHclz3DAoFQx8aBddYS+x36/TH9eqaKHSXSJa9biaO6cDiZKmqIk/BhohyvoTtVdY7zudz9i5k750xT4twJIObv6PASTEA66P1g40e0C3gpWZUmVRHUYmV1ic4mz8iTkBMBimcmtA+vkPOf+O/Mrdeq2cZtg3zosXq7NvNmm13elqidqdvV7RPTvbYEPwcMiHhFy9FzbU9OsyJgEB6msKl+dQgURKz8A0tetrtoQG5p9CMBcJsOG7SJNyZlMl9lCvz7jCOik1PhLQWSboOghx390PhWjYR7h1kjuiECplpdoeTFa6X8CDbIDgM+y9DO4Pjereju/N0NHS7uij7ThMb0UmlHb5Jpv04SufZJFx6TsRjUt0UHm/Pgk8cXu4G5/Rn2WCx9xZ6WxPS7y34cVC63f3jqbuNhGxYmP937ekqeGdoIGzmumElWwTJhFYcL/CT6xRX/BPXj5xXtWabt3hsQzGLPXKOPfbJ9OO32QAHVycTfxR7B1eW/V/5Vzh/)
+
+- without mitt
+
+::: code-group
+
+```vue [App.vue]
+<script setup>
+import { ref, provide, watch } from 'vue'
+import Grandson from './Grandson.vue'
+
+const name = ref()
+provide('changeName', val => name.value = val)
+
+watch(name, handleNameChange)
+
+function handleNameChange(val) {
+  console.log('Name changed:', val)
+}
+</script>
+<template>
+  <div>
+    <!-- import Grandson somewhere -->
+    <Grandson />
+  </div>
+</template>
+```
+
+```vue [Grandson.vue]
+<script setup>
+import { ref, inject } from 'vue'
+
+const changeName = inject('changeName', val => {})
+
+const name = ref('abc')
+</script>
+<template>
+  <input v-model="name" @input="changeName(name)">
+</template>
+```
+
+:::
+
+[在线演练](https://play.vuejs.org/#eNqFUsuO2zAM/BVWF3sBPw7tKXAWbReLoj1si7ZHXVybcZTKkiDJToDA/15KXjuLdB8n05whOaTmzD4ZU4wDsg2rXGOF8eDQD+aWK9EbbT2cweIuA2P1KFrM4Fj7Zg8T7KzuIaHSZKV+sbVqnVaPWFEuiTCBaFw1WjkPqu4RtqFvesPVY+c0afa16vCBwCSDsZawvY3UguIhFNCX+FxFCWmAMqCaVsaiu1geCbtBNV6QkGs0DS3gzBVAkKIlFlJ3aRIYMM9vN/N0ajRxVZXzVegelcfeyNojxQBVK8YYUPguz+H6BE73eNyjRcjzhbeC5dyinHtU5dqZZcw7UrYTXXEgJj1LFMtZo3sjJNrvJizmONvMawSsllIfv8WctwNmS77ZY/P3mfzBnUKOsx8WHdoROVsxX9sO/Qzf/3rAE8Ur2Ot2kMR+BfyJdNUhaJxpn4fwAvYJL6r9Gs8lVPfb3Z88KrcsFYQG5hT5nJFz7l5Z/SL3ffEh1tGz0RWfOu9Nbwt1wMZfeXox68WV5MCZ+bxVz1P03n8WT+o/TULQy1YSygwexpwuiHLLWSjmDD7GPP1fpkXT33B25ZrpH3t9R5Q=)
