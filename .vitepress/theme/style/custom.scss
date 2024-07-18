@@ -13,8 +13,11 @@
   /* 代码高亮bg */
   --vp-code-line-highlight-color: rgb(96, 215, 255, 0.2);
 
+  --vp-nav-bg-color: rgba(255, 255, 255, 0.3);
+
   /* 滚动条 */
-  --scrollbar-bg: rgb(239, 239, 239);
+  // --scrollbar-bg: rgb(239, 239, 239);
+  --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: rgba(144, 147, 153, 0.3);
   --scrollbar-thumb-hover-bg: rgba(144, 147, 153, 0.5);
   --scrollbar-thumb-active-bg: rgba(144, 147, 153, 0.4);
@@ -25,14 +28,24 @@
 
 .dark {
   --vp-code-line-highlight-color: rgb(0, 110, 146, 0.2);
+  --vp-nav-bg-color: rgba(0, 0, 0, 0.3);
 
-  --scrollbar-bg: rgb(66, 66, 66);
+  // --scrollbar-bg: rgb(66, 66, 66);
+  --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: rgba(192, 192, 192, 0.3);
   --scrollbar-thumb-hover-bg: rgba(192, 192, 192, 0.5);
   --scrollbar-thumb-active-bg: rgba(192, 192, 192, 0.4);
   --scrollbar-thumb-border-color: rgba(0, 0, 0, 0.4);
   --scrollbar-corner-bg: rgba(192, 192, 192, 0.3);
   --scrollbar-corner-hover-bg: rgba(192, 192, 192, 0.15);
+
+  img {
+    filter: brightness(0.8) saturate(1.25);
+  }
+}
+
+.content-body {
+  backdrop-filter: blur(10px);
 }
 
 .code-JetBrains {
