@@ -12,6 +12,7 @@
     "docs-mpa-git:build": "vitepress build --mpa --base /ymzhao-blogs/"
   },
   "dependencies": {
+    "v-viewer": "^3.0.13",
     "viewerjs": "^1.11.6"
   }
 }
