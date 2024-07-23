@@ -5,12 +5,12 @@
     "vitepress": "^1.1.4"
   },
   "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview",
-    "docs-git:build": "vitepress build --base /ymzhao-blogs/",
-    "docs-mpa:build": "vitepress build --mpa",
-    "docs-mpa-git:build": "vitepress build --mpa --base /ymzhao-blogs/"
+    "dev": "vitepress dev --host 0.0.0.0",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "git:build": "vitepress build --base /ymzhao-blogs/",
+    "mpa:build": "vitepress build --mpa",
+    "mpa-git:build": "vitepress build --mpa --base /ymzhao-blogs/"
   },
   "dependencies": {
     "v-viewer": "^3.0.13",
