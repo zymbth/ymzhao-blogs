@@ -6,7 +6,7 @@ head:
       content: axios,onDownloadProgress,progressEvent,total,0
 ---
 
-# axios下载进度api无法获取响应大小
+# [BUG]axios下载进度api无法获取响应大小
 
 axios 提供了监听上传/下载进度的事件: [axios - Request Config](https://axios-http.com/docs/req_config)
 
@@ -28,10 +28,6 @@ axios 提供了监听上传/下载进度的事件: [axios - Request Config](http
 
 ## 问题分析
 
-第一种可能，响应头中的 `content-length` 缺失，后端没有返回，可在上面的监听方法中打印 `progressEvent.srcElement.getResponseHeader('content-length')`。这种情况下，让后端加上。
-
-第二种可能，响应经过了gzip编码(`content-encoding: gzip`)，`content-length` 也有返回。在上面的监听方法中打印 `progressEvent.loaded` 会发现下载完成后，loaded值可能会远大于 `content-length`。
-
 > 参考：
 >
 > [onDownloadProgress has progressEvent.total property with zero value](https://github.com/axios/axios/issues/1591#issuecomment-431400903)
@@ -40,7 +36,17 @@ axios 提供了监听上传/下载进度的事件: [axios - Request Config](http
 >
 > [axios ondownloadprogress中total总为零，content-length不返回](https://www.cnblogs.com/kaibo520/p/15380988.html)
 
+### content-length首部缺失
+
+第一种可能，响应头中的 `content-length` 缺失，后端没有返回，可在上面的监听方法中打印 `progressEvent.srcElement.getResponseHeader('content-length')` 验证。
+
+解决方案：让后端补上
+
+### gzip
+
+第二种可能，`content-length` 有返回，但响应经过了gzip编码(`content-encoding: gzip`)。在上面的监听方法中打印 `progressEvent.loaded` 会发现下载完成后，loaded值可能会远大于 `content-length`。
+
 解决方案：
 
-- 后端把文件大小存储到其它响应首部字段上，例如：`x-content-length`
-- 关闭gzip
+1. 关闭gzip
+2. 后端把文件大小存储到其它响应首部字段上，例如：`x-content-length`，axios封装中，使用该值作为total计算进度。

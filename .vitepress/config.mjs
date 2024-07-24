@@ -66,6 +66,7 @@ export default withPwa(
             items: [
               { text: 'axios 封装', link: '/front-end/basic/others/encapsulate-axios' },
               { text: 'Git基本使用', link: '/front-end/basic/others/git-basic-usage' },
+              { text: '[BUG]axios下载进度api无法获取响应大小', link: '/front-end/basic/others/axios-progressevent-total' },
             ],
           },
         ],
