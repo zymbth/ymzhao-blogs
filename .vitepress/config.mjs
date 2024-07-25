@@ -66,7 +66,10 @@ export default withPwa(
             items: [
               { text: 'axios 封装', link: '/front-end/basic/others/encapsulate-axios' },
               { text: 'Git基本使用', link: '/front-end/basic/others/git-basic-usage' },
-              { text: '[BUG]axios下载进度api无法获取响应大小', link: '/front-end/basic/others/axios-progressevent-total' },
+              {
+                text: '[BUG]axios下载进度api无法获取响应大小',
+                link: '/front-end/basic/others/axios-progressevent-total',
+              },
             ],
           },
         ],
@@ -97,6 +100,10 @@ export default withPwa(
             link: '/front-end/engineering/github-actions',
           },
           { text: '常见前端部署方式', link: '/front-end/engineering/deploy' },
+          {
+            text: '[BUG]uglifyjs压缩代码导致echarts图表UI异常',
+            link: '/front-end/engineering/uglifyjs-echarts-bug',
+          },
         ],
         '/front-end/element-plus/': [
           { text: 'Element Plus可编辑表格', link: '/front-end/element-plus/editable-table' },
@@ -188,10 +195,8 @@ export default withPwa(
           },
           {
             text: '速查表',
-            items: [
-              { text: 'Typescript速查表', link: '/study/cheatsheets/typescript' },
-            ]
-          }
+            items: [{ text: 'Typescript速查表', link: '/study/cheatsheets/typescript' }],
+          },
         ],
       },
 
