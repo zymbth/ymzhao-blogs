@@ -6,7 +6,7 @@ head:
       content: axios,onDownloadProgress,progressEvent,total,0
 ---
 
-# [BUG]axios下载进度api无法获取响应大小
+# axios下载进度api无法获取响应大小 <Badge type="danger" text="BUG" />
 
 axios 提供了监听上传/下载进度的事件: [axios - Request Config](https://axios-http.com/docs/req_config)
 

@@ -14,7 +14,7 @@ export default withPwa(
     themeConfig: {
       siteTitle: 'Corner Blog',
       logo: '/icon.svg',
-      // 📖📚📓📔📃📜📝💾📋
+      // 📖📚📓📔📃📜📝💾📋🛠🐞
       nav: [
         {
           text: '前端',
@@ -67,7 +67,7 @@ export default withPwa(
               { text: 'axios 封装', link: '/front-end/basic/others/encapsulate-axios' },
               { text: 'Git基本使用', link: '/front-end/basic/others/git-basic-usage' },
               {
-                text: '[BUG]axios下载进度api无法获取响应大小',
+                text: '🐞axios下载进度api无法获取响应大小',
                 link: '/front-end/basic/others/axios-progressevent-total',
               },
             ],
@@ -101,7 +101,7 @@ export default withPwa(
           },
           { text: '常见前端部署方式', link: '/front-end/engineering/deploy' },
           {
-            text: '[BUG]uglifyjs压缩代码导致echarts图表UI异常',
+            text: '🐞uglifyjs压缩代码导致echarts图表UI异常',
             link: '/front-end/engineering/uglifyjs-echarts-bug',
           },
         ],
