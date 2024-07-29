@@ -1,12 +1,12 @@
 ---
-description: 文本行数溢出样式
+description: 文本多行溢出样式
 head:
   - - meta
     - name: keywords
-      content: text,overflow,行数,line-clamp,-webkit-box
+      content: text,overflow,多行,line-clamp,-webkit-box
 ---
 
-# 文本行数溢出样式
+# 文本多行溢出样式
 
 文本溢出样式很简单：
 
@@ -18,7 +18,7 @@ head:
 }
 ```
 
-换行溢出样式如何设置呢？
+多行溢出样式如何设置呢？
 
 ::: code-group
 
@@ -49,4 +49,4 @@ head:
 
 :::
 
-使用了 `@supports` 查询浏览器是否支持 `display: -webkit-box`，不支持时仅做隐藏处理。
+使用了 `@supports` 查询浏览器是否支持 `display: -webkit-box`，不支持时仅做隐藏处理，也可使用js优化。

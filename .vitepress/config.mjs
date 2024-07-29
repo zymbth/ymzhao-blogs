@@ -141,6 +141,7 @@ export default withPwa(
           { text: '处理packageManager的异常', link: '/front-end/snippets/package-manager-warn' },
           { text: 'docker部署前端项目', link: '/front-end/snippets/deploy-via-docker' },
           { text: '导出svg为图片', link: '/front-end/snippets/export-svg-image' },
+          { text: '文本多行溢出样式', link: '/front-end/snippets/text-overrows' },
         ],
         '/back-end/': [
           {
