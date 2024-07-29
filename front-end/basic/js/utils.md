@@ -1,3 +1,11 @@
+---
+description: 实用 js 工具方法
+head:
+  - - meta
+    - name: keywords
+      content: js,util,工具方法
+---
+
 # 实用 js 工具方法
 
 ## JS

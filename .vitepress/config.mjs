@@ -50,6 +50,10 @@ export default withPwa(
               },
               // { text: '正则表达式', link: '/front-end/basic/js/regex' },
               { text: '导入/导出Excel', link: '/front-end/basic/js/load-and-export-excel' },
+              {
+                text: '🐞XMLSerializer序列化style元素时存在转译bug',
+                link: '/front-end/basic/js/xmlserializer-style-bug',
+              },
             ],
           },
           {
