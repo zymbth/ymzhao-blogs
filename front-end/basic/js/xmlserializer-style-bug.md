@@ -37,20 +37,13 @@ function convertDocToBlob() {
   const htmlString = new XMLSerializer().serializeToString(doc)
   // 创建 Blob 对象
   const blob = new Blob([htmlString], { type: 'text/html' })
-  console.log(consoleBlob(blob))
+  consoleBlob(blob)
   return blob
 }
 
-function consoleBlob(blob) {
-  // 创建 FileReader 实例
-  const reader = new FileReader()
-  // 定义 onload 事件处理程序
-  reader.onload = function(event) {
-    const text = event.target.result // 获取读取结果
-    console.log(text) // 输出字符串
-  }
-  // 读取 Blob 对象为文本
-  reader.readAsText(blob)
+async function consoleBlob(blob) {
+  const text = await blob.text()
+  console.log(text)
 }
 ```
 
