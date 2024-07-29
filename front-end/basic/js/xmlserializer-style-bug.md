@@ -18,7 +18,7 @@ head:
 >
 > [XMLSerializer.serializeToString](https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer/serializeToString)
 
-选择使用 `XMLSerializer` 接口的 `serializeToString` 方法将 DOM 树转换成字符串时，发现样式出现了问题，关键在于将css的后代选择器“>”转译成了“&gt;”。
+选择使用 `XMLSerializer` 接口的 `serializeToString` 方法将 DOM 树转换成字符串时，发现样式出现了问题，关键在于将css的后代选择器“>”转译成了“\&gt;”。
 
 ::: details 示例
 
