@@ -142,6 +142,7 @@ export default withPwa(
           { text: 'docker部署前端项目', link: '/front-end/snippets/deploy-via-docker' },
           { text: '导出svg为图片', link: '/front-end/snippets/export-svg-image' },
           { text: '文本多行溢出样式', link: '/front-end/snippets/text-overrows' },
+          { text: 'vue-cli项目中使用cdn外链引入依赖', link: '/front-end/snippets/cdn-import' },
         ],
         '/back-end/': [
           {
@@ -254,6 +255,13 @@ export default withPwa(
       theme: { light: 'min-light', dark: 'min-dark' },
       image: {
         lazyLoading: true,
+      },
+    },
+    vite: {
+      server: {
+        port: 5200,
+        host: '0.0.0.0',
+        open: true,
       },
     },
     /* Vite PWA Options */
