@@ -143,6 +143,7 @@ export default withPwa(
           { text: '导出svg为图片', link: '/front-end/snippets/export-svg-image' },
           { text: '文本多行溢出样式', link: '/front-end/snippets/text-overrows' },
           { text: 'vue-cli项目中使用cdn外链引入依赖', link: '/front-end/snippets/cdn-import' },
+          { text: '快速应用静态代码分析', link: '/front-end/snippets/code-formatting' },
         ],
         '/back-end/': [
           {
