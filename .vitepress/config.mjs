@@ -22,7 +22,7 @@ export default withPwa(
             { text: '基础', link: '/front-end/basic/js/utils' },
             { text: 'VUE', link: '/front-end/vue/vue3-grammar' },
             { text: '前端工程', link: '/front-end/engineering/pack-svg' },
-            { text: 'Element Plus 使用', link: '/front-end/element-plus/editable-table' },
+            { text: 'Element Plus', link: '/front-end/element-plus/editable-table' },
             { text: 'Node.js', link: '/front-end/nodejs/mailer-service' },
             { text: '其他', link: '/front-end/others/syntactic-highlighting-and-marked' },
             { text: '🧩代码片段', link: '/front-end/snippets/vue-watch-resize' },

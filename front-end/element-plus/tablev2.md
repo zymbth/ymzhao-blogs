@@ -16,16 +16,18 @@ head:
 
 创建了一个项目收纳本文的一些 demos:
 
-[element-plus-tablev2-demo](https://github.com/zymbth/element-plus-tablev2-demo) / [element-plus-tablev2-demo (gitee)](https://gitee.com/ymzhao/element-plus-tablev2-demo)
+[Git Page 演示](https://zymbth.github.io/element-plus-tablev2-demo/)
 
-## 一、Element Plus 表格基础
+[element-plus-tablev2-demo](https://github.com/zymbth/element-plus-tablev2-demo)
 
-官方介绍：
+[element-plus-tablev2-demo (gitee)](https://gitee.com/ymzhao/element-plus-tablev2-demo)
+
+### 官方介绍
 
 _“在前端开发领域，表格一直都是一个高频出现的组件，尤其是在中后台和数据分析场景。 但是，对于 Table V1 来说，当一屏里超过 1000 条数据记录时，就会出现卡顿等性能问题，体验不是很好。
 通过虚拟化表格组件，超大数据渲染将不再是一个头疼的问题。”_
 
-官方提示：
+### 官方提示
 
 > TIP
 >
@@ -34,7 +36,14 @@ _“在前端开发领域，表格一直都是一个高频出现的组件，尤�
 > **即使**虚拟化的表格是高效的，但是当数据负载过大时，**网络**和**内存容量**也会成为您应用程序的瓶颈。 因此请牢记，虚拟化表格永远不是最完美的解决方案，请考虑数据分页、过滤器等优化方案。
 
 > TIP
+>
 > 在 SSR 场景下，您需要将组件包裹在 `<client-only></client-only>` 之中 (如: [Nuxt](https://nuxt.com/v3)) 和 SSG (例如: [VitePress](https://vitepress.vuejs.org/)).
+
+### 实践与性能对比
+
+什么时候需要使用虚拟化表格？它高性能的原因是什么？它真的能满足你的需要吗？等等，这些问题本应在选择使用它之前就搞明白，内容略多，放在结尾吧[👇](./tablev2#八、总结)。
+
+## 一、Element Plus 表格基础
 
 ### 属性
 
@@ -47,9 +56,9 @@ _“在前端开发领域，表格一直都是一个高频出现的组件，尤�
 
 ### 简单使用
 
-表格组件 `el-table` (TableV1):
+::: code-group
 
-```html
+```html [el-table(TableV1)]
 <script setup>
   const columns = [
     { prop: 'name', label: 'Name', width: 100 },
@@ -64,19 +73,12 @@ _“在前端开发领域，表格一直都是一个高频出现的组件，尤�
 </script>
 <template>
   <el-table :data="tableData">
-    <el-table-column
-      v-for="col in columns"
-      :key="col.prop"
-      :prop="col.prop"
-      :label="col.label"
-      :width="col.width" />
+    <el-table-column v-for="col in columns" :key="col.prop" v-bind="col" />
   </el-table>
 </template>
 ```
 
-虚拟化表格组件 `el-table-v2` (TableV2):
-
-```html
+```html [el-table-v2(TableV2)]
 <script setup>
   const columns = [
     { key: 'name', dataKey: 'name', title: 'Name', width: 100 },
@@ -94,6 +96,8 @@ _“在前端开发领域，表格一直都是一个高频出现的组件，尤�
 </template>
 ```
 
+:::
+
 后续的示例基于 `element-plus@2.2.17`
 
 ## 二、自定义单元格渲染
@@ -110,7 +114,13 @@ _“在前端开发领域，表格一直都是一个高频出现的组件，尤�
 
 - `jsx` 用法可参考：
 
-> [Vue 3 Babel JSX 插件](https://github.com/vuejs/babel-plugin-jsx/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md) > [vue 官网 - 渲染函数 & JSX - JSX / TSX](https://cn.vuejs.org/guide/extras/render-function.html#jsx-tsx) > [element-plus 虚拟化表格组件 el-table-v2 渲染自定义组件的其中两种方式(js 和 jsx)及注意事项](https://blog.csdn.net/Mr_WangGeGe/article/details/127275868) > [在 Vue 中使用 JSX，很 easy 的](https://juejin.cn/post/7018742119082754062)
+> [Vue 3 Babel JSX 插件](https://github.com/vuejs/babel-plugin-jsx/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md)
+>
+> [vue 官网 - 渲染函数 & JSX - JSX / TSX](https://cn.vuejs.org/guide/extras/render-function.html#jsx-tsx)
+>
+> [element-plus 虚拟化表格组件 el-table-v2 渲染自定义组件的其中两种方式(js 和 jsx)及注意事项](https://blog.csdn.net/Mr_WangGeGe/article/details/127275868)
+>
+> [在 Vue 中使用 JSX，很 easy 的](https://juejin.cn/post/7018742119082754062)
 
 需掌握最基本的 插值、v-if、v-for、v-on、事件修饰符、组件的 jsx 语法，以及组件的插槽语法
 
@@ -136,40 +146,35 @@ type CellRenderProps<T> = {
 
 ### 渲染方式对比（el-table vs el-table-v2）
 
-`el-table` 中常用的自定义单元格渲染方式（定义在表格 column 模板中）：
+`el-table` 中常用的自定义单元格渲染方式（定义在表格 column 模板中）
 
-```html
+`el-table-v2` 中常用的自定义单元格渲染方式（定义在 column 配置列表中）
+
+::: code-group
+
+```html [el-table]
 <el-table :data="tableData">
-  <el-table-column
-    v-for="col in columns"
-    :key="col.prop"
-    :prop="col.prop"
-    :label="col.label"
-    :width="col.width">
-    <template #default="scope">
+  <el-table-column v-for="col in columns" :key="col.prop" v-bind="col">
+    <template #default="{ row }">
       <!-- 自定义单元格渲染 -->
-      <el-tag v-if="col.prop === 'tag'">{{ scope.row[col.prop] }}</el-tag>
+      <el-tag v-if="col.prop === 'tag'">{{ row[col.prop] }}</el-tag>
 
       <template v-else-if="col.prop === 'link'">
         <router-link
-          v-if="!!scope.row.id"
-          :to="{ name: 'TargetRouteName', params: { id: scope.row.id } }"
-          >{{ scope.row[col.prop] }}</router-link
+          v-if="!!row.id"
+          :to="{ name: 'TargetRouteName', params: { id: row.id } }"
+          >{{ row[col.prop] }}</router-link
         >
-        <span v-else>{{ scope.row[col.prop] }}</span>
+        <span v-else>{{ row[col.prop] }}</span>
       </template>
 
-      <template v-else>{{ scope.row[col.prop] }}</template>
+      <template v-else>{{ row[col.prop] }}</template>
     </template>
   </el-table-column>
 </el-table>
 ```
 
-`el-table-v2` 中常用的自定义单元格渲染方式（定义在 column 配置列表中）：
-
-**vue 单文件组件需要在 script 中加上`lang="jsx"`**
-
-```html
+```html [el-table-v2]
 <script lang="jsx" setup>
   const columns = [
     {
@@ -178,9 +183,7 @@ type CellRenderProps<T> = {
       dataKey: 'link',
       width: 100,
       cellRenderer: ({ cellData, rowData }) => (
-        <a href={rowData.link} target='_blank'>
-          Go
-        </a>
+        <a href={rowData.link} target='_blank'>Go</a>
       ),
     },
     // ...
@@ -188,33 +191,35 @@ type CellRenderProps<T> = {
 </script>
 ```
 
+:::
+
+**vue 单文件组件需要在 script 中加上`lang="jsx"`**
+
 ### 实例列举
 
 为了对照，会分别放上 `el-table` 与 `el-table-v2` 的自定义单元格渲染代码
+
 为了精简代码，下述 `el-table-v2` 的示例均只展示 `cellRenderer` 函数
 
 - 组件
 
-```html
+::: code-group
+
+```html [TableV1]
 <template v-else-if="col.prop === 'gene'">
   <router-link
-    v-if="scope.row.id && scope.row.view &&
-    (scope.row.view?.includes($store.getters.userId) || $checkRolePermission(scope.row.view))"
-    :to="{ name: 'Target', params: { tid: scope.row.id } }"
+    v-if="row.id"
+    :to="{ name: 'Target', params: { tid: row.id } }"
     class="gene-text"
-    >{{ scope.row[col.prop] || '-' }}</router-link
+    >{{ row[col.prop] || '-' }}</router-link
   >
-  <span v-else class="gene-text">{{ scope.row[col.prop] || '-' }}</span>
+  <span v-else class="gene-text">{{ row[col.prop] || '-' }}</span>
 </template>
 ```
 
-```javascript
+```js [TableV2]
 const cellRenderer = ({ cellData, rowData: row }) => {
-  const tmp =
-    row.id &&
-    row.view &&
-    (row.view?.includes($store.getters.userId) || $checkRolePermission(row.view))
-  return tmp ? (
+  return row.id ? (
     <router-link to={{ name: 'Target', params: { tid: row.id } }} class='gene-text'>
       {cellData ?? '-'}
     </router-link>
@@ -224,22 +229,26 @@ const cellRenderer = ({ cellData, rowData: row }) => {
 }
 ```
 
+:::
+
 包含了插值、v-if、组件。全局注册的组件可直接在 jsx 中使用
 
 - v-for
 
-```html
+::: code-group
+
+```html [TableV1]
 <template v-if="col.prop === 'result'">
   <router-link
     class="gene-source-tag"
-    v-for="tag in scope.row[col.prop]"
-    :to="{ name: 'TargetAnalysis', params: { tid: scope.row.id, type: tag } }">
+    v-for="tag in row[col.prop]"
+    :to="{ name: 'TargetAnalysis', params: { tid: row.id, type: tag } }">
     <el-tag>{{ tag }}</el-tag>
   </router-link>
 </template>
 ```
 
-```javascript
+```js [TableV2]
 const cellRenderer = ({ cellData, rowData: row }) => {
   return (
     <>
@@ -255,9 +264,179 @@ const cellRenderer = ({ cellData, rowData: row }) => {
 }
 ```
 
+:::
+
 包含 v-for、组件、空标签。若并未全局引入 Element Plus，需手动引入相关组件，其它自定义组件同样如此。
 
-## 三、排序
+## 三、表头分组
+
+> 此前的对官网的表头分组功能理解有误，官网是通过表格属性 `header-height` 来设置多级表头，在新的表头上创建分组
+>
+> .
+>
+> 属性：`header-height`
+>
+> 描述说明：Header 的高度由`height`设置。 如果传入数组，它会使 header row 等于数组长度
+>
+> 类型：Number/Array\<Number\>
+>
+> 默认值：50
+>
+> .
+>
+> 下面的原demo倒也能实现分组，而且无需通过设置多一级表头来实现
+>
+> 再说一遍，官网的表头分组demo是真的sao
+>
+> 下面的两种分组实现均在[Git Page 演示](https://zymbth.github.io/element-plus-tablev2-demo/)中可见
+
+官方文档在 TableV2 上给出的说法是“表头分组”，效果同 TableV1 不大一样。
+
+V1是通过 `<el-table-column>` 嵌套实现，意义明确、实现简单，创建一个嵌套的 `columns` 列表就可以。
+
+V2的实现是通过表格组件提供的 `header` 插槽
+
+```html
+<script setup>
+const CustomizedHeader  = ({ cells, columns, headerIndex }) => {
+  return cells
+}
+</script>
+<template>
+  <el-table-v2
+    :columns="columns"
+    :data="tableData"
+    :width="666"
+    :height="666"
+  >
+    <template #header="props">
+      <CustomizedHeader v-bind="props" />
+    </template>
+  </el-table-v2>
+</template>
+```
+
+类型:
+
+```typescript
+type HeaderSlotProps = {
+  cells: VNode[]
+  columns: Column<any>[]
+  headerIndex: number
+}
+```
+
+### Demo(多一级表头实现表头分组)
+
+官网demo通过新增一级表头来实现分组，`CustomizedHeader` 组件的生成过程非常sao，对理解造成了很大干扰。官方已经把默认生成的表头 VNode 列表提供给我们了，我们自行处理，返回一个VNode列表即可，需要实现表头分级，并保持对齐。
+
+官网的表头分组是根据序号进行的，实际上不实用，这里通过添加一个分组标识来实现
+
+`columns` 中添加 `_group` 属性，标识所属分组，`CustomizedHeader`组件中遍历一遍表头VNode，分组相同的连续表头为一个分组
+
+demo:
+
+el-table-v2: `:header-height="[36, 50]"` (两级表头，高度分别为36px, 50px)
+
+::: code-group
+
+```html [template]
+<el-table-v2
+  :columns="columns"
+  :data="tableData"
+  :header-height="[36, 50]"
+  :width="666"
+  :height="666">
+  <template #header="props">
+    <CustomizedHeader v-bind="props" />
+  </template>
+</el-table-v2>
+```
+
+```js [js]
+const columns = [
+  { key: 'no', dataKey: 'no', title: 'No.', width: 60 },
+  { key: 'code', dataKey: 'code', title: 'code', width: 80, _group: 'Group 1' },
+  { key: 'name', dataKey: 'name', title: 'name', width: 80, _group: 'Group 1' },
+  { key: 'age', dataKey: 'age', title: 'Age', width: 60, _group: 'Group 2' },
+  { key: 'gender', dataKey: 'gender', title: 'gender', width: 80, _group: 'Group 2' },
+  { key: 'city', dataKey: 'city', title: 'City', width: 80 },
+]
+
+const CustomizedHeader = ({ cells, columns, headerIndex }) => {
+  if (headerIndex === 1) return cells
+  const groupCells = []
+  let currGroupCell = []
+  for (let i = 0, len = columns.length; i < len; i++) {
+    currGroupCell.push(cells[i])
+    if (!columns[i]._group || columns[i]._group !== columns[i + 1]?._group) {
+      const width = currGroupCell.reduce((prev, curr) => prev + curr.props.column.width, 0)
+      groupCells.push(
+        <div class='cell-group' style={{ width: `${width}px` }}>
+          {columns[i]._group ?? ''}
+        </div>
+      )
+      currGroupCell = []
+    }
+  }
+  return groupCells
+}
+```
+
+:::
+
+注意，在 `headerIndex` 为`1`时直接返回了`cells`，这是因为 `:header-height="[36, 50]" ` 对应了两个表头（`CustomizedHeader`组件），第二个表头不作处理，第一个为分组表头。
+
+### Demo(不增加一级表头)
+
+`CustomizedHeader` 组件属性中提供了原表头VNode列表，你可以以极大自由度地操控这些VNode来改变表头，上面的demo只是官网提供的一种。
+
+同样的 `columns`，表格无需通过`header-height`增加一级表头
+
+::: code-group
+
+```html [template]
+<el-table-v2
+  :columns="columns"
+  :data="tableData"
+  :width="666"
+  :height="666">
+  <template #header="props">
+    <CustomizedHeader v-bind="props" />
+  </template>
+</el-table-v2>
+```
+
+```js [js]
+const CustomizedHeader = ({ cells, columns, headerIndex }) => {
+  const groupCells = []
+  let currGroupCell = []
+  for (let i = 0, len = columns.length; i < len; i++) {
+    currGroupCell.push(cells[i])
+    if (!columns[i]._group || columns[i]._group !== columns[i + 1]?._group) {
+      const width = currGroupCell.reduce((prev, curr) => prev + curr.props.column.width, 0)
+      groupCells.push(
+        currGroupCell.length > 1 ? (
+          <div class='cell-group' style={{ width: `${width}px` }}>
+            <div class='group-title'>{columns[i]._group ?? ''}</div>
+            <div class='cells-wrap'>{currGroupCell}</div>
+          </div>
+        ) : (
+          currGroupCell[0]
+        )
+      )
+      currGroupCell = []
+    }
+  }
+  return groupCells
+}
+```
+
+:::
+
+上例中，`CustomizedHeader`组件中对VNode的处理同上一个demo很类似。但实现了一种“合并单元格”的效果。除了宽度必须为原来两个单元格的宽度之和以保证对齐外，该元素的内容及样式均可自行设置。
+
+## 四、排序
 
 ### 介绍
 
@@ -368,7 +547,7 @@ const onSort = ({ key, order }) => {
 
 [el-table-v2 多重排序 demo](https://codepen.io/zymbth/pen/KKxWPOG)
 
-## 四、筛选/过滤器
+## 五、筛选/过滤器
 
 ### 介绍
 
@@ -579,6 +758,8 @@ const onReset = dataKey => {
 
 #### 完整代码
 
+::: details
+
 ```html
 <script lang="jsx" setup>
   import { ref, reactive, onMounted } from 'vue'
@@ -766,9 +947,9 @@ const onReset = dataKey => {
 </template>
 ```
 
-`el-table-v2-utils.js`:
+el-table-v2-utils.js:
 
-```javascript
+```js
 /**
  * element-plus TableV2 筛选方法
  * @param {string} value 单元格数值
@@ -833,6 +1014,8 @@ function selectArrayFilterHandler(value, filter) {
 }
 ```
 
+:::
+
 **注意：** 对单元格数值的筛选也分为很多种
 
 - 最常见的，就是判断与选中筛选值是否相等(多选时，是否包含在内)。其它常见的判断有包含、以...开头、以...结尾、等等
@@ -849,6 +1032,8 @@ function selectArrayFilterHandler(value, filter) {
 如 TableV1 中提供的功能，有时候，我们需要添加默认筛选值；有些筛选项我们希望做成单选的形式。
 
 接上例，可更新代码如下：
+
+::: details
 
 ```javascript
 import CustomSelector from '@/components/custom-selector.vue'
@@ -1052,81 +1237,22 @@ CustomSelector 组件：单选列表（展开的 el-select ）
 </style>
 ```
 
-##### 多级表头
-
-官方文档在 TableV2 上给出的说法是“表头分组”，效果同 TableV1 不大一样。
-
-V1 是通过 `<el-table-column>` 嵌套实现，意义明确、实现简单，创建一个嵌套的 `columns` 列表就可以。
-
-V2 的实现是通过表格组件提供的 `header` 插槽
-
-```html
-<script setup>
-  const CustomizedHeader = ({ cells, columns, headerIndex }) => {
-    return cells
-  }
-</script>
-<template>
-  <el-table-v2 :columns="columns" :data="tableData" :width="666" :height="666">
-    <template #header="props">
-      <CustomizedHeader v-bind="props" />
-    </template>
-  </el-table-v2>
-</template>
-```
-
-类型:
-
-```typescript
-type HeaderSlotProps = {
-  cells: VNode[]
-  columns: Column<any>[]
-  headerIndex: number
-}
-```
-
-官方给出的示例中，`CustomizedHeader` 的生成过程非常 sao，对理解造成了很大干扰
-
-我的理解就是，官方已经把默认生成的表头 VNode 列表返回给我们了，我们自行处理。需要实现表头分级，并保持对齐
-
-假设 cells 长度为 5，也就是原有 5 个表头单元格，想要将第 3、4 个上加上一级表头
-
-```javascript
-const CustomizedHeader = ({ cells, columns, headerIndex }) => {
-  const groupCells = []
-  for (let i = 0, len = columns.length; i < len; i++) {
-    if (i === 2) {
-      const width = cells[i].props.column.width + cells[i + 1].props.column.width
-      groupCells.push(
-        <div style={{ width: `${width}px` }}>
-          <div>Group</div>
-          <div style='display:flex'>
-            {cells[i]}
-            {cells[i + 1]}
-          </div>
-        </div>
-      )
-      i++
-    } else {
-      groupCells.push(cells[i])
-    }
-  }
-  return groupCells
-}
-```
-
-上例返回的 VNode 数比原本少了一个，将第 3、4 个单元格放在一个自定义的 div 元素中去了。该元素的内容及样式均需要自行处理
+:::
 
 ##### 多选时，不点击确定
 
 单选组件设置了监听事件，无需点击确定即可触发筛选事件
+
 而多选使用的多选框组，存储选中筛选值的变量是直接绑定到组件上的，示例中通过点击确定按钮手动触发筛选事件，不点击会导致的 UI 与实际筛选不符的问题
 
 想到两种解决方案，一是使用多选框组提供的 `change` 事件，代价是可能会筛选过于频繁。另一种是创建一个变量存储前一次筛选状态，每次执行筛选前与当前筛选状态进行对比，相同则不执行筛选
 
 方案一：更新 `headerCellRenderer`
+
 `<el-checkbox-group v-model={ filterableCols[col.dataKey].selected }>`
+
 ↓↓↓↓↓
+
 `<el-checkbox-group v-model={ filterableCols[col.dataKey].selected } onChange={ onFilter }>`
 
 方案二：
@@ -1164,7 +1290,7 @@ const onFilter = () => {
 }
 ```
 
-## 五、排序、筛选同时使用
+## 六、排序、筛选同时使用
 
 按前两节示例，排序、筛选当然可以同时实现，但需要处理数据上冲突
 
@@ -1191,6 +1317,7 @@ tableData.value = originData.value.filter(filterMethod)
 #### 方案一：创建中间变量
 
 额外创建一个变量 `tempData`，用它记录筛选后的数据，tableData 记录排序后的值
+
 `originData` -> `tempData` -> `tableData`
 
 - `originData` 更新时，`tempData`, `tableData` 重置为 `originData`
@@ -1203,7 +1330,7 @@ tableData.value = originData.value.filter(filterMethod)
 <el-table-v2 :data="tableData" ... />
 ```
 
-```javascript
+```js {2,6,12}
 const tableData = ref([]) // 表格当前数据（排序、筛选后）
 const tempData = ref([]) // 中间变量，对源数据的筛选
 const originData = ref([]) // 表格源数据
@@ -1241,9 +1368,9 @@ const onFilter = () => {
 
 筛选事件处理方法中，标识数据是否通过筛选(例如：添加 hidden 属性)，与方案一相比，代码改动较小：
 
-```javascript
+```js {16}
 const tableData = ref([]) // 表格当前数据（排序、筛选后）
-// const tempData = ref([])   // 中间变量，对源数据的筛选
+// const tempData = ref([])   // 中间变量，对源数据的筛选 // [!code --]
 const originData = ref([]) // 表格源数据
 
 // 源数据更新 -> 更新筛选项各自的可筛选列表, 执行筛选
@@ -1269,10 +1396,10 @@ watch(
 
 const onFilter = () => {
   // ...
-  // tempData.value = originData.value.filter(execFilter)
-  originData.value.forEach(val => {
-    val.hidden = !execFilter(val)
-  })
+  // tempData.value = originData.value.filter(execFilter) // [!code --]
+  originData.value.forEach(val => { // [!code ++]
+    val.hidden = !execFilter(val) // [!code ++]
+  }) // [!code ++]
 }
 ```
 
@@ -1282,28 +1409,56 @@ const onFilter = () => {
 
 此方法同样可以应用在上一节单独使用筛选功能时，可以做到只使用源数据。
 
-**注意：**
-上例中为了监听到源数据 hidden 的变化，进行了深层监听。如果具体业务中有其它逻辑需要频繁改动源数据其它属性，而又不需要更新排序、筛选。可以不使用 watch 监听，避免无意义的执行排序、筛选
+**两种方案对比：**
+
+第二种方案中，为了监听到源数据 hidden 的变化，进行了深层监听。如果具体业务中有其它逻辑需要频繁改动源数据其它属性，将会造成不必要的更新排序、筛选。
+
+tempData、tableData 仅仅是对列表数据内对象引用的拷贝，逻辑处理好就行，不存在对大批量数据的处理耗时问题。
 
 ### 其他
 
 为了突出排序已生效，可以加上样式
+
 `.el-table-v2__header-cell .el-table-v2__sort-icon.is-sorting {color:#387FE5}`
 
-## 六、总结
+## 七、坑
 
-TableV2 只加载可见区域以及前后预加载(可设置)的“行”，纵向滚动后全部重新加载一遍。只要数据拿到了，表格的加载速度很快，对表格的一些响应式操作反应也很快，如果表格数据量可能在几千行及以上，很有必要换掉 TableV1。
-
-TableV2 的问题在于它目前是全部重新加载，哪怕是纵向滑动了一行。
-
-### 遇到的坑
-
-**当设置了动态高度行（**`**estimated-row-height**`**）时，可能会发生严重的卡顿现象！（与表格数据总数无关）**
+**当设置了动态高度行（`estimated-row-height`）时，可能会发生严重的卡顿现象！（与表格数据总数无关）**
 
 调试发现，目前 TableV2 每滚动一次就重新加载一次表格内及预加载的行数，总单元格过多时，会让体验感在上面的场景下变得极差。
 
 以本人实际生产环境中的一个表格为例，表格一行有 17 个的单元格，一页显示 20 条数据，预先多加载的行数是 2，每一次需要渲染 17\*24=408 个单元格。连续纵向滚动会触发多次表格内容加载，轻微卡顿，有待优化，感觉可以提供一个属性作为连续滚动的节流处理开关。另一方面就是全部重新加载这个策略。
 
-上面说的是正常流程，不正常的是，当设置了动态高度且超出设定高度的行数不少时，一次滚动就会重复触发四五次，再加上连续滚动。假设一个只触发三次的连续滚动，408 *4*3=4896 个单元格渲染。如果你够年轻，手速够快，轻松破万。再加上，某些自定义渲染的单元格够“大”够“重”，那。。。
+上面说的是正常流程，不正常的是，当设置了动态高度且超出设定高度的行数不少时，一次滚动就会重复触发四五次，再加上连续滚动。假设一个只触发三次的连续滚动，408\*4\*3=4896 个单元格渲染。如果你够年轻，手速够快，轻松破万。再加上，某些自定义渲染的单元格够“大”够“重”，那。。。
 
 这个问题应该是个 bug，希望后续版本能修复
+
+## 八、总结
+
+**你真的需要虚拟化表格吗？**
+
+虚拟化表格不是一个可以无脑使用的方案，`element-plus` 的虚拟化表格甚至官方都不建议在生产环境中使用。
+
+最简单的，如果需求允许分页展示那就不要使用虚拟化表格！一方面，TableV1完全支持后端筛选、排序。另一方面，如果想避免频繁请求，最多就几千条数据，也可以一次请求所有数据，前端表格分页、前端筛选排序。
+
+**表格性能优化：**
+
+当注意到表格渲染耗时过长时，首先要去分析耗时的原因。如果只是纯文字展示，一两千行可能都很快，如果单元格内容过于丰富，一两百条就能让页面卡上几秒。
+
+打个比方，一个表格内，各有一项单元格包含`el-popover`、`el-tooltip`，前者的代价更大，而后者又远不如原生`title`属性方案。表格内有一项调用`el-dialog`，尽管一个相对复杂的模态框耗时远大于弹出框，但整项共用一个。前面提到的两种弹出框却是该项内每个单元格独享一个弹出框组件，此处耗时随表格数量线性增长。可以选择使用原生`title`属性作为替换方案，也可以自定义一个弹出框组件在表格内公用，等等。
+
+**Element Plus 虚拟化表格分析：**
+
+TableV2 只加载可见区域以及前后预加载(可设置)的“行”，纵向滚动后全部重新加载一遍。只要数据拿到了，表格的加载速度很快，对表格的一些响应式操作反应也很快，如果表格数据量可能在几千行及以上，很有必要换掉 TableV1。
+
+TableV2 的问题在于它目前是**全部重新加载**，哪怕是纵向滑动了一像素。
+
+当单元格过重时，尽管使用了虚拟化表格方案，仍然会导致使用体验差，体现为滚动不流畅、肉眼能察觉的闪烁。这种需求场景下，如果无法调整需求，建议换工具。
+
+**其它虚拟化表格：**
+
+已经有很多虚拟化表格工具了，这里列举两个功能完善、性能更强或体验更好的：
+
+[rsuite-table](https://github.com/rsuite/rsuite-table) 方案不同之处在于仍在可视范围内的行保持不变，仅作必要的增删（在使用EP的时候就很疑惑为什么不这么做）。可惜它是 React 表格组件
+
+[ag-grid](https://www.ag-grid.com/): 影响力大且极受欢迎的高性能表格组件，功能完备，支持js原生调用，也支持 vue/react/angular 框架。滚动时同样仅作必要的增删。使用它的代价就是依赖包会比较大。
