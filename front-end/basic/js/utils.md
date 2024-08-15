@@ -194,13 +194,18 @@ const randomNum = (min, max) => {
 }
 ```
 
+均等概率得生成 min - max 之间的随机整数
+
 ### 打乱数组顺序
 
 ```js
 const shuffleArray = (arr) => {
-  return arr.sort(() => 0.5 - Math.random())
+  arr.sort(() => 0.5 - Math.random())
+  // return arr.toSorted(() => 0.5 - Math.random())
 }
 ```
+
+直接更改原数组。也可以选择不更改原数组，返回乱序后的数组。
 
 ### 格式化货币，千分位数字
 
@@ -232,6 +237,108 @@ function manualDelay(val, delay = 2000) {
 ### base64编码、解码(含中文)
 
 [中文的字符串base64编码、解码](/front-end/basic/js/base64-zh)
+
+### 生成颜色渐变列表
+
+```js
+/**
+ * JavaScript 计算两个颜色之间的渐变色值
+ *
+ * @author kmxz
+ * @see https://www.zhihu.com/question/38869928/answer/78527903
+ * @param {string} start - 渐变的起始颜色
+ * @param {string} end - 渐变的结束颜色
+ * @param {number} steps - 渐变中的颜色总数，表示生成几种颜色
+ * @param {number} [gamma=1] - 控制颜色渐变的非线性透明度，默认值为 1
+ * @returns {string[]} - 返回一个包含渐变颜色的数组，每个颜色的格式为十六进制字符串
+ * @example
+ * gradientColors('#000', '#fff', 100, 2.2)
+ * gradientColors('#0000ff', '#ff0000', 10)
+ */
+function gradientColors(start, end, steps, gamma = 1) {
+  let i, j, ms, me, output = [], so = []
+  const normalize = channel => Math.pow(channel / 255, gamma)
+  // convert #hex notation to rgb array
+  const parseColor = hexStr =>
+    hexStr.length === 4
+      ? hexStr
+          .substr(1)
+          .split('')
+          .map(function (s) {
+            return 0x11 * parseInt(s, 16)
+          })
+      : [hexStr.substr(1, 2), hexStr.substr(3, 2), hexStr.substr(5, 2)].map(s => parseInt(s, 16))
+  // zero-pad 1 digit to 2
+  const pad = s => (s.length === 1 ? '0' + s : s)
+
+  start = parseColor(start).map(normalize)
+  end = parseColor(end).map(normalize)
+  for (i = 0; i < steps; i++) {
+    ms = i / (steps - 1)
+    me = 1 - ms
+    for (j = 0; j < 3; j++) {
+      so[j] = pad(Math.round(Math.pow(start[j] * me + end[j] * ms, 1 / gamma) * 255).toString(16))
+    }
+    output.push('#' + so.join(''))
+  }
+  return output
+}
+```
+
+### 对象转formdata格式
+
+```js
+/**
+ * 对象转formdata格式
+ *
+ * @param {Object} obj
+ * @returns
+ */
+function objToFormData(obj) {
+  const formData = new FormData()
+  if (typeof obj !== 'object') return formData
+  Object.entries(obj).forEach(([k, v]) => {
+    switch (mTypeof(v)) {
+      case 'string':
+      case 'number':
+      case 'boolean':
+      case 'file':
+      case 'blob':
+      case 'regexp':
+      case 'date':
+        formData.append(k, v)
+        break
+      case 'object':
+        formData.append(k, JSON.stringify(v))
+        break
+      case 'array':
+        v.forEach(p => formData.append(k, p))
+        break
+      case 'set':
+        for (let p of v) formData.append(k, p)
+        break
+      case 'null':
+      case 'undefined':
+        formData.append(k, '')
+        break
+      case 'map':
+      case 'function':
+      default:
+        break
+    }
+  })
+  return formData
+}
+
+function mTypeof(value) {
+  return value instanceof Element
+    ? 'element'
+    : Object.prototype.toString
+        .call(value)
+        .replace(/\[object\s(.+)\]/, '$1')
+        .toLowerCase()
+}
+```
 
 ## DOM
 
