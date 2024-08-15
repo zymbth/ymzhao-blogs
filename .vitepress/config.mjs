@@ -135,6 +135,7 @@ export default withPwa(
             link: '/front-end/others/syntactic-highlighting-and-marked',
           },
           { text: 'vitepress静态站点生成', link: '/front-end/others/vitepress-usage' },
+          { text: 'xlsx导出excel功能封装', link: '/front-end/others/xlsx-export-excel' },
         ],
         '/front-end/snippets/': [
           { text: 'vue中监听window.resize事件', link: '/front-end/snippets/vue-watch-resize' },
