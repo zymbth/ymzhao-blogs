@@ -145,6 +145,8 @@ export default withPwa(
           { text: 'vue-cli项目中使用cdn外链引入依赖', link: '/front-end/snippets/cdn-import' },
           { text: '快速应用静态代码分析', link: '/front-end/snippets/code-formatting' },
           { text: '合并连续请求', link: '/front-end/snippets/merge-continuous-async' },
+          { text: 'crypto-js 加密', link: '/front-end/snippets/encrypt' },
+          { text: 'js实现可拖拽移动框', link: '/front-end/snippets/draggable-block' },
         ],
         '/back-end/': [
           {
