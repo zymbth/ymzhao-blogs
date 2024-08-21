@@ -17,22 +17,46 @@ head:
 
 创建组件时，将事件绑定在document上，销毁组件时，再移除该事件
 
-```javascript
+::: code-group
+
+```js [vue2及vue3选项式API]
 created() {
   document.addEventListener('keyup', this.escEvent)
 },
 methods: {
-	escEvent(){
-		if(window?.event?.keyCode == 27) this.closeComp()
-	},
-	closeComp() {
-		// ...
-	}
+  escEvent(){
+    if(window?.event?.keyCode == 27) this.closeComp()
+  },
+  closeComp() {
+    // ...
+  }
 }
 beforeUnmount() {
   document.removeEventListener('keyup', this.escEvent)
 },
 ```
+
+```js [vue3组合式API]
+import { onMounted, onBeforeUnmount } from 'vue'
+
+onMounted(() => {
+  document.addEventListener('keyup', escEvent)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keyup', escEvent)
+})
+
+function escEvent () {
+  if(window?.event?.keyCode == 27) closeComp()
+}
+
+function closeComp () {
+  // ...
+}
+```
+
+:::
 
 需要注意的时，addEventListener，removeEventListener的第二个参数需指向同一function。否则，后者将不会生效。
 

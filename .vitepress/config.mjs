@@ -182,7 +182,6 @@ export default withPwa(
             ],
           },
         ],
-        // '/study/source-code/': [{ text: 'Mitt源码学习', link: '/study/source-code/mitt' }],
         '/study/': [
           { text: '阅读', items: [{ text: 'Set新方法学习', link: '/study/read/set-methods' }] },
           {

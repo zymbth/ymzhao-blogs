@@ -59,7 +59,7 @@ head:
 
 #### npm库
 
-AI回答，未验证：
+::: details AI回答，未验证
 
 There are several npm libraries that can convert images into progressive images. Here are a few examples:
 
@@ -85,6 +85,8 @@ sharp('input.jpg')
 ```
 
 This code will convert the input.jpg image into a progressive image and save it as output.jpg. The interlace option is set to plane to indicate that the image should be converted into a progressive image.
+
+:::
 
 ## 二、云存储
 

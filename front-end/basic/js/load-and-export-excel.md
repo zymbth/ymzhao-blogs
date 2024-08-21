@@ -10,11 +10,13 @@ head:
 
 [Git仓库地址](https://github.com/zymbth/Editable_table)
 
+更规范的excel导出功能参考另一篇文章[xlsx导出excel功能封装，按需引入并可在vue等现代化框架中使用](/front-end/others/xlsx-export-excel)
+
 ## 一、导入Excel数据
 
 从本地Excel中导入已有的数据，以免去手动复制粘贴的麻烦
 
-**环境**：vue2 + ElementUI
+**环境**：`vue2` + `element-ui`
 
 关键代码如下：
 

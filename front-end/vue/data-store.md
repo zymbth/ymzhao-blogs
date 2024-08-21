@@ -184,3 +184,5 @@ emitter.off('foo', onFoo)  // unlisten
 :::
 
 有时间可以看看它的[源码](https://github.com/developit/mitt/blob/main/src/index.ts)，非常精简，几分钟就能看完
+
+或者查看另一篇文章[Mitt源码学习](/study/source-code/mitt)

@@ -15,5 +15,9 @@
   "dependencies": {
     "v-viewer": "^3.0.13",
     "viewerjs": "^1.11.6"
+  },
+  "volta": {
+    "node": "18.20.4",
+    "pnpm": "9.7.1"
   }
 }
