@@ -7,3 +7,8 @@
   font-family: 'JetBrains Mono';
   src: url(./JetBrainsMono-Regular.woff2) format('woff2');
 }
+
+@font-face {
+  font-family: '霞鹜文楷';
+  src: url(./霞鹜文楷.ttf);
+}
