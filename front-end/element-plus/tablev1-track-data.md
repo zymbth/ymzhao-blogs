@@ -19,6 +19,20 @@ Element Plus 的表格组件提供了筛选功能
 
 第一种情况下，数据统计由后端直接返回。这里，讨论的是第二种情况
 
+::: details 在线演示
+
+[在线演示](https://codepen.io/zymbth/pen/zYLPzjB) （示例基于 element-plus@2.2.9, vue@3.2.37）
+
+<ClientOnly>
+  <iframe height="500" style="width: 100%;" scrolling="no" title="[Demo] Watch Element Plus Table Entries" src="https://codepen.io/zymbth/embed/preview/zYLPzjB?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+    See the Pen <a href="https://codepen.io/zymbth/pen/zYLPzjB">
+    [Demo] Watch Element Plus Table Entries</a> by zymbth (<a href="https://codepen.io/zymbth">@zymbth</a>)
+    on <a href="https://codepen.io">CodePen</a>.
+  </iframe>
+</ClientOnly>
+
+:::
+
 ## 一、需求
 
 想要实现的是在上述第二种情况下，在进行前端筛选、重新获取数据等改变表格内数据总数的操作后，获取该总数。

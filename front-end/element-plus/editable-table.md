@@ -35,6 +35,18 @@ head:
 ![在这里插入图片描述](./assets/82c382fd10354a6c871bf1d66f11c7c6.png)
 ![在这里插入图片描述](./assets/ea781fa8dcb5460882ae7db8f82ba9db.png)
 
+::: details 在线演示
+
+<ClientOnly>
+  <iframe height="500" style="width: 100%;" scrolling="no" title="Editable Table V1 (vue3 &amp; Element Plus)" src="https://codepen.io/zymbth/embed/preview/BaJpvoO?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+    See the Pen <a href="https://codepen.io/zymbth/pen/BaJpvoO">
+    Editable Table V1 (vue3 &amp; Element Plus)</a> by zymbth (<a href="https://codepen.io/zymbth">@zymbth</a>)
+    on <a href="https://codepen.io">CodePen</a>.
+  </iframe>
+</ClientOnly>
+
+:::
+
 ### 1.1 首先最基本的，根据数据生成固定表项的表格
 
 从官网摘个Demo过来：
@@ -275,6 +287,18 @@ addColumn(idx) { // 新增列
 
 右键编辑行列：
 ![在这里插入图片描述](./assets/b5831f46bcae40dc9e4ea173d5d8e930.png)
+
+::: details 在线演示
+
+<ClientOnly>
+  <iframe height="500" style="width: 100%;" scrolling="no" title="Editable Table V2 (vue3 &amp; Element Plus)" src="https://codepen.io/zymbth/embed/preview/gOogZMK?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+    See the Pen <a href="https://codepen.io/zymbth/pen/gOogZMK">
+    Editable Table V2 (vue3 &amp; Element Plus)</a> by zymbth (<a href="https://codepen.io/zymbth">@zymbth</a>)
+    on <a href="https://codepen.io">CodePen</a>.
+  </iframe>
+</ClientOnly>
+
+:::
 
 这个思路的实现代码很简洁清晰，就不像上一个那么详细写了
 
