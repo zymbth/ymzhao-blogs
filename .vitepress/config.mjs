@@ -29,7 +29,7 @@ export default withPwa(
           ],
         },
         { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
-        { text: '📝笔记', link: '/study/note/check-omissions-of-basic' },
+        { text: '📝笔记', link: '/study/note/review-vue-base' },
       ],
 
       sidebar: {
@@ -187,8 +187,9 @@ export default withPwa(
           {
             text: '笔记',
             items: [
-              { text: 'vue3查缺补漏-基础', link: '/study/note/check-omissions-of-basic' },
-              { text: 'vue3查缺补漏-组件', link: '/study/note/check-omissions-of-component' },
+              { text: 'Array查缺补漏', link: '/study/note/review-array' },
+              { text: 'vue3查缺补漏-基础', link: '/study/note/review-vue-base' },
+              { text: 'vue3查缺补漏-组件', link: '/study/note/review-vue-component' },
             ],
           },
           {
