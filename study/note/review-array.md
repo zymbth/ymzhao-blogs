@@ -217,23 +217,23 @@ Array.prototype.entries()
 
 :::
 
-### Array.prototype.push()
+### push
 
 追加元素到数组末尾(可以添加多个)，返回新数组长度，会改变原数组
 
-### Array.prototype.pop()
+### pop
 
 从数组中删除最后一个元素，并返回该元素的值，会改变原数组
 
-### Array.prototype.shift()
+### shift
 
 从数组中删除第一个元素，并返回该元素的值，会改变原数组
 
-### Array.prototype.unshift()
+### unshift
 
 将指定元素添加到数组的开头(可以添加多个)，并返回数组的新长度，会改变原数组
 
-### Array.prototype.splice()
+### splice
 
 就地移除或者替换已存在的元素和/或添加新的元素，返回删除的元素数组，会改变原数组。
 
@@ -255,11 +255,11 @@ splice(start, deleteCount, item1, item2, /* …, */ itemN)
 
 `items`: 从 start 开始要加入到数组中的元素，不设置则只作删除操作
 
-### Array.prototype.toSpliced()
+### toSpliced
 
 `Array.prototype.splice()` 的复制版本，不改变原数组
 
-### Array.prototype.sort()
+### sort
 
 就地对数组的元素进行排序，并返回对相同数组的引用。默认排序是将元素转换为字符串，然后按照它们的 UTF-16 码元值升序排序。会改变原数组
 
@@ -277,19 +277,19 @@ const arr = [3, 1, 4, 8, 2]
 arr.sort((a, b) => a - b) // [1, 2, 3, 4, 8]
 ```
 
-### Array.prototype.toSorted()
+### toSorted
 
 `Array.prototype.sort()` 的复制版本，不改变原数组
 
-### Array.prototype.reverse()
+### reverse
 
 就地反转数组中的元素，并返回同一数组的引用，会改变原数组
 
-### Array.prototype.toReversed()
+### toReversed
 
 `Array.prototype.reverse()` 的复制版本，不改变原数组
 
-### Array.prototype.flat()
+### flat
 
 创建一个新的数组，并根据指定深度递归地将所有子数组元素拼接到新的数组中，也即展平数组。不改变原数组
 
@@ -316,7 +316,7 @@ const arr3 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]]
 arr3.flat(Infinity) // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
-### Array.prototype.fill()
+### fill
 
 用一个固定值填充一个数组中从起始索引（默认为 0）到终止索引（默认为 array.length）内的全部元素。它返回修改后的数组。会改变原数组
 
@@ -347,7 +347,7 @@ Array.prototype.fill.call(arrayLike, 1) // { '0': 1, '1': 1, length: 2 }
 
 `start`, `end` 可使用负数进行“倒数”
 
-### Array.prototype.with()
+### with
 
 使用方括号表示法修改指定索引值的复制方法版本。它会返回一个新数组，不会改变原数组
 
@@ -373,7 +373,7 @@ arr1.with(0, 2) // [2, undefined, 3, 4, undefined, 6]
 
 with() 方法永远不会产生稀疏数组。如果原数组是稀疏的，新数组对应的空白索引位置会替换为 undefined。
 
-### Array.prototype.copyWithin()
+### copyWithin
 
 浅复制数组的一部分到同一数组中的另一个位置，并返回它，会改变原数组。
 
@@ -402,3 +402,196 @@ console.log([1, 2, 3, 4, 5].copyWithin(0, 3, 4)) // [4, 2, 3, 4, 5]
 
 - 先复制指定的区段 `[start, end)`（根据 start,end 的默认值，默认的复制区段为整个序列）
 - 然后从 `target` 处开始粘贴（复制区段“用完”或者粘贴到序列最后结束）
+
+### includes
+
+判断一个数组是否包含一个指定的值
+
+::: code-group
+
+```js [语法]
+includes(searchElement)
+includes(searchElement, fromIndex)
+```
+
+```js [示例]
+console.log([1, 2, 3].includes(2)) // true
+console.log([1, 2, 3].includes(3, 3)) // false
+console.log([1, 2, 3].includes(3, -1)) // true
+console.log([1, 2, NaN].includes(NaN)) // true
+console.log(['1', '2', '3'].includes(3)) // false
+// 可以在稀疏数组中搜索 undefined
+console.log([1, , 3].includes(undefined)) // true
+```
+
+:::
+
+注意：
+
+- includes() 方法使用零值相等算法，NaN 可以被正确搜索到。
+- 当在稀疏数组上使用时，includes() 方法迭代空槽，就像它们的值是 undefined 一样
+
+### indexOf
+
+返回数组中第一次出现给定元素的下标，如果不存在则返回 -1
+
+::: code-group
+
+```js [语法]
+indexOf(searchElement)
+indexOf(searchElement, fromIndex)
+```
+
+```js [示例]
+const array = [2, 9, 9]
+array.indexOf(2) // 0
+array.indexOf(7) // -1
+array.indexOf(9, 2) // 2
+array.indexOf(2, -3) // 0
+// 不能使用 indexOf() 来搜索 NaN
+console.log([NaN].indexOf(NaN)) // -1
+// 不能使用 indexOf() 在稀疏数组中搜索空槽
+console.log([1, , 3].indexOf(undefined)) // -1
+```
+
+:::
+
+注意：
+
+- indexOf() 使用严格相等（与 === 运算符使用的算法相同）。NaN 值永远不会被比较为相等，因此当 searchElement 为 NaN 时 indexOf() 总是返回 -1。
+- indexOf() 方法会跳过稀疏数组中的空槽。
+
+### lastIndexOf
+
+返回数组中给定元素最后一次出现的索引，如果不存在则返回 -1。该方法从 fromIndex 开始向前搜索数组。
+
+语法和要点类似 `indexOf`
+
+### find
+
+返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
+
+::: code-group
+
+```js [语法]
+find(callbackFn)
+find(callbackFn, thisArg)
+```
+
+```js [示例]
+const inventory = [
+  { name: 'apples', quantity: 2 },
+  { name: 'bananas', quantity: 0 },
+  { name: 'cherries', quantity: 5 },
+]
+
+const result = inventory.find(({ name }) => name === 'cherries')
+
+console.log(result) // { name: 'cherries', quantity: 5 }
+```
+
+:::
+
+find() 不会改变被调用的数组，但是提供给 callbackFn 的函数可能会改变它。但需要注意的是，在第一次调用 callbackFn 之前，数组的长度会被保存。
+
+### findLast
+
+反向迭代数组，并返回满足提供的测试函数的第一个元素的值。如果没有找到对应元素，则返回 undefined。
+
+语法和要点类似 `find`
+
+### findIndex
+
+返回数组中满足提供的测试函数的第一个元素的索引。若没有找到对应元素则返回 -1。
+
+语法和要点类似 `find`
+
+### findLastIndex
+
+反向迭代数组，并返回满足所提供的测试函数的第一个元素的索引。若没有找到对应元素，则返回 -1。
+
+语法和要点类似 `find`
+
+### at
+
+接收一个整数值并返回该索引对应的元素，允许正数和负数。负整数从数组中的最后一个元素开始倒数。
+
+::: code-group
+
+```js [语法]
+at(index)
+```
+
+```js [示例]
+console.log(['apple', 'banana', 'pear'].at(-1)) // pear
+```
+
+:::
+
+### forEach
+
+对数组的每个元素执行一次给定的函数
+
+::: code-group
+
+```js [语法]
+forEach(callbackFn)
+forEach(callbackFn, thisArg)
+```
+
+```js [示例]
+const logArrayElements = (element, index /*, array */) => console.log(`a[${index}] = ${element}`)
+
+// 不会为空槽调用回调函数
+;[2, 5, , 9].forEach(logArrayElements)
+// logs:
+// a[0] = 2
+// a[1] = 5
+// a[3] = 9
+```
+
+:::
+
+forEach() 方法是一个**迭代方法**。它按索引升序地为数组中的每个元素调用一次提供的 callbackFn 函数。与 map() 不同，forEach() 总是返回 undefined。
+
+同 `find` 类似，第一次调用 callbackFn 之前，**数组的长度已经被保存**。
+
+::: details 个人理解
+
+调用 callbackFn 期间对数组后续元素的更改会影响后续的迭代，主要体现在长度及访问时元素的值上。可以简单的理解为：
+
+```js
+for (let i = 0, len = arr.length; i < len; i++) {
+  // ...
+}
+```
+
+哪怕在迭代中删除了部分元素，迭代次数仍然是原数组长度
+
+前次迭代中更改了后续元素，迭代至该元素时，访问的是更改后的值
+
+:::
+
+### map
+
+创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成
+
+### every
+
+### some
+
+### reduce
+
+### reduceRight
+
+### flatMap
+
+### slice
+
+### concat
+
+### join
+
+### toString
+
+### toLocaleString
