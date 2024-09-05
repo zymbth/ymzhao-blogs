@@ -139,6 +139,7 @@ export default withPwa(
         ],
         '/front-end/snippets/': [
           { text: 'vue中监听window.resize事件', link: '/front-end/snippets/vue-watch-resize' },
+          { text: 'vue组件中监听或拦截窗口关闭事件', link: '/front-end/snippets/event-beforeunload' },
           { text: '处理packageManager的异常', link: '/front-end/snippets/package-manager-warn' },
           { text: 'docker部署前端项目', link: '/front-end/snippets/deploy-via-docker' },
           { text: '导出svg为图片', link: '/front-end/snippets/export-svg-image' },
