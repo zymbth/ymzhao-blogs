@@ -149,6 +149,7 @@ export default withPwa(
           { text: '合并连续请求', link: '/front-end/snippets/merge-continuous-async' },
           { text: 'crypto-js 加密', link: '/front-end/snippets/encrypt' },
           { text: 'js实现可拖拽移动框', link: '/front-end/snippets/draggable-block' },
+          { text: '使用compressorjs压缩图片', link: '/front-end/snippets/compressorjs' },
         ],
         '/back-end/': [
           {
