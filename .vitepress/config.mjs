@@ -188,7 +188,7 @@ export default withPwa(
           {
             text: '笔记',
             items: [
-              { text: 'Array查缺补漏', link: '/study/note/review-array' },
+              // { text: 'Array查缺补漏', link: '/study/note/review-array' },
               { text: 'vue3查缺补漏-基础', link: '/study/note/review-vue-base' },
               { text: 'vue3查缺补漏-组件', link: '/study/note/review-vue-component' },
             ],

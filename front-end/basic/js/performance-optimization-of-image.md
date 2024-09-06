@@ -37,7 +37,7 @@ head:
 
 [squoosh](https://squoosh.app/) : 简单好用的在线图片压缩工具，功能强大，可自由设置画质、尺寸等参数，还可转换图片格式
 
-[img-compressor](https://github.com/IronPans/img-compressor) : 一个简单高效的JS图片压缩库
+[compressorjs](https://github.com/fengyuanchen/compressorjs) : 一个简单高效的JS图片压缩库
 
 过度压缩会影响清晰度，另外，网站图片过多时，效果受限，也无法从根本上解决
 
