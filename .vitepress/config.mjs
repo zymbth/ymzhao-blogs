@@ -125,6 +125,10 @@ export default withPwa(
             text: '虚拟化表格组件的使用(排序、筛选、自定义单元格渲染)',
             link: '/front-end/element-plus/tablev2',
           },
+          {
+            text: 'ElementPlus ElAutoResizer 组件的使用',
+            link: '/front-end/element-plus/auto-resizer',
+          },
         ],
         '/front-end/nodejs/': [
           { text: '基于 nodejs 的邮件服务', link: '/front-end/nodejs/mailer-service' },
@@ -139,7 +143,10 @@ export default withPwa(
         ],
         '/front-end/snippets/': [
           { text: 'vue中监听window.resize事件', link: '/front-end/snippets/vue-watch-resize' },
-          { text: 'vue组件中监听或拦截窗口关闭事件', link: '/front-end/snippets/event-beforeunload' },
+          {
+            text: 'vue组件中监听或拦截窗口关闭事件',
+            link: '/front-end/snippets/event-beforeunload',
+          },
           { text: '处理packageManager的异常', link: '/front-end/snippets/package-manager-warn' },
           { text: 'docker部署前端项目', link: '/front-end/snippets/deploy-via-docker' },
           { text: '导出svg为图片', link: '/front-end/snippets/export-svg-image' },
