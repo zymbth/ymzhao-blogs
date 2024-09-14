@@ -87,6 +87,10 @@ export default withPwa(
             link: '/front-end/vue/switch-within-route',
           },
           { text: 'vue组件中监听键盘/按键事件', link: '/front-end/vue/watch-keyup-event' },
+          {
+            text: 'vue-router在新的标签页打开链接/路由',
+            link: '/front-end/vue/open-route-on-new-tab.md',
+          },
         ],
         '/front-end/engineering/': [
           { text: 'node环境管理', link: '/front-end/engineering/manage-node' },
