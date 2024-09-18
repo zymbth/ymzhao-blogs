@@ -8,6 +8,8 @@ head:
 
 # vue-router 在新的标签页打开链接/路由
 
+分别讨论调用 API 及使用 RouterLink 组件两种场景下如何在新的标签页中打开链接/路由
+
 ## 调用 API
 
 vue-router 的路由实例除了常见的 push, replace, go 等接口，还提供了一个很好用的接口 [resolve](https://router.vuejs.org/zh/api/interfaces/Router.html#Methods-resolve)，可用于解析路由，第一个参数类型与 push/replace 一致。
@@ -28,13 +30,13 @@ function handleGoEditReport({ no }) {
 
 与 push 的使用差别不大
 
-## RouterView 组件
+## RouterLink 组件
 
-vue-router 的 RouterView 组件是在当前页面内跳转路由，有些场景下会要求在新标签页中打开。
+vue-router 的 RouterLink 组件是在当前页面内跳转路由，有些场景下会要求在新标签页中打开。
 
-RouterView 组件实际上还是渲染成 `<a>` 标签，参考[源码](https://github.com/vuejs/router/blob/main/packages/router/src/RouterLink.ts#L309-L327)
+RouterLink 组件实际上还是渲染成 `<a>` 标签，参考[源码](https://github.com/vuejs/router/blob/main/packages/router/src/RouterLink.ts#L309-L327)
 
-::: details RouterView renderer 源码片段
+::: details RouterLink renderer 源码片段
 
 ```js{5-7,9,20}
 // ...
@@ -65,19 +67,29 @@ setup(props, { slots }) {
 
 :::
 
-该组件属性中也没有关于 target 的属性([源码](https://github.com/vuejs/router/blob/main/packages/router/src/RouterLink.ts#L269-L283))。
+未设置 target，该组件属性中也没有关于 target 的属性([源码](https://github.com/vuejs/router/blob/main/packages/router/src/RouterLink.ts#L269-L283))。
 
 下面提供几个方案
 
-### 1. 转为调用 API
+### 1. 直接设置 target 属性
 
-参照上一部分的方法，弃用 RouterView，转成调用 API
+由于 RouterLink 默认只有一个 `<a>` 标签作为根元素，直接在 RouterLink 上设置 target 属性，vue 的特性使它被绑定到 `<a>` 标签上。
+
+```vue
+<template>
+  <router-link :to="{ name: 'ReportDetail', params: { rid: 'A00000001' } }" target="_blank"
+    >GO</router-link
+  >
+</template>
+```
+
+这是最简单直接的解决方案，一开始略过了它，因为印象中很早就试过此方案但未生效。既然此方案有效，后面几种方案看看就行了。。。
 
 ### 2. 自定义链接组件
 
 组合式 API - [useLink](https://router.vuejs.org/zh/guide/advanced/composition-api.html#useLink)
 
-参照官网示例，承接 RouterView 所有属性，使用组合式 API 解析得到所需的链接信息，再按具体需求生成目标路由链接。
+参照官网示例，承接 RouterLink 所有属性，使用组合式 API 解析得到所需的链接信息，再按具体需求渲染组件。
 
 ### 3. 插槽 + custom 属性
 
@@ -97,11 +109,11 @@ setup(props, { slots }) {
 
 ### 4. 添加 vue 自定义指令-绑定路由 target
 
-由于 RouterView 组件最终会渲染成 `<a>` 标签，添加一个指令用于绑定链接的 target 属性即可
+由于 RouterLink 组件最终会渲染成 `<a>` 标签，添加一个指令用于绑定链接的 target 属性即可
 
 ::: code-group
 
-```js [main.js 注册自定义指令]
+```js [main.js 定义并注册自定义指令]
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -127,7 +139,3 @@ app.mount('#app')
 ```
 
 :::
-
-### 小节
-
-RouterView 组件的“新标签页打开”需求个人更倾向于添加一个自定义指令
