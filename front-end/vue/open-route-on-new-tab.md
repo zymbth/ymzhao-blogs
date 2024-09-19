@@ -1,5 +1,5 @@
 ---
-description: vue-router 在新的标签页打开链接/路由，由于官方没有提供对链接target属性的配置，要实现这个需求，需要自行实现，这里提供几个方案供参考。
+description: vue-router 在新的标签页打开链接/路由。分别讨论调用 API 及使用 RouterLink 组件两种场景下如何在新的标签页中打开链接/路由，这里提供几个方案供参考。
 head:
   - - meta
     - name: keywords

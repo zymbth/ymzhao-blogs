@@ -10,7 +10,12 @@ export default withPwa(
     description: '欢迎来到我的角落，记录琐碎的技术思考与经验分享。',
     // base: '/ymzhao-blogs/',
     cleanUrls: true,
-    head: [['link', { rel: 'icon', href: '/icon.svg' }]],
+    head: [
+      ['link', { rel: 'icon', href: '/icon.svg' }],
+      ['meta', { name: 'author', content: 'Yuemin Zhao' }],
+      // https://wiki.whatwg.org/wiki/MetaExtensions
+      // ['link', { rel: 'schema.dc', href: 'http://purl.org/dc/elements/1.1/' }],
+    ],
     themeConfig: {
       siteTitle: 'Corner Blog',
       logo: '/icon.svg',
@@ -252,6 +257,7 @@ export default withPwa(
       darkModeSwitchTitle: '切换到深色模式',
       sidebarMenuLabel: '菜单',
       returnToTopLabel: '回到顶部',
+      externalLinkIcon: true,
 
       search: {
         provider: 'local',
