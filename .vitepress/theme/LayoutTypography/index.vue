@@ -1,7 +1,9 @@
 <script setup>
-import { nextTick, provide, computed } from 'vue'
-import { useData, useRoute } from 'vitepress'
-import Comment from '../Comment.vue'
+import { nextTick, provide } from 'vue'
+import { useData } from 'vitepress'
+import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
+import Home from './Home.vue'
+import Page from './Page.vue'
 
 const { page, isDark, frontmatter } = useData()
 
@@ -37,24 +39,11 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
     }
   )
 })
-
-const route = useRoute()
-const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''))
 </script>
 <template>
-  <div v-if="frontmatter.layout !== false" class="Layout" :class="frontmatter.pageClass">
-    <div class="VPContent" id="VPContent" :class="{ 'is-home': frontmatter.layout === 'home' }">
-      <div class="content">
-        <div class="content-container">
-          <main class="main">
-            <Content class="vp-doc" :class="[pageName]" />
-          </main>
-          <Comment :key="page.relativePath" />
-        </div>
-      </div>
-    </div>
-  </div>
-  <Content v-else />
+  <NotFound v-if="page.isNotFound" />
+  <Home v-else-if="frontmatter.layout === 'home'" />
+  <Page v-else />
 </template>
 <style>
 .Layout {
