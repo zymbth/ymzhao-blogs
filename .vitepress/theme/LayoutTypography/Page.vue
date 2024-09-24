@@ -4,13 +4,16 @@ import { useData, useRoute } from 'vitepress'
 import Comment from '../Comment.vue'
 
 const { page } = useData()
+// console.log('created: ', page.value?.frontmatter?.created)
 
 const route = useRoute()
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''))
 </script>
 <template>
-  <main class="main">
-    <Content class="vp-doc" :class="[pageName]" />
+  <main class="px-7 py-10 of-x-hidden">
+    <div class="w-prose m-auto">
+      <Content class="vp-doc" :class="[pageName]" />
+      <Comment :key="page.relativePath" class="mt-24px" />
+    </div>
   </main>
-  <Comment :key="page.relativePath" />
 </template>

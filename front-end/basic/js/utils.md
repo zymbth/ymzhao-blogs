@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: js,util,工具方法
+created: '2024-09-01'
 ---
 
 # 实用 js 工具方法
