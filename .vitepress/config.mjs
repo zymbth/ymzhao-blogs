@@ -117,6 +117,10 @@ export default withPwa(
             text: '🐞uglifyjs压缩代码导致echarts图表UI异常',
             link: '/front-end/engineering/uglifyjs-echarts-bug',
           },
+          {
+            text: 'Rollup Annotation 警告处理',
+            link: '/front-end/engineering/filter-rollup-warn',
+          },
         ],
         '/front-end/element-plus/': [
           { text: 'Element Plus可编辑表格', link: '/front-end/element-plus/editable-table' },
