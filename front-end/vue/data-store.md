@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue,组件通讯,provide,store,状态管理,eventbus
+created: '2024-06-20'
 ---
 
 # vue3 局部状态管理

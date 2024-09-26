@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: Github Actions,实践,vue,nuxt,vitepress
+created: '2024-06-27'
 ---
 
 # Github Actions 使用记录

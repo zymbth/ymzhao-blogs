@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue,keyup
+created: '2021-09-06'
 ---
 
 # vue组件中监听键盘/按键事件

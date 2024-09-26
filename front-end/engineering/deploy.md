@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: 前端,部署,docker,服务器
+created: '2024-07-12'
 ---
 
 # 前端项目部署

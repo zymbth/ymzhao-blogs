@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vitepress,blogs,markdown,学习路线
+created: '2024-06-27'
 ---
 
 # vitepress静态站点生成

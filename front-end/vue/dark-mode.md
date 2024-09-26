@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue,elementplus,dark,暗黑模式
+created: '2022-06-29'
 ---
 
 # 基于 vue3 & element-plus 的暗黑模式

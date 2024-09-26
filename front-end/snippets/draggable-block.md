@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: draggable,移动框,拖拽,js
+created: '2024-08-15'
 ---
 
 # js实现可拖拽移动框

@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: packageManager,ERR_PNPM_BAD_PM_VERSION,pnpm,package-manager-strict,engines
+created: '2024-07-16'
 ---
 
 # 处理packageManager的异常

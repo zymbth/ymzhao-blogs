@@ -4,7 +4,9 @@ head:
   - - meta
     - name: keywords
       content: vue,beforeunload,窗口关闭,页面关闭,监听
+created: '2024-09-05'
 ---
+
 
 # vue组件中监听或拦截窗口关闭事件
 

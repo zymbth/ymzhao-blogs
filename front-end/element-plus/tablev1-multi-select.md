@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: elementplus,表格,连选,多选,shift
+created: '2023-02-14'
 ---
 
 # 实现 element-plus 表格多选时按 shift 进行连选的功能

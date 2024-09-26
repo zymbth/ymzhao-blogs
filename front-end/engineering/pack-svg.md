@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: svg,icon,sprite,vuecli,vite
+created: '2023-09-12'
 ---
 
 # vue项目中封装使用svg组件

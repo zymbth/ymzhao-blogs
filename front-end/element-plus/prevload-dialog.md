@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: elementplus,dialog,预加载
+created: '2023-09-21'
 ---
 
 # 预加载 Element Plus 的 Dialog 组件

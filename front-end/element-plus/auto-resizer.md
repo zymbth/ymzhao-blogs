@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: element-plus,ElAutoResizer,resize,宽度自适应
+created: '2023-09-13'
 ---
 
 # ElementPlus ElAutoResizer 组件的使用
