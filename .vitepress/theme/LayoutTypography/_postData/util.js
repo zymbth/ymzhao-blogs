@@ -57,7 +57,22 @@ function getCategoryByUrl(mdUrl) {
   return target ? { code: target, name: categoryMap[target] } : {}
 }
 
+function generateTitleByPath(mdUrl) {
+  if (!mdUrl || !/^(\/[\w-]+)+\/[\w-]+(\.html)?$/.test(mdUrl)) return mdUrl
+  const urlSegs = mdUrl.split('/').filter(Boolean)
+  let title = urlSegs[urlSegs.length - 1]
+    .split('-')
+    .filter(Boolean)
+    .map((w, index) => (index ? w : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join(' ')
+  title += `(${urlSegs
+    .slice(0, -1)
+    .map(p => categoryMap[p] || p)
+    .join(' / ')})`
+  return title
+}
+
 Object.freeze(categoryTree)
 Object.freeze(categoryMap)
 
-export { categoryTree, categoryMap, getCategoryByUrl }
+export { categoryTree, categoryMap, getCategoryByUrl, generateTitleByPath }
