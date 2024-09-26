@@ -110,4 +110,4 @@ docker完全可以完成这两步，更新也更加方便，但对服务器有�
 
 docker部署方法很多，最好自行查询文档攻略编写。
 
-这里提供一个[代码片段](/front-end/snippets/deploy-via-docker)仅供参考。
+这里提供一个[代码片段](/snippets/deploy-via-docker)仅供参考。
