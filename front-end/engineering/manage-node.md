@@ -35,7 +35,7 @@ pnpm 有多种安装方法，也可以实现切换 node 版本。
 
 ## package.json
 
-可使用 `packageManager` 指定包管理器版本，不符时，会报异常并中断npm命令的执行，参考[处理packageManager的异常](/front-end/snippets/package-manager-warn)
+可使用 `packageManager` 指定包管理器版本，不符时，会报异常并中断npm命令的执行，参考[处理packageManager的异常](/snippets/package-manager-warn)
 
 [package-json#engines](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#engines) 可指定 node/npm 范围，不符时，只会提示警告而不会异常中断。
 
