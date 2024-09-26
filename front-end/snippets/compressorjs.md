@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: compressorjs,压缩,图片,promise
+created: '2024-09-06'
 ---
 
 # 使用 compressorjs 压缩图片

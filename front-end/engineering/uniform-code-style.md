@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: ESLint,prettier,代码分析,格式化,换行符
+created: '2023-09-12'
 ---
 
 # 实践：新手使用 ESLint 进行项目代码检测与格式化

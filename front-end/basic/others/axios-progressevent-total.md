@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: axios,onDownloadProgress,progressEvent,total,0
+created: '2024-07-23'
 ---
 
 # axios下载进度api无法获取响应大小 <Badge type="danger" text="BUG" />

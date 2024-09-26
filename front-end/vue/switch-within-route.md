@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue,路径参数,不刷新
+created: '2022-02-28'
 ---
 
 # vue相同的组件实例间跳转页面不刷新的问题分析

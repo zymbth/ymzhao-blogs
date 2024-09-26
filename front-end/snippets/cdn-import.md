@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue-cli,webpack,cdn,externals,外部依赖,外链
+created: '2024-08-01'
 ---
 
 # vue-cli项目中使用cdn外链引入依赖

@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue,vue-router,target,router-link,resolve,新的标签页
+created: '2024-09-14'
 ---
 
 # vue-router 在新的标签页打开链接/路由

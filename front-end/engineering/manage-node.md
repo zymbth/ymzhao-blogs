@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: node,npm,管理,nvm,多版本
+created: '2024-07-17'
 ---
 
 # node环境管理

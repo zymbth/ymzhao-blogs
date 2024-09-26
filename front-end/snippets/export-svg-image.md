@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: svg,导出,export,image,图片
+created: '2024-07-17'
 ---
 
 # 导出svg为图片

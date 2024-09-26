@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: js,红宝书,学习笔记,迭代器,生成器
+created: '2022-04-24'
 ---
 
 # 第7章 迭代器与生成器

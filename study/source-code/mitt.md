@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: mitt,eventbus,事件总线,源码
+created: '2024-06-28'
 ---
 
 # Mitt源码学习

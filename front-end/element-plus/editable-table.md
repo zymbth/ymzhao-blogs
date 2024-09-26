@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue,elementplus,可编辑,表格
+created: '2020-03-07'
 ---
 
 # vue3 + Element Plus动态生成表格，并实现内容可编辑

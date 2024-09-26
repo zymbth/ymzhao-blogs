@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: text,overflow,多行,line-clamp,-webkit-box
+created: '2024-07-29'
 ---
 
 # 文本多行溢出样式

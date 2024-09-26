@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: javascript,文档注释,规范,文档
+created: '2023-09-12'
 ---
 
 # js 文档注释规范

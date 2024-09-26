@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: set,intersection,union,symmetricDifference,isSubsetOf,isDisjointFrom
+created: '2024-07-01'
 ---
 
 # Set新方法学习

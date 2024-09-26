@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: elementplus,elementui,表单验证
+created: '2021-10-18'
 ---
 
 # element-plus 表单验证使用 个人总结

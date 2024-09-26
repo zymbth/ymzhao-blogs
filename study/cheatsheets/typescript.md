@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: typescript,速查表,cheatsheets
+created: '2024-07-17'
 ---
 
 # typescript 速查表

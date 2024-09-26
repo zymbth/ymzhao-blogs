@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: xlsx,export,excel,vue,esm,按需引入
+created: '2024-08-15'
 ---
 
 # xlsx导出excel功能封装

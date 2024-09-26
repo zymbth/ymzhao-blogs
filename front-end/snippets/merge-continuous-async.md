@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: 合并请求,Promise,withResolvers
+created: '2024-08-14'
 ---
 
 # 合并连续请求

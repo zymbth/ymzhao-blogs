@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: vue,svg,封装,性能优化
+created: '2023-09-12'
 ---
 
 # vue 项目中使用 svg 组件

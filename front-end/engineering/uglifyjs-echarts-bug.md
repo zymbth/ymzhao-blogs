@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: uglifyjs-webpack-plugin,echarts,terser-webpack-plugin,vue-cli,webpack
+created: '2024-07-25'
 ---
 
 # uglifyjs压缩代码导致echarts图表UI异常 <Badge type="danger" text="BUG" />

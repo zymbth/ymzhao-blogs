@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: postgresql,数组,json,Mybatis,类型转换
+created: '2020-06-08'
 ---
 
 # PgSQL数组及json类型在Mybatis项目中的类型转换

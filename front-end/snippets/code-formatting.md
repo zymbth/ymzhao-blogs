@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: ESLint,Prettier,静态代码分析,格式化
+created: '2024-08-13'
 ---
 
 # 快速应用静态代码分析

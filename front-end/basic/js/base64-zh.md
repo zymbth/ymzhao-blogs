@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: base64,中文,TextEncoder,utf8
+created: '2024-06-25'
 ---
 
 # 中文字符串base64编码、解码

@@ -4,6 +4,7 @@ head:
   - - meta
     - name: keywords
       content: webpack,构建后移除,网站访问
+created: '2023-07-03'
 ---
 
 # 优化 Webpack 打包流程：打包完成后再删除旧文件，确保网站访问稳定
