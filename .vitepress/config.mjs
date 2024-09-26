@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { pwa } from './pwa'
 import UnoCSS from 'unocss/vite'
+import scanPostPlugin from '../vitepress-plugin-scan-post'
 
 // https://vitepress.dev/reference/site-config
 export default withPwa(
@@ -288,7 +289,7 @@ export default withPwa(
         host: '0.0.0.0',
         open: true,
       },
-      plugins: [UnoCSS()],
+      plugins: [UnoCSS(), scanPostPlugin()],
     },
     /* Vite PWA Options */
     pwa,
