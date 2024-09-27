@@ -53,9 +53,22 @@ vue3 组合式 API 风格中，使用 setup 语法糖创建的组件出现缓存
 >
 > [vue3 中使用 keepAlive 缓存路由组件不生效的情况记录](https://blog.csdn.net/weixin_40451732/article/details/139744930) > [vue3 中使用 keepAlive 缓存路由组件不生效的问题解决](https://www.cnblogs.com/suducn/p/18331108)
 
-### 1. 设置组件 name 选项
+### 1. 唯一命名单文件组件
 
-#### vue2 & vue3 非 setup 语法糖
+单文件组件命名时就考虑其唯一性
+
+```text
+src/xxx/index.vue -> src/xxx/xxxIndex.vue
+src/xxx/list.vue -> src/xxx/xxxList.vue
+src/yyy/index.vue -> src/xxx/yyyIndex.vue
+src/yyy/list.vue -> src/xxx/yyyList.vue
+```
+
+有人愿意为此更改代码规范吗？🤣
+
+### 2. 设置组件 name 选项
+
+#### • vue2 & vue3 非 setup 语法糖
 
 显示声明 `name` 选项即可
 
@@ -66,15 +79,15 @@ export default {
 }
 ```
 
-#### vue3 setup 语法糖
+#### • vue3 setup 语法糖
 
-既然 vue 3.2.34 及以上的版本中 setup 语法糖创建的单文件组件会生成 name 选项
+既然 vue 3.2.34 及以上的版本中 setup 语法糖创建的单文件组件会自动生成的 name 选项
 
-要么单文件组件命名时就考虑其唯一性
+如果单文件组件命名无法保证其唯一性
 
 要么，手动附加一个 script 声明 name 选项
 
-再或者，使用宏[defineOptions](https://cn.vuejs.org/api/sfc-script-setup.html#defineoptions)在组件内声明 name 选项
+或者，使用宏[defineOptions](https://cn.vuejs.org/api/sfc-script-setup.html#defineoptions)在组件内声明 name 选项
 
 ::: code-group
 
@@ -105,7 +118,7 @@ defineOptions({ name: 'Home' })
 
 script 的 lang 属性如有需保持一致
 
-#### jsx/tsx
+#### • jsx/tsx
 
 可使用 [defineComponent](https://cn.vuejs.org/api/general.html#definecomponent)，例如：
 
@@ -151,7 +164,7 @@ export default defineComponent({
 
 :::
 
-### 2. 外包一层组件声明 name 选项
+### 3. 外包一层组件声明 name 选项
 
 在 Component 组件中渲染包裹后的组件
 
