@@ -96,7 +96,11 @@ export default withPwa(
           { text: 'vue组件中监听键盘/按键事件', link: '/front-end/vue/watch-keyup-event' },
           {
             text: 'vue-router在新的标签页打开链接/路由',
-            link: '/front-end/vue/open-route-on-new-tab.md',
+            link: '/front-end/vue/open-route-on-new-tab',
+          },
+          {
+            text: '🐞vue3 KeepAlive 组件缓存失效 bug 分析',
+            link: '/front-end/vue/keep-alive-bug',
           },
         ],
         '/front-end/engineering/': [
