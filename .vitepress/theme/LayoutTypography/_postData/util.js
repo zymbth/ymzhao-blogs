@@ -6,12 +6,12 @@ const categoryTree = {
       code: 'front-end',
       name: '前端',
       children: [
-        { code: 'basic', name: '基础' },
+        { code: 'basic', name: '前端基础' },
         { code: 'nodejs', name: 'Nodejs' },
-        { code: 'engineering', name: '工程化' },
+        { code: 'engineering', name: '前端工程化' },
         { code: 'element-plus', name: 'Element Plus' },
         { code: 'vue', name: 'Vue' },
-        { code: 'others', name: '其它' },
+        { code: 'others', name: '前端杂项' },
       ],
     },
     {
@@ -28,9 +28,9 @@ const categoryTree = {
       code: 'study',
       name: '学习',
       children: [
-        { code: 'book', name: '书' },
         { code: 'note', name: '笔记' },
-        { code: 'read', name: '阅读' },
+        { code: 'book', name: '读书' },
+        { code: 'read', name: '读文' },
         { code: 'source-code', name: '源码学习' },
         { code: 'cheatsheets', name: '速查表' },
       ],
@@ -51,12 +51,20 @@ function getCategoryMap(n, res) {
 }
 
 function getCategoryByUrl(mdUrl) {
-  if (!mdUrl || !/^(\/[\w-]+)+\/[\w-]+(\.html)?$/.test(mdUrl)) return {}
-  const urlSegs = mdUrl.split('/').filter(Boolean).slice(0, -1)
-  const target = urlSegs.reverse().find(p => p in categoryMap)
-  return target ? { code: target, name: categoryMap[target] } : {}
+  if (!mdUrl || !/^(\/[\w-]+)+\/[\w-]+(\.html)?$/.test(mdUrl)) return []
+  return (
+    mdUrl
+      .split('/')
+      .filter(Boolean)
+      .slice(0, -1)
+      .reduce((prev, curr) => {
+        if (curr in categoryMap) prev.push(curr)
+        return prev
+      }, []) || []
+  )
 }
 
+// 根据post路径生成标题，例如 "/front-end/vue/vue-router.html" 生成 "Vue router(前端 / Vue)"
 function generateTitleByPath(mdUrl) {
   if (!mdUrl || !/^(\/[\w-]+)+\/[\w-]+(\.html)?$/.test(mdUrl)) return mdUrl
   const urlSegs = mdUrl.split('/').filter(Boolean)

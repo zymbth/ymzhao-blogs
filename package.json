@@ -1,11 +1,8 @@
 {
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview",
-    "git:build": "vitepress build --base /ymzhao-blogs/",
-    "mpa:build": "vitepress build --mpa",
-    "mpa-git:build": "vitepress build --mpa --base /ymzhao-blogs/"
+    "dev": "cross-env VITEPRESS_MODE=dev vitepress dev",
+    "build": "cross-env VITEPRESS_MODE=prod vitepress build",
+    "preview": "vitepress preview"
   },
   "dependencies": {
     "v-viewer": "^3.0.13",
@@ -13,6 +10,7 @@
   },
   "devDependencies": {
     "@vite-pwa/vitepress": "^0.5.0",
+    "cross-env": "^7.0.3",
     "sass": "^1.77.8",
     "unocss": "^0.62.4",
     "vitepress": "^1.1.4"

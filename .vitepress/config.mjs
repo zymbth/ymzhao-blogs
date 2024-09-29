@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, loadEnv } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { pwa } from './pwa'
 import UnoCSS from 'unocss/vite'
@@ -297,7 +297,7 @@ export default withPwa(
         host: '0.0.0.0',
         // open: true,
       },
-      plugins: [UnoCSS(), scanPostPlugin()],
+      plugins: [UnoCSS(), scanPostPlugin({ mode: process.env.VITEPRESS_MODE })],
     },
     /* Vite PWA Options */
     pwa,

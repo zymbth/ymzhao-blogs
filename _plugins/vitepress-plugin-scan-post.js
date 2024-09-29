@@ -6,51 +6,62 @@ import {
   generateTitleByPath,
 } from '../.vitepress/theme/LayoutTypography/_postData/util'
 
-export default function scanPostPlugin() {
-  return {
-    name: 'scan-post-plugin',
-    buildStart(options) {
-      console.log('buildStart')
-      scanPost()
-    },
-    buildEnd(error) {
-      console.log('buildEnd', error)
-    },
-  }
+export default function scanPostPlugin({ mode } = {}) {
+  console.log('mode: ', mode)
+  return mode === 'prod'
+    ? {
+        name: 'scan-post-plugin',
+        buildStart(options) {
+          // console.log('\n----------------buildStart----------------\n')
+          scanPost()
+        },
+        // buildEnd(error) {
+        //   console.log('buildEnd', error)
+        // },
+        // transformPageData(pageData) {
+        //   console.log('pageData:', pageData)
+        // },
+      }
+    : { name: 'scan-post-plugin' }
 }
 
 async function scanPost() {
   try {
     const loader = createContentLoader('./{back-end,front-end,study}/**/*.md')
+    console.log(loader.watch)
     /**
      * ContentData[]
      * @see https://sourcegraph.com/github.com/vuejs/vitepress/-/blob/src/node/contentLoader.ts?L64
      */
     const posts = await loader.load()
-    console.log('posts: ', posts.length)
-    if (posts.length) {
-      console.log(Object.keys(posts[0]))
-      console.log(Object.keys(posts[0].frontmatter))
-      // console.log(posts.filter(p => !p.frontmatter?.created).length)
-      // console.log(posts[0].excerpt)
-      // console.log(posts[0].html)
-      // console.log(posts[0].url, getCategoryByUrl(posts[0].url))
-      // console.log(getCategoryByUrl('/front-end/basic/js/util'))
-      // 读取文件内容
-      const title = await getFileTitle(posts[0])
-      console.log('title: ', title)
+    console.log(`Globbed ${posts.length} posts.`)
+    console.time('Scan posts')
+    const postsData = []
+    for (const post of posts) {
+      const title = await getFileTitle(post)
+      const categories = getCategoryByUrl(post.url)
+      postsData.push({
+        url: post.url,
+        categories,
+        category: categories[categories.length - 1],
+        created: post.frontmatter?.created,
+        description: post.frontmatter?.description,
+        title,
+      })
     }
-    // const postsData = posts.map(p => ({
-    //   url: p.url,
-    //   category: getCategoryByUrl(p.url),
-    //   created: p.frontmatter?.created,
-    //   description: p.frontmatter?.description,
-    // }))
+    console.timeEnd('Scan posts')
+    // 将 postsData 写入到文件 /_plugins/post_data.json
+    // 判断文件是否存在
+    if (fs.existsSync('./_plugins/post_data.json')) {
+      console.log('Target file exists, skipping creation.')
+    }
+    fs.writeFileSync('./_plugins/post_data.json', JSON.stringify(postsData))
   } catch (error) {
     console.error(error)
   }
 }
 
+// 获取post title，优先从 frontmatter 中获取，如果没有则从文件内容中获取，如果还没有则根据post路径生成
 async function getFileTitle(postContent) {
   if (postContent.frontmatter.title) return postContent.frontmatter.title
   let title = await getTitleByReadingFile(postContent.url.slice(1) + '.md')
@@ -58,11 +69,13 @@ async function getFileTitle(postContent) {
   return title
 }
 
+// 使用 fs 读取文件数据流，获取 title
 function getTitleByReadingFile(path) {
   return new Promise((resolve, reject) => {
     let title = null
     // 创建一个读取流
     const stream = fs.createReadStream(path, { start: 0, end: 2000 })
+    // 监听数据流
     stream.on('data', chunk => {
       const match = chunk.toString().match(/^#[^#].*$/m)
       if (match) {
@@ -71,9 +84,7 @@ function getTitleByReadingFile(path) {
       }
     })
     // 错误处理
-    stream.on('error', error => {
-      reject(error)
-    })
+    stream.on('error', reject)
     // 流结束时的处理
     stream.on('close', () => {
       if (title) resolve(title)
@@ -83,7 +94,7 @@ function getTitleByReadingFile(path) {
   })
 }
 
-function getTitleByReadingFile1(path) {
+/* function getTitleByReadingFile1(path) {
   try {
     const contents = fs.readFileSync(path, 'utf8')
     // console.log('File contents:', contents)
@@ -91,4 +102,4 @@ function getTitleByReadingFile1(path) {
   } catch (error) {
     console.error('Error reading the file:', error)
   }
-}
+} */
