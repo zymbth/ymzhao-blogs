@@ -51,7 +51,9 @@ vue3 组合式 API 风格中，使用 setup 语法糖创建的组件出现缓存
 >
 > [vue keep-alive](https://cn.vuejs.org/guide/built-ins/keep-alive.html)
 >
-> [vue3 中使用 keepAlive 缓存路由组件不生效的情况记录](https://blog.csdn.net/weixin_40451732/article/details/139744930) > [vue3 中使用 keepAlive 缓存路由组件不生效的问题解决](https://www.cnblogs.com/suducn/p/18331108)
+> [vue3 中使用 keepAlive 缓存路由组件不生效的情况记录](https://blog.csdn.net/weixin_40451732/article/details/139744930)
+>
+> [vue3 中使用 keepAlive 缓存路由组件不生效的问题解决](https://www.cnblogs.com/suducn/p/18331108)
 
 ### 1. 唯一命名单文件组件
 
@@ -196,6 +198,8 @@ function formatComponentInstance(comp, route) {
 
 ### 总结
 
-第一种方案更标准，需要一一声明好组件 name 选项，与路由 name 属性区分开来。
+第一种方案最简单，但对组件命名有要求。
 
-第二种方法统一外包一层，根据路由名称声明包裹组件 name 选项。
+第二种方案更标准，需要一一声明好组件 name 选项，与路由 name 属性区分开来。
+
+第三种方法统一外包一层，根据路由名称声明包裹组件 name 选项。
