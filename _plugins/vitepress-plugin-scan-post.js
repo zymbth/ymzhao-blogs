@@ -6,9 +6,8 @@ import {
   generateTitleByPath,
 } from '../.vitepress/theme/LayoutTypography/_postData/util'
 
-export default function scanPostPlugin({ mode } = {}) {
-  console.log('mode: ', mode)
-  return mode === 'prod'
+export default function scanPostPlugin({ flag } = {}) {
+  return flag === 't'
     ? {
         name: 'scan-post-plugin',
         buildStart(options) {
@@ -27,8 +26,8 @@ export default function scanPostPlugin({ mode } = {}) {
 
 async function scanPost() {
   try {
+    console.log('Start scanning posts...')
     const loader = createContentLoader('./{back-end,front-end,study}/**/*.md')
-    console.log(loader.watch)
     /**
      * ContentData[]
      * @see https://sourcegraph.com/github.com/vuejs/vitepress/-/blob/src/node/contentLoader.ts?L64
@@ -56,6 +55,7 @@ async function scanPost() {
       console.log('Target file exists, skipping creation.')
     }
     fs.writeFileSync('./_plugins/post_data.json', JSON.stringify(postsData))
+    console.log('Posts data written to file.')
   } catch (error) {
     console.error(error)
   }

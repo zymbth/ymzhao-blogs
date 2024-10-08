@@ -297,7 +297,7 @@ export default withPwa(
         host: '0.0.0.0',
         // open: true,
       },
-      plugins: [UnoCSS(), scanPostPlugin({ mode: process.env.VITEPRESS_MODE })],
+      plugins: [UnoCSS(), scanPostPlugin({ flag: process.env.UPD_POST })],
     },
     /* Vite PWA Options */
     pwa,

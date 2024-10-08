@@ -1,14 +1,17 @@
 {
   "scripts": {
-    "dev": "cross-env VITEPRESS_MODE=dev vitepress dev",
-    "build": "cross-env VITEPRESS_MODE=prod vitepress build",
-    "preview": "vitepress preview"
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "build:upd": "cross-env UPD_POST=t vitepress build",
+    "preview": "vitepress preview",
+    "update-post": "cross-env UPD_POST=t vitepress dev"
   },
   "dependencies": {
     "v-viewer": "^3.0.13",
     "viewerjs": "^1.11.6"
   },
   "devDependencies": {
+    "@unocss/transformer-variant-group": "^0.63.4",
     "@vite-pwa/vitepress": "^0.5.0",
     "cross-env": "^7.0.3",
     "sass": "^1.77.8",
