@@ -24,6 +24,11 @@
   --scrollbar-thumb-border-color: rgba(255, 255, 255, 0.4);
   --scrollbar-corner-bg: rgba(255, 255, 255, 0.3);
   --scrollbar-corner-hover-bg: rgba(144, 147, 153, 0.15);
+
+  --un-preset-theme-colors-shadow: 0 0 0;
+  --un-preset-theme-colors-shadow--alpha: 0.04;
+  --un-preset-theme-colors-background: 255 255 255;
+  --un-preset-theme-colors-primary: 46 64 91;
 }
 
 .dark {

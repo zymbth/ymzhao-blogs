@@ -45,6 +45,7 @@ getCategoryMap(categoryTree, categoryMap)
 function getCategoryMap(n, res) {
   if (!n || !res) return
   const { code, name, children } = n
+  if (res[code]) console.warn(`Duplicate category code: ${code}`)
   res[code] = name
   if (!Array.isArray(children) || children.length === 0) return
   for (const child of children) getCategoryMap(child, res)

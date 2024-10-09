@@ -1,10 +1,7 @@
 import fs from 'node:fs'
-import path from 'node:path'
+// import path from 'node:path'
 import { createContentLoader } from 'vitepress'
-import {
-  getCategoryByUrl,
-  generateTitleByPath,
-} from '../.vitepress/theme/LayoutTypography/_postData/util'
+import { getCategoryByUrl, generateTitleByPath } from './util.mjs'
 
 export default function scanPostPlugin({ flag } = {}) {
   return flag === 't'
@@ -48,6 +45,13 @@ async function scanPost() {
         title,
       })
     }
+    postsData.sort((a, b) => {
+      try {
+        return new Date(b.created).getTime() - new Date(a.created).getTime()
+      } catch (error) {
+        return 0
+      }
+    })
     console.timeEnd('Scan posts')
     // 将 postsData 写入到文件 /_plugins/post_data.json
     // 判断文件是否存在
