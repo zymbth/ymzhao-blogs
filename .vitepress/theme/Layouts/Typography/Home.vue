@@ -1,16 +1,11 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { categoryMap } from '../../../_plugins/util.mjs'
+import { categoryMap } from '../../../../_plugins/util.mjs'
+import postData from '../../../../_plugins/post_data.json'
 // import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue'
-import routes from '~pages'
-console.log('routes: ', JSON.stringify(routes));
+// import routes from '~pages'
 
-const posts = ref([])
-
-fetch('../../../_plugins/post_data.json')
-  .then(res => res.json())
-  .then(res => (posts.value = Array.isArray(res) ? res : []))
-  .catch(err => console.error(err))
+const posts = ref(Array.isArray(postData) ? postData : [])
 
 /**
  * 根据当前分类过滤博文
@@ -46,7 +41,7 @@ const currPosts = computed(() => {
   <main class="px-7 py-10 of-x-hidden">
     <div class="w-prose m-auto">
       <Content class="vp-home" />
-      <section class="contain-layout flex flex-col gap-7.5">
+      <section class="contain-layout flex flex-col gap-5">
         <h1 v-show="currCat" class="text-20px font-bold line-height-1.8em">
           # {{ categoryMap[currCat] || currCat }}
           <span class="inline-block cursor-pointer transform-rotate-45" @click="currCat = ''"
@@ -54,7 +49,7 @@ const currPosts = computed(() => {
           >
         </h1>
         <article v-for="p in currPosts" :key="p.url">
-          <header class="flex flex-col gap-2">
+          <header flex="~ col gap-2">
             <h2 class="m-0 text-20px font-bold line-height-1.5em">
               <a :href="p.url" v-html="p.title"></a>
             </h2>
@@ -66,12 +61,12 @@ const currPosts = computed(() => {
               </a>
             </div>
           </header>
-          <p class="line-clamp-4 text-14px color-#666">{{ p.description }}</p>
+          <p v-if="p.intro" class="line-clamp-4 text-14px color-#666">{{ p.intro }}</p>
         </article>
       </section>
-      <footer class="mt-5">
+      <footer class="mt-7.5">
         <div class="mb-2.5">第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</div>
-        <div class="flex items-center gap-2">
+        <div flex="~ items-center gap-2">
           <a v-show="currentPage > 1" href="javascript:void(0)" @click="currentPage--"><< 上一页</a>
           <a v-show="currentPage < totalPages" href="javascript:void(0)" @click="currentPage++"
             >下一页 >></a

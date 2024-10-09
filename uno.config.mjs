@@ -1,10 +1,13 @@
-import { defineConfig, presetUno } from 'unocss'
+import { defineConfig, presetUno, presetAttributify } from 'unocss'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 
 export default defineConfig({
   // ...UnoCSS options
   // rules: [],
-  presets: [presetUno({ dark: 'class', attributify: false })],
+  presets: [
+    presetUno({ dark: 'class', attributify: false }),
+    presetAttributify({ nonValuedAttribute: false }),
+  ],
   transformers: [transformerVariantGroup()],
   content: {
     pipeline: {

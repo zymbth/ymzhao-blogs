@@ -2,7 +2,7 @@
 import { nextTick, provide } from 'vue'
 import { useData } from 'vitepress'
 import Theme from 'vitepress/theme'
-import Comment from './Comment.vue'
+import Comment from '../components/Comment.vue'
 
 const { Layout } = Theme
 const { page, isDark } = useData()

@@ -8,15 +8,8 @@ export default function scanPostPlugin({ flag } = {}) {
     ? {
         name: 'scan-post-plugin',
         buildStart(options) {
-          // console.log('\n----------------buildStart----------------\n')
           scanPost()
         },
-        // buildEnd(error) {
-        //   console.log('buildEnd', error)
-        // },
-        // transformPageData(pageData) {
-        //   console.log('pageData:', pageData)
-        // },
       }
     : { name: 'scan-post-plugin' }
 }
@@ -41,7 +34,7 @@ async function scanPost() {
         categories,
         category: categories[categories.length - 1],
         created: post.frontmatter?.created,
-        description: post.frontmatter?.description,
+        intro: post.frontmatter?.intro,
         title,
       })
     }

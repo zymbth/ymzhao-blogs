@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useData, useRoute } from 'vitepress'
-import Comment from '../Comment.vue'
+import Comment from '../components/Comment.vue'
 
 const { page } = useData()
 // console.log('created: ', page.value?.frontmatter?.created)
