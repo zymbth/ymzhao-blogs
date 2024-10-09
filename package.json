@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "v-viewer": "^3.0.13",
-    "viewerjs": "^1.11.6"
+    "viewerjs": "^1.11.6",
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@unocss/transformer-variant-group": "^0.63.4",
@@ -16,6 +17,7 @@
     "cross-env": "^7.0.3",
     "sass": "^1.77.8",
     "unocss": "^0.62.4",
+    "vite-plugin-pages": "^0.32.3",
     "vitepress": "^1.1.4"
   },
   "volta": {

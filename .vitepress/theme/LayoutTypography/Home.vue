@@ -2,6 +2,8 @@
 import { ref, computed } from 'vue'
 import { categoryMap } from '../../../_plugins/util.mjs'
 // import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue'
+import routes from '~pages'
+console.log('routes: ', JSON.stringify(routes));
 
 const posts = ref([])
 
