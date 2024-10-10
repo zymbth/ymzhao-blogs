@@ -1,4 +1,10 @@
-import { defineConfig, presetUno, presetAttributify, transformerAttributifyJsx } from 'unocss'
+import {
+  defineConfig,
+  presetUno,
+  presetAttributify,
+  transformerAttributifyJsx,
+  presetIcons,
+} from 'unocss'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 
 export default defineConfig({
@@ -7,6 +13,11 @@ export default defineConfig({
   presets: [
     presetUno({ dark: 'class', attributify: false }),
     presetAttributify({ nonValuedAttribute: false }),
+    presetIcons({
+      collections: {
+        mdi: () => import('@iconify-json/mdi/icons.json').then(i => i.default),
+      },
+    }),
   ],
   transformers: [transformerVariantGroup(), transformerAttributifyJsx()],
   content: {

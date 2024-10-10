@@ -45,42 +45,36 @@ const currPosts = computed(() => {
 })
 </script>
 <template>
-  <main class="px-7 py-10 of-x-hidden">
-    <div class="w-prose m-auto">
-      <Content class="vp-home" />
-      <section class="contain-layout flex flex-col gap-5">
-        <h1 v-show="currCat" class="text-20px font-bold line-height-1.8em" flex="~ gap-6px">
-          <CategoryBreadcrumbs :modelValue="currCats" @select="handleSelect" />
-          <span class="inline-block cursor-pointer transform-rotate-45" @click="currCat = ''"
-            >+</span
-          >
-        </h1>
-        <article v-for="p in currPosts" :key="p.url">
-          <header flex="~ col gap-2">
-            <h2 class="m-0 text-20px font-bold line-height-1.5em">
-              <a :href="p.url" v-html="p.title"></a>
-            </h2>
-            <div class="text-14px" flex="~ items-center gap-6px">
-              <span>发布于</span>
-              <time>{{ p.created }}</time>
-              <CategoryBreadcrumbs
-                :modelValue="p.categories"
-                enableLast="true"
-                @select="val => handleSelect(val, p.categories)" />
-            </div>
-          </header>
-          <p v-if="p.intro" class="line-clamp-4 text-14px color-#666">{{ p.intro }}</p>
-        </article>
-      </section>
-      <footer class="mt-7.5">
-        <div class="mb-2.5">第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</div>
-        <div flex="~ items-center gap-2">
-          <a v-show="currentPage > 1" href="javascript:void(0)" @click="currentPage--"><< 上一页</a>
-          <a v-show="currentPage < totalPages" href="javascript:void(0)" @click="currentPage++"
-            >下一页 >></a
-          >
+  <Content class="vp-home" />
+  <section class="contain-layout flex flex-col gap-5">
+    <h1 v-show="currCat" class="text-20px font-bold line-height-1.8em" flex="~ gap-6px">
+      <CategoryBreadcrumbs :modelValue="currCats" @select="handleSelect" />
+      <span class="inline-block cursor-pointer transform-rotate-45" @click="currCat = ''">+</span>
+    </h1>
+    <article v-for="p in currPosts" :key="p.url">
+      <header flex="~ col gap-2">
+        <h2 class="m-0 text-20px font-bold line-height-1.5em">
+          <a :href="p.url" v-html="p.title"></a>
+        </h2>
+        <div class="text-14px" flex="~ items-center gap-6px">
+          <span>发布于</span>
+          <time>{{ p.created }}</time>
+          <CategoryBreadcrumbs
+            :modelValue="p.categories"
+            enableLast="true"
+            @select="val => handleSelect(val, p.categories)" />
         </div>
-      </footer>
+      </header>
+      <p v-if="p.intro" class="line-clamp-4 text-14px color-#666">{{ p.intro }}</p>
+    </article>
+  </section>
+  <footer class="mt-7.5">
+    <div class="mb-2.5">第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</div>
+    <div flex="~ items-center gap-2">
+      <a v-show="currentPage > 1" href="javascript:void(0)" @click="currentPage--"><< 上一页</a>
+      <a v-show="currentPage < totalPages" href="javascript:void(0)" @click="currentPage++"
+        >下一页 >></a
+      >
     </div>
-  </main>
+  </footer>
 </template>

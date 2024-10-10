@@ -10,10 +10,6 @@ const route = useRoute()
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''))
 </script>
 <template>
-  <main class="px-7 py-10 of-x-hidden">
-    <div class="w-prose m-auto">
-      <Content class="vp-doc" :class="[pageName]" />
-      <Comment :key="page.relativePath" class="mt-24px" />
-    </div>
-  </main>
+  <Content class="vp-doc" :class="[pageName]" />
+  <Comment :key="page.relativePath" class="mt-24px" />
 </template>
