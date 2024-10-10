@@ -6,12 +6,12 @@ const categoryTree = {
       code: 'front-end',
       name: '前端',
       children: [
-        { code: 'basic', name: '前端基础' },
+        { code: 'basic', name: '基础' },
         { code: 'nodejs', name: 'Nodejs' },
-        { code: 'engineering', name: '前端工程化' },
+        { code: 'engineering', name: '工程化' },
         { code: 'element-plus', name: 'Element Plus' },
         { code: 'vue', name: 'Vue' },
-        { code: 'others', name: '前端杂项' },
+        { code: 'others', name: '杂项' },
       ],
     },
     {
@@ -29,8 +29,8 @@ const categoryTree = {
       name: '学习',
       children: [
         { code: 'note', name: '笔记' },
-        { code: 'book', name: '读书' },
-        { code: 'read', name: '读文' },
+        { code: 'book', name: '读书笔记' },
+        { code: 'read', name: '读文笔记' },
         { code: 'source-code', name: '源码学习' },
         { code: 'cheatsheets', name: '速查表' },
       ],
@@ -42,6 +42,7 @@ const categoryMap = {}
 
 getCategoryMap(categoryTree, categoryMap)
 
+// 根据categoryTree生成categoryMap
 function getCategoryMap(n, res) {
   if (!n || !res) return
   const { code, name, children } = n
@@ -51,18 +52,25 @@ function getCategoryMap(n, res) {
   for (const child of children) getCategoryMap(child, res)
 }
 
+// 根据mdUrl获取对应的categories列表，例如 "/front-end/vue/vue-router.html" 生成 ["front-end", "vue"]
 function getCategoryByUrl(mdUrl) {
   if (!mdUrl || !/^(\/[\w-]+)+\/[\w-]+(\.html)?$/.test(mdUrl)) return []
-  return (
-    mdUrl
-      .split('/')
-      .filter(Boolean)
-      .slice(0, -1)
-      .reduce((prev, curr) => {
-        if (curr in categoryMap) prev.push(curr)
-        return prev
-      }, []) || []
-  )
+  const codeList = mdUrl.split('/').filter(Boolean).slice(0, -1)
+  const categories = []
+  // 根据categoryTree路径查找mdUrl对应的categories列表
+  let nodes = categoryTree.children
+  let recurseLimit = 10
+  while (nodes && nodes.length && codeList.length && recurseLimit--) {
+    const code = codeList.shift()
+    const node = nodes.find(n => n.code === code)
+    if (node) {
+      categories.push(node.code)
+      nodes = node.children
+    } else {
+      break
+    }
+  }
+  return categories
 }
 
 // 根据post路径生成标题，例如 "/front-end/vue/vue-router.html" 生成 "Vue router(前端 / Vue)"

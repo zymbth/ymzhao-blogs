@@ -73,3 +73,19 @@ body {
 .viewer-wrap img {
   cursor: zoom-in;
 }
+
+// post link
+.m-underline {
+  padding: 1.5px;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 2px;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.m-underline:hover {
+  background-color: rgb(var(--un-preset-theme-colors-primary) / 1);
+  color: rgb(var(--un-preset-theme-colors-background) / 1);
+  -webkit-text-decoration-color: rgb(var(--un-preset-theme-colors-primary) / 1);
+  text-decoration-color: rgb(var(--un-preset-theme-colors-primary) / 1);
+}

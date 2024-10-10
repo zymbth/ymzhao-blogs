@@ -1,8 +1,13 @@
+// import { resolve } from 'node:path'
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { pwa } from './pwa'
 import UnoCSS from 'unocss/vite'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import scanPostPlugin from '../_plugins/vitepress-plugin-scan-post'
+
+const root = process.cwd()
+// const pathResolve = dir => resolve(root, '.', dir)
 
 // https://vitepress.dev/reference/site-config
 export default withPwa(
@@ -292,7 +297,16 @@ export default withPwa(
       },
     },
     vite: {
-      plugins: [UnoCSS(), scanPostPlugin({ flag: process.env.UPD_POST })],
+      resolve: {
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.less', '.css'],
+        alias: [
+          {
+            find: /\@\//,
+            replacement: root + '/',
+          },
+        ],
+      },
+      plugins: [vueJsx(), UnoCSS(), scanPostPlugin({ flag: process.env.UPD_POST })],
       server: {
         port: 5200,
         host: '0.0.0.0',
