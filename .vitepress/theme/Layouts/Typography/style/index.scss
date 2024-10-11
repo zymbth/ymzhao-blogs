@@ -75,7 +75,7 @@ body {
 }
 
 // post link
-.m-underline {
+.common-link {
   padding: 1.5px;
   text-decoration-line: underline;
   text-decoration-thickness: 0.1em;
@@ -83,7 +83,7 @@ body {
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-.m-underline:hover {
+.common-link:hover {
   background-color: rgb(var(--un-preset-theme-colors-primary) / 1);
   color: rgb(var(--un-preset-theme-colors-background) / 1);
   -webkit-text-decoration-color: rgb(var(--un-preset-theme-colors-primary) / 1);

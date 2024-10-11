@@ -2,17 +2,17 @@ import {
   defineConfig,
   presetUno,
   presetAttributify,
-  transformerAttributifyJsx,
   presetIcons,
+  transformerVariantGroup,
+  transformerAttributifyJsx,
 } from 'unocss'
-import transformerVariantGroup from '@unocss/transformer-variant-group'
 
 export default defineConfig({
   // ...UnoCSS options
   // rules: [],
   presets: [
     presetUno({ dark: 'class', attributify: false }),
-    presetAttributify({ nonValuedAttribute: false }),
+    presetAttributify({ nonValuedAttribute: true }),
     presetIcons({
       collections: {
         mdi: () => import('@iconify-json/mdi/icons.json').then(i => i.default),
@@ -24,5 +24,15 @@ export default defineConfig({
     pipeline: {
       include: [/\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html|ts)($|\?)/],
     },
+  },
+  extendTheme: theme => {
+    return {
+      ...theme,
+      breakpoints: {
+        ...theme.breakpoints,
+        md: '750px',
+        lg: '1200px',
+      },
+    }
   },
 })
