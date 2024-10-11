@@ -59,22 +59,31 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
 </script>
 <template>
   <NotFound v-if="page.isNotFound" />
-  <div v-else class="box-border py-40px of-x-hidden">
-    <NavComp v-if="!isLarge" class="flex flex-col gap-2.5 m-7.5" />
-    <div class="max-w-[calc(65ch+200px)] mx-a whitespace-nowrap" p="y-7.5 lg:y-0">
-      <main class="w-prose m-auto" lg="m-0 m-r-5 inline-block">
-        <Home v-if="frontmatter.layout === 'home'" />
-        <Page v-else />
-      </main>
-      <div
-        v-if="isLarge"
-        class="inline-flex h-[calc(100vh-80px)] fixed top-0 w-160px"
-        flex="col gap-y-6">
-        <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
-        <CopyrightComp />
+  <div v-else class="box-border pt-40px pb-10px of-x-hidden">
+    <!-- Nav -->
+    <NavComp v-if="!isLarge" class="flex flex-col gap-2.5 m-30px" />
+    <!-- Content -->
+    <div class="text-center">
+      <div class="inline-block text-align-initial mx-a whitespace-nowrap" lg="py-0">
+        <!-- Main -->
+        <main class="w-prose m-auto" lg="m-0 m-r-5 inline-block">
+          <Home v-if="frontmatter.layout === 'home'" />
+          <Page v-else />
+        </main>
+        <!-- Placeholder -->
+        <div class="w-160px inline-block"></div>
+        <!-- Large: Nav & Copyright -->
+        <div
+          v-if="isLarge"
+          class="inline-flex h-[calc(100vh-80px)] fixed top-40px w-160px transform-translate-x-[-100%]"
+          flex="col gap-y-11.5">
+          <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
+          <CopyrightComp />
+        </div>
       </div>
     </div>
-    <CopyrightComp v-if="!isLarge" />
+    <!-- Copyright -->
+    <CopyrightComp v-if="!isLarge" class="text-center" />
   </div>
 </template>
 <style>
