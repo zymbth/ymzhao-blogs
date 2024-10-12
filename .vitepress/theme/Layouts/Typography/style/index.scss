@@ -17,16 +17,6 @@
 
   --vp-nav-bg-color: rgba(255, 255, 255, 0.3);
 
-  /* 滚动条 */
-  // --scrollbar-bg: rgb(239, 239, 239);
-  --scrollbar-bg: transparent;
-  --scrollbar-thumb-bg: rgba(144, 147, 153, 0.3);
-  --scrollbar-thumb-hover-bg: rgba(144, 147, 153, 0.5);
-  --scrollbar-thumb-active-bg: rgba(144, 147, 153, 0.4);
-  --scrollbar-thumb-border-color: rgba(255, 255, 255, 0.4);
-  --scrollbar-corner-bg: rgba(255, 255, 255, 0.3);
-  --scrollbar-corner-hover-bg: rgba(144, 147, 153, 0.15);
-
   --un-preset-theme-colors-shadow: 0 0 0;
   --un-preset-theme-colors-shadow--alpha: 0.04;
   --un-preset-theme-colors-background: 255 255 255;
@@ -39,15 +29,6 @@
   --vp-code-line-highlight-color: rgb(0, 110, 146, 0.2);
   --vp-nav-bg-color: rgba(0, 0, 0, 0.3);
 
-  // --scrollbar-bg: rgb(66, 66, 66);
-  --scrollbar-bg: transparent;
-  --scrollbar-thumb-bg: rgba(192, 192, 192, 0.3);
-  --scrollbar-thumb-hover-bg: rgba(192, 192, 192, 0.5);
-  --scrollbar-thumb-active-bg: rgba(192, 192, 192, 0.4);
-  --scrollbar-thumb-border-color: rgba(0, 0, 0, 0.4);
-  --scrollbar-corner-bg: rgba(192, 192, 192, 0.3);
-  --scrollbar-corner-hover-bg: rgba(192, 192, 192, 0.15);
-
   img {
     filter: brightness(0.8) saturate(1.25);
   }
@@ -55,7 +36,7 @@
 
 body {
   margin: 0;
-  color: #2e405b;
+  color: var(--tg-primary-color);
   background-color: #fff;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.04);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
@@ -63,6 +44,11 @@ body {
   background-size: 7px 7px;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+#app {
+  height: 100vh;
+  overflow: auto;
 }
 
 .code-JetBrains {
@@ -76,8 +62,10 @@ body {
   cursor: zoom-in;
 }
 
-// post link
-.common-link {
+// 通用链接
+.common-link,
+.vp-doc a.common-link {
+  color: var(--tg-primary-color);
   padding: 1.5px;
   text-decoration-line: underline;
   text-decoration-thickness: 0.1em;
@@ -85,7 +73,8 @@ body {
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-.common-link:hover {
+.common-link:hover,
+.vp-doc a.common-link:hover {
   background-color: rgb(var(--un-preset-theme-colors-primary) / 1);
   color: rgb(var(--un-preset-theme-colors-background) / 1);
   -webkit-text-decoration-color: rgb(var(--un-preset-theme-colors-primary) / 1);

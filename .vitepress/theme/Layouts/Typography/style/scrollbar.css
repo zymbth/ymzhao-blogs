@@ -1,4 +1,27 @@
 /* scrollbar */
+
+:root {
+  /* --scrollbar-bg: rgb(239, 239, 239); */
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: rgba(144, 147, 153, 0.3);
+  --scrollbar-thumb-hover-bg: rgba(144, 147, 153, 0.5);
+  --scrollbar-thumb-active-bg: rgba(144, 147, 153, 0.4);
+  --scrollbar-thumb-border-color: rgba(255, 255, 255, 0.4);
+  --scrollbar-corner-bg: rgba(255, 255, 255, 0.3);
+  --scrollbar-corner-hover-bg: rgba(144, 147, 153, 0.15);
+}
+
+.dark {
+  /* --scrollbar-bg: rgb(66, 66, 66); */
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: rgba(192, 192, 192, 0.3);
+  --scrollbar-thumb-hover-bg: rgba(192, 192, 192, 0.5);
+  --scrollbar-thumb-active-bg: rgba(192, 192, 192, 0.4);
+  --scrollbar-thumb-border-color: rgba(0, 0, 0, 0.4);
+  --scrollbar-corner-bg: rgba(192, 192, 192, 0.3);
+  --scrollbar-corner-hover-bg: rgba(192, 192, 192, 0.15);
+}
+
 ::-webkit-scrollbar-track-piece {
   background: var(--scrollbar-bg);
 }

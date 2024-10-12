@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { categoryMap } from '@/_plugins/util.mjs'
 import postData from '@/_plugins/post_data.json'
 // import VPBadge from 'vitepress/dist/client/theme-default/components/VPBadge.vue'
 import CategoryBreadcrumbs from './components/CategoryBreadcrumbs.jsx'
@@ -68,7 +67,7 @@ const currPosts = computed(() => {
       <p v-if="p.intro" class="line-clamp-4 text-14px color-#666">{{ p.intro }}</p>
     </article>
   </section>
-  <footer class="mt-7.5">
+  <footer class="my-7.5">
     <div class="mb-2.5">第 {{ currentPage }} 页 / 共 {{ totalPages }} 页</div>
     <div flex="~ items-center gap-2">
       <a v-show="currentPage > 1" href="javascript:void(0)" @click="currentPage--"><< 上一页</a>

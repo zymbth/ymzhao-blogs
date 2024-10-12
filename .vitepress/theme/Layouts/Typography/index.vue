@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, nextTick, provide } from 'vue'
+import { ref, computed, nextTick, provide } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { useData } from 'vitepress'
 import NavComp from './components/Nav.vue'
@@ -7,20 +7,15 @@ import CopyrightComp from './components/Copyright.vue'
 import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
+import CustomPage from './CustomPage.vue'
+// import VPDocAsideOutline from 'vitepress/dist/client/theme-default/components/VPDocAsideOutline.vue'
 
 const { page, isDark, frontmatter } = useData()
 
 /* resize监听 */
 
-const isLarge = ref(true)
 const { width } = useWindowSize()
-watch(
-  width,
-  val => {
-    if (!page.isNotFound) isLarge.value = val >= 1200
-  },
-  { immediate: true }
-)
+const isLarge = page.isNotFound ? ref(true) : computed(() => width.value >= 1200)
 
 /* 主题切换 */
 
@@ -56,36 +51,67 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
     }
   )
 })
+
+// const isDocLy = computed(() => (frontmatter.value.layout ?? 'doc') === 'doc')
 </script>
 <template>
   <NotFound v-if="page.isNotFound" />
-  <div v-else class="box-border pt-40px pb-10px of-x-hidden">
+  <div v-else class="relative min-h-screen box-border of-x-hidden pb-40px" lg="pt-40px pb-0">
     <!-- Nav -->
     <NavComp v-if="!isLarge" class="flex flex-col gap-2.5 m-30px" />
     <!-- Content -->
-    <div class="text-center">
-      <div class="inline-block text-align-initial mx-a whitespace-nowrap" lg="py-0">
+    <div class="ct-wrap">
+      <div class="ct-inner-wrap">
         <!-- Main -->
-        <main class="w-prose m-auto" lg="m-0 m-r-5 inline-block">
+        <main class="w-prose m-auto" lg="m-0 inline-block">
           <Home v-if="frontmatter.layout === 'home'" />
+          <CustomPage v-else-if="frontmatter.layout === 'custom'" />
           <Page v-else />
         </main>
         <!-- Placeholder -->
-        <div class="w-160px inline-block"></div>
-        <!-- Large: Nav & Copyright -->
+        <div v-if="isLarge" class="w-160px inline-block"></div>
+        <!-- Large sider: Nav & Copyright -->
         <div
           v-if="isLarge"
-          class="inline-flex h-[calc(100vh-80px)] fixed top-40px w-160px transform-translate-x-[-100%]"
-          flex="col gap-y-11.5">
+          class="lg-sider h-[calc(100vh-80px)] w-160px m-l-20px"
+          flex="col gap-y-8">
+          <!-- <VPDocAsideOutline v-if="isDocLy" />
+          <template v-else> -->
           <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
           <CopyrightComp />
+          <!-- </template> -->
         </div>
       </div>
     </div>
     <!-- Copyright -->
-    <CopyrightComp v-if="!isLarge" class="text-center" />
+    <CopyrightComp
+      v-if="!isLarge"
+      class="text-center absolute bottom-8px left-50% transform-translate-x-[-50%]" />
   </div>
 </template>
+<style lang="scss" scoped>
+// Content 居中，宽度自适应
+.ct-wrap {
+  text-align: center;
+}
+.ct-inner-wrap {
+  display: inline-block;
+  text-align: initial;
+  margin: 0 auto;
+  white-space: nowrap;
+  main,
+  div {
+    white-space: normal;
+  }
+}
+// 右侧固定
+.lg-sider {
+  display: inline-flex;
+  position: fixed;
+  top: 40px;
+  transform: translateX(-100%);
+}
+</style>
 <style>
 .Layout {
   display: flex;

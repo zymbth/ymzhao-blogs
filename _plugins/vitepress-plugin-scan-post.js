@@ -17,7 +17,7 @@ export default function scanPostPlugin({ flag } = {}) {
 async function scanPost() {
   try {
     console.log('Start scanning posts...')
-    const loader = createContentLoader('./{back-end,front-end,study}/**/*.md')
+    const loader = createContentLoader('./{back-end,front-end,server-end,snippets,study}/**/*.md')
     /**
      * ContentData[]
      * @see https://sourcegraph.com/github.com/vuejs/vitepress/-/blob/src/node/contentLoader.ts?L64

@@ -1,4 +1,10 @@
-<script setup></script>
+<script setup>
+const siteLinks = [
+  { text: 'github', icon: 'i-mdi-github', href: 'https://github.com/zymbth' },
+  { text: 'website', icon: 'i-mdi-web', href: 'https://ymzhao.work ' },
+  { text: 'codepen', icon: 'i-mdi-codepen', href: 'https://codepen.io/zymbth' },
+]
+</script>
 <template>
   <header>
     <!-- logo -->
@@ -10,8 +16,8 @@
         class="common-link !decoration-none duration-800 ease-in-out"
         lg:p="x-2.5 b-12 hover:t-3.75 hover:b-8.75"
         href="/">
-        <h3 class="text-5 font-extrabold">Typography</h3>
-        <h1 class="text-8 font-extrabold">Cornor Blog</h1>
+        <h3 class="text-5 line-height-none lg:line-height-normal font-extrabold">技思小隅</h3>
+        <h1 class="text-8 line-height-none lg:line-height-normal font-extrabold">Cornor Blog</h1>
       </a>
     </hgroup>
     <!-- <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
@@ -23,36 +29,18 @@
       <!-- Navs -->
       <ul flex="~ lg:col gap-x-2 gap-y-2" class="text-16px">
         <li><a class="common-link" href="/">文章</a></li>
-        <li><a class="common-link" href="/">归档</a></li>
-        <li><a class="common-link" href="/">分类</a></li>
+        <li><a class="common-link" href="/pages/achive">归档</a></li>
+        <li><a class="common-link" href="/pages/category">分类</a></li>
       </ul>
       <!-- Links -->
       <ul flex="~ gap-x-1">
-        <li>
+        <li v-for="site in siteLinks" :key="site.text">
           <a
-            href="https://github.com/zymbth"
+            :href="site.href"
             target="_blank"
-            title="github"
+            :title="site.text"
             class="not-underline-hover inline-flex items-center">
-            <span class="i-mdi-github w-6 h-6">github</span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://ymzhao.work"
-            target="_blank"
-            title="github"
-            class="not-underline-hover inline-flex items-center">
-            <span class="i-mdi-web w-6 h-6">Website</span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://codepen.io/zymbth"
-            target="_blank"
-            title="github"
-            class="not-underline-hover inline-flex items-center">
-            <span class="i-mdi-codepen w-6 h-6">Codepen</span>
+            <span :class="`${site.icon} w-6 h-6`">{{ site.text }}</span>
           </a>
         </li>
       </ul>

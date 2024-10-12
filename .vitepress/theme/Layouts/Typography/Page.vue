@@ -10,6 +10,6 @@ const route = useRoute()
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''))
 </script>
 <template>
-  <Content class="vp-doc" :class="[pageName]" />
+  <Content class="vp-doc VPDoc" :class="[pageName]" />
   <Comment :key="page.relativePath" class="mt-24px" />
 </template>
