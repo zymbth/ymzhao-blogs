@@ -8,14 +8,15 @@ import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
 import CustomPage from './CustomPage.vue'
-// import VPDocAsideOutline from 'vitepress/dist/client/theme-default/components/VPDocAsideOutline.vue'
+import OutlineComp from './components/Outline.vue'
 
 const { page, isDark, frontmatter } = useData()
 
 /* resize监听 */
 
 const { width } = useWindowSize()
-const isLarge = page.isNotFound ? ref(true) : computed(() => width.value >= 1200)
+const isLarge = computed(() => width.value >= 1200)
+provide('isLarge', isLarge)
 
 /* 主题切换 */
 
@@ -52,7 +53,8 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
   )
 })
 
-// const isDocLy = computed(() => (frontmatter.value.layout ?? 'doc') === 'doc')
+const isDocLy = computed(() => (frontmatter.value.layout ?? 'doc') === 'doc')
+const showOutline = ref(true)
 </script>
 <template>
   <NotFound v-if="page.isNotFound" />
@@ -69,17 +71,30 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
           <Page v-else />
         </main>
         <!-- Placeholder -->
-        <div v-if="isLarge" class="w-160px inline-block"></div>
+        <div v-show="isLarge" class="w-160px inline-block"></div>
         <!-- Large sider: Nav & Copyright -->
         <div
-          v-if="isLarge"
-          class="lg-sider h-[calc(100vh-80px)] w-160px m-l-20px"
+          v-show="isLarge"
+          class="lg-sider h-[calc(100vh-60px)] w-160px m-l-20px of-y-auto"
           flex="col gap-y-8">
-          <!-- <VPDocAsideOutline v-if="isDocLy" />
-          <template v-else> -->
-          <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
-          <CopyrightComp />
-          <!-- </template> -->
+          <!-- switch -->
+          <template v-if="isDocLy">
+            <span
+              v-if="!showOutline"
+              class="i-mdi:table-of-contents w-1em h-1em switch-icon"
+              title="查看目录"
+              @click="showOutline = true"></span>
+            <span
+              v-else
+              class="i-mdi:close w-1em h-1em switch-icon"
+              title="关闭目录"
+              @click="showOutline = false"></span>
+          </template>
+          <OutlineComp v-show="isDocLy && showOutline" />
+          <template v-if="!isDocLy || !showOutline">
+            <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
+            <CopyrightComp />
+          </template>
         </div>
       </div>
     </div>
@@ -110,6 +125,17 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
   position: fixed;
   top: 40px;
   transform: translateX(-100%);
+  &::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+  }
+  .switch-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
 }
 </style>
 <style>

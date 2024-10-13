@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
-import { useData, useRoute } from 'vitepress'
+import { useData, useRoute, onContentUpdated } from 'vitepress'
+import { jumpToHash } from './utils/doc-page'
 import Comment from '../components/Comment.vue'
 
 const { page } = useData()
@@ -8,6 +9,10 @@ const { page } = useData()
 
 const route = useRoute()
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''))
+
+onContentUpdated(() => {
+  setTimeout(jumpToHash, 500)
+})
 </script>
 <template>
   <Content class="vp-doc VPDoc" :class="[pageName]" />
