@@ -1,14 +1,14 @@
 <script setup>
-import { ref, computed, nextTick, provide } from 'vue'
+import { ref, computed, provide } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { useData } from 'vitepress'
+import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
 import NavComp from './components/Nav.vue'
 import CopyrightComp from './components/Copyright.vue'
-import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
+import OutlineComp from './components/Outline.vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
-import CustomPage from './CustomPage.vue'
-import OutlineComp from './components/Outline.vue'
+import CustomPage from './pages/index.vue'
 
 const { page, isDark, frontmatter } = useData()
 
@@ -18,43 +18,43 @@ const { width } = useWindowSize()
 const isLarge = computed(() => width.value >= 1200)
 provide('isLarge', isLarge)
 
-/* 主题切换 */
-
-const enableTransitions = () =>
-  'startViewTransition' in document &&
-  window.matchMedia('(prefers-reduced-motion: no-preference)').matches
-
-provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
-  if (!enableTransitions()) {
-    isDark.value = !isDark.value
-    return
-  }
-
-  const clipPath = [
-    `circle(0px at ${x}px ${y}px)`,
-    `circle(${Math.hypot(
-      Math.max(x, innerWidth - x),
-      Math.max(y, innerHeight - y)
-    )}px at ${x}px ${y}px)`,
-  ]
-
-  await document.startViewTransition(async () => {
-    isDark.value = !isDark.value
-    await nextTick()
-  }).ready
-
-  document.documentElement.animate(
-    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
-    {
-      duration: 300,
-      easing: 'ease-in',
-      pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`,
-    }
-  )
-})
-
 const isDocLy = computed(() => (frontmatter.value.layout ?? 'doc') === 'doc')
 const showOutline = ref(true)
+
+/* 主题切换 */
+
+// const enableTransitions = () =>
+//   'startViewTransition' in document &&
+//   window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+
+// provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
+//   if (!enableTransitions()) {
+//     isDark.value = !isDark.value
+//     return
+//   }
+
+//   const clipPath = [
+//     `circle(0px at ${x}px ${y}px)`,
+//     `circle(${Math.hypot(
+//       Math.max(x, innerWidth - x),
+//       Math.max(y, innerHeight - y)
+//     )}px at ${x}px ${y}px)`,
+//   ]
+
+//   await document.startViewTransition(async () => {
+//     isDark.value = !isDark.value
+//     await nextTick()
+//   }).ready
+
+//   document.documentElement.animate(
+//     { clipPath: isDark.value ? clipPath.reverse() : clipPath },
+//     {
+//       duration: 300,
+//       easing: 'ease-in',
+//       pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`,
+//     }
+//   )
+// })
 </script>
 <template>
   <NotFound v-if="page.isNotFound" />

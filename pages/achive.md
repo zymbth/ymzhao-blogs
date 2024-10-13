@@ -1,5 +1,4 @@
 ---
 layout: custom
+_component: Achive
 ---
-
-<AchiveComp/>

@@ -9,7 +9,7 @@
     <span lg="block">
       Theme
       <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by
-      <a target="_blank" href="https://moeyua.com">Moeyua</a>
+      <a target="_blank" href="https://moeyua.com">Moeyua.</a>
     </span>
     <div>
       未经授权，不得转载或复制本网站的任何内容。如有疑问，请留言或联系

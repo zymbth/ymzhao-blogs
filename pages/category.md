@@ -1,5 +1,4 @@
 ---
 layout: custom
+_component: Category
 ---
-
-<CategoryComp/>

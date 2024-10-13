@@ -65,13 +65,13 @@ onMounted(() => {
 </script>
 <template>
   <Content class="vp-home" />
-  <section class="contain-layout flex flex-col gap-5">
+  <section class="contain-layout flex flex-col gap-3">
     <h1 v-show="currCat" class="text-20px font-bold line-height-1.8em" flex="~ gap-6px">
       <CategoryBreadcrumbs :modelValue="currCats" @select="handleSelectCat" />
       <span class="inline-block cursor-pointer transform-rotate-45" @click="currCats = []">+</span>
     </h1>
     <article v-for="p in currPosts" :key="p.url">
-      <header flex="~ col gap-2">
+      <header flex="~ col gap-1.5">
         <h2 class="m-0 text-20px font-bold line-height-1.5em">
           <a class="common-link" :href="p.url" v-html="p.title"></a>
         </h2>

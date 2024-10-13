@@ -51,6 +51,12 @@ body {
   overflow: auto;
 }
 
+ol.initial-type {
+  list-style: decimal;
+  padding-left: 40px;
+  margin: 1em 0;
+}
+
 .code-JetBrains {
   display: none;
 }

@@ -42,7 +42,7 @@ const CategoryComp = ({ data, depth = 0 }) => {
           <summary class='cursor-pointer'>
             {data.posts.length} post{data.posts.length > 1 ? 's' : ''}
           </summary>
-          <ol>
+          <ol class='initial-type'>
             {data.posts.map(post => (
               <li>
                 <a class='common-link' href={post.url} v-html={post.title}></a>
