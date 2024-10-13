@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^11.1.0",
+    "qs": "^6.13.0",
     "v-viewer": "^3.0.13",
     "viewerjs": "^1.11.6"
   },

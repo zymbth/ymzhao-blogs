@@ -20,7 +20,6 @@ onMounted(() => {
     isLarge,
     () => {
       contentElOffsetTop.value = document.querySelector('.ct-wrap')?.offsetTop
-      console.log('contentElOffsetTop.value: ', contentElOffsetTop.value)
     },
     { immediate: true }
   )
