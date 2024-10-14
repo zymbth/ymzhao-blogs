@@ -239,7 +239,10 @@ export default withPwa(
           },
           {
             text: '速查表',
-            items: [{ text: 'Typescript速查表', link: '/study/cheatsheets/typescript' }],
+            items: [
+              { text: 'Typescript速查表', link: '/study/cheatsheets/typescript' },
+              { text: 'React速查表', link: '/study/cheatsheets/react' },
+            ],
           },
         ],
       },

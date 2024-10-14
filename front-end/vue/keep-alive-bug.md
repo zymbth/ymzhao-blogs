@@ -171,17 +171,19 @@ export default defineComponent({
 在 Component 组件中渲染包裹后的组件
 
 ```vue
-<script setup lang="ts">
-// const excludeKeepAlive = ...
+<script setup>
+import { h, computed } from 'vue'
+
+const excludeKeepAlive = computed(() => /* ... */)
 
 function formatComponentInstance(comp, route) {
-  const wrapComp = {
+  if (!route.name || !excludeKeepAlive.value.includes(route.name)) return comp
+  return {
+    name: route.name,
     render() {
       return h(comp)
-    },
+    }
   }
-  if (route.name) wrapComp.name = route.name
-  return wrapComp
 }
 </script>
 
