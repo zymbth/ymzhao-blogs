@@ -58,7 +58,7 @@ function isActive(link, title) {
 
 .outline-link:hover,
 .outline-link.active {
-  color: var(--tg-primary-color);
+  color: var(--tg-txt-color);
   transition: color 0.25s;
 }
 

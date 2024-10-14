@@ -6,6 +6,7 @@ import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
 import NavComp from './components/Nav.vue'
 import CopyrightComp from './components/Copyright.vue'
 import OutlineComp from './components/Outline.vue'
+import SwitchAppearance from './components/SwitchAppearance.vue'
 import Home from './Home.vue'
 import Page from './Page.vue'
 import CustomPage from './pages/index.vue'
@@ -58,6 +59,7 @@ const showOutline = ref(true)
     <!-- Copyright -->
     <CopyrightComp v-if="!isLarge" class="text-center m-b-10px" />
   </div>
+  <SwitchAppearance class="!fixed top-10px right-10px z-1" />
 </template>
 <style lang="scss" scoped>
 .main {
@@ -110,13 +112,5 @@ const showOutline = ref(true)
 ::view-transition-new(root),
 .dark::view-transition-old(root) {
   z-index: 9999;
-}
-
-.VPSwitchAppearance {
-  width: 22px !important;
-}
-
-.VPSwitchAppearance .check {
-  transform: none !important;
 }
 </style> -->
