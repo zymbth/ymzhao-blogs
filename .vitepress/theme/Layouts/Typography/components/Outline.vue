@@ -14,8 +14,14 @@ const headers = shallowRef([])
 const headerList = ref([])
 const isLarge = inject('isLarge')
 
+let mainEl,
+  currScrollTop = 0
+const showBackTop = ref(false)
 const contentElOffsetTop = ref(0)
+
 onMounted(() => {
+  mainEl = document.querySelector('.main')
+  mainEl.addEventListener('scroll', onScroll)
   watch(
     isLarge,
     () => {
@@ -25,10 +31,15 @@ onMounted(() => {
   )
 })
 
+onUnmounted(() => {
+  mainEl.removeEventListener('scroll', onScroll)
+})
+
 onContentUpdated(() => {
   headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline)
   headerList.value = getHeaderList(headers.value)
   refreshSectionPosi()
+  setTimeout(refreshSectionPosi, 1500)
 })
 
 function getHeaderList(list) {
@@ -56,7 +67,8 @@ const refreshSectionPosi = () => {
 
 const onScroll = throttleAndDebounce(() => {
   let idx = -1
-  const currScrollTop = appEl.scrollTop
+  currScrollTop = mainEl.scrollTop
+  if (showBackTop.value !== currScrollTop > 500) showBackTop.value = !showBackTop.value
   for (let len = headerList.value.length, i = len - 1; i >= 0; i--) {
     if (currScrollTop - contentElOffsetTop.value >= headerList.value[i].top - 1) {
       idx = i
@@ -70,14 +82,6 @@ const onScroll = throttleAndDebounce(() => {
     if (idx > -1) headerList.value[idx].active = true
   }
 }, 200)
-
-const appEl = document.getElementById('app')
-onMounted(() => {
-  appEl.addEventListener('scroll', onScroll)
-})
-onUnmounted(() => {
-  appEl.removeEventListener('scroll', onScroll)
-})
 </script>
 <template>
   <nav class="VPDocAsideOutline" :class="{ 'has-outline': headers.length > 0 }">
@@ -87,6 +91,12 @@ onUnmounted(() => {
       </div>
       <OutlineItem :headers :root="true" />
     </div>
+    <Teleport to="body">
+      <span
+        v-show="showBackTop"
+        @click="mainEl.scrollTo({ top: 0, behavior: 'smooth' })"
+        class="i-mdi:arrow-top-bold-circle-outline w-30px h-30px icon-link fixed bottom-10px right-10px z-1"></span>
+    </Teleport>
   </nav>
 </template>
 <style scoped>

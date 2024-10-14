@@ -7,7 +7,7 @@ import CategoryBreadcrumbs from './components/CategoryBreadcrumbs.jsx'
 const posts = ref(Array.isArray(postData) ? postData : [])
 let search = {}
 try {
-  search = qs.parse(location.search, { ignoreQueryPrefix: true })
+  search = qs.parse(window.location.search, { ignoreQueryPrefix: true })
   if (search.c) search.c = decodeURIComponent(search.c).split(',')
   if (search.p && !isNaN(parseInt(search.p))) search.p = parseInt(search.p)
 } catch (error) {
@@ -55,7 +55,7 @@ function updSearch() {
   if (currentPage.value !== 1) q.p = currentPage.value
   if (currCats.value.length > 0) q.c = currCats.value.join(',')
   const newSearch = qs.stringify(q)
-  let newUrl = `${location.origin}${location.pathname}`
+  let newUrl = `${window.location.origin}${window.location.pathname}`
   if (newSearch) newUrl += '?' + newSearch
   history.replaceState({}, '', newUrl)
 }

@@ -35,12 +35,8 @@ const siteLinks = [
       <!-- Links -->
       <ul flex="~ gap-x-1">
         <li v-for="site in siteLinks" :key="site.text">
-          <a
-            :href="site.href"
-            target="_blank"
-            :title="site.text"
-            class="not-underline-hover inline-flex items-center">
-            <span :class="`${site.icon} w-6 h-6`">{{ site.text }}</span>
+          <a :href="site.href" target="_blank" :title="site.text" class="inline-flex items-center">
+            <span :class="`${site.icon} w-6 h-6 icon-link`">{{ site.text }}</span>
           </a>
         </li>
       </ul>

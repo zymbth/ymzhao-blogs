@@ -23,73 +23,53 @@ const showOutline = ref(true)
 </script>
 <template>
   <NotFound v-if="page.isNotFound" />
-  <div v-else class="relative min-h-screen box-border of-x-hidden pb-40px" lg="pt-40px pb-0">
+  <div v-else class="ct-wrap box-border" lg="h-screen of-y-hidden pt-40px">
     <!-- Nav -->
     <NavComp v-if="!isLarge" class="flex flex-col gap-2.5 m-30px" />
-    <!-- Content -->
-    <div class="ct-wrap">
-      <div class="ct-inner-wrap">
-        <!-- Main -->
-        <main class="w-prose m-auto" lg="m-0 inline-block">
-          <Home v-if="frontmatter.layout === 'home'" />
-          <CustomPage v-else-if="frontmatter.layout === 'custom'" />
-          <Page v-else />
-        </main>
-        <!-- Placeholder -->
-        <div v-show="isLarge" class="w-160px inline-block"></div>
-        <!-- Large sider: Nav & Copyright -->
-        <div
-          v-show="isLarge"
-          class="lg-sider h-[calc(100vh-60px)] w-160px m-l-20px of-y-auto"
-          flex="col gap-y-8">
-          <!-- switch -->
-          <template v-if="isDocLy">
-            <span
-              v-if="!showOutline"
-              class="i-mdi:table-of-contents w-1em h-1em switch-icon"
-              title="查看目录"
-              @click="showOutline = true"></span>
-            <span
-              v-else
-              class="i-mdi:close w-1em h-1em switch-icon"
-              title="关闭目录"
-              @click="showOutline = false"></span>
-          </template>
-          <OutlineComp v-show="isDocLy && showOutline" />
-          <template v-if="!isDocLy || !showOutline">
-            <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
-            <CopyrightComp />
-          </template>
-        </div>
+    <div flex="~ items-start justify-center gap-x-20px">
+      <!-- Main -->
+      <main class="main max-w-prose w-full of-x-visible px-26px lg:w-prose lg:px-0">
+        <Home v-if="frontmatter.layout === 'home'" />
+        <CustomPage v-else-if="frontmatter.layout === 'custom'" />
+        <Page v-else />
+      </main>
+      <!-- Large sider: Nav & Copyright -->
+      <div v-show="isLarge" class="lg-sider w-160px" flex="col gap-y-8">
+        <!-- switch -->
+        <template v-if="isDocLy">
+          <span
+            v-if="!showOutline"
+            class="i-mdi:table-of-contents w-1em h-1em icon-link switch-icon"
+            title="查看目录"
+            @click="showOutline = true"></span>
+          <span
+            v-else
+            class="i-mdi:close w-1em h-1em icon-link switch-icon"
+            title="关闭目录"
+            @click="showOutline = false"></span>
+        </template>
+        <OutlineComp v-show="isDocLy && showOutline" />
+        <template v-if="!isDocLy || !showOutline">
+          <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
+          <CopyrightComp />
+        </template>
       </div>
     </div>
     <!-- Copyright -->
-    <CopyrightComp
-      v-if="!isLarge"
-      class="text-center absolute bottom-8px left-50% transform-translate-x-[-50%]" />
+    <CopyrightComp v-if="!isLarge" class="text-center m-b-10px" />
   </div>
 </template>
 <style lang="scss" scoped>
-// Content 居中，宽度自适应
-.ct-wrap {
-  text-align: center;
-}
-.ct-inner-wrap {
-  display: inline-block;
-  text-align: initial;
-  margin: 0 auto;
-  white-space: nowrap;
-  main,
-  div {
-    white-space: normal;
+.main {
+  flex: 0 0 auto;
+  &::-webkit-scrollbar:hover {
+    background: transparent;
   }
 }
-// 右侧固定
 .lg-sider {
   display: inline-flex;
-  position: fixed;
-  top: 40px;
-  transform: translateX(-100%);
+  position: relative;
+  flex: 0 0 auto;
   &::-webkit-scrollbar {
     width: 8px !important;
     height: 8px !important;
@@ -98,12 +78,18 @@ const showOutline = ref(true)
     position: absolute;
     top: 0;
     right: 0;
-    cursor: pointer;
     z-index: 1;
   }
 }
+@screen lg {
+  .main,
+  .lg-sider {
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+}
 </style>
-<style>
+<!-- <style>
 .Layout {
   display: flex;
   flex-direction: column;
@@ -133,4 +119,4 @@ const showOutline = ref(true)
 .VPSwitchAppearance .check {
   transform: none !important;
 }
-</style>
+</style> -->

@@ -5,6 +5,7 @@ import {
   presetIcons,
   transformerVariantGroup,
   transformerAttributifyJsx,
+  transformerDirectives,
 } from 'unocss'
 
 export default defineConfig({
@@ -19,7 +20,7 @@ export default defineConfig({
       },
     }),
   ],
-  transformers: [transformerVariantGroup(), transformerAttributifyJsx()],
+  transformers: [transformerVariantGroup(), transformerDirectives(), transformerAttributifyJsx()],
   content: {
     pipeline: {
       include: [/\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html|ts)($|\?)/],
