@@ -1,21 +1,23 @@
 <script setup lang="jsx">
-import { useData } from 'vitepress'
-import Achive from './Achive.vue'
-import Category from './Category.vue'
+import { defineAsyncComponent, shallowRef, watch } from 'vue'
+import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
+import { useData, useRoute } from 'vitepress'
 
+const route = useRoute()
 const { frontmatter } = useData()
 
-const FinalComp = ({ name }) => {
-  switch (name) {
-    case 'Achive':
-      return <Achive />
-    case 'Category':
-      return <Category />
-    default:
-      return null
-  }
-}
+const CustomPage = shallowRef()
+watch(
+  () => route.path,
+  () => {
+    CustomPage.value = defineAsyncComponent({
+      loader: () => import(/* @vite-ignore */ `./${frontmatter.value._component}.vue`),
+      errorComponent: NotFound,
+    })
+  },
+  { immediate: true }
+)
 </script>
 <template>
-  <FinalComp :name="frontmatter._component" />
+  <component :is="CustomPage" />
 </template>

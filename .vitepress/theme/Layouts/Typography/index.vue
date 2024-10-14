@@ -10,7 +10,7 @@ import Home from './Home.vue'
 import Page from './Page.vue'
 import CustomPage from './pages/index.vue'
 
-const { page, isDark, frontmatter } = useData()
+const { page, frontmatter } = useData()
 
 /* resize监听 */
 
@@ -20,41 +20,6 @@ provide('isLarge', isLarge)
 
 const isDocLy = computed(() => (frontmatter.value.layout ?? 'doc') === 'doc')
 const showOutline = ref(true)
-
-/* 主题切换 */
-
-// const enableTransitions = () =>
-//   'startViewTransition' in document &&
-//   window.matchMedia('(prefers-reduced-motion: no-preference)').matches
-
-// provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
-//   if (!enableTransitions()) {
-//     isDark.value = !isDark.value
-//     return
-//   }
-
-//   const clipPath = [
-//     `circle(0px at ${x}px ${y}px)`,
-//     `circle(${Math.hypot(
-//       Math.max(x, innerWidth - x),
-//       Math.max(y, innerHeight - y)
-//     )}px at ${x}px ${y}px)`,
-//   ]
-
-//   await document.startViewTransition(async () => {
-//     isDark.value = !isDark.value
-//     await nextTick()
-//   }).ready
-
-//   document.documentElement.animate(
-//     { clipPath: isDark.value ? clipPath.reverse() : clipPath },
-//     {
-//       duration: 300,
-//       easing: 'ease-in',
-//       pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`,
-//     }
-//   )
-// })
 </script>
 <template>
   <NotFound v-if="page.isNotFound" />
