@@ -10,7 +10,7 @@ const siteLinks = [
   <header>
     <!-- logo -->
     <hgroup
-      lg="write-vertical-right items-start b-l-2px b-l-[var(--tg-txt-color)] text-left"
+      lg="write-vertical-right items-start b-l-2px b-l-tg-txt text-left"
       flex="~ col gap-2.5"
       class="cursor-pointer text-center duration-800 ease-in-out">
       <a

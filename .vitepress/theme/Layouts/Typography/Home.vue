@@ -75,7 +75,7 @@ onMounted(() => {
         <h2 class="m-0 text-20px font-bold line-height-1.5em">
           <a class="common-link" :href="p.url" v-html="p.title"></a>
         </h2>
-        <div class="text-14px text-[var(--tg-txt-color-1)]" flex="~ items-center gap-6px">
+        <div class="text-14px text-tg-txt" flex="~ items-center gap-6px">
           <span>发布于</span>
           <time>{{ p.created }}</time>
           <CategoryBreadcrumbs

@@ -26,6 +26,14 @@ export default defineConfig({
       include: [/\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html|ts)($|\?)/],
     },
   },
+  theme: {
+    colors: {
+      tgTxt: 'var(--tg-txt-color)',
+      tgTxt1: 'var(--tg-txt-color-1)',
+      tgTxt2: 'var(--tg-txt-color-2)',
+      tgBg: 'var(--tg-bg-color)',
+    },
+  },
   extendTheme: theme => {
     return {
       ...theme,
