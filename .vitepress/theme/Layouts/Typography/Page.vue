@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useData, useRoute, onContentUpdated } from 'vitepress'
 import { jumpToHash } from './utils/doc-page'
 import Comment from '../components/Comment.vue'
+import VPDocFooterLastUpdated from 'vitepress/dist/client/theme-default/components/VPDocFooterLastUpdated.vue'
 
 const { page } = useData()
 // console.log('created: ', page.value?.frontmatter?.created)
@@ -16,5 +17,6 @@ onContentUpdated(() => {
 </script>
 <template>
   <Content class="vp-doc VPDoc" :class="[pageName]" />
+  <VPDocFooterLastUpdated />
   <Comment :key="page.relativePath" class="mt-24px" />
 </template>
