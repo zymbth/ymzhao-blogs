@@ -12,9 +12,9 @@ created: '2024-07-17'
 > 来源：[Cheat Sheets](https://www.typescriptlang.org/cheatsheets/)
 
 <script setup>
-import { getCurrentInstance } from 'vue'
+import { inject } from 'vue'
 
-const viewImg = getCurrentInstance().appContext.config.globalProperties.$viewImg
+const viewImg = inject('viewImg')
 
 function handleViewImg(index) {
   viewImg('.viewer-wrap', { navbar: true, initialViewIndex: index })

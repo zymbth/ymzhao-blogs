@@ -1,6 +1,7 @@
 import 'viewerjs/dist/viewer.css'
 // import VueViewer from 'v-viewer'
 import Viewer from 'viewerjs'
+import { provide } from 'vue'
 
 export default app => {
   const defaultOptions = {
@@ -25,7 +26,8 @@ export default app => {
   let gallery
 
   // app.use(VueViewer, { defaultOptions })
-  app.config.globalProperties.$viewImg = (selector, options) => {
+
+  const viewImg = (selector, options) => {
     if (gallery && !gallery.destroyed) gallery.destroy()
     if (!(typeof options === 'object')) options = {}
     try {
@@ -44,4 +46,7 @@ export default app => {
       console.error('查看图片失败：', error)
     }
   }
+
+  app.config.globalProperties.$viewImg = viewImg
+  app.provide('viewImg', viewImg)
 }

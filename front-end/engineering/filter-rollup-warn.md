@@ -102,12 +102,12 @@ export default {
 如下：
 
 <script setup>
-import { getCurrentInstance } from 'vue'
+import { inject } from 'vue'
 
-const viewImg = getCurrentInstance().appContext.config.globalProperties.$viewImg
+const viewImg = inject('viewImg')
 
 function handleViewImg() {
-  viewImg('.viewer-wrap', { navbar: true })
+  viewImg('.viewer-wrap')
 }
 </script>
 <div class="viewer-wrap">

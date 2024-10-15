@@ -12,14 +12,14 @@ created: '2024-09-29'
 > 来源：[Cheat Sheets](https://www.epicreact.dev/react-19-cheatsheet)
 
 <script setup>
-import { getCurrentInstance } from 'vue'
+import { inject } from 'vue'
 
-const viewImg = getCurrentInstance().appContext.config.globalProperties.$viewImg
+const viewImg = inject('viewImg')
 
-function handleViewImg(index) {
-  viewImg('.viewer-wrap', { navbar: true, initialViewIndex: index })
+function handleViewImg() {
+  viewImg('.viewer-wrap')
 }
 </script>
 <div class="viewer-wrap">
-  <img src="./assets/react-19-cheat-sheet@2x.webp" @click="handleViewImg(0)" />
+  <img src="./assets/react-19-cheat-sheet@2x.webp" @click="handleViewImg" />
 </div>
