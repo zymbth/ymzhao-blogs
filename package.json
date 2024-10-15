@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
+    "build": "rimraf .\\.vitepress\\cache && vitepress build",
     "preview": "vitepress preview",
     "dev:upd": "cross-env UPD_POST=t vitepress dev",
     "build:upd": "cross-env UPD_POST=t vitepress build"
@@ -17,9 +17,10 @@
     "@vite-pwa/vitepress": "^0.5.0",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "cross-env": "^7.0.3",
+    "rimraf": "^6.0.1",
     "sass": "^1.77.8",
     "unocss": "^0.62.4",
-    "vitepress": "^1.4.0"
+    "vitepress": "^1.4.1"
   },
   "volta": {
     "node": "18.20.4",

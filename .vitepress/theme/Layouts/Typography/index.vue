@@ -35,7 +35,7 @@ const showOutline = ref(true)
         <Page v-else />
       </main>
       <!-- Large sider: Nav & Copyright -->
-      <div v-show="isLarge" class="lg-sider w-160px" flex="col gap-y-8">
+      <div v-show="isLarge" class="lg-sider w-160px">
         <!-- switch -->
         <template v-if="isDocLy">
           <span
@@ -49,11 +49,11 @@ const showOutline = ref(true)
             title="关闭目录"
             @click="showOutline = false"></span>
         </template>
-        <OutlineComp v-show="isDocLy && showOutline" />
-        <template v-if="!isDocLy || !showOutline">
+        <OutlineComp v-show="isDocLy && showOutline" v-model:visible="showOutline" />
+        <div v-if="!isDocLy || !showOutline" class="h-full" flex="~ col gap-y-8">
           <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
           <CopyrightComp />
-        </template>
+        </div>
       </div>
     </div>
     <!-- Copyright -->
@@ -69,7 +69,7 @@ const showOutline = ref(true)
   }
 }
 .lg-sider {
-  display: inline-flex;
+  // display: inline-flex;
   position: relative;
   flex: 0 0 auto;
   &::-webkit-scrollbar {

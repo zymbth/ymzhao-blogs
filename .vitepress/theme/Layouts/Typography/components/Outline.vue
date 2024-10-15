@@ -8,6 +8,13 @@ import {
 import OutlineItem from './OutlineItem.vue'
 import { throttleAndDebounce } from 'vitepress/dist/client/theme-default/support/utils.js'
 
+const props = defineProps({ visible: Boolean })
+const emit = defineEmits(['update:visible'])
+const visi = computed({
+  get: () => props.visible,
+  set: val => emit('update:visible', val),
+})
+
 const { frontmatter, theme } = useData()
 
 const headers = shallowRef([])
@@ -37,6 +44,7 @@ onUnmounted(() => {
 
 onContentUpdated(() => {
   headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline)
+  visi.value = headers.value.length > 1
   headerList.value = getHeaderList(headers.value)
   refreshSectionPosi()
   setTimeout(refreshSectionPosi, 1500)

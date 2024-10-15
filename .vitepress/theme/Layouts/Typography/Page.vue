@@ -5,8 +5,7 @@ import { jumpToHash } from './utils/doc-page'
 import Comment from '../components/Comment.vue'
 import VPDocFooterLastUpdated from 'vitepress/dist/client/theme-default/components/VPDocFooterLastUpdated.vue'
 
-const { page } = useData()
-// console.log('created: ', page.value?.frontmatter?.created)
+const { page, frontmatter } = useData()
 
 const route = useRoute()
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''))
@@ -17,6 +16,6 @@ onContentUpdated(() => {
 </script>
 <template>
   <Content class="vp-doc VPDoc" :class="[pageName]" />
-  <VPDocFooterLastUpdated />
+  <VPDocFooterLastUpdated :title="`创建于: ${frontmatter.created}`" />
   <Comment :key="page.relativePath" class="mt-24px" />
 </template>

@@ -282,6 +282,7 @@ export default withPwa(
       },
     },
     lastUpdated: true,
+    lastUpdatedText: '最后更新于',
     markdown: {
       lineNumbers: true,
       /**
@@ -314,11 +315,13 @@ export default withPwa(
         port: 5200,
         host: '0.0.0.0',
       },
+      build: {
+        target: 'esnext',
+      },
     },
     /* Vite PWA Options */
     pwa,
     sitemap: {
-      // hostname: 'https://ymzhao-blog.pages.dev',
       hostname: 'https://blog.ymzhao.work',
     },
   })
