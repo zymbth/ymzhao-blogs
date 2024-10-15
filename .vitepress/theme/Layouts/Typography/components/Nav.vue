@@ -1,4 +1,5 @@
 <script setup>
+import NavBarSearch from './NavBarSearch.vue'
 const siteLinks = [
   { text: 'github', icon: 'i-mdi-github', href: 'https://github.com/zymbth' },
   { text: 'website', icon: 'i-mdi-web', href: 'https://ymzhao.work ' },
@@ -27,8 +28,8 @@ const siteLinks = [
     <!-- Nav: navs & links -->
     <nav class="text-center font-bold" flex="~ col items-center lg:items-start gap-y-4">
       <!-- Navs -->
-      <ul flex="~ lg:col gap-x-2 gap-y-2" class="text-16px">
-        <li><a class="common-link" href="/">文章</a></li>
+      <ul flex="~ lg:col items-start gap-x-4 gap-y-2" class="text-16px">
+        <li><a class="common-link" href="/">文章</a> <NavBarSearch /></li>
         <li><a class="common-link" href="/pages/achive">归档</a></li>
         <li><a class="common-link" href="/pages/category">分类</a></li>
       </ul>
