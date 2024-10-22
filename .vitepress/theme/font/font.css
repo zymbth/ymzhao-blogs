@@ -1,3 +1,15 @@
+/*
+  中文字体：霞鹜文楷+霞鹜臻楷
+  霞鹜文楷普通字重字体过细，使用其 Medium/Bold 字体作为网站普通字体
+  霞鹜文楷无更粗字体，而霞鹜臻楷为前者的衍生加粗版，用作网站加粗字体
+  @see https://github.com/lxgw/LxgwWenKai 霞鹜文楷
+  @see https://github.com/lxgw/LxgwZhenKai 霞鹜臻楷
+
+  英文字体：JetBrainsMono, ComicShannsMono
+  @see https://github.com/JetBrains/JetBrainsMono JetBrainsMono
+  @see https://github.com/jesusmgg/comic-shanns-mono ComicShannsMono
+*/
+
 @font-face {
   font-family: 'ComicShannsMono Regular';
   src: url(./ComicShannsMono-Regular.ttf);
@@ -10,5 +22,14 @@
 
 @font-face {
   font-family: '霞鹜文楷';
-  src: url(./霞鹜文楷.ttf);
+  src: url(./LXGW/LXGWWenKaiLite-Bold-v1.245.1.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: '霞鹜文楷';
+  src: url(./LXGW/LXGWZhenKai-v0.600.ttf);
+  font-weight: bold;
+  font-style: normal;
 }
