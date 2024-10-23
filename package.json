@@ -2,25 +2,25 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "rimraf .\\.vitepress\\cache && vitepress build",
+    "build:pure": "vitepress build",
     "preview": "vitepress preview",
     "dev:upd": "cross-env UPD_POST=t vitepress dev",
     "build:upd": "cross-env UPD_POST=t vitepress build"
-  },
-  "dependencies": {
-    "@vueuse/core": "^11.1.0",
-    "qs": "^6.13.0",
-    "v-viewer": "^3.0.13",
-    "viewerjs": "^1.11.6"
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.1",
     "@vite-pwa/vitepress": "^0.5.0",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "@vueuse/core": "^11.1.0",
     "cross-env": "^7.0.3",
+    "qs": "^6.13.0",
     "rimraf": "^6.0.1",
     "sass": "^1.77.8",
     "unocss": "^0.62.4",
-    "vitepress": "^1.4.1"
+    "v-viewer": "^3.0.13",
+    "viewerjs": "^1.11.6",
+    "vitepress": "^1.4.1",
+    "vue": "^3.5.12"
   },
   "volta": {
     "node": "18.20.4",

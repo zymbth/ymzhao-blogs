@@ -1,8 +1,8 @@
 @import './scrollbar.css';
 
 :root {
-  --vp-font-family-base: /* 'ComicShannsMono Regular', */ '霞鹜文楷', '思源黑体', '微软雅黑' !important; /* normal text font */
-  --vp-font-family-mono: 'ComicShannsMono Regular', '霞鹜文楷', '思源黑体', '微软雅黑' !important; /* code font */
+  --vp-font-family-base: /* 'ComicShannsMono Regular', */ 'LXGWWenKai', '思源黑体', '微软雅黑' !important; /* normal text font */
+  --vp-font-family-mono: 'ComicShannsMono Regular', 'LXGWWenKai', '思源黑体', '微软雅黑' !important; /* code font */
 
   // 代码高亮bg
   --vp-code-line-highlight-color: rgb(96, 215, 255, 0.2);
