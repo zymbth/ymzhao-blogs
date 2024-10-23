@@ -11,70 +11,73 @@ created: '2023-09-12'
 
 ## 前言
 
-个人猜测很多程序员不使用 ESLint，应该有一部分的原因是被满屏的错误报告吓的；也应该有些新手对代码风格没有概念，喜爱自由；又或者是被繁多的配置劝退。
+::: warning
 
-万事开头难，不熟悉的话，ESLint 确实会让人敬而远之。基于本人经验，在意识到统一代码风格的必要性后，首先会有这么几个问题：如何安装使用？海量的错误与警告报告如何处理？已有项目下如何安全应用？要如何处理已有文件？如何保障代码风格？等等
+本文展示 ESLint / Prettier 的基本配置与应用，甚至未包括 ts 相关规则。
 
-那么，应用的目的是什么呢？肯定不是对 ESLint / Prettier 这些工具的深度使用与剖析，而是以最快、最高效地实现“项目代码检测与格式化”，最小代价地应用到已有项目中。
+最小化的代码风格与格式化实践请参考[@antfu/eslint-config](https://github.com/antfu/eslint-config)，大佬整合的 ESLint 配置，可零配置使用（默认风格）。项目需要诸如 ts, vue, unocss 等规则的支持可在配置中启用，无需手动安装相关插件。当然，它允许自定义规则以覆盖默认规则。
 
-先了解下 ESLint 吧，官网超大号字体告诉你，它的作用是“检测并修复 JavaScript 代码中的问题”，更详细一点的描述是“ESLint 是一个根据方案识别并报告 ECMAScript/JavaScript 代码问题的工具，其目的是使代码风格更加一致并避免错误。”这句话非常到位，请细读。目的和作用我们知道了，复杂或者说强大的是**方案**。
+不仅如此，大佬还提供了一个[在线配置查询工具](https://eslint-config.antfu.me/configs)以及[配置可视化工具](https://github.com/eslint/config-inspector)。
 
-新手一般也不会需要复杂的方案，先能格式化代码就好了。ESLint 可以使用第三方格式化工具，这里我们选择最常用的 Prettier。
+:::
 
-简单应用的话，为了避免恶心自己，我们可以使用 ESLint 插件 [eslint-plugin-only-warn](https://github.com/bfanger/eslint-plugin-only-warn) 让代码不会因为 ESLint 报告错误。
+不使用 ESLint 可能的原因：部分新手对代码风格没有概念，又或者是被繁多的配置劝退；满屏的错误。
 
-现在，我们目的明确（只需要 ESLint 使用 Prettier 格式化代码，将错误报告改为警告），可以浏览正文了。
+统一代码风格与格式化是一个开头难，但一次配置永久享受的事情。
 
----
+初接触时，疑问是非常多的，例如，如何安装使用？有哪些规则？如何配置？海量的错误与警告报告如何处理？如何在已有项目下安全应用？等等
 
-本文远非对 ESLint / Prettier 的深度使用与剖析，而是讲述以最小代价、最快、最高效地应用为目的，借助 ESLint & Prettier 实现项目代码自动检测与格式化的过程。当然，基于本人的使用经验较浅，实现过程肯定不是最小代价、最快、最高效的，策略也很初级。但对于未尝试过的新手程序员来讲，可以对相关概念有大概了解，提供一个快速上手、应用实践的参考示范。
+> 本文远非对 ESLint / Prettier 的深度使用与剖析，而是讲述新手以最小代价、最快、最高效地应用为目的，借助 ESLint & Prettier 实现项目代码自动检测与格式化的过程。
+>
+> 具体配置因人而异，示例仅作参考。
 
-思路最重要，具体配置因人而异，示例仅作参考。
-
-## 一、工具介绍
+## 一、简介
 
 本文使用 ESLint & Prettier 进行代码检测与格式化
 
 > 参考
 >
-> [ESLint 中文网](https://zh-hans.eslint.org/)
+> [ESLint 中文官网](https://zh-hans.eslint.org/)
 >
 > [ESLint 英文官网](https://eslint.org/)
 >
-> [Prettier 中文网](https://www.prettier.cn/)
+> [Prettier 中文官网](https://www.prettier.cn/)
 >
 > [Prettier 英文官网](https://prettier.io/)
 
 如果你对这两个工具尚很陌生，请花点时间访问下它们的官网，了解下它们的功能、核心概念及基本配置。
 
-除了 Prettier 外，ESLint 还可以使用其它的格式化工具。
+先了解下 ESLint 吧，官网超大号字体告诉你，它的作用是“检测并修复 JavaScript 代码中的问题”，更详细一点的描述是
 
-### ESLint 简介
+> “ESLint 是一个根据方案识别并报告 ECMAScript/JavaScript 代码问题的工具，其目的是使代码风格更加一致并避免错误。”
 
-ESLint 是一个用于静态代码分析的工具，用于帮助开发人员在编写代码时检测和修复常见的代码错误和潜在问题。它可以在开发过程中自动检测和报告代码中的问题，并提供一致的代码风格和最佳实践建议。
+这句话非常到位，请细读。目的和作用我们知道了，复杂的是**方案**。
 
-ESLint 的作用：
+新手一般也不会需要复杂的方案。ESLint 可以使用第三方格式化工具，这里我们选择最常用的 Prettier。除了 Prettier 外，ESLint 还可以使用其它的格式化工具。
 
-1. 代码质量提升：ESLint 可以帮助检测和修复潜在的代码错误和问题，从而提高代码的质量和可靠性。
-2. 代码风格统一：ESLint 可以根据预定义的代码风格规则或自定义规则，强制开发团队遵循统一的代码风格，从而提高代码的可读性和可维护性。
-3. 提前发现问题：ESLint 可以在开发过程中即时检测代码中的问题，包括常见的错误、潜在的 Bug、不推荐的语法和不良的代码习惯，帮助开发人员在代码提交之前就发现并修复问题。
-4. 提高团队协作：ESLint 可以帮助开发团队共享和遵守统一的代码规范，减少代码审查和合并请求时的冲突，提高团队协作效率。
-5. 可扩展性：ESLint 提供了丰富的插件和扩展机制，可以根据项目的需求进行定制和扩展，满足特定的代码规范和要求。
+::: details ESLint VS Prettier
 
-总而言之，ESLint 可以帮助开发人员编写更加高质量、一致性和可维护性的代码，提高开发效率和代码质量。
+ESLint 和 Prettier 都是用于改善代码质量和统一代码风格的工具,但它们的作用和侧重点有所不同。下面是它们的简要介绍和对比:
 
-### Prettier 简介
+- ESLint:
+  - 是一个 JavaScript 代码检查工具,可以帮助开发者发现和修复代码中的语法错误、风格问题和潜在的问题。
+  - ESLint 通过一系列的规则来检查代码,并且可以自定义这些规则。它支持插件来扩展规则集,并且可以集成到许多编辑器和构建工具中。
+  - ESLint 主要关注于代码的语法和潜在的逻辑问题,可以帮助开发者编写更加健壮和可维护的代码。
+- Prettier:
 
-Prettier 是一个代码格式化工具，可以自动格式化代码，使其符合统一的代码风格和规范。与 ESLint 不同，Prettier 主要关注代码的排版和格式，而不是代码质量和潜在问题的检测。
+  - 是一个代码格式化工具,它可以自动格式化代码,使其符合一致的风格。
+  - Prettier 专注于代码的格式化,如缩进、换行、引号等,而不会检查代码的语法和逻辑。
+  - Prettier 的目标是让所有开发者的代码都遵循相同的风格规范,从而提高代码的可读性和可维护性。
 
-Prettier 的作用：
+- 对比:
+  - 作用侧重点不同: ESLint 主要关注代码质量和潜在问题,而 Prettier 关注代码格式化和风格统一。
+  - 使用方式不同: ESLint 需要定义规则,Prettier 则是自动格式化,不需要特殊配置。
+  - 集成能力不同: ESLint 可以集成到更多的工具和编辑器中,而 Prettier 的集成相对较少。
+  - 解决问题不同: ESLint 可以发现和修复代码中的错误和问题,而 Prettier 只能格式化代码,不能修复问题。
 
-1. 一致的代码风格：Prettier 可以根据预定义的代码格式规则，自动格式化代码，使其具有统一的代码风格。这有助于提高代码的可读性和可维护性，并减少团队成员之间的代码风格差异。
-2. 代码格式化：Prettier 可以自动调整代码的缩进、换行、空格等格式，使代码整齐、清晰易读。它可以处理各种编程语言，包括 JavaScript、TypeScript、CSS、HTML 等。
-3. 自动化：Prettier 可以与编辑器或构建工具集成，实现代码保存时自动格式化的功能，节省开发人员手动格式化代码的时间和精力。
-4. 与团队协作：Prettier 可以作为团队中的共享配置，确保所有成员在编辑和提交代码时都遵循相同的代码格式规范，减少代码审查和合并请求时的冲突。
+通常情况下,开发团队会同时使用 ESLint 和 Prettier 来确保代码的质量和风格统一。ESLint 负责代码质量,Prettier 负责代码格式化,两者相互配合,共同提高代码的可维护性。
 
-总而言之，Prettier 可以帮助开发人员快速、自动地格式化代码，使其具有一致的代码风格，提高代码的可读性和可维护性。它是一个简单易用的工具，可与其他代码工具和工作流程集成，提高团队协作和开发效率。
+:::
 
 ## 二、安装
 
@@ -88,19 +91,13 @@ Prettier 的作用：
 
 `eslint-plugin-prettier`
 
-`eslint-plugin-only-warn`：避免检测不通过直接报告错误，揪心
+`eslint-plugin-only-warn`：可以使用 ESLint 插件 [eslint-plugin-only-warn](https://github.com/bfanger/eslint-plugin-only-warn) 让代码不会因为 ESLint 报告错误。等待完成配置后再移除它。
 
-使用 npm/yarn 或其他包管理器安装上述开发依赖：
+使用 npm/yarn/pnpm 或其他包管理器安装上述开发依赖：
 
 `npm install -D eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-only-warn`
 
-OR
-
-`yarn add -D eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-only-warn`
-
 ## 三、配置
-
-由于我们的目的是快速实践应用，配置的自定义与调整可以延后到成功应用后。
 
 本文配置分为两类：一是代码格式化，一是行尾符规范。行尾符平时不起眼，一旦与方案不符，它会影响代码的每一行，逼死强迫症。
 
@@ -134,7 +131,7 @@ module.exports = {
 }
 ```
 
-示例解析：
+::: details 示例解析
 
 - env：指定代码将在哪个环境下运行。在这个例子中，browser: true 表示代码将在浏览器环境下运行，es2021: true 表示代码将使用 ECMAScript 2021 的语法特性。
 - plugins：指定要使用的插件。在这个例子中，only-warn 插件用于将所有 ESLint 警告转换为错误，以便在构建过程中更严格地检查代码。
@@ -142,6 +139,8 @@ module.exports = {
 - parserOptions：指定 ESLint 解析器的选项。在这个例子中，ecmaVersion 指定要使用的 ECMAScript 版本（在这里是最新版本），sourceType 指定代码是使用模块还是脚本语法。
 - ignorePatterns：指定哪些文件或目录应该被忽略。在这个例子中，.eslintrc.js 文件被排除在检查范围之外，以避免 ESLint 规则递归地应用于自己。
 - rules：指定要应用的规则及其选项。在这个例子中，linebreak-style 规则用于检查行尾符号（CRLF 或 LF）是否符合 Unix 标准，并将不符合标准的行视为警告级别。
+
+:::
 
 ### 配置 Prettier
 
@@ -174,7 +173,7 @@ Prettier 的配置非常简单，参照[官网](https://www.prettier.cn/docs/opt
 }
 ```
 
-示例解析：
+::: details 示例解析
 
 - endOfLine：指定行尾符号的类型，可以是 lf、crlf 或 auto。在这个例子中，lf 表示行尾符号使用 Unix 风格的换行符。
 - tabWidth：指定使用制表符时的缩进宽度。
@@ -186,6 +185,8 @@ Prettier 的配置非常简单，参照[官网](https://www.prettier.cn/docs/opt
 - bracketSameLine：指定是否将对象的左括号放在同一行上。
 - jsxSingleQuote：指定是否在 JSX 属性中使用单引号。
 - trailingComma：指定是否在对象和数组的最后一个元素后添加逗号。在这个例子中，es5 表示只在 ES5 支持的语法中添加拖尾逗号。
+
+:::
 
 ## 四、编辑器
 
@@ -251,26 +252,30 @@ Prettier 的配置非常简单，参照[官网](https://www.prettier.cn/docs/opt
 
 `"lint": "eslint --max-warnings=0 \"src/**/*.{js,ts,jsx,tsx,vue,css,scss,html,htm}\" --fix"`
 
-> 脚本详解：
->
-> - eslint：指定要运行的 ESLint 命令。
-> - --max-warnings=0：指定最大警告数为 0，表示如果代码中有任何警告，ESLint 将报告错误并停止运行。
-> - \"src/\*_/_.{js,ts,jsx,tsx,vue,css,scss,html,htm}\"：指定要检查的文件或文件夹的路径。在这个例子中，它是一个 glob 模式，匹配所有在 src 文件夹中以 .js、.ts、.jsx、.tsx、.vue、.css、.scss、.html 或 .htm 为扩展名的文件。
-> - --fix：指定 ESLint 尝试自动修复尽可能多的问题。
->
-> 因此，这个 npm 命令脚本将运行 ESLint，检查指定的源代码文件中的语法错误和潜在问题，并尝试自动修复它们。如果代码中有任何警告，则 ESLint 将报告错误并停止运行。
+::: details 脚本详解
+
+- eslint：指定要运行的 ESLint 命令。
+- --max-warnings=0：指定最大警告数为 0，表示如果代码中有任何警告，ESLint 将报告错误并停止运行。
+- \"src/\*_/_.{js,ts,jsx,tsx,vue,css,scss,html,htm}\"：指定要检查的文件或文件夹的路径。在这个例子中，它是一个 glob 模式，匹配所有在 src 文中以 .js、.ts、.jsx、.tsx、.vue、.css、.scss、.html 或 .htm 为扩展名的文件。
+- --fix：指定 ESLint 尝试自动修复尽可能多的问题。
+
+因此，这个 npm 命令脚本将运行 ESLint，检查指定的源代码文件中的语法错误和潜在问题，并尝试自动修复它们。如果代码中有任何警告，则 ESLint 将报告错误并停止运行。
+
+:::
 
 #### Prettier 格式化任务
 
 `"format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,vue,css,scss,html,htm}\""`
 
-> 脚本详解：
->
-> - prettier：指定要运行的 Prettier 命令。
-> - --write：指定 Prettier 将直接在源代码文件中修改并保存格式化后的代码。
-> - \"src/\*_/_.{js,ts,jsx,tsx,vue,css,scss,html,htm}\"：指定要格式化的文件或文件夹的路径。在这个例子中，它是一个 glob 模式，匹配所有在 src 文件夹中以 .js、.ts、.jsx、.tsx、.vue、.css、.scss、.html 或 .htm 为扩展名的文件。
->
-> 因此，这个 npm 命令脚本将运行 Prettier，格式化指定的源代码文件并将其保存回源文件中。
+::: details 脚本详解
+
+- prettier：指定要运行的 Prettier 命令。
+- --write：指定 Prettier 将直接在源代码文件中修改并保存格式化后的代码。
+- \"src/\*_/_.{js,ts,jsx,tsx,vue,css,scss,html,htm}\"：指定要格式化的文件或文件夹的路径。在这个例子中，它是一个 glob 模式，匹配所有在 src 文件夹中以 .js、.ts、.jsx、.tsx、.vue、.css、.scss、.html 或 .htm 为扩展名的文件。
+
+因此，这个 npm 命令脚本将运行 Prettier，格式化指定的源代码文件并将其保存回源文件中。
+
+:::
 
 ### 执行 npm 命令脚本
 
@@ -320,11 +325,13 @@ yarn lint
 
 ```
 
-> 第一行解析：
->
-> - \*.html：指定要匹配的文件名模式，这里是所有以 .html 为扩展名的文件。
-> - text：指定文件应该被视为文本文件，而不是二进制文件。
-> - eol=lf：指定 LF（\n）作为行尾符号，而不是 Windows 风格的 CRLF（\r\n）。
+::: details 第一行解析
+
+- \*.html：指定要匹配的文件名模式，这里是所有以 .html 为扩展名的文件。
+- text：指定文件应该被视为文本文件，而不是二进制文件。
+- eol=lf：指定 LF（\n）作为行尾符号，而不是 Windows 风格的 CRLF（\r\n）。
+
+:::
 
 ## 总结
 
