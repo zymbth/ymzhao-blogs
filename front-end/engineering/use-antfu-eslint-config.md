@@ -4,7 +4,7 @@ head:
   - - meta
     - name: keywords
       content: ESLint,@antfu/eslint-config,整合,代码分析,格式化
-created: '2023-10-23'
+created: '2024-10-23'
 ---
 
 # 实践：使用 @antfu/eslint-config 整合 ESLint 配置
