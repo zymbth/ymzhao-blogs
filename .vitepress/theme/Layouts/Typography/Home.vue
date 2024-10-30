@@ -41,7 +41,7 @@ function handleSelectCat(category, categories = currCats.value) {
  * 一次显示十条博文
  * 分页器包括三部分：上一页、下一页链接，当前页及总页数
  */
-const pageSize = 10
+const pageSize = 20
 const currentPage = ref(search.p || 1)
 const totalPages = computed(() => Math.ceil(filteredPosts.value.length / pageSize))
 const currPosts = computed(() => {
@@ -65,15 +65,15 @@ onMounted(() => {
 </script>
 <template>
   <Content class="vp-home" />
-  <section class="contain-layout flex flex-col gap-3">
+  <section class="contain-layout flex flex-col gap-1.5">
     <h1 v-show="currCat" class="text-20px font-bold line-height-1.8em" flex="~ gap-6px">
       <CategoryBreadcrumbs :modelValue="currCats" @select="handleSelectCat" />
       <span class="inline-block cursor-pointer transform-rotate-45" @click="currCats = []">+</span>
     </h1>
     <article v-for="p in currPosts" :key="p.url">
-      <header flex="~ col gap-1.5">
-        <h2 class="m-0 text-20px font-bold line-height-1.5em">
-          <a class="common-link" :href="p.url" v-html="p.title"></a>
+      <header flex="~ col">
+        <h2 class="m-0 text-18px font-bold line-height-1.5em">
+          <a class="primary-link" :href="p.url" v-html="p.title"></a>
         </h2>
         <div class="text-14px text-tg-txt" flex="~ items-center gap-6px">
           <span>发布于</span>

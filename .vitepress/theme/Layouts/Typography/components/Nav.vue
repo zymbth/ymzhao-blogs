@@ -14,7 +14,7 @@ const siteLinks = [
       flex="~ col gap-2.5"
       class="cursor-pointer text-center duration-800 ease-in-out">
       <a
-        class="common-link !decoration-none duration-800 ease-in-out"
+        class="primary-link !decoration-none duration-800 ease-in-out"
         lg:p="x-2.5 b-12 hover:t-3.75 hover:b-8.75"
         href="/">
         <h3 class="text-5 line-height-none lg:line-height-normal font-extrabold">技思小隅</h3>
@@ -29,9 +29,9 @@ const siteLinks = [
     <nav class="text-center font-bold" flex="~ col items-center lg:items-start gap-y-4">
       <!-- Navs -->
       <ul flex="~ lg:col items-start gap-x-4 gap-y-2" class="text-16px">
-        <li><a class="common-link" href="/">文章</a> <NavBarSearch /></li>
-        <li><a class="common-link" href="/pages/achive">归档</a></li>
-        <li><a class="common-link" href="/pages/category">分类</a></li>
+        <li><a class="primary-link" href="/">文章</a> <NavBarSearch /></li>
+        <li><a class="primary-link" href="/pages/achive">归档</a></li>
+        <li><a class="primary-link" href="/pages/category">分类</a></li>
       </ul>
       <!-- Links -->
       <ul flex="~ gap-x-1">

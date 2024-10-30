@@ -45,7 +45,7 @@ const CategoryComp = ({ data, depth = 0 }) => {
           <ol class='initial-type'>
             {data.posts.map(post => (
               <li>
-                <a class='common-link' href={post.url} v-html={post.title}></a>
+                <a class='primary-link' href={post.url} v-html={post.title}></a>
               </li>
             ))}
           </ol>

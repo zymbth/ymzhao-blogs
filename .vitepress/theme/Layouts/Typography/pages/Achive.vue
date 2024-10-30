@@ -20,7 +20,7 @@ const achiveList = posts.value.reduce((prev, curr) => {
       <dd class="text-16px">
         <ol class="initial-type">
           <li v-for="post in item.posts" :key="post.title">
-            <a class="common-link" :href="post.url" v-html="post.title"></a>
+            <a class="primary-link" :href="post.url" v-html="post.title"></a>
           </li>
         </ol>
       </dd>

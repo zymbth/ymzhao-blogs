@@ -76,8 +76,10 @@ ol.initial-type {
 }
 
 // 通用链接
-.common-link,
-.vp-doc a.common-link {
+.primary-link,
+.secondary-link,
+.vp-doc a.primary-link,
+.vp-doc a.secondary-link {
   padding: 1.5px;
   text-decoration-line: underline;
   text-decoration-thickness: 0.1em;
@@ -85,13 +87,21 @@ ol.initial-type {
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-.common-link:hover,
-.vp-doc a.common-link:hover {
+.primary-link:hover,
+.vp-doc a.primary-link:hover {
   background-color: var(--tg-txt-color);
   color: var(--tg-bg-color);
   -webkit-text-decoration-color: var(--tg-txt-color);
   text-decoration-color: var(--tg-txt-color);
 }
+.secondary-link:hover,
+.vp-doc a.secondary-link:hover {
+  background-color: var(--tg-txt-color-2);
+  color: var(--tg-bg-color);
+  -webkit-text-decoration-color: var(--tg-txt-color-2);
+  text-decoration-color: var(--tg-txt-color-2);
+}
+
 
 .icon-link {
   color: var(--tg-txt-color);

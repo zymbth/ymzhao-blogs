@@ -11,7 +11,7 @@ const CategoryComp = ({ modelValue, index, total, enableLast = false }, { emit }
       {isLast && !enableLast ? (
         <span class='color-#666'>{category}</span>
       ) : (
-        <span class='inline-block cursor-pointer common-link' onClick={handleSelect}>
+        <span class='inline-block cursor-pointer secondary-link' onClick={handleSelect}>
           {category}
         </span>
       )}
