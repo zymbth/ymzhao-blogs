@@ -6,11 +6,11 @@ import { getCategoryByUrl, generateTitleByPath } from './util.mjs'
 export default function scanPostPlugin({ flag } = {}) {
   return flag === 't'
     ? {
-        name: 'scan-post-plugin',
-        buildStart(options) {
-          scanPost()
-        },
-      }
+      name: 'scan-post-plugin',
+      buildStart(options) {
+        scanPost()
+      },
+    }
     : { name: 'scan-post-plugin' }
 }
 
@@ -27,6 +27,7 @@ async function scanPost() {
     console.time('Scan posts')
     const postsData = []
     for (const post of posts) {
+      if (post.frontmatter?.isDraft === 't') continue
       const title = await getFileTitle(post)
       const categories = getCategoryByUrl(post.url)
       postsData.push({
@@ -36,6 +37,7 @@ async function scanPost() {
         created: post.frontmatter?.created,
         intro: post.frontmatter?.intro,
         title,
+        // hidden: post.frontmatter?.isDraft === 't',
       })
     }
     postsData.sort((a, b) => {
