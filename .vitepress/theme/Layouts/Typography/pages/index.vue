@@ -1,7 +1,7 @@
 <script setup lang="jsx">
-import { defineAsyncComponent, shallowRef, watch } from 'vue'
-import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
 import { useData, useRoute } from 'vitepress'
+import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
+import { defineAsyncComponent, shallowRef, watch } from 'vue'
 
 const route = useRoute()
 const { frontmatter } = useData()
@@ -28,6 +28,7 @@ watch(
   { immediate: true }
 )
 </script>
+
 <template>
   <component :is="CustomPage" />
 </template>

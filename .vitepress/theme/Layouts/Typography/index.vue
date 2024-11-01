@@ -1,10 +1,10 @@
 <script setup>
-import { ref, computed, provide } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { useData } from 'vitepress'
 import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
-import NavComp from './components/Nav.vue'
+import { computed, provide, ref } from 'vue'
 import CopyrightComp from './components/Copyright.vue'
+import NavComp from './components/Nav.vue'
 import OutlineComp from './components/Outline.vue'
 import SwitchAppearance from './components/SwitchAppearance.vue'
 import Home from './Home.vue'
@@ -22,11 +22,12 @@ provide('isLarge', isLarge)
 const isDocLy = computed(() => (frontmatter.value.layout ?? 'doc') === 'doc')
 const showOutline = ref(true)
 </script>
+
 <template>
   <NotFound v-if="page.isNotFound" />
   <div v-else class="ct-wrap box-border" lg="h-screen of-y-hidden pt-40px">
     <!-- Nav -->
-    <NavComp v-if="!isLarge" class="flex flex-col gap-2.5 m-30px" />
+    <NavComp v-if="!isLarge" class="m-30px flex flex-col gap-2.5" />
     <div flex="~ items-start justify-center gap-x-20px">
       <!-- Main -->
       <main class="main max-w-prose w-full of-x-visible px-26px lg:w-prose lg:px-0">
@@ -40,14 +41,16 @@ const showOutline = ref(true)
         <template v-if="isDocLy">
           <span
             v-if="!showOutline"
-            class="i-mdi:table-of-contents w-1em h-1em icon-link switch-icon"
+            class="icon-link switch-icon i-mdi:table-of-contents h-1em w-1em"
             title="查看目录"
-            @click="showOutline = true"></span>
+            @click="showOutline = true"
+          />
           <span
             v-else
-            class="i-mdi:close w-1em h-1em icon-link switch-icon"
+            class="icon-link switch-icon i-mdi:close h-1em w-1em"
             title="关闭目录"
-            @click="showOutline = false"></span>
+            @click="showOutline = false"
+          />
         </template>
         <OutlineComp v-show="isDocLy && showOutline" v-model:visible="showOutline" />
         <div v-if="!isDocLy || !showOutline" class="h-full" flex="~ col gap-y-8">
@@ -57,10 +60,11 @@ const showOutline = ref(true)
       </div>
     </div>
     <!-- Copyright -->
-    <CopyrightComp v-if="!isLarge" class="text-center m-b-10px" />
+    <CopyrightComp v-if="!isLarge" class="m-b-10px text-center" />
   </div>
-  <SwitchAppearance class="!fixed top-10px right-10px z-1" />
+  <SwitchAppearance class="right-10px top-10px z-1 !fixed" />
 </template>
+
 <style lang="scss" scoped>
 .main {
   flex: 0 0 auto;

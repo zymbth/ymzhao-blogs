@@ -1,5 +1,6 @@
 import { categoryMap } from '@/_plugins/util.mjs'
 
+// eslint-disable-next-line no-unused-vars,unused-imports/no-unused-vars
 const CategoryComp = ({ modelValue, index, total, enableLast = false }, { emit }) => {
   const category = categoryMap[modelValue]
   const isFirst = index === 0
@@ -8,13 +9,15 @@ const CategoryComp = ({ modelValue, index, total, enableLast = false }, { emit }
   return (
     <>
       {isFirst ? '#' : '>'}
-      {isLast && !enableLast ? (
-        <span class='color-#666'>{category}</span>
-      ) : (
-        <span class='inline-block cursor-pointer secondary-link' onClick={handleSelect}>
-          {category}
-        </span>
-      )}
+      {isLast && !enableLast
+        ? (
+            <span class="color-#666">{category}</span>
+          )
+        : (
+            <span class="secondary-link inline-block cursor-pointer" onClick={handleSelect}>
+              {category}
+            </span>
+          )}
     </>
   )
 }
@@ -23,7 +26,7 @@ export default ({ modelValue, enableLast = false }, { emit }) => {
   if (!Array.isArray(modelValue)) return null
   const handleSelect = val => emit('select', val)
   return (
-    <span flex='~ items-center gap-2px'>
+    <span flex="~ items-center gap-2px">
       {modelValue.map((item, index) => {
         return (
           <CategoryComp

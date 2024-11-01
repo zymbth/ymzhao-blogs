@@ -18,14 +18,13 @@ function isActive(link, title) {
 
 <template>
   <ul class="VPDocOutlineItem" :class="root ? 'root' : 'nested'">
-    <li v-for="{ children, link, title } in headers">
+    <li v-for="{ children, link, title } in headers" :key="link">
       <a
-        :class="['outline-link', { active: isActive(link, title) }]"
+        class="outline-link" :class="[{ active: isActive(link, title) }]"
         :href="link"
         @click="onClick"
         :title
-        >{{ title }}</a
-      >
+      >{{ title }}</a>
       <template v-if="children?.length">
         <OutlineItem :headers="children" />
       </template>

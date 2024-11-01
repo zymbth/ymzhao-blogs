@@ -1,7 +1,7 @@
 <script setup>
-import { provide, nextTick } from 'vue'
 import { useData } from 'vitepress'
 import VPSwitchAppearance from 'vitepress/dist/client/theme-default/components/VPSwitchAppearance.vue'
+import { nextTick, provide } from 'vue'
 // import VPNavBarAppearance from 'vitepress/dist/client/theme-default/components/VPNavBarAppearance.vue';
 
 const { isDark } = useData()
@@ -9,8 +9,8 @@ const { isDark } = useData()
 /* 主题切换 */
 
 const enableTransitions = () =>
-  'startViewTransition' in document &&
-  window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+  'startViewTransition' in document
+  && window.matchMedia('(prefers-reduced-motion: no-preference)').matches
 
 provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
   if (!enableTransitions()) {
@@ -41,9 +41,11 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
   )
 })
 </script>
+
 <template>
   <VPSwitchAppearance />
 </template>
+
 <style>
 .VPSwitchAppearance {
   width: 22px !important;

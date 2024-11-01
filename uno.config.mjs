@@ -1,11 +1,11 @@
 import {
   defineConfig,
-  presetUno,
   presetAttributify,
   presetIcons,
-  transformerVariantGroup,
+  presetUno,
   transformerAttributifyJsx,
   transformerDirectives,
+  transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
@@ -34,7 +34,7 @@ export default defineConfig({
       tgBg: 'var(--tg-bg-color)',
     },
   },
-  extendTheme: theme => {
+  extendTheme: (theme) => {
     return {
       ...theme,
       breakpoints: {

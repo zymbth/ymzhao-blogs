@@ -1,9 +1,8 @@
 import 'viewerjs/dist/viewer.css'
 // import VueViewer from 'v-viewer'
 import Viewer from 'viewerjs'
-import { provide } from 'vue'
 
-export default app => {
+export default (app) => {
   const defaultOptions = {
     zIndex: 3000,
     inline: false, // Default: false. Enable inline mode.
@@ -36,10 +35,10 @@ export default app => {
       gallery = new Viewer(el, {
         ...defaultOptions,
         ...options,
-        hidden: function ($event) {
+        hidden($event) {
           try {
             ;(this.viewer || $event.target.viewer)?.destroy()
-          } catch (error) {}
+          } catch {}
         },
       })
     } catch (error) {

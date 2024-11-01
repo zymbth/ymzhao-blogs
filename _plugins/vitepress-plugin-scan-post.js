@@ -1,16 +1,16 @@
 import fs from 'node:fs'
 // import path from 'node:path'
 import { createContentLoader } from 'vitepress'
-import { getCategoryByUrl, generateTitleByPath } from './util.mjs'
+import { generateTitleByPath, getCategoryByUrl } from './util.mjs'
 
 export default function scanPostPlugin({ flag } = {}) {
   return flag === 't'
     ? {
-      name: 'scan-post-plugin',
-      buildStart(options) {
-        scanPost()
-      },
-    }
+        name: 'scan-post-plugin',
+        buildStart(_options) {
+          scanPost()
+        },
+      }
     : { name: 'scan-post-plugin' }
 }
 
@@ -43,7 +43,7 @@ async function scanPost() {
     postsData.sort((a, b) => {
       try {
         return new Date(b.created).getTime() - new Date(a.created).getTime()
-      } catch (error) {
+      } catch {
         return 0
       }
     })
@@ -63,7 +63,7 @@ async function scanPost() {
 // 获取post title，优先从 frontmatter 中获取，如果没有则从文件内容中获取，如果还没有则根据post路径生成
 async function getFileTitle(postContent) {
   if (postContent.frontmatter.title) return postContent.frontmatter.title
-  let title = await getTitleByReadingFile(postContent.url.slice(1) + '.md')
+  let title = await getTitleByReadingFile(`${postContent.url.slice(1)}.md`)
   if (!title) title = generateTitleByPath(postContent.url)
   return title
 }
@@ -75,7 +75,7 @@ function getTitleByReadingFile(path) {
     // 创建一个读取流
     const stream = fs.createReadStream(path, { start: 0, end: 2000 })
     // 监听数据流
-    stream.on('data', chunk => {
+    stream.on('data', (chunk) => {
       const match = chunk.toString().match(/^#[^#].*$/m)
       if (match) {
         title = match[0].slice(2)

@@ -92,4 +92,4 @@ function generateTitleByPath(mdUrl) {
 Object.freeze(categoryTree)
 Object.freeze(categoryMap)
 
-export { categoryTree, categoryMap, getCategoryByUrl, generateTitleByPath }
+export { categoryMap, categoryTree, generateTitleByPath, getCategoryByUrl }

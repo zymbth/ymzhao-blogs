@@ -1,12 +1,12 @@
 <script setup>
-import { ref, shallowRef, onMounted, onUnmounted, inject, provide, watch, computed } from 'vue'
 import { onContentUpdated, useData } from 'vitepress'
 import {
   getHeaders,
   resolveTitle,
 } from 'vitepress/dist/client/theme-default/composables/outline.js'
-import OutlineItem from './OutlineItem.vue'
 import { throttleAndDebounce } from 'vitepress/dist/client/theme-default/support/utils.js'
+import { computed, inject, onMounted, onUnmounted, provide, ref, shallowRef, watch } from 'vue'
+import OutlineItem from './OutlineItem.vue'
 
 const props = defineProps({ visible: Boolean })
 const emit = defineEmits(['update:visible'])
@@ -68,7 +68,7 @@ provide(
 )
 
 const refreshSectionPosi = () => {
-  headerList.value.forEach(s => {
+  headerList.value.forEach((s) => {
     s.top = document.querySelector(s.link)?.offsetTop
   })
 }
@@ -76,12 +76,14 @@ const refreshSectionPosi = () => {
 const onScroll = throttleAndDebounce(() => {
   let idx = -1
   currScrollTop = mainEl.scrollTop
-  if (showBackTop.value !== currScrollTop > 500) showBackTop.value = !showBackTop.value
+  if (showBackTop.value !== (currScrollTop > 500)) showBackTop.value = !showBackTop.value
   for (let len = headerList.value.length, i = len - 1; i >= 0; i--) {
     if (currScrollTop - contentElOffsetTop.value >= headerList.value[i].top - 1) {
       idx = i
       break
-    } else continue
+    } else {
+      continue
+    }
   }
   const oldIdx = headerList.value.findIndex(s => s.active)
   if (idx !== oldIdx) {
@@ -91,6 +93,7 @@ const onScroll = throttleAndDebounce(() => {
   }
 }, 200)
 </script>
+
 <template>
   <nav class="VPDocAsideOutline" :class="{ 'has-outline': headers.length > 0 }">
     <div class="content">
@@ -103,10 +106,12 @@ const onScroll = throttleAndDebounce(() => {
       <span
         v-show="showBackTop"
         @click="mainEl.scrollTo({ top: 0, behavior: 'smooth' })"
-        class="i-mdi:arrow-top-bold-circle-outline w-30px h-30px icon-link fixed bottom-10px right-10px z-1"></span>
+        class="icon-link i-mdi:arrow-top-bold-circle-outline fixed bottom-10px right-10px z-1 h-30px w-30px"
+      />
     </Teleport>
   </nav>
 </template>
+
 <style scoped>
 .VPDocAsideOutline {
   display: none;

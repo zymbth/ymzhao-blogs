@@ -1,10 +1,10 @@
+import { withPwa } from '@vite-pwa/vitepress'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import UnoCSS from 'unocss/vite'
 // import { resolve } from 'node:path'
 import { defineConfig } from 'vitepress'
-import { withPwa } from '@vite-pwa/vitepress'
-import { pwa } from './pwa'
-import UnoCSS from 'unocss/vite'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import scanPostPlugin from '../_plugins/vitepress-plugin-scan-post'
+import { pwa } from './pwa'
 
 const root = process.cwd()
 // const pathResolve = dir => resolve(root, '.', dir)
@@ -305,8 +305,8 @@ export default withPwa(
         extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.less', '.css'],
         alias: [
           {
-            find: /\@\//,
-            replacement: root + '/',
+            find: /@\//,
+            replacement: `${root}/`,
           },
         ],
       },

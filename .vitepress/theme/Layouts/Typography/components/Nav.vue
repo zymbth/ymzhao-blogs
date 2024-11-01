@@ -1,24 +1,28 @@
 <script setup>
 import NavBarSearch from './NavBarSearch.vue'
+
 const siteLinks = [
   { text: 'github', icon: 'i-mdi-github', href: 'https://github.com/zymbth' },
   { text: 'website', icon: 'i-mdi-web', href: 'https://ymzhao.work ' },
   { text: 'codepen', icon: 'i-mdi-codepen', href: 'https://codepen.io/zymbth' },
 ]
 </script>
+
 <template>
   <header>
     <!-- logo -->
     <hgroup
       lg="write-vertical-right items-start b-l-2px b-l-tg-txt text-left"
       flex="~ col gap-2.5"
-      class="cursor-pointer text-center duration-800 ease-in-out">
+      class="cursor-pointer text-center duration-800 ease-in-out"
+    >
       <a
-        class="primary-link !decoration-none duration-800 ease-in-out"
+        class="primary-link duration-800 ease-in-out !decoration-none"
         lg:p="x-2.5 b-12 hover:t-3.75 hover:b-8.75"
-        href="/">
-        <h3 class="text-5 line-height-none lg:line-height-normal font-extrabold">技思小隅</h3>
-        <h1 class="text-8 line-height-none lg:line-height-normal font-extrabold">Cornor Blog</h1>
+        href="/"
+      >
+        <h3 class="text-5 font-extrabold line-height-none lg:line-height-normal">技思小隅</h3>
+        <h1 class="text-8 font-extrabold line-height-none lg:line-height-normal">Cornor Blog</h1>
       </a>
     </hgroup>
     <!-- <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="36" height="36">

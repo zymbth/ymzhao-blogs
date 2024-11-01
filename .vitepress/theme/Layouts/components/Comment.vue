@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, watch } from 'vue'
 import { useData } from 'vitepress'
+import { onMounted, watch } from 'vue'
 
 const { isDark } = useData()
 
@@ -32,12 +32,13 @@ function debounce(fn, delay = 300, _this) {
   return (...args) => {
     const context = _this
     clearTimeout(timer)
-    timer = setTimeout(function () {
+    timer = setTimeout(() => {
       context ? fn.apply(context, args) : fn(...args)
     }, delay)
   }
 }
 </script>
+
 <template>
-  <div id="comment"></div>
+  <div id="comment" />
 </template>

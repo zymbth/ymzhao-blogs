@@ -1,15 +1,15 @@
 <script setup>
-import { nextTick, provide } from 'vue'
 import { useData } from 'vitepress'
 import Theme from 'vitepress/theme'
+import { nextTick, provide } from 'vue'
 import Comment from '../components/Comment.vue'
 
 const { Layout } = Theme
 const { page, isDark } = useData()
 
 const enableTransitions = () =>
-  'startViewTransition' in document &&
-  window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+  'startViewTransition' in document
+  && window.matchMedia('(prefers-reduced-motion: no-preference)').matches
 
 provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
   if (!enableTransitions()) {
@@ -40,6 +40,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
   )
 })
 </script>
+
 <template>
   <Layout>
     <template #doc-after>
@@ -47,6 +48,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
     </template>
   </Layout>
 </template>
+
 <style>
 ::view-transition-old(root),
 ::view-transition-new(root) {

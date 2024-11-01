@@ -1,7 +1,7 @@
 <script setup lang="jsx">
-import { ref } from 'vue'
-import { categoryTree } from '@/_plugins/util.mjs'
 import postData from '@/_plugins/post_data.json'
+import { categoryTree } from '@/_plugins/util.mjs'
+import { ref } from 'vue'
 
 const posts = ref(Array.isArray(postData) ? postData : [])
 
@@ -37,32 +37,39 @@ const CategoryComp = ({ data, depth = 0 }) => {
     <div class={{ 'indent-1em': depth > 0 }}>
       {depth ? ' > ' : '# '}
       {data.name}
-      {data.posts ? (
-        <details class='color-#999 indent-0 px-20px my-10px' b='1 gray solid'>
-          <summary class='cursor-pointer'>
-            {data.posts.length} post{data.posts.length > 1 ? 's' : ''}
-          </summary>
-          <ol class='initial-type'>
-            {data.posts.map(post => (
-              <li>
-                <a class='primary-link' href={post.url} v-html={post.title}></a>
-              </li>
-            ))}
-          </ol>
-        </details>
-      ) : (
-        ''
-      )}
+      {data.posts
+        ? (
+            <details class="my-10px px-20px indent-0 color-#999" b="1 gray solid">
+              <summary class="cursor-pointer">
+                {data.posts.length}
+                {' '}
+                post
+                {data.posts.length > 1 ? 's' : ''}
+              </summary>
+              <ol class="initial-type">
+                {data.posts.map(post => (
+                  <li>
+                    <a class="primary-link" href={post.url} v-html={post.title}></a>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )
+        : (
+            ''
+          )}
       {data.children?.map(c => CategoryComp({ data: c, depth: depth + 1 })) || ''}
     </div>
   )
 }
 </script>
+
 <template>
   <div v-for="c in catTree" :key="c.code" class="mb-1em">
     <CategoryComp :data="c" />
   </div>
 </template>
+
 <style lang="scss" scoped>
 :deep(details:not([open])) {
   display: inline-block;

@@ -1,9 +1,9 @@
 <script setup>
-import { computed } from 'vue'
-import { useData, useRoute, onContentUpdated } from 'vitepress'
-import { jumpToHash } from './utils/doc-page'
-import Comment from '../components/Comment.vue'
+import { onContentUpdated, useData, useRoute } from 'vitepress'
 import VPDocFooterLastUpdated from 'vitepress/dist/client/theme-default/components/VPDocFooterLastUpdated.vue'
+import { computed } from 'vue'
+import Comment from '../components/Comment.vue'
+import { jumpToHash } from './utils/doc-page'
 
 const { page, frontmatter } = useData()
 
@@ -14,6 +14,7 @@ onContentUpdated(() => {
   setTimeout(jumpToHash, 500)
 })
 </script>
+
 <template>
   <Content class="vp-doc VPDoc" :class="[pageName]" />
   <VPDocFooterLastUpdated :title="`创建于: ${frontmatter.created}`" />
