@@ -18,7 +18,7 @@ isDraft: 't'
 
 ## vue 官方定义的 TypeScript 工具类型
 
-### PropType<T>
+### `PropType<T>`
 
 类型定义可查阅[源码](https://github.com/vuejs/core/blob/main/packages/runtime-core/src/componentProps.ts#L70-L81)
 
