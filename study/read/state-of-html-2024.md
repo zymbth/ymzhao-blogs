@@ -10,11 +10,18 @@ tag: '转载'
 
 # State of HTML 2024
 
-> 本文全文摘录自[调查问卷 / State of HTML 2024](https://survey.devographics.com/zh-Hans/survey/state-of-html/2024)，填写时发现太多 HTML 新 API 没有使用乃至听说过，特摘录下来以供个人学习参考。感兴趣的可以前往填写问卷，摸摸底。待官方公布问卷调查结果后，可移步至 `https://2024.stateofhtml.com/` 查看（官方未公布时不可访问），相关文档会更加全面。
+> 本文全文摘录自[调查问卷 / State of HTML 2024](https://survey.devographics.com/zh-Hans/survey/state-of-html/2024)，填写时发现太多 HTML 新 API 没有使用乃至听说过，特摘录下来以供个人学习查阅。
 >
-> 另外，State of CSS 2024 调查结果已公布[↗](https://2024.stateofcss.com/)
+> 感兴趣的可以前往填写问卷，摸摸底，了解学习html新功能及其浏览器兼容性。待官方公布问卷调查结果后，可移步至 `https://2024.stateofhtml.com/` 查看，相关文档会更加全面（官方未公布时不可访问）。
+>
+> 已出调查报告：
+>
+> - [State of CSS 2024](https://2024.stateofcss.com/)
+> - [State of HTML 2023](https://2023.stateofhtml.com/)
+> - [State of JS 2023](https://2023.stateofjs.com/)
+> - [State of CSS 2023](https://2023.stateofcss.com/)
 
-The State of HTML 2024 survey is currently open! Take the survey now [→](https://survey.devographics.com/en-US/survey/state-of-html/2024/?source=css2024)
+> The State of HTML 2024 survey is currently open! Take the survey now [→](https://survey.devographics.com/en-US/survey/state-of-html/2024/?source=css2024)
 
 HTML 是最初的 Web 技术，三十年后它依然与时俱进，这着实令人惊叹。
 
