@@ -5,6 +5,7 @@ head:
     - name: keywords
       content: typescript,速查表,cheatsheets
 created: '2024-07-17'
+tag: '转载'
 ---
 
 # typescript 速查表

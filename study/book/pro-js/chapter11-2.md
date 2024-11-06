@@ -5,6 +5,7 @@ head:
     - name: keywords
       content: js,红宝书,学习笔记,Promise,期约
 created: '2023-04-18'
+tag: '摘录'
 ---
 
 # 第11章 第2节 期约
