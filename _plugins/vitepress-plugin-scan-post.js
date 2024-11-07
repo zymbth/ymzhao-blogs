@@ -37,6 +37,7 @@ async function scanPost() {
         created: post.frontmatter?.created,
         intro: post.frontmatter?.intro,
         title,
+        tag: post.frontmatter?.tag
         // hidden: post.frontmatter?.isDraft === 't',
       })
     }

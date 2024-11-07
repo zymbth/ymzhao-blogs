@@ -5,6 +5,7 @@ head:
     - name: keywords
       content: set,intersection,union,symmetricDifference,isSubsetOf,isDisjointFrom
 created: '2024-07-01'
+tag: '摘录'
 ---
 
 # Set新方法学习

@@ -3,6 +3,7 @@ import postData from '@/_plugins/post_data.json'
 import qs from 'qs'
 import { computed, onMounted, ref, watch } from 'vue'
 import CategoryBreadcrumbs from './components/CategoryBreadcrumbs.jsx'
+import PostTag from './components/PostTag.vue'
 
 const posts = ref(Array.isArray(postData) ? postData : [])
 let search = {}
@@ -74,6 +75,7 @@ onMounted(() => {
     <article v-for="p in currPosts" :key="p.url">
       <header flex="~ col">
         <h2 class="m-0 text-18px font-bold line-height-1.5em">
+          <PostTag v-if="p.tag" :tag="p.tag" />
           <a class="primary-link" :href="p.url" v-html="p.title" />
         </h2>
         <div class="text-14px text-tg-txt" flex="~ items-center gap-6px">

@@ -5,6 +5,7 @@ head:
     - name: keywords
       content: js,红宝书,学习笔记,对象,类,面向对象编程
 created: '2022-04-24'
+tag: '摘录'
 ---
 
 # 第8章 对象、类与面向对象编程

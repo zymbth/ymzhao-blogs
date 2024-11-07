@@ -5,7 +5,7 @@ head:
     - name: keywords
       content: State of HTML,2024,survey,html
 created: '2024-11-01'
-tag: '转载'
+tag: '摘录'
 ---
 
 # State of HTML 2024
