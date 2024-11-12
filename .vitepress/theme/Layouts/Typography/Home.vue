@@ -7,13 +7,16 @@ import PostTag from './components/PostTag.vue'
 
 const posts = ref(Array.isArray(postData) ? postData : [])
 let search = {}
-try {
-  search = qs.parse(window.location.search, { ignoreQueryPrefix: true })
-  if (search.c) search.c = decodeURIComponent(search.c).split(',')
-  if (search.p && !Number.isNaN(Number.parseInt(search.p))) search.p = Number.parseInt(search.p)
-} catch (error) {
-  console.error(error)
-}
+;(() => {
+  if (import.meta.env.SSR) return
+  try {
+    search = qs.parse(window.location.search, { ignoreQueryPrefix: true })
+    if (search.c) search.c = decodeURIComponent(search.c).split(',')
+    if (search.p && !Number.isNaN(Number.parseInt(search.p))) search.p = Number.parseInt(search.p)
+  } catch (error) {
+    console.error(error)
+  }
+})()
 
 /**
  * 根据当前分类过滤博文
@@ -52,6 +55,7 @@ const currPosts = computed(() => {
 })
 
 function updSearch() {
+  if (import.meta.env.SSR) return
   const q = {}
   if (currentPage.value !== 1) q.p = currentPage.value
   if (currCats.value.length > 0) q.c = currCats.value.join(',')

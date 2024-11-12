@@ -82,6 +82,8 @@ module.exports = {
 
 :::
 
+> `eslint`, `prettier` 等代码格式化及检查工具需自行安装配置
+
 ### 配置 commitlint
 
 添加文件 `commitlint.config.js`:
@@ -161,7 +163,7 @@ husky脚本区别，例如 `pre-commit`:
 npm run lint:lint-staged
 ```
 
-> `#!/usr/bin/env sh`: 指定运行脚本的解释器
+> `#!/usr/bin/env sh`: 指定运行脚本的解释器(husky@9+无需指定)
 >
 > `. "$(dirname -- "$0")/\_/husky.sh"`: 加载必要的配置
 

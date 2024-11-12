@@ -8,7 +8,8 @@ const { Layout } = Theme
 const { page, isDark } = useData()
 
 const enableTransitions = () =>
-  'startViewTransition' in document
+  !import.meta.env.SSR
+  && 'startViewTransition' in document
   && window.matchMedia('(prefers-reduced-motion: no-preference)').matches
 
 provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {

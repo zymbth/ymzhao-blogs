@@ -9,7 +9,8 @@ const { isDark } = useData()
 /* 主题切换 */
 
 const enableTransitions = () =>
-  'startViewTransition' in document
+  !import.meta.env.SSR
+  && 'startViewTransition' in document
   && window.matchMedia('(prefers-reduced-motion: no-preference)').matches
 
 provide('toggle-appearance', async ({ clientX: x, clientY: y }) => {
