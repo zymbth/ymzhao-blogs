@@ -10,26 +10,19 @@ tag: '摘录'
 
 # State of HTML 2024
 
+**不只是问卷，整个问卷[阅读🔗](https://2024.stateofhtml.com/zh-Hans/features/)下来，相信必有收获！**
+
 > 本文全文摘录自[调查问卷 / State of HTML 2024](https://survey.devographics.com/zh-Hans/survey/state-of-html/2024)，填写时发现太多 HTML 新 API 没有使用乃至听说过，特摘录下来以供个人学习查阅。
->
-> 感兴趣的可以前往填写问卷，摸摸底，了解学习html新功能及其浏览器兼容性。待官方公布问卷调查结果后，可移步至 `https://2024.stateofhtml.com/` 查看，相关文档会更加全面（官方未公布时不可访问）。
 >
 > 已出调查报告：
 >
+> - [State of HTML 2024](https://2024.stateofhtml.com/)
 > - [State of CSS 2024](https://2024.stateofcss.com/)
 > - [State of HTML 2023](https://2023.stateofhtml.com/)
 > - [State of JS 2023](https://2023.stateofjs.com/)
 > - [State of CSS 2023](https://2023.stateofcss.com/)
 
-> The State of HTML 2024 survey is currently open! Take the survey now [→](https://survey.devographics.com/en-US/survey/state-of-html/2024/?source=css2024)
-
-HTML 是最初的 Web 技术，三十年后它依然与时俱进，这着实令人惊叹。
-
-尽管名为 HTML 调查，但实际上我们的范围远不止于此，而是涵盖了整个 Web 平台的所有领域——内容之丰富，不胜枚举！
-
-因此，设计这样一份调查问卷难免需要做出一些取舍。今年，我们决定聚焦于新兴和即将到来的功能，以帮助您紧跟潮流；同时也关注浏览器厂商最感兴趣的领域。
-
-这意味着您的回答可能会直接影响到您正在使用的浏览器的未来发展路线图。正因如此，我非常高兴能够开启这第二届 HTML 现状调查！
+*"HTML 是最初的 Web 技术，三十年后它依然与时俱进，这着实令人惊叹。<br/>尽管名为 HTML 调查，但实际上我们的范围远不止于此，而是涵盖了整个 Web 平台的所有领域——内容之丰富，不胜枚举！<br/>因此，设计这样一份调查问卷难免需要做出一些取舍。今年，我们决定聚焦于新兴和即将到来的功能，以帮助您紧跟潮流；同时也关注浏览器厂商最感兴趣的领域。<br/>这意味着您的回答可能会直接影响到您正在使用的浏览器的未来发展路线图。正因如此，我非常高兴能够开启这第二届 HTML 现状调查！"*
 
 ## 1. 表单
 
