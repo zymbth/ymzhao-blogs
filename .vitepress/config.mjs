@@ -22,6 +22,19 @@ export default withPwa(
       ['meta', { name: 'author', content: 'Yuemin Zhao' }],
       // https://wiki.whatwg.org/wiki/MetaExtensions
       // ['link', { rel: 'schema.dc', href: 'http://purl.org/dc/elements/1.1/' }],
+      // Google Analytics
+      [
+        'script',
+        { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-JVS3K26YMP' }
+      ],
+      [
+        'script',
+        {},
+        `window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JVS3K26YMP');`
+      ]
     ],
     themeConfig: {
       siteTitle: 'Corner Blog',
