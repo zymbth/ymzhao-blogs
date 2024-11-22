@@ -26,19 +26,85 @@ created: '2024-10-23'
 5. 添加 npm 命令
 6. IDE Support：vscode 配置，例如，推荐插件、禁用其它格式化工具、编辑器保存时格式化等
 
+::: code-group
+
+```json [.vscode/extensions.json]
+{
+  "recommendations": ["vue.volar", "dbaeumer.vscode-eslint", "antfu.unocss"]
+}
+```
+
+```json [.vscode/settings.json]
+{
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+
+  // Auto fix
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off", "fixable": true },
+    { "rule": "format/*", "severity": "off", "fixable": true },
+    { "rule": "*-indent", "severity": "off", "fixable": true },
+    { "rule": "*-spacing", "severity": "off", "fixable": true },
+    { "rule": "*-spaces", "severity": "off", "fixable": true },
+    { "rule": "*-order", "severity": "off", "fixable": true },
+    { "rule": "*-dangle", "severity": "off", "fixable": true },
+    { "rule": "*-newline", "severity": "off", "fixable": true },
+    { "rule": "*quotes", "severity": "off", "fixable": true },
+    { "rule": "*semi", "severity": "off", "fixable": true }
+  ],
+
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "svelte",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ]
+}
+```
+
+:::
+
 ## 从 ESLint 迁移
 
 示例：假设项目中配置了 typescript、unocss、eslint、prettier，现在将 eslint-config 迁移到 `@antfu/eslint-config` 下
 
 - 首先，还是安装依赖，创建配置文件 `eslint.config.mjs`（注意不是 `.eslintrc.js`）
-
 - 其次，将源格式化配置迁移到新配置文件中，移除无用插件依赖
 
-配置可能来源于`.eslintrc.js`、package.json 中的 `eslintConfig`。`@antfu/eslint-config` 汇集了 30 个插件的近 700 条规则，并提供了一个在线查看、搜索规则的工具 [ESLint Config Inspector](https://eslint-config.antfu.me/)。在迁移中，对于不熟知的规则，可以在此对比并查看其对应原文档，感谢大佬！
+配置可能来源于`.eslintrc.js`、package.json 中的 `eslintConfig`
+
+`@antfu/eslint-config` 汇集了 30 个插件的近 700 条规则，并提供了一个在线查看、搜索规则的工具 [ESLint Config Inspector](https://eslint-config.antfu.me/)。在迁移中，对于不熟知的规则，可以在此对比并查看其对应原文档，感谢大佬！
 
 ![ESLint Config Inspector](./assets/antfu-config-1.jpg)
 
-移除`.eslintignore`，使用 `@antfu/eslint-config` 配置第一个参数的 `ignores` 替代，例如：`ignores: ['dist','node_modules','public','**/*.d.ts','.eslint-config-inspector','.vscode']`
+移除`.eslintignore`，使用 `@antfu/eslint-config` 配置第一个参数的 `ignores` 替代
+
+例如：`ignores: ['dist','node_modules','public','**/*.d.ts','.eslint-config-inspector','.vscode']`
 
 移除`@antfu/eslint-config`整合在内的插件（例如，`eslint-plugin-*`）
 
@@ -46,7 +112,9 @@ created: '2024-10-23'
 
 `@antfu/eslint-config`可自动检测 ts 或手动激活 ts 检测。eslint 解析 ts 的相关插件也可以移除，`@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`
 
-对于 prettier 配置，可以弃用了，使用 ESLint 就可以很好的完成代码格式化任务了。可移除 `prettier`, `eslint-config-prettier`
+对于 prettier，可以选择弃用（antifu大佬舍弃prettier的原因[在这](https://antfu.me/posts/why-not-prettier-zh#eslint-%E4%B9%8B%E4%B9%B1)）
+
+使用 ESLint 就可以很好的完成代码格式化任务了。弃用 prettier 后，可移除 `prettier`, `eslint-config-prettier`
 
 - npm 命令
 

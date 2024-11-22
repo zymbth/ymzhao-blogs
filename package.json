@@ -12,11 +12,11 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.8.0",
+    "@antfu/eslint-config": "^3.9.2",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@iconify-json/mdi": "^1.2.1",
-    "@unocss/eslint-plugin": "^0.63.6",
+    "@unocss/eslint-plugin": "^0.64.1",
     "@vite-pwa/vitepress": "^0.5.0",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vueuse/core": "^11.1.0",
