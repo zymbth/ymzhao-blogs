@@ -1,6 +1,6 @@
+import VueViewer from 'v-viewer'
+// import Viewer from 'viewerjs'
 import 'viewerjs/dist/viewer.css'
-// import VueViewer from 'v-viewer'
-import Viewer from 'viewerjs'
 
 export default (app) => {
   const defaultOptions = {
@@ -22,30 +22,30 @@ export default (app) => {
     url: 'src', // Default: 'src'. Define where to get the original image URL for viewing.
   }
 
-  let gallery
+  // let gallery
 
-  // app.use(VueViewer, { defaultOptions })
+  app.use(VueViewer, { defaultOptions })
 
-  const viewImg = (selector, options) => {
-    if (gallery && !gallery.destroyed) gallery.destroy()
-    if (!(typeof options === 'object')) options = {}
-    try {
-      const el = document.querySelector(selector)
-      if (!el) return
-      gallery = new Viewer(el, {
-        ...defaultOptions,
-        ...options,
-        hidden($event) {
-          try {
-            ;(this.viewer || $event.target.viewer)?.destroy()
-          } catch {}
-        },
-      })
-    } catch (error) {
-      console.error('查看图片失败：', error)
-    }
-  }
+  // const viewImg = (selector, options) => {
+  //   if (gallery && !gallery.destroyed) gallery.destroy()
+  //   if (!(typeof options === 'object')) options = {}
+  //   try {
+  //     const el = document.querySelector(selector)
+  //     if (!el) return
+  //     gallery = new Viewer(el, {
+  //       ...defaultOptions,
+  //       ...options,
+  //       hidden($event) {
+  //         try {
+  //           ;(this.viewer || $event.target.viewer)?.destroy()
+  //         } catch {}
+  //       },
+  //     })
+  //   } catch (error) {
+  //     console.error('查看图片失败：', error)
+  //   }
+  // }
 
-  app.config.globalProperties.$viewImg = viewImg
-  app.provide('viewImg', viewImg)
+  // app.config.globalProperties.$viewImg = viewImg
+  // app.provide('viewImg', viewImg)
 }

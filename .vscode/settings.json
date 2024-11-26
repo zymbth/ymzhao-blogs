@@ -34,5 +34,8 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+  "markdownlint.config": {
+    "no-inline-html": false // { "allowed_elements": ["ClientOnly", "script"] }
+  }
 }

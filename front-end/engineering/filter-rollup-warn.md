@@ -101,21 +101,11 @@ export default {
 
 如下：
 
-<script setup>
-import { inject } from 'vue'
-
-const viewImg = inject('viewImg')
-
-function handleViewImg() {
-  viewImg('.viewer-wrap')
-}
-</script>
-<div class="viewer-wrap">
-  <img
-    src="./assets/filter-rollup-warn.jpg"
-    @click="handleViewImg"
-  />
-</div>
+<ClientOnly>
+  <div class="viewer-wrap" v-viewer>
+    <img src="./assets/filter-rollup-warn.jpg" />
+  </div>
+</ClientOnly>
 
 > 参考
 >
