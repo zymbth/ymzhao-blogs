@@ -4,7 +4,7 @@ head:
   - - meta
     - name: keywords
       content: linux,速查表,cheatsheets
-created: '2024-11-26'
+created: '2024-07-19'
 tag: '转载'
 ---
 
