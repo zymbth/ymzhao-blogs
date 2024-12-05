@@ -16,6 +16,8 @@ created: '2024-11-11'
 > [lint-staged](https://github.com/lint-staged/lint-staged): 只对暂存区（staged）的文件运行代码检查工具，可以在提交前自动运行代码格式化和代码检查
 >
 > [commitlint](https://github.com/conventional-changelog/commitlint): 检查提交信息是否符合特定规范，可强制使用统一的提交信息格式，并支持自定义提交信息规则
+>
+> [Conventional Commits](https://www.conventionalcommits.org/): 约定式提交，一种用于给提交信息增加人机可读含义的规范
 
 完整的协作流程示例：
 
@@ -119,7 +121,29 @@ module.exports = {
 }
 ```
 
-具体配置内容按项目需求自定义
+具体[规则](https://commitlint.js.org/reference/rules.html)配置按项目需求自定义
+
+::: details commit内容规范
+
+最常见的[提交约定](https://commitlint.js.org/concepts/commit-conventions.html)遵循这种模式：
+
+```text
+type(scope?): subject
+body?
+footer?
+```
+
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary)规范如下：
+
+```text
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+:::
 
 ### 配置 husky
 
@@ -147,6 +171,27 @@ npx --no -- commitlint --edit $1
 > - npx --no --: `--no`选项确保不会在当前项目中安装 `commitlint`，`--`分隔`npx`的选项和传递给`commitlint`的参数。
 > - commitlint --edit $1: 打开默认文本编辑器，并编辑正在提交的消息。`$1` 是一个环境变量，代表 Git 提交消息的路径。
 
+### 使用commitlint prompt
+
+可安装开发依赖 `@commitlint/prompt-cli` 以支持在命令行中按提示生成规范的提交信息
+
+添加npm命令：
+
+```json
+{
+  "scripts": {
+    "commit": "commit"
+  }
+}
+```
+
+测试：
+
+```sh
+git add .
+npm run commit
+```
+
 ## 其它node版本
 
 `node@16` 指定安装以下版本：
@@ -168,3 +213,6 @@ npm run lint:lint-staged
 > `. "$(dirname -- "$0")/\_/husky.sh"`: 加载必要的配置
 
 更早版本兼容性参考各仓库release说明
+
+## snippets
+
