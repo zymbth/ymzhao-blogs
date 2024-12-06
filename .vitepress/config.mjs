@@ -315,7 +315,7 @@ export default withPwa(
     },
     vite: {
       resolve: {
-        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.less', '.css'],
+        extensions: ['.mjs', '.cjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.less', '.css'],
         alias: [
           {
             find: /@\//,

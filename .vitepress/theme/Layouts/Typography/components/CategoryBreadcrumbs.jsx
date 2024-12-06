@@ -1,4 +1,4 @@
-import { categoryMap } from '@/_plugins/util.mjs'
+import { categoryMap } from '@/_plugins/util.js'
 
 // eslint-disable-next-line no-unused-vars,unused-imports/no-unused-vars
 const CategoryComp = ({ modelValue, index, total, enableLast = false }, { emit }) => {

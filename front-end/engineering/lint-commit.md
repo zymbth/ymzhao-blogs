@@ -19,6 +19,8 @@ created: '2024-11-11'
 >
 > [Conventional Commits](https://www.conventionalcommits.org/): 约定式提交，一种用于给提交信息增加人机可读含义的规范
 
+## 介绍
+
 完整的协作流程示例：
 
 1. 开发者准备提交代码
@@ -170,6 +172,8 @@ npx --no -- commitlint --edit $1
 >
 > - npx --no --: `--no`选项确保不会在当前项目中安装 `commitlint`，`--`分隔`npx`的选项和传递给`commitlint`的参数。
 > - commitlint --edit $1: 打开默认文本编辑器，并编辑正在提交的消息。`$1` 是一个环境变量，代表 Git 提交消息的路径。
+
+## commitlint prompt
 
 ### 使用commitlint prompt
 

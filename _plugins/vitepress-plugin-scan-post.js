@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 // import path from 'node:path'
 import { createContentLoader } from 'vitepress'
-import { generateTitleByPath, getCategoryByUrl } from './util.mjs'
+import { generateTitleByPath, getCategoryByUrl } from './util.js'
 
 export default function scanPostPlugin({ flag } = {}) {
   return flag === 't'
