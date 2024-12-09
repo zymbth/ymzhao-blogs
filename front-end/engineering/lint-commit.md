@@ -47,7 +47,9 @@ git commit -m "feat: 添加新功能"
 
 **环境**：node18
 
-`yarn add -D husky lint-staged @commitlint/cli @commitlint/config-conventional`
+```sh
+yarn add -D husky lint-staged @commitlint/cli @commitlint/config-conventional
+```
 
 ## 配置
 
@@ -175,9 +177,15 @@ npx --no -- commitlint --edit $1
 
 ## commitlint prompt
 
-### 使用commitlint prompt
+完成以上的配置后，就可以对提交信息进行规范检查了。但如果希望在提交时进行提示，可以添加提示工具
 
-可安装开发依赖 `@commitlint/prompt-cli` 以支持在命令行中按提示生成规范的提交信息
+![commitlint-prompt-cli](./assets/commitlint-prompt-cli.jpg)
+
+::: details
+
+- 使用 commitlint prompt
+
+可安装 `@commitlint/prompt-cli` 以支持在命令行中按提示生成规范的提交信息
 
 添加npm命令：
 
@@ -185,18 +193,63 @@ npx --no -- commitlint --edit $1
 {
   "scripts": {
     "commit": "commit"
+  },
+  "devDependencies": {
+    "@commitlint/prompt-cli": "^19.6.0"
+  },
+}
+```
+
+- 使用 commitizen
+
+相比于前者，`commitizen` 提供了一种更现代的互动方式
+
+![cz-commitlint](./assets/cz-commitlint.png)
+
+> 参考官网:
+>
+> [An alternative to @commitlint/prompt-cli: commitizen](https://commitlint.js.org/guides/use-prompt.html#an-alternative-to-commitlint-prompt-cli-commitizen)
+>
+> [Reference - Prompt](https://commitlint.js.org/reference/prompt.html)
+
+添加npm命令：
+
+```json
+{
+  "scripts": {
+    "commit": "git-cz"
+  },
+  "devDependencies": {
+    "@commitlint/cz-commitlint": "^19.5.0",
+    "commitizen": "^4.3.1",
+    "inquirer": "9.3.7",
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   }
 }
 ```
 
-测试：
+commitizen所需配置可定义在commitlint的配置文件中
+
+- 测试
 
 ```sh
 git add .
 npm run commit
 ```
 
+**注意：**这里不是通过 `git commit` 提交，`git commit` 不会触发提示
+
+:::
+
 ## 其它node版本
+
+以上基于node18+，其它版本兼容性参考各仓库release说明
+
+::: details node16下的区别
 
 `node@16` 指定安装以下版本：
 
@@ -216,7 +269,193 @@ npm run lint:lint-staged
 >
 > `. "$(dirname -- "$0")/\_/husky.sh"`: 加载必要的配置
 
-更早版本兼容性参考各仓库release说明
+:::
 
-## snippets
+## Code snippets
 
+::: code-group
+
+```json [package.json]
+{
+  "type": "module",
+  "scripts": {
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+    "prepare": "husky",
+    "commit": "git-cz"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@commitlint/cz-commitlint": "^19.5.0",
+    "commitizen": "^4.3.1",
+    "husky": "^9.1.7",
+    "inquirer": "9.3.7",
+    "lint-staged": "^15.2.10",
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  }
+}
+```
+
+```sh [.husky/pre-commit]
+# Format and submit code according to lintstagedrc.js configuration
+npm run lint:lint-staged
+```
+
+```sh [.husky/commit-msg]
+npx --no -- commitlint --edit $1
+```
+
+```js [.husky/lintstagedrc.js]
+export default {
+  '*.{js,jsx,ts,tsx,vue}': ['eslint --fix']
+}
+```
+
+```js [commitlint.config.js]
+export default {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat', // 新功能(feature)
+        'fix', // 修补bug
+        'docs', // 文档(documentation)
+        'style', // 格式、样式(不影响代码运行的变动)
+        'refactor', // 重构(即不是新增功能，也不是修改BUG的代码)
+        'perf', // 优化相关，比如提升性能、体验
+        'build', // 影响构建系统或外部依赖性的变化（示例范围：Gulp，Groccoli，NPM）
+        'test', // 添加测试
+        'ci', // 持续集成修改
+        'chore', // 构建过程或辅助工具的变动
+        'revert', // 回滚到上一个版本
+        // 'workflow', // 工作流改进
+        // 'mod', // 不确定分类的修改
+        // 'wip', // 开发中
+        // 'types', // 类型修改
+        // 'release' // 版本发布
+      ]
+    ],
+    'subject-full-stop': [0, 'never'],
+    'subject-case': [0, 'never']
+  },
+  prompt: {
+    settings: {},
+    messages: {
+      skip: ':skip',
+      max: 'upper %d chars',
+      min: '%d chars at least',
+      emptyWarning: 'can not be empty',
+      upperLimitWarning: 'over limit',
+      lowerLimitWarning: 'below limit'
+    },
+    questions: {
+      type: {
+        description: 'Select the type of change that you\'re committing:',
+        enum: {
+          feat: {
+            description: 'A new feature',
+            title: 'Features',
+            emoji: '✨',
+          },
+          fix: {
+            description: 'A bug fix',
+            title: 'Bug Fixes',
+            emoji: '🐛',
+          },
+          docs: {
+            description: 'Documentation only changes',
+            title: 'Documentation',
+            emoji: '📚',
+          },
+          style: {
+            description: 'Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)',
+            title: 'Styles',
+            emoji: '💎',
+          },
+          refactor: {
+            description: 'A code change that neither fixes a bug nor adds a feature',
+            title: 'Code Refactoring',
+            emoji: '📦',
+          },
+          perf: {
+            description: 'A code change that improves performance',
+            title: 'Performance Improvements',
+            emoji: '🚀',
+          },
+          test: {
+            description: 'Adding missing tests or correcting existing tests',
+            title: 'Tests',
+            emoji: '🚨',
+          },
+          build: {
+            description: 'Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)',
+            title: 'Builds',
+            emoji: '🛠',
+          },
+          ci: {
+            description: 'Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)',
+            title: 'Continuous Integrations',
+            emoji: '⚙️',
+          },
+          chore: {
+            description: 'Other changes that don\'t modify src or test files',
+            title: 'Chores',
+            emoji: '♻️',
+          },
+          revert: {
+            description: 'Reverts a previous commit',
+            title: 'Reverts',
+            emoji: '🗑',
+          },
+        },
+      },
+      scope: {
+        description:
+          'What is the scope of this change (e.g. component or file name)',
+      },
+      subject: {
+        description: 'Write a short, imperative tense description of the change',
+      },
+      body: {
+        description: 'Provide a longer description of the change',
+      },
+      isBreaking: {
+        description: 'Are there any breaking changes?',
+      },
+      breakingBody: {
+        description:
+          'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself',
+      },
+      breaking: {
+        description: 'Describe the breaking changes',
+      },
+      isIssueAffected: {
+        description: 'Does this change affect any open issues?',
+      },
+      issuesBody: {
+        description:
+          'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself',
+      },
+      issues: {
+        description: 'Add issue references (e.g. "fix #123", "re #123".)',
+      },
+    },
+  }
+}
+```
+
+:::
+
+注意：
+
+- 以上代码片段基于node@18+
+- type: `module`
+- `eslint`, `prettier` 等代码格式化及检查工具需自行安装配置
+- 提示工具（prompt）可选，可使用 `@commitlint/prompt-cli` 或 `commitizen`，上例使用的后者
+- 添加提示工具后，仍可使用 `git commit` 提交
