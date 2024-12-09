@@ -35,6 +35,7 @@ const categoryTree = {
         { code: 'cheatsheets', name: '速查表' },
       ],
     },
+    { code: 'portfolio', name: '作品' },
   ],
 }
 
