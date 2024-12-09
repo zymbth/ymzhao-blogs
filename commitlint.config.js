@@ -29,16 +29,16 @@ export default {
   prompt: {
     settings: {},
     messages: {
-      skip: ':跳过', // ':skip',
-      max: '最多 %d 字符', // 'upper %d chars',
-      min: '最少 %d 字符', // '%d chars at least',
-      emptyWarning: '不可为空', // 'can not be empty',
-      upperLimitWarning: '超出限制', // 'over limit',
-      lowerLimitWarning: '低于限制', // 'below limit'
+      skip: '(按回车跳过)', // ':skip',
+      max: '(最多 %d 个字符)', // 'upper %d chars',
+      min: '(最少 %d 个字符)', // '%d chars at least',
+      emptyWarning: '(必须填写 %s)', // 'can not be empty',
+      upperLimitWarning: '%s 超出上限 %d 个字符', // 'over limit',
+      lowerLimitWarning: '%s 低于下限 %d 个字符', // 'below limit'
     },
     questions: {
       type: {
-        description: '选择要提交的类型:', // 'Select the type of change that you\'re committing:',
+        description: '<type> 选择要提交的类型', // 'Select the type of change that you\'re committing:',
         enum: {
           feat: {
             description: '新增功能', // 'A new feature'
@@ -113,13 +113,13 @@ export default {
         },
       },
       scope: {
-        description: '此次更改的范围是什么(例如:组件或文件名)', // 'What is the scope of this change (e.g. component or file name)'
+        description: '<scope> 此次更改的范围是什么(例如:组件或文件名)', // 'What is the scope of this change (e.g. component or file name)'
       },
       subject: {
-        description: '写一个简短的、命令式语气的更改描述', // 'Write a short, imperative tense description of the change',
+        description: '<subject> 简要描述更改内容', // 'Write a short, imperative tense description of the change',
       },
       body: {
-        description: '提供更详细的更改说明', // 'Provide a longer description of the change',
+        description: '<body> 提供更详细的更改说明', // 'Provide a longer description of the change',
       },
       // isBreaking: {
       //   description: 'Are there any breaking changes?',
