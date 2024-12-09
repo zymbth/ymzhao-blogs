@@ -43,7 +43,15 @@
   },
   "config": {
     "commitizen": {
-      "path": "@commitlint/cz-commitlint"
+      "path": "@commitlint/cz-commitlint",
+      "skipQuestions": [
+        "isBreaking",
+        "breakingBody",
+        "breaking",
+        "isIssueAffected",
+        "issuesBody",
+        "issues"
+      ]
     }
   }
 }
