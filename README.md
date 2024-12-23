@@ -7,3 +7,8 @@
 环境：node v18
 
 `npm i` / `pnpm i`
+
+## TODO
+
+- [ ] Demo 组件替换
+- [ ] 全屏显示组件
