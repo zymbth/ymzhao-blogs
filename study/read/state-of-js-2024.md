@@ -10,21 +10,18 @@ tag: '摘录'
 
 # State of JavaScript 2024
 
-**不只是问卷，整个[问卷🔗](https://survey.devographics.com/en-US/survey/state-of-js/2024)填/阅读下来，相信必有收获！**
+**不只是问卷，整个问卷[阅读🔗](https://2024.stateofjs.com/)下来，相信必有收获！**
 
 > 本文全文摘录自[调查问卷 / State of JavaScript 2024](https://survey.devographics.com/zh-Hans/survey/state-of-js/2024)，填写时发现很多新特性、框架等没有使用乃至听说过，特摘录下来以供个人学习查阅。
 >
-> 感兴趣的可以前往填写问卷，摸摸底，了解学习JavaScript新功能及其浏览器兼容性。待官方公布问卷调查结果后，可移步至 `https://2024.stateofjs.com/` 查看，相关文档会更加全面（官方未公布时不可访问）。
->
 > 已出调查报告：
 >
+> - [State of JavaScript 2024](https://2024.stateofjs.com/)
 > - [State of HTML 2024](https://2024.stateofhtml.com/)
 > - [State of CSS 2024](https://2024.stateofcss.com/)
 > - [State of HTML 2023](https://2023.stateofhtml.com/)
 > - [State of JS 2023](https://2023.stateofjs.com/)
 > - [State of CSS 2023](https://2023.stateofcss.com/)
-
-> The State of JavaScript 2024 Survey is Now Open! Take the survey [→](https://survey.devographics.com/en-US/survey/state-of-html/2024/?source=css2024)
 
 *"在我们忙于决定下一个前端库的选择时，JavaScript 本身也在经历着自身的演变。<br/>新的 TC39 提案正在社区中引起轰动，而其他提案已经处于即将在各大浏览器中实施的边缘。同时，TypeScript 的流行使得未来某个时候原生类型支持的可能性变得真实。<br/>可以肯定的是——尽管 2024 年的 JavaScript 仍然感觉很熟悉，但我们无法保证五年后我们还能对所写的语言有同样的感受。<br/>在此之前，您可以通过参与今年的 JavaScript 现状调查来帮助我们绘制未来的路径！"*
 

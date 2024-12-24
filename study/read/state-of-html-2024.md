@@ -16,6 +16,7 @@ tag: '摘录'
 >
 > 已出调查报告：
 >
+> - [State of JavaScript 2024](https://2024.stateofjs.com/)
 > - [State of HTML 2024](https://2024.stateofhtml.com/)
 > - [State of CSS 2024](https://2024.stateofcss.com/)
 > - [State of HTML 2023](https://2023.stateofhtml.com/)
