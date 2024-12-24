@@ -2,6 +2,7 @@
 import DefaultTheme from 'vitepress/theme-without-fonts'
 import { TypographyLayout as Layout } from './Layouts'
 import DemoIframe from './Layouts/components/DemoIframe.vue'
+import FullScreen from './Layouts/components/FullScreen.vue'
 import useViewer from './useViewer'
 import './font/font.css'
 import './Layouts/Typography/style/index.scss'
@@ -13,6 +14,7 @@ export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     app.component('DemoIframe', DemoIframe)
+    app.component('FullScreen', FullScreen)
     useViewer(app)
   },
 }

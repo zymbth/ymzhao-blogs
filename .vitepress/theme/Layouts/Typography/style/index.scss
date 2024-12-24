@@ -5,7 +5,7 @@
   --vp-font-family-mono: 'ComicShannsMono Regular', 'LXGWWenKai', '思源黑体', '微软雅黑' !important; /* code font */
 
   // 代码高亮bg
-  --vp-code-line-highlight-color: rgb(96, 215, 255, 0.2);
+  --vp-code-line-highlight-color: rgba(96, 215, 255, 0.2);
   --vp-nav-bg-color: rgba(255, 255, 255, 0.3);
 
   // 主题色
@@ -16,10 +16,11 @@
   --tg-txt-shadow-color: rgba(0, 0, 0, 0.04);
 
   --sider-width: 160px;
+  --main-bg-image: linear-gradient(to right, var(--tg-txt-shadow-color) 1px, transparent 1px), linear-gradient(to bottom, var(--tg-txt-shadow-color) 1px, transparent 1px);
 }
 
 .dark {
-  --vp-code-line-highlight-color: rgb(0, 110, 146, 0.2);
+  --vp-code-line-highlight-color: rgba(0, 110, 146, 0.2);
   --vp-nav-bg-color: rgba(0, 0, 0, 0.3);
 
   // --tg-txt-color: #9caae0;
@@ -46,8 +47,7 @@ body {
   color: var(--tg-txt-color);
   background-color: var(--tg-bg-color);
   text-shadow: 1px 1px 1px var(--tg-txt-shadow-color);
-  background-image: linear-gradient(to right, var(--tg-txt-shadow-color) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--tg-txt-shadow-color) 1px, transparent 1px);
+  background-image: var(--main-bg-image);
   background-size: 7px 7px;
   -ms-overflow-style: none;
   scrollbar-width: none;
