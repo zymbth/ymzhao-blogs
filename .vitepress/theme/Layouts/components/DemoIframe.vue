@@ -1,4 +1,15 @@
 <script setup>
+/**
+ * iframe
+ *
+ * @example
+ * <ClientOnly>
+ *   <FullScreen>
+ *     <DemoIframe title="Demo Title" src="https://play.vuejs.org/" />
+ *   </FullScreen>
+ * </ClientOnly>
+ */
+
 defineProps({
   height: { type: [String, Number], default: 500 },
   src: { type: String, required: true },

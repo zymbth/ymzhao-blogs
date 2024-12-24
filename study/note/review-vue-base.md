@@ -465,7 +465,13 @@ v-for 可以直接接受一个整数值。在这种用例中，会将该模板�
 
 Vue 默认按照“就地更新”的策略来更新通过 v-for 渲染的元素列表。当数据项的顺序改变时，Vue 不会随之移动 DOM 元素的顺序，而是就地更新每个元素，确保它们在原本指定的索引位置上渲染。
 
-[demo - playground](https://play.vuejs.org/#eNp9Uk1rwkAQ/SvDXqKgsSC9SJR+4KGFflC9dXtYNxONJrvLflgh5L93NkHbQ/EwMLz3Zue9SRp2b0x6DMhmLHPSlsaDQx/MgquyNtp6aMBiAS0UVteQkDThiiuplfMgrIV55AefiUhGyYZKUuVUSFVQbZOvIVdFUNKXWkFsBkNouII4nh5FFZAeufSp1yvai/lgIEabIcwX8CL8LrVC5bqm0THcpLf0ZMtVNuk9k9vMY20q4TH2m+A97bqTVSkPc87iUs4W6+VqnU16kmQAmYHjuNCWJL2PUkUjJG0a6JG2zSbxGtnksoCNmHd0gKLcpnunFd2ui8OZ1LUpK7RvJmZ1nM36oJETVaW/nzvM24CjMy53KA//4Ht3ihhn7xYd2iNyduG8sFv0Pb1cveKJ+gtZ6zxUpL5CfqDTVYgee9lDUDnZ/qPr3D51f0Cptmu3PHlU7hwqGo3KttPT8QI+Xon+a3eaTrs5+nqs/QGyZNB4)
+在线演示：
+
+<ClientOnly>
+  <FullScreen>
+    <DemoIframe title="通过 key 管理状态 | Vue3查缺补漏" src="https://play.vuejs.org/#eNp9Uk1rwkAQ/SvDXqKgsSC9SJR+4KGFflC9dXtYNxONJrvLflgh5L93NkHbQ/EwMLz3Zue9SRp2b0x6DMhmLHPSlsaDQx/MgquyNtp6aMBiAS0UVteQkDThiiuplfMgrIV55AefiUhGyYZKUuVUSFVQbZOvIVdFUNKXWkFsBkNouII4nh5FFZAeufSp1yvai/lgIEabIcwX8CL8LrVC5bqm0THcpLf0ZMtVNuk9k9vMY20q4TH2m+A97bqTVSkPc87iUs4W6+VqnU16kmQAmYHjuNCWJL2PUkUjJG0a6JG2zSbxGtnksoCNmHd0gKLcpnunFd2ui8OZ1LUpK7RvJmZ1nM36oJETVaW/nzvM24CjMy53KA//4Ht3ihhn7xYd2iNyduG8sFv0Pb1cveKJ+gtZ6zxUpL5CfqDTVYgee9lDUDnZ/qPr3D51f0Cptmu3PHlU7hwqGo3KttPT8QI+Xon+a3eaTrs5+nqs/QGyZNB4" />
+  </FullScreen>
+</ClientOnly>
 
 默认模式是高效的，但只适用于列表渲染输出的结果不依赖子组件状态或者临时 DOM 状态 (例如表单输入值) 的情况。
 
