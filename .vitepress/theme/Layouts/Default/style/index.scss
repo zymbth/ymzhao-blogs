@@ -45,18 +45,3 @@
     filter: brightness(0.8) saturate(1.25);
   }
 }
-
-.content-body {
-  backdrop-filter: blur(10px);
-}
-
-.code-JetBrains {
-  display: none;
-}
-.code-JetBrains + [class^='language-'] code {
-  font-family: 'JetBrains Mono', 'ComicShannsMono Regular', '思源黑体', '微软雅黑';
-}
-
-.viewer-wrap img {
-  cursor: zoom-in;
-}

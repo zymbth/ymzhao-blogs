@@ -64,17 +64,6 @@ ol.initial-type {
   margin: 1em 0;
 }
 
-.code-JetBrains {
-  display: none;
-}
-.code-JetBrains + [class^='language-'] code {
-  font-family: 'JetBrains Mono', 'ComicShannsMono Regular', '思源黑体', '微软雅黑';
-}
-
-.viewer-wrap img {
-  cursor: zoom-in;
-}
-
 // 通用链接
 .primary-link,
 .secondary-link,

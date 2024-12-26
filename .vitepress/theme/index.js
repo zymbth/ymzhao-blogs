@@ -5,6 +5,7 @@ import DemoIframe from './Layouts/components/DemoIframe.vue'
 import FullScreen from './Layouts/components/FullScreen.vue'
 import useViewer from './useViewer'
 import './font/font.css'
+import './common.scss'
 import './Layouts/Typography/style/index.scss'
 import 'virtual:uno.css'
 
