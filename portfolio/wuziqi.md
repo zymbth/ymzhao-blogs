@@ -5,7 +5,6 @@ head:
     - name: keywords
       content: 五子棋
 created: '2024-12-26'
-isDraft: 't'
 ---
 
 # 五子棋
