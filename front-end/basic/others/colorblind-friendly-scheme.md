@@ -5,7 +5,6 @@ head:
     - name: keywords
       content: colorblind-friendly,scheme,palette,色盲友好,配色
 created: '2025-04-18'
-isDraft: 't'
 ---
 
 # 色盲友好配色方案
@@ -32,6 +31,58 @@ isDraft: 't'
 > - [IBM Color Blind Safe Palette](https://lospec.com/palette-list/ibm-color-blind-safe)
 > - [IBM Color Blind Safe Palette](https://www.color-hex.com/color-palette/1044488)
 
+<script setup>
+import { shining, copyText } from '../../../.vitepress/theme/utils.js'
+
+const colorBlindSafePalette = {
+  IBM: [
+    'rgb(100, 143, 255)',
+    'rgb(120, 94, 240)',
+    'rgb(220, 38, 127)',
+    'rgb(254, 97, 0)',
+    'rgb(255, 176, 0)',
+  ],
+  Wong: [
+    'rgb(0, 0, 0)',
+    'rgb(230, 159, 0)',
+    'rgb(86, 180, 233)',
+    'rgb(0, 158, 115)',
+    'rgb(240, 228, 66)',
+    'rgb(0, 114, 178)',
+    'rgb(213, 94, 0)',
+    'rgb(204, 121, 167)',
+  ],
+  Tol: [
+    'rgb(51, 34, 136)',
+    'rgb(17, 119, 51)',
+    'rgb(68, 170, 153)',
+    'rgb(136, 204, 238)',
+    'rgb(221, 204, 119)',
+    'rgb(204, 102, 119)',
+    'rgb(170, 68, 153)',
+    'rgb(136, 34, 85)',
+  ],
+}
+
+function copyToClipboard(colors) {
+  const txt = Array.isArray(colors) && colors.length > 0 && `[${colors.map(c => `'${c}'`).join(',')}]`
+  if(!txt) return
+  copyText(txt)
+  shining('已复制')
+}
+</script>
+
 <ClientOnly>
-  <div class="flex flex-col items-center"><div class="p-2 my-4 shadow-md hover:shadow-lg cursor-pointer inline-block" style="border-top: 1px solid rgba(0, 0, 0, 0.05);"><h3 class="text-center">IBM</h3> <div class="flex flex-wrap justify-center"><div class="w-16 h-16" style="background: rgb(100, 143, 255);"></div><div class="w-16 h-16" style="background: rgb(120, 94, 240);"></div><div class="w-16 h-16" style="background: rgb(220, 38, 127);"></div><div class="w-16 h-16" style="background: rgb(254, 97, 0);"></div><div class="w-16 h-16" style="background: rgb(255, 176, 0);"></div></div></div><div class="p-2 my-4 shadow-md hover:shadow-lg cursor-pointer inline-block" style="border-top: 1px solid rgba(0, 0, 0, 0.05);"><h3 class="text-center">Wong</h3> <div class="flex flex-wrap justify-center"><div class="w-16 h-16" style="background: rgb(0, 0, 0);"></div><div class="w-16 h-16" style="background: rgb(230, 159, 0);"></div><div class="w-16 h-16" style="background: rgb(86, 180, 233);"></div><div class="w-16 h-16" style="background: rgb(0, 158, 115);"></div><div class="w-16 h-16" style="background: rgb(240, 228, 66);"></div><div class="w-16 h-16" style="background: rgb(0, 114, 178);"></div><div class="w-16 h-16" style="background: rgb(213, 94, 0);"></div><div class="w-16 h-16" style="background: rgb(204, 121, 167);"></div></div></div><div class="p-2 my-4 shadow-md hover:shadow-lg cursor-pointer inline-block" style="border-top: 1px solid rgba(0, 0, 0, 0.05);"><h3 class="text-center">Tol</h3> <div class="flex flex-wrap justify-center"><div class="w-16 h-16" style="background: rgb(51, 34, 136);"></div><div class="w-16 h-16" style="background: rgb(17, 119, 51);"></div><div class="w-16 h-16" style="background: rgb(68, 170, 153);"></div><div class="w-16 h-16" style="background: rgb(136, 204, 238);"></div><div class="w-16 h-16" style="background: rgb(221, 204, 119);"></div><div class="w-16 h-16" style="background: rgb(204, 102, 119);"></div><div class="w-16 h-16" style="background: rgb(170, 68, 153);"></div><div class="w-16 h-16" style="background: rgb(136, 34, 85);"></div></div></div></div>
+  <div class="flex flex-col items-center gap-3">
+    <div
+      class="p-2 shadow-md hover:shadow-lg inline-block"
+      v-for="(palette, name) in colorBlindSafePalette"
+      :key="name"
+      @click="copyToClipboard(palette)">
+      <h4 class="text-center !mt-0">{{ name }}</h4>
+      <div class="flex flex-wrap justify-center cursor-copy">
+        <div class="w-16 h-16" v-for="c in palette" :key="c" :style="{ background: c }" />
+      </div>
+    </div>
+  </div>
 </ClientOnly>
