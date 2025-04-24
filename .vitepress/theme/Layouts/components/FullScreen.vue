@@ -63,7 +63,7 @@ function triggerFSVisi(show) {
   color: v-bind(iconColor);
   animation: shining-out 0.3s ease-in-out 1;
 }
-:deep(iframe) {
+.fullscreened:deep(iframe) {
   height: 100%;
 }
 
