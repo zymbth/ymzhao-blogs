@@ -120,7 +120,7 @@ export default request => {
 
   function mergedAsyncRequest(...args) {
     if (promise) {
-      reject(new Error('Cancalled'))
+      reject(new Error('Cancelled'))
     }
     ;({ promise, resolve, reject } = Promise.withResolvers())
     request(...args).then(resolve, reject)
@@ -137,7 +137,9 @@ export default request => {
 
 <ClientOnly>
   <FullScreen>
-    <DemoIframe title="取消旧的请求 | 使用 Promise.withResolvers 实现合并连续请求" src="https://play.vuejs.org/#eNqVVU1v20YQ/StTXkShMumgPSmyXNd1gBZoG6S5hTmsyaG0Nrlk9kOyofC/d3Z2RbKNEyAXYbnz5u2bT52Sm77PDg6TdbIxpZa9BYPW9dtCybbvtIUTaKxhgFp3LSwIuihUnkO0OoN/ot7hbaesVK5z5sY8qzKis7z1xotytF4IbyaK7/I3osXRs1BEZyzJ+mTgyqtLP3xcTvcnYKeKid7hJ4d0ORDyK2+llgA3vWQKfgRqp0orOwWiGmnSJZwKBRAesbIlL9H2xPujwiP8JiymRAGsKzuIxmHWO7NPTxN4BU0nKqzWUIvG4Iqw5k0jdmtYLGBg7wZ9ZGYFqLX/tvo5vOuJfbziKKR9IcR0fIV5BiiFLfeQYtQNnpH8ka1TJKXTmig4k6PwWqoqJfQWdDYL9epqioVfic5ZCIs4rHb8wNkQA2R2A9f+N6uEFR8uP8KaxGl9nRGhETuEz5+9ROIldYUaaxDLk2ZZJvTOxHA0dalW4FP/lnpFGkxTIu+aA6f1AUu79Ppj7NTU70l55+yEenV5ebmidvF61uC5Yw38L2nY5GEiaBbow2LbN1Rk+gLY7F9tuZfAtyZw12xyumTjvbOWhP9SNrJ8vCqSWRcVyfamqoKDT7iv3CYPDpFZQx5OjbjHZhvmIUKhkcauN3kwMaqSBzhc1J2mhySJBKm4kkUC60d8jrdTFUlBSEnkD/13OsF/YTAMK5g/RA6mF2p7RsaSX8MinBZUTz5KtaNmHl6TNzvMnc/9fiY5t8cwzMCbnGKi0yaf5TxZJdZQx9Zylz2YTtHC4tIWSdm1vWxQ/937dqG4KZrwJmW+abrjH3znO3N1vi/3WD6+cP9gnvxdkbwlZagPWCSjzVKHoA3mu3/+wic6j8a2q1xD6G8Y3/m+c15jgP3qVEWyZzhW+zsvRkrie3P3ZFGZc1Dn0RoYXyS0im+/Efok96fs5zjzA2Xx/xuVskm5xCdexxXWwjW8W7ndeIB4D8ka0h9odsK9pM0hVIldDW/inC6XYPe6O/JI3mnd6XRxhreOfu5pTsbNulgGWr/u+jC/vA3n8+sRATXughfW3mwtMDZIjZyzW78yPGs603dLMVDSqXmXUY9PUzy8ps39NWn8fxL3TnaUds/FPaA26cQUox8VZnaP6oslNaF5ocUXwy1rCcdofvnPzUOGZPgX7cGtcw==" />
+    <DemoIframe
+      title="取消旧的请求 | 使用 Promise.withResolvers 实现合并连续请求"
+      src="https://play.vuejs.org/#eNqVVU1v20YQ/StTXkShMumgPSmyXNd1gBZoG6S5hTmsyaG0Nrlk9kOyofC/d3Z2RbKNEyAXYbnz5u2bT52Sm77PDg6TdbIxpZa9BYPW9dtCybbvtIUTaKxhgFp3LSwIuihUnkO0OoN/ot7hbaesVK5z5sY8qzKis7z1xotytF4IbyaK7/I3osXRs1BEZyzJ+mTgyqtLP3xcTvcnYKeKid7hJ4d0ORDyK2+llgA3vWQKfgRqp0orOwWiGmnSJZwKBRAesbIlL9H2xPujwiP8JiymRAGsKzuIxmHWO7NPTxN4BU0nKqzWUIvG4Iqw5k0jdmtYLGBg7wZ9ZGYFqLX/tvo5vOuJfbziKKR9IcR0fIV5BiiFLfeQYtQNnpH8ka1TJKXTmig4k6PwWqoqJfQWdDYL9epqioVfic5ZCIs4rHb8wNkQA2R2A9f+N6uEFR8uP8KaxGl9nRGhETuEz5+9ROIldYUaaxDLk2ZZJvTOxHA0dalW4FP/lnpFGkxTIu+aA6f1AUu79Ppj7NTU70l55+yEenV5ebmidvF61uC5Yw38L2nY5GEiaBbow2LbN1Rk+gLY7F9tuZfAtyZw12xyumTjvbOWhP9SNrJ8vCqSWRcVyfamqoKDT7iv3CYPDpFZQx5OjbjHZhvmIUKhkcauN3kwMaqSBzhc1J2mhySJBKm4kkUC60d8jrdTFUlBSEnkD/13OsF/YTAMK5g/RA6mF2p7RsaSX8MinBZUTz5KtaNmHl6TNzvMnc/9fiY5t8cwzMCbnGKi0yaf5TxZJdZQx9Zylz2YTtHC4tIWSdm1vWxQ/937dqG4KZrwJmW+abrjH3znO3N1vi/3WD6+cP9gnvxdkbwlZagPWCSjzVKHoA3mu3/+wic6j8a2q1xD6G8Y3/m+c15jgP3qVEWyZzhW+zsvRkrie3P3ZFGZc1Dn0RoYXyS0im+/Efok96fs5zjzA2Xx/xuVskm5xCdexxXWwjW8W7ndeIB4D8ka0h9odsK9pM0hVIldDW/inC6XYPe6O/JI3mnd6XRxhreOfu5pTsbNulgGWr/u+jC/vA3n8+sRATXughfW3mwtMDZIjZyzW78yPGs603frY2gaat5l1OPTFA+vaXN/TRr/n8S9kx2l3XNxD6hNOjHF6EeFmd2j+mJJTWheaPHFcMtawjGaX/5z85AhGf4F8O2tdw==" />
   </FullScreen>
 </ClientOnly>
 
