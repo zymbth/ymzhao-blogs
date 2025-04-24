@@ -18,7 +18,7 @@ defineProps({
 </script>
 
 <template>
-  <iframe :height style="width: 100%;" scrolling="no" title :src frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-    See the demo <a :href="src">{{ title }}</a> by <a href="https://ymzhao.work">ymzhao</a>.
+  <iframe :height style="width: 100%;" scrolling="no" :title :src frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+    Failed to load this demo({{ src }}).
   </iframe>
 </template>

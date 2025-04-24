@@ -56,12 +56,15 @@ function triggerFSVisi(show) {
     -ms-overflow-style: none;
     scrollbar-width: none;
     overflow: auto;
-    z-index: 2;
+    z-index: 2000;
   }
 }
 .icon-link {
   color: v-bind(iconColor);
   animation: shining-out 0.3s ease-in-out 1;
+}
+:deep(iframe) {
+  height: 100%;
 }
 
 @keyframes shining-out {
