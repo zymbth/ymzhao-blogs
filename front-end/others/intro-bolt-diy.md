@@ -49,6 +49,7 @@ DeepSeek的VSCode插件首页上放了两个合作的服务商，>>[硅基流动
 - 完整视频教程：[How to Install BOLT.DIY on Windows in UNDER 30 minutes!](https://www.youtube.com/watch?v=CyIsupMHvew&t=1173s)
 - 安装清单：[Installation Checklist](https://gist.github.com/leex279/832246dc64f078162de1bf00997238a9)
 - 社区：[Communitiy](https://thinktank.ottomator.ai/)
+- 其它有用的内容：[Videos / Tutorial / Helpful Content](https://thinktank.ottomator.ai/t/videos-tutorial-helpful-content/3243)
 
 :::
 
@@ -83,11 +84,25 @@ DeepSeek的VSCode插件首页上放了两个合作的服务商，>>[硅基流动
 
 ## 部署
 
-官方已经提供了很多部署方案，可像单页应用一样构建，然后自行部署到自己的服务器或GitHub Pages上。也可以使用`wrangler`部署到Cloudflare Pages、Vercel等平台。
+官方已经提供了很多部署方案，可像单页应用一样构建，然后自行部署到自己的服务器或GitHub Pages上。也可以使用`wrangler`部署到Netlify、Vercel、Cloudflare等平台。
 
 可使用 Electron 创建桌面应用
 
 构建项目时，需要注意本地环境变量文件未被添加到git版本控制中，这是为了避免你的apikey泄露。
+
+::: details wrangler部署到Cloudflare参考
+
+- 全局安装wrangler
+- `wrangler login`: 登录wrangler
+- 环境变量
+
+`.env.local`未被追踪，也不建议将自己的apikey放在`.env.production`中，除非将仓库设为私密。
+
+环境变量可在cloudflare中设置。进入Cloudflare Pages，找到新创建的Page，点击进去再点击设置，添加上面提到的环境变量。不填的话部署没问题但网页会无法访问
+
+- `pnpm run deploy`: 构建并部署
+
+:::
 
 ## 总结
 
