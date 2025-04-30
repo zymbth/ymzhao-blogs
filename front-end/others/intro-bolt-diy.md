@@ -53,7 +53,7 @@ DeepSeek的VSCode插件首页上放了两个合作的服务商，>>[硅基流动
 
 :::
 
-- 前置环境准备
+### 前置环境准备
 
 ```json
 {
@@ -62,31 +62,51 @@ DeepSeek的VSCode插件首页上放了两个合作的服务商，>>[硅基流动
 }
 ```
 
-- 源代码：fork或直接copy源代码
-- 项目运行在5173端口，确保未被占用 `netstat -ano | findstr :5173`
-- 重命名 `.env.example` 为 `.env.local`，在文件中找到对应LLM的环境变量，并填入你的apikey
-- 安装最新的Visual C++ Redistributable以兼容`wrangler`
+### 源代码
 
-点击[Microsoft Visual C++ Redistributable latest supported downloads](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version)，安装对应版本包。否则，`wrangler`的版本需要降低到`3.61.0`
+fork或直接copy源代码
 
-- 安装依赖
+### 选择模型
 
-`pnpm install`, electron安装可能会因为网络超时报错，如果是它的问题，可更换镜像源或多试几次
+- 已支持模型
 
-- 运行：`pnpm run dev`
-- 使用 OpenAILike 模型
+OpenAI, Anthropic, Ollama, OpenRouter, Gemini, LMStudio, Mistral, xAI, HuggingFace, DeepSeek, or Groq models
 
-设置环境变量 `OPENAI_LIKE_API_BASE_URL`, `OPENAI_LIKE_API_KEY`
+对于这些模型，重命名 `.env.example` 为 `.env.local`，在文件中找到对应LLM的环境变量，并填入你的apikey即可
 
-页面中鼠标移至屏幕左侧打开面板 -> 设置 -> Local Providers -> OpenAILike -> 开启并输入服务商提供的 baseurl
+- OpenAILike
+
+对于其它模型，如果兼容openai的api，可以使用`OpenAILike`模式。设置环境变量 `OPENAI_LIKE_API_BASE_URL`, `OPENAI_LIKE_API_KEY`
 
 以上面提到的>>[硅基流动](https://cloud.siliconflow.cn/i/scFXHmf2)<<为例，它的`base_url`为`https://api.siliconflow.cn/v1`
 
+亲试发现，运行后还需要在页面上填写一遍：页面中鼠标移至屏幕左侧打开面板 -> 设置 -> Local Providers -> OpenAILike -> 开启并输入服务商提供的 baseurl
+
+### Visual C++ Redistributable
+
+安装最新的Visual C++ Redistributable以兼容`wrangler`
+
+点击[Microsoft Visual C++ Redistributable latest supported downloads](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version)，安装对应版本包。
+
+不需要使用`wrangler`的话，将它的版本固定到`3.61.0`即可跳过这一步。
+
+### 安装依赖
+
+`pnpm install`, electron安装可能会因为网络超时报错，如果是它的问题，可更换镜像源或多试几次
+
+### 运行
+
+`pnpm run dev`
+
+项目运行在5173端口，确保未被占用 `netstat -ano | findstr :5173`
+
 ## 部署
 
-官方已经提供了很多部署方案，可像单页应用一样构建，然后自行部署到自己的服务器或GitHub Pages上。也可以使用`wrangler`部署到Netlify、Vercel、Cloudflare等平台。
+官方已经提供了很多部署方案，可构建后自行部署到自己的服务器上，支持docker部署。
 
-可使用 Electron 创建桌面应用
+还可以使用`wrangler`部署到Netlify、Vercel、Cloudflare等平台。
+
+另外，还可使用 Electron 打包为桌面应用。
 
 构建项目时，需要注意本地环境变量文件未被添加到git版本控制中，这是为了避免你的apikey泄露。
 
@@ -108,4 +128,4 @@ DeepSeek的VSCode插件首页上放了两个合作的服务商，>>[硅基流动
 
 适合快速搭建项目
 
-也适合做一些小玩意儿，在线生成、运行、调试，极速迭代，必要时亲自调整代码
+也适合快速生成一些小玩意儿，可在线生成、运行、调试，极速迭代，必要时亲自调整代码
