@@ -18,6 +18,8 @@ created: '2025-04-29'
 
 简单地说，`bolt.diy`可选择LLM模型，输入提示词，然后自动为你生成一个项目。你可以不断地输入以新增功能模块、进行修改完善或删除等调整。
 
+> *"Prompt, run, edit, and deploy full-stack web applications using any LLM you want!"*
+>
 > *"bolt.diy allows you to choose the LLM that you use for each prompt! Currently, you can use OpenAI, Anthropic, Ollama, OpenRouter, Gemini, LMStudio, Mistral, xAI, HuggingFace, DeepSeek, or Groq models - and it is easily extended to use any other model supported by the Vercel AI SDK! See the instructions below for running this locally and extending it to include more models."*
 
 功能特性:
