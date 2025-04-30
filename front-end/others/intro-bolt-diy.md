@@ -110,7 +110,9 @@ OpenAI, Anthropic, Ollama, OpenRouter, Gemini, LMStudio, Mistral, xAI, HuggingFa
 
 构建项目时，需要注意本地环境变量文件未被添加到git版本控制中，这是为了避免你的apikey泄露。
 
-::: details wrangler部署到Cloudflare参考
+::: details wrangler自动部署到Cloudflare参考
+
+> 完全可以登录Cloudflare网页端，手动创建Pages应用。构建输出目录为`./build/client`
 
 - 全局安装wrangler
 - `wrangler login`: 登录wrangler
