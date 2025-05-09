@@ -44,9 +44,9 @@ export default antfu({
     'node_modules',
     'public',
     '**/*.d.ts',
-    // '.eslint-config-inspector',
+    '.eslint-config-inspector',
     '.vscode',
     '.husky',
-    '**/*.md'
+    '**/*.md',
   ],
 })
