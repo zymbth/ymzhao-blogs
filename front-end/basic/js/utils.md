@@ -137,7 +137,7 @@ function removeDuplicates(arr) {
 function asyncFuncWrapper(fn, ...args) {
   try {
     const resp = await fn(...args)
-    return({ resp })
+    return { resp }
   } catch (err) {
     return { err }
   }
