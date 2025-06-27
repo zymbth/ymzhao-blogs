@@ -40,7 +40,7 @@ created: '2025-06-26'
 - HTML 模板
 - 配置迁移
 
-参照官方提供的 Vue CLI 配置对应的 Rsbuild 配置进行迁移。例如，在 Vue CLI 中配置的svg加载器迁移到 Rsbuild 的 `tools.bundlerChain` 中即可：
+参照官方提供的 Vue CLI 配置对应的 Rsbuild 配置进行迁移。例如，在 Vue CLI 中配置(`chainWebpack`)的svg加载器迁移到 Rsbuild 的 `tools.bundlerChain` 中即可：
 
 ::: details
 
@@ -62,6 +62,10 @@ created: '2025-06-26'
 ```
 
 :::
+
+Vue CLI 中自定义的插件 `configureWebpack.plugins` 对应 Rsbuild 的配置为 `tools.rspack.plugins`。
+
+简单的自定义插件也可考虑按 Rsbuild 的[插件](https://rsbuild.dev/zh/plugins/dev/)语法转换下。
 
 - 环境变量
 
