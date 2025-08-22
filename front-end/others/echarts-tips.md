@@ -1,18 +1,21 @@
 ---
-description: echarts使用tips
+description: 总结记录个人在Vue前端开发中使用Echarts的技巧，包含按需引入、分包、resize监听、实例自动销毁、保存图片等
 head:
   - - meta
     - name: keywords
-      content: echarts,usage,tips
+      content: echarts,util,usage,tips
 created: '2025-08-21'
-isDraft: 't'
 ---
 
-# echarts使用tips
+# Echarts使用tips
+
+## 前言
+
+总结记录个人在Vue前端开发中使用Echarts的技巧，其他框架也可参考实现。
 
 ## 按需引入+分包
 
-按需引入echarts包，可以减少包大小，尤其是涉及的功能组件不多时。
+按需引入Echarts包，可以减少包大小，尤其是涉及的功能组件不多时。
 
 ```js [src/utils/echarts.js]
 import * as echarts from 'echarts/core'
@@ -50,13 +53,15 @@ export default echarts
 
 按需引入可在官方示例的“完整代码”-“按需引入”中查看。
 
-官方还提供了一个[在线定制](https://echarts.apache.org/zh/builder.html)下载echarts包的方式
+官方还提供了一个[在线定制](https://echarts.apache.org/zh/builder.html)下载Echarts包的方式
 
 - 分包
 
 vite, webpack, vue-cli 都支持分包，自行搜索配置
 
 ## resize监听+自动销毁
+
+实例可能会需要根据容器尺寸调整大小
 
 ::: code-group
 
@@ -114,7 +119,7 @@ export function useResizeListener(cb) {
   onBeforeUnmount(() => {
     window.removeEventListener('resize', resizeDebounceHandler) // 监听事件解绑
   })
-  // 监听侧边栏的展开/收起
+  // !NOTE: 根据实际需求添加，这里监听侧边栏的展开/收起
   watch(
     () => store.getters.sidebar,
     () => setTimeout(cb, 800)
@@ -139,9 +144,9 @@ function debounce(fn, delay = 300, _this) {
 
 ## 保存图片
 
-对于canvas/svg元素，浏览器支持右键保存图片。但echarts图表生成的canvas/svg元素往往会像图层一样包含多个元素叠加在一起，浏览器右键默认保存图片功能仅能保存最顶层。
+对于canvas/svg元素，浏览器支持右键保存图片。但Echarts图表生成的canvas/svg元素往往会像图层一样包含多个元素叠加在一起，浏览器右键默认保存图片功能仅能保存最顶层。
 
-echarts实例上存在`getDataURL`方法（[echartsInstance.getDataURL](https://echarts.apache.org/zh/api.html#echartsInstance.getDataURL)），可以导出图表图片，返回一个 base64 的 URL，可以统一封装一下。
+Echarts实例上存在`getDataURL`方法（[echartsInstance.getDataURL](https://echarts.apache.org/zh/api.html#echartsInstance.getDataURL)），可以导出图表图片，返回一个 base64 的 URL，可以统一封装一下。
 
 ::: code-group
 
@@ -197,7 +202,7 @@ import { getInstanceByDom } from 'echarts/core'
 /**
  * 右键菜单：导出 Echarts 图表为图片，浏览器默认保存图片功能在多个“图层”下无效
  *
- * NOTE: 需将 Echarts 容器放置在本组件的默认插槽中：
+ * !NOTE: 需将 Echarts 容器放置在本组件的默认插槽中：
  */
 
 const props = defineProps(['echartsDom'])
