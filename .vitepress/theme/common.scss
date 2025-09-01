@@ -1,7 +1,8 @@
 .code-JetBrains {
   display: none;
 }
-.code-JetBrains + [class^='language-'] code {
+.code-JetBrains + [class^='language-'] code,
+.code-JetBrains + .vp-code-group [class^='language-'] code {
   font-family: 'JetBrains Mono', 'ComicShannsMono Regular', '思源黑体', '微软雅黑';
 }
 
