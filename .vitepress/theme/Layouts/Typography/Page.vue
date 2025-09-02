@@ -1,8 +1,9 @@
 <script setup>
 import { onContentUpdated, useData, useRoute } from 'vitepress'
-import VPDocFooterLastUpdated from 'vitepress/dist/client/theme-default/components/VPDocFooterLastUpdated.vue'
 import { computed } from 'vue'
 import Comment from '../components/Comment.vue'
+// import VPDocFooterLastUpdated from 'vitepress/dist/client/theme-default/components/VPDocFooterLastUpdated.vue'
+import DocFooterCreated from './components/DocFooterCreated.vue'
 import { jumpToHash } from './utils/doc-page'
 
 const { page, frontmatter } = useData()
@@ -17,6 +18,6 @@ onContentUpdated(() => {
 
 <template>
   <Content class="vp-doc VPDoc" :class="[pageName]" />
-  <VPDocFooterLastUpdated :title="`创建于: ${frontmatter.created}`" />
+  <DocFooterCreated :title="`创建于: ${frontmatter.created}`" />
   <Comment :key="page.relativePath" class="mt-24px" />
 </template>
