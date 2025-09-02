@@ -1,17 +1,19 @@
 ---
-description: nginx web服务器
+description: 最佳实践：使用 nginx 为多个前端项目搭建web服务器
 head:
   - - meta
     - name: keywords
-      content: nginx,web server,web服务器
+      content: nginx,web server,web服务器,最佳实践
 created: '2025-09-01'
 ---
 
-# nginx web服务器
+# 最佳实践：使用 nginx 为多个前端项目搭建web服务器
 
 ## 介绍
 
-使用nginx搭建web服务器，符合
+最佳实践：使用 nginx 为多个前端项目搭建web服务器。
+
+详细nginx配置，防火墙、文件权限、日志等配置请自行查阅。
 
 ## 项目
 
@@ -21,8 +23,8 @@ created: '2025-09-01'
 
 ```text
 /home/ubuntu/
-├─ project1
-└─ project2
+├─ project1/
+└─ project2/
 ```
 
 项目各自首页：`/dist/index.html`
@@ -31,7 +33,7 @@ created: '2025-09-01'
 
 ## nginx配置
 
-为每个网站创建一个配置文件，放在 `/etc/nginx/sites-available/` 目录下，并创建软链接 `/etc/nginx/sites-enabled/` 下。
+为每个项目创建独立的配置文件，放在 `/etc/nginx/sites-available/` 目录下，并创建软链接到 `/etc/nginx/sites-enabled/` 下。
 
 nginx.conf 配置文件中将 `sites-enabled` 目录下的配置文件引入。
 
@@ -81,7 +83,7 @@ server {
 	listen 8000;
 	listen [::]:8000;
 
-	server_name site1;
+	server_name site1.example.com;
 
 	root /home/ubuntu/project1/dist;
 	index index.html index.htm;
