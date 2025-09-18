@@ -78,7 +78,7 @@ onMounted(() => {
     </h1>
     <article v-for="p in currPosts" :key="p.url">
       <header flex="~ col">
-        <h2 class="m-0 text-18px font-bold line-height-1.5em">
+        <h2 class="m-0 text-18px line-height-1.5em">
           <PostTag v-if="p.tag" :tag="p.tag" />
           <a class="primary-link" :href="p.url" v-html="p.title" />
         </h2>
