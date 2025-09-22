@@ -28,6 +28,7 @@ export const pwa = {
     ],
   },
   workbox: {
+    maximumFileSizeToCacheInBytes: 4000000,
     navigateFallbackDenylist: [/^\/new$/],
     globPatterns: ['**/*.{css,js,html,png,svg,ico,txt,woff2}'],
   },
