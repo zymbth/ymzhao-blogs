@@ -1,7 +1,7 @@
 <template>
   <div class="text-12px line-height-tight">
-    <span lg="block">© 2024 <a target="_blank" href="https://ymzhao.work">ymzhao</a>. All rights reserved.</span>
-    <span lg="block">Powered by <a target="_blank" href="https://vitepress.dev/">VitePress</a>.</span>
+    <span lg="block">© {{ new Date().getFullYear() }} <a target="_blank" href="https://ymzhao.work">ymzhao</a>. All rights reserved.</span>
+    <span lg="block"> Powered by <a target="_blank" href="https://vitepress.dev/">VitePress</a>.</span>
     <span lg="block">
       Theme
       <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by

@@ -14,11 +14,12 @@ export default defineConfig({
   presets: [
     presetUno({ dark: 'class', attributify: false }),
     presetAttributify({ nonValuedAttribute: true }),
-    presetIcons({
-      collections: {
-        mdi: () => import('@iconify-json/mdi/icons.json').then(i => i.default),
-      },
-    }),
+    presetIcons()
+    // presetIcons({
+    //   collections: {
+    //     mdi: () => import('@iconify-json/mdi/icons.json').then(i => i.default),
+    //   },
+    // }),
   ],
   transformers: [transformerVariantGroup(), transformerDirectives(), transformerAttributifyJsx()],
   content: {

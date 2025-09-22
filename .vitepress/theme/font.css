@@ -12,24 +12,24 @@
 
 @font-face {
   font-family: 'ComicShannsMono Regular';
-  src: url(./ComicShannsMono-Regular.woff2) format('woff2');
+  src: url(/font/ComicShannsMono-Regular.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url(./JetBrainsMono-Regular.woff2) format('woff2');
+  src: url(/font/JetBrainsMono-Regular.woff2) format('woff2');
 }
 
 @font-face {
   font-family: 'LXGWWenKai';
-  src: url(./LXGW/LXGWWenKaiLite-Bold-v1.245.1.woff2) format('woff2');
+  src: url(/font/LXGW/LXGWWenKaiLite-Bold-v1.245.1.woff2) format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'LXGWWenKai';
-  src: url(./LXGW/LXGWZhenKai-v0.600.woff2) format('woff2');
+  src: url(/font/LXGW/LXGWZhenKai-v0.600.woff2) format('woff2');
   font-weight: bold;
   font-style: normal;
 }
