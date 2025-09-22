@@ -56,7 +56,7 @@ nginx.conf 配置文件中将 `sites-enabled` 目录下的配置文件引入。
 └─ nginx.conf
 ```
 
-```conf{18} [nginx.conf]
+```nginx{18} [nginx.conf]
 http {
 	sendfile on;
 	tcp_nopush on;
@@ -78,7 +78,7 @@ http {
 }
 ```
 
-```conf [site1.example.com.conf]
+```nginx [site1.example.com.conf]
 server {
 	listen 8000;
 	listen [::]:8000;
@@ -94,7 +94,7 @@ server {
 }
 ```
 
-```conf{2-6} [site2.example.com.conf]
+```nginx{2-6} [site2.example.com.conf]
 server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
