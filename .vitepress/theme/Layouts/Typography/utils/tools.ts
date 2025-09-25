@@ -57,3 +57,7 @@ export const formatDate = (hasTime?: boolean) => {
   }
   return new Intl.DateTimeFormat('zh', formatOption as Intl.DateTimeFormatOptions)
 }
+
+export const formatMoney = (money: number | string) => {
+  return money.toLocaleString()
+}

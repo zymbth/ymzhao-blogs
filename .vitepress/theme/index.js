@@ -3,7 +3,7 @@ import DefaultTheme from 'vitepress/theme-without-fonts'
 import { TypographyLayout as Layout } from './Layouts'
 import DemoIframe from './Layouts/components/DemoIframe.vue'
 import FullScreen from './Layouts/components/FullScreen.vue'
-import WDocTitleMeta from './Layouts/Typography/components/WDocTitleMeta.vue'
+import DocTitleMeta from './Layouts/Typography/components/DocTitleMeta.vue'
 import useViewer from './useViewer'
 import './font.css'
 import './common.scss'
@@ -17,7 +17,7 @@ export default {
   enhanceApp({ app }) {
     app.component('DemoIframe', DemoIframe)
     app.component('FullScreen', FullScreen)
-    app.component('weiz-title-meta', WDocTitleMeta)
+    app.component('doc-title-meta', DocTitleMeta)
     useViewer(app)
   },
 }
