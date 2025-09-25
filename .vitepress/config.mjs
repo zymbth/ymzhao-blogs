@@ -312,6 +312,18 @@ export default withPwa(
       image: {
         lazyLoading: true,
       },
+      // 对markdown中的内容进行替换或者批量处理
+      config: (md) => {
+        // 创建 markdown-it 插件
+        md.use((md) => {
+          // 组件插入h1标题下
+          md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
+            let htmlResult = slf.renderToken(tokens, idx, options)
+            if (tokens[idx].tag === 'h1') htmlResult += `<weiz-title-meta />`
+            return htmlResult
+          }
+        })
+      }
     },
     vite: {
       resolve: {
