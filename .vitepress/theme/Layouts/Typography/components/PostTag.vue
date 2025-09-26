@@ -57,7 +57,7 @@ const tags = props.tag?.split(',').map(t => t.trim()) || []
   right: 4px;
   height: 4px;
   width: 4px;
-  background-color: #fff;
+  background-color: var(--tg-bg-color);
   border-radius: 50%;
   transform: translateY(-50%);
 }

@@ -24,16 +24,17 @@ import { countTransK, countWord, formatMoney/* , formatDate */ } from '../utils/
 
 const { theme, frontmatter, page, lang } = useData()
 
+// 字数
 const wordCount = ref('')
-
+// 创建时间
 const createdDate = computed(() => new Date(frontmatter.value.created))
 const createdIsoDatetime = computed(() => createdDate.value.toISOString())
 const createdDateTime = ref('')
-
+// 最后更新时间
 const lastUpdatedDate = computed(() => new Date(page.value.lastUpdated))
 const lastUpdatedIsoDatetime = computed(() => lastUpdatedDate.value.toISOString())
 const lastUpdatedDateTime = ref('')
-
+// 阅读量
 const count = ref('')
 
 onContentUpdated(() => {
@@ -53,7 +54,7 @@ onMounted(async () => {
 function formateDatetime(date) {
   return new Intl.DateTimeFormat(
     theme.value.lastUpdated?.formatOptions?.forceLocale ? lang.value : undefined,
-    theme.value.lastUpdated?.formatOptions ?? { dateStyle: 'short', timeStyle: 'short' }
+    theme.value.lastUpdated?.formatOptions ?? { dateStyle: 'short'/* , timeStyle: 'short' */ }
   ).format(date)
 }
 

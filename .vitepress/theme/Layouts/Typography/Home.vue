@@ -1,7 +1,7 @@
 <script setup>
-import postData from '@/_plugins/post_data.json'
 import qs from 'qs'
 import { computed, onMounted, ref, watch } from 'vue'
+import postData from '@/_plugins/post_data.json'
 import CategoryBreadcrumbs from './components/CategoryBreadcrumbs.jsx'
 import PostTag from './components/PostTag.vue'
 
@@ -82,7 +82,7 @@ onMounted(() => {
           <PostTag v-if="p.tag" :tag="p.tag" />
           <a class="primary-link" :href="p.url" v-html="p.title" />
         </h2>
-        <div class="text-14px text-tg-txt" flex="~ items-center gap-6px">
+        <div class="text-14px text-tg-txt2" flex="~ items-center gap-6px">
           <span>发布于</span>
           <time>{{ p.created }}</time>
           <CategoryBreadcrumbs
@@ -92,9 +92,9 @@ onMounted(() => {
           />
         </div>
       </header>
-      <p v-if="p.intro" class="line-clamp-4 text-14px color-#666">
+      <!-- <p v-if="p.intro" class="line-clamp-4 text-14px color-#666">
         {{ p.intro }}
-      </p>
+      </p> -->
     </article>
   </section>
   <footer class="my-7.5">

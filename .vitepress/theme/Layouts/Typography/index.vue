@@ -60,7 +60,7 @@ const showOutline = ref(true)
       </div>
     </div>
     <!-- Copyright -->
-    <CopyrightComp v-if="!isLarge" class="m-b-10px text-center" />
+    <CopyrightComp v-if="!isLarge" class="m-b-10px p-x-10px text-center" />
   </div>
   <SwitchAppearance class="right-10px top-10px z-1 !fixed" />
 </template>
@@ -95,26 +95,3 @@ const showOutline = ref(true)
   }
 }
 </style>
-<!-- <style>
-.Layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root),
-.dark::view-transition-new(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root),
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-</style> -->

@@ -12,28 +12,36 @@
   --tg-txt-color: #2e405b;
   --tg-txt-color-1: #3b4f6b;
   --tg-txt-color-2: #4a5f7b;
+  // 背景色
   --tg-bg-color: #fff;
-  --tg-txt-shadow-color: rgba(0, 0, 0, 0.04);
-
+  --tg-bg-color-1: #fafafa;
+  --tg-bg-color-2: #f0f0f0;
+  --tg-bg-color-3: #ccc;
+  
+  --tg-txt-shadow-color: rgba(0, 0, 0, 0.04); /* 网格线颜色 */
+  --main-bg-image:
+    linear-gradient(to right, var(--tg-txt-shadow-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--tg-txt-shadow-color) 1px, transparent 1px);
   --sider-width: 160px;
-  --main-bg-image: linear-gradient(to right, var(--tg-txt-shadow-color) 1px, transparent 1px), linear-gradient(to bottom, var(--tg-txt-shadow-color) 1px, transparent 1px);
 }
 
 .dark {
-  --vp-code-line-highlight-color: rgba(0, 110, 146, 0.2);
-  --vp-nav-bg-color: rgba(0, 0, 0, 0.3);
+  --vp-code-line-highlight-color: rgba(46, 160, 133, 0.15);
+  --vp-nav-bg-color: rgba(28, 32, 34, 0.7);
 
-  // --tg-txt-color: #9caae0;
-  // --tg-txt-color-1: #b0c2e8;
-  // --tg-txt-color-2: #c0cde0;
-  // --tg-bg-color: #1c2a3b;
-  --tg-txt-color: rgb(167, 189, 210);
-  --tg-txt-color-1: rgb(158, 181, 201);
-  --tg-txt-color-2: #c0cde0;
-  --tg-bg-color: #181a1b;
-  --tg-txt-shadow-color: rgba(255, 255, 255, 0.04);
+  /* 主题色 - 现代青灰 */
+  --tg-txt-color: #e0e0e0; /* 主要文本颜色 - 非常清晰的浅灰色 */
+  --tg-txt-color-1: #a0a0a0; /* 次要文本颜色 - 中灰色 */
+  --tg-txt-color-2: #888; /* 次要文本颜色 - 深灰色 */
+  --tg-bg-color: #1c2022;  /* 背景色 - 深青灰色 */
+  --tg-bg-color-1: #161819;
+  --tg-bg-color-2: #252a2d;
+  --tg-bg-color-3: #3e4446;
+  --tg-txt-shadow-color: rgba(255, 255, 255, 0.05);
+
+  /* 图片处理 */
   img {
-    filter: brightness(0.8) saturate(1.25);
+    filter: brightness(0.8) saturate(1.2);
   }
 }
 

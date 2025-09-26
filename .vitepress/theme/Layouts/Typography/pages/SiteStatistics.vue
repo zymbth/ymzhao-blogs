@@ -19,7 +19,6 @@
 
     <!-- 结构化数据表格 -->
     <div v-if="processedData.length > 0" class="table-container">
-      <p>总计 {{ processedData.length }} 条数据</p>
       <table class="data-table">
         <colgroup>
           <col width="60%" />
@@ -49,6 +48,9 @@
         </tbody>
       </table>
     </div>
+    <p v-if="processedData.length > 0">
+      总计 {{ processedData.length }} 条数据
+    </p>
 
     <!-- 底部操作按钮 -->
     <div v-if="processedData.length > 0" class="action-buttons">
@@ -85,6 +87,12 @@ const handleDrop = (event) => {
   }
 }
 
+const getNumber = (n) => {
+  const r = Number(n)
+  if (Number.isNaN(r)) return 0
+  return r
+}
+
 // 读取并处理 CSV 文件
 const readFile = (file) => {
   const reader = new FileReader()
@@ -97,7 +105,7 @@ const readFile = (file) => {
       return !trimmed.startsWith('#')
     }).filter(line => line.trim() !== '') // 过滤空行
 
-    // 执行您提供的结构化处理逻辑
+    // 数据处理
     try {
       const list = filteredLines
         .map(l => l.split(','))
@@ -110,7 +118,7 @@ const readFile = (file) => {
         )
         .toSorted((a, b) => a[0].localeCompare(b[0]))
         .map((p) => {
-          return [p[0], Number(p[1] || 0), Number(p[2] || 0)]
+          return [p[0], getNumber(p[1]), getNumber(p[2])]
         })
 
       // 合并重复路径
@@ -175,16 +183,6 @@ const confirmData = () => {
 </script>
 
 <style scoped>
-.csv-extractor {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace, sans-serif;
-}
-
 .upload-area {
   display: flex;
   flex-direction: column;
@@ -192,14 +190,14 @@ const confirmData = () => {
   justify-content: center;
   width: 100%;
   padding: 2rem;
-  border: 2px dashed #ccc;
+  border: 2px dashed var(--tg-bg-color-3);
   border-radius: 8px;
-  background-color: #fafafa;
+  background-color: var(--tg-bg-color-1);
   transition: background-color 0.3s;
 }
 
 .upload-area:hover {
-  background-color: #f0f0f0;
+  background-color: var(--tg-bg-color-2);
 }
 
 .file-input {
@@ -208,8 +206,8 @@ const confirmData = () => {
 
 .upload-button {
   padding: 0.75rem 1.5rem;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--tg-txt-color);
+  color: var(--tg-bg-color);
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -218,12 +216,12 @@ const confirmData = () => {
 }
 
 .upload-button:hover {
-  background-color: #333;
+  background-color: var(--tg-txt-color-2);
 }
 
 .hint {
   margin-top: 1rem;
-  color: #666;
+  color: var(--tg-txt-color-2);
   font-size: 0.9rem;
 }
 
@@ -239,32 +237,30 @@ const confirmData = () => {
   font-size: 12px;
   line-height: 1.4em;
   border-collapse: collapse;
-  background-color: #fff;
-  border: 1px solid #eee;
+  background-color: var(--tg-bg-color);
+  border: 1px solid var(--tg-bg-color-2);
 }
 
 .data-table th,
 .data-table td {
   padding: 4px 8px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--tg-bg-color-2);
 }
 
 .data-table th {
-  background-color: #f8f8f8;
+  background-color: var(--tg-bg-color-1);
   font-weight: 600;
-  color: #000;
 }
 
 .data-table tbody tr:hover {
-  background-color: #f9f9f9;
+  background-color: var(--tg-bg-color-2);
 }
 
 .action-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  width: 100%;
   margin-top: 20px;
 }
 
@@ -278,22 +274,21 @@ const confirmData = () => {
 }
 
 .clear-button {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ccc;
+  background-color: var(--tg-bg-color);
+  border: 1px solid var(--tg-bg-color-3);
 }
 
 .clear-button:hover {
-  background-color: #f0f0f0;
+  background-color: var(--tg-bg-color-2);
 }
 
 .confirm-button {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--tg-txt-color);
+  color: var(--tg-bg-color);
   border: none;
 }
 
 .confirm-button:hover {
-  background-color: #333;
+  background-color: var(--tg-txt-color-2);
 }
 </style>

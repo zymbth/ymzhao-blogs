@@ -1,13 +1,11 @@
 import { withPwa } from '@vite-pwa/vitepress'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
-// import { resolve } from 'node:path'
 import { defineConfig } from 'vitepress'
 import scanPostPlugin from '../_plugins/vitepress-plugin-scan-post'
 import { pwa } from './pwa'
 
 const root = process.cwd()
-// const pathResolve = dir => resolve(root, '.', dir)
 
 // https://vitepress.dev/reference/site-config
 export default withPwa(
@@ -40,225 +38,6 @@ export default withPwa(
       siteTitle: 'Corner Blog',
       logo: '/icon.svg',
       // 📖📚📓📔📃📜📝💾📋🛠🐞
-      nav: [
-        {
-          text: '前端',
-          items: [
-            { text: '基础', link: '/front-end/basic/js/utils' },
-            { text: 'VUE', link: '/front-end/vue/vue3-grammar' },
-            { text: '前端工程', link: '/front-end/engineering/pack-svg' },
-            { text: 'Element Plus', link: '/front-end/element-plus/editable-table' },
-            { text: 'Node.js', link: '/front-end/nodejs/mailer-service' },
-            { text: '其他', link: '/front-end/others/syntactic-highlighting-and-marked' },
-          ],
-        },
-        { text: '后端', link: '/back-end/mybatis-plus/list-and-json-typehandler' },
-        { text: '🧩代码片段', link: '/snippets/vue-watch-resize' },
-        { text: '📝笔记', link: '/study/note/review-vue-base' },
-      ],
-
-      sidebar: {
-        '/front-end/basic/': [
-          { text: 'HTML', collapsed: true, items: [] },
-          {
-            text: 'Javascript',
-            collapsed: false,
-            items: [
-              { text: '实用js工具方法', link: '/front-end/basic/js/utils' },
-              { text: 'async 封装', link: '/front-end/basic/js/encapsulate-async' },
-              { text: 'js 文档注释规范', link: '/front-end/basic/js/js-doc' },
-              { text: '中文字符串base64编码、解码', link: '/front-end/basic/js/base64-zh' },
-              { text: '图片base64编码、解码、下载', link: '/front-end/basic/js/image-base64-appl' },
-              {
-                text: '网页性能优化——图片：压缩、云存储、预加载、懒加载、渐进式图片',
-                link: '/front-end/basic/js/performance-optimization-of-image',
-              },
-              // { text: '正则表达式', link: '/front-end/basic/js/regex' },
-              { text: '导入/导出Excel', link: '/front-end/basic/js/load-and-export-excel' },
-              {
-                text: '🐞XMLSerializer序列化style元素时存在转译bug',
-                link: '/front-end/basic/js/xmlserializer-style-bug',
-              },
-            ],
-          },
-          {
-            text: 'CSS',
-            collapsed: false,
-            items: [
-              { text: 'CSS 移动端适配', link: '/front-end/basic/css/style-adaptation' },
-              { text: 'css媒体查询总结', link: '/front-end/basic/css/css-media' },
-            ],
-          },
-          {
-            text: 'Others',
-            collapsed: false,
-            items: [
-              { text: 'axios 封装', link: '/front-end/basic/others/encapsulate-axios' },
-              { text: 'Git基本使用', link: '/front-end/basic/others/git-basic-usage' },
-              {
-                text: '🐞axios下载进度api无法获取响应大小',
-                link: '/front-end/basic/others/axios-progressevent-total',
-              },
-            ],
-          },
-        ],
-        '/front-end/vue/': [
-          { text: 'vue3 组合式API要点', link: '/front-end/vue/vue3-grammar' },
-          { text: 'vue项目中使用svg组件', link: '/front-end/vue/vue-svg-comp' },
-          { text: '基于 vue3 & element-plus 的暗黑模式', link: '/front-end/vue/dark-mode' },
-          { text: 'vue3局部状态管理', link: '/front-end/vue/data-store' },
-          {
-            text: 'vue相同的组件实例间跳转页面不刷新的问题分析',
-            link: '/front-end/vue/switch-within-route',
-          },
-          { text: 'vue组件中监听键盘/按键事件', link: '/front-end/vue/watch-keyup-event' },
-          {
-            text: 'vue-router在新的标签页打开链接/路由',
-            link: '/front-end/vue/open-route-on-new-tab',
-          },
-          {
-            text: '🐞vue3 KeepAlive 组件缓存失效 bug 分析',
-            link: '/front-end/vue/keep-alive-bug',
-          },
-        ],
-        '/front-end/engineering/': [
-          { text: 'node环境管理', link: '/front-end/engineering/manage-node' },
-          { text: 'vue项目中封装使用svg组件', link: '/front-end/engineering/pack-svg' },
-          {
-            text: '实践：新手使用 ESLint 进行项目代码检测与格式化',
-            link: '/front-end/engineering/uniform-code-style',
-          },
-          {
-            text: '优化Webpack打包流程：打包完成后再删除旧文件，确保网站访问稳定',
-            link: '/front-end/engineering/package-optimize',
-          },
-          {
-            text: 'Github Actions 使用记录',
-            link: '/front-end/engineering/github-actions',
-          },
-          { text: '常见前端部署方式', link: '/front-end/engineering/deploy' },
-          {
-            text: '🐞uglifyjs压缩代码导致echarts图表UI异常',
-            link: '/front-end/engineering/uglifyjs-echarts-bug',
-          },
-          {
-            text: 'Rollup Annotation 警告处理',
-            link: '/front-end/engineering/filter-rollup-warn',
-          },
-        ],
-        '/front-end/element-plus/': [
-          { text: 'Element Plus可编辑表格', link: '/front-end/element-plus/editable-table' },
-          {
-            text: 'Element Plus表单验证使用 个人总结',
-            link: '/front-end/element-plus/form-validate',
-          },
-          { text: '预加载模态框组件', link: '/front-end/element-plus/prevload-dialog' },
-          {
-            text: '跟踪表格数据(更新查询、筛选条件下)',
-            link: '/front-end/element-plus/tablev1-track-data',
-          },
-          { text: '表格 shift 连选', link: '/front-end/element-plus/tablev1-multi-select' },
-          {
-            text: '虚拟化表格组件的使用(排序、筛选、自定义单元格渲染)',
-            link: '/front-end/element-plus/tablev2',
-          },
-          {
-            text: 'ElementPlus ElAutoResizer 组件的使用',
-            link: '/front-end/element-plus/auto-resizer',
-          },
-        ],
-        '/front-end/nodejs/': [
-          { text: '基于 nodejs 的邮件服务', link: '/front-end/nodejs/mailer-service' },
-        ],
-        '/front-end/others/': [
-          {
-            text: '代码语法高亮 + markdown解析',
-            link: '/front-end/others/syntactic-highlighting-and-marked',
-          },
-          { text: 'vitepress静态站点生成', link: '/front-end/others/vitepress-usage' },
-          { text: 'xlsx导出excel功能封装', link: '/front-end/others/xlsx-export-excel' },
-        ],
-        '/snippets/': [
-          { text: 'vue中监听window.resize事件', link: '/snippets/vue-watch-resize' },
-          {
-            text: 'vue组件中监听或拦截窗口关闭事件',
-            link: '/snippets/event-beforeunload',
-          },
-          { text: '处理packageManager的异常', link: '/snippets/package-manager-warn' },
-          { text: 'docker部署前端项目', link: '/snippets/deploy-via-docker' },
-          { text: '导出svg为图片', link: '/snippets/export-svg-image' },
-          { text: '文本多行溢出样式', link: '/snippets/text-overrows' },
-          { text: 'vue-cli项目中使用cdn外链引入依赖', link: '/snippets/cdn-import' },
-          { text: '快速应用静态代码分析', link: '/snippets/code-formatting' },
-          { text: '合并连续请求', link: '/snippets/merge-continuous-async' },
-          { text: 'crypto-js 加密', link: '/snippets/encrypt' },
-          { text: 'js实现可拖拽移动框', link: '/snippets/draggable-block' },
-          { text: '使用compressorjs压缩图片', link: '/snippets/compressorjs' },
-        ],
-        '/back-end/': [
-          {
-            text: 'Mybatis Plus',
-            collapsed: false,
-            items: [
-              {
-                text: 'PgSQL数组及json类型在Mybatis项目中的类型转换',
-                link: '/back-end/mybatis-plus/list-and-json-typehandler',
-              },
-              { text: '条件构造器 and/or 嵌套使用', link: '/back-end/mybatis-plus/nested-query' },
-              {
-                text: 'MyBatis-Plus自定义分页查询',
-                link: '/back-end/mybatis-plus/custom-paged-query',
-              },
-              {
-                text: 'MyBatis-Plus自定义连表分页查询',
-                link: '/back-end/mybatis-plus/custom-paged-query-join',
-              },
-              {
-                text: 'MyBatis-Plus自定义连表分页查询-动态sql实现',
-                link: '/back-end/mybatis-plus/custom-paged-query-join-sql',
-              },
-            ],
-          },
-          {
-            text: 'Python',
-            collapsed: false,
-            items: [
-              { text: 'python实现用户好友推荐', link: '/back-end/python/friends-recommend' },
-              { text: 'python实现话题推荐', link: '/back-end/python/topic-recommend' },
-            ],
-          },
-        ],
-        '/study/': [
-          { text: '阅读', items: [{ text: 'Set新方法学习', link: '/study/read/set-methods' }] },
-          {
-            text: '笔记',
-            items: [
-              // { text: 'Array查缺补漏', link: '/study/note/review-array' },
-              { text: 'vue3查缺补漏-基础', link: '/study/note/review-vue-base' },
-              { text: 'vue3查缺补漏-组件', link: '/study/note/review-vue-component' },
-            ],
-          },
-          {
-            text: '源码学习',
-            items: [{ text: 'Mitt源码学习', link: '/study/source-code/mitt' }],
-          },
-          {
-            text: '红宝书笔记',
-            items: [
-              { text: '第7章 迭代器与生成器', link: '/study/book/pro-js/chapter7' },
-              { text: '第8章 对象、类与面向对象编程', link: '/study/book/pro-js/chapter8' },
-              { text: '第11章 第2节 期约', link: '/study/book/pro-js/chapter11-2' },
-            ],
-          },
-          {
-            text: '速查表',
-            items: [
-              { text: 'Typescript速查表', link: '/study/cheatsheets/typescript' },
-              { text: 'React速查表', link: '/study/cheatsheets/react' },
-            ],
-          },
-        ],
-      },
 
       outline: {
         level: 'deep',
@@ -275,14 +54,10 @@ export default withPwa(
         },
       ],
 
-      // footer: {
-      //   message: 'Released under the MIT License.',
-      //   copyright: 'Copyright © 2024 Yuemin Zhao'
-      // }
-      docFooter: {
-        prev: '上一篇',
-        next: '下一篇',
-      },
+      // docFooter: {
+      //   prev: '上一篇',
+      //   next: '下一篇',
+      // },
       darkModeSwitchLabel: '切换模式',
       lightModeSwitchTitle: '切换到浅色模式',
       darkModeSwitchTitle: '切换到深色模式',
@@ -318,8 +93,9 @@ export default withPwa(
         md.use((md) => {
           // 组件插入h1标题下
           md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
+            if (tokens[idx].tag !== 'h1') return slf.renderToken(tokens, idx, options)
             let htmlResult = slf.renderToken(tokens, idx, options)
-            if (tokens[idx].tag === 'h1') htmlResult += `<doc-title-meta />`
+            htmlResult += `<doc-title-meta />`
             return htmlResult
           }
         })
