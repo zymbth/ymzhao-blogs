@@ -45,10 +45,10 @@ git commit -m "feat: 添加新功能"
 
 ## 安装依赖
 
-**环境**：node18
+**环境**：node18+
 
 ```sh
-yarn add -D husky lint-staged @commitlint/cli @commitlint/config-conventional
+pnpm add -D husky lint-staged @commitlint/cli @commitlint/config-conventional
 ```
 
 ## 配置
@@ -72,7 +72,7 @@ yarn add -D husky lint-staged @commitlint/cli @commitlint/config-conventional
 ::: code-group
 
 ```js [.husky/lintstagedrc.js]
-module.exports = {
+export default {
   '*.{js,jsx,ts,tsx,vue}': ['eslint --fix']
 }
 ```
@@ -95,7 +95,7 @@ module.exports = {
 添加文件 `commitlint.config.js`:
 
 ```js
-module.exports = {
+export default {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'type-enum': [
@@ -172,8 +172,9 @@ npx --no -- commitlint --edit $1
 
 > 这里在提交时运行 commitlint（上面的 `commitlint.config.js` 示例文件中进行了提交信息检查）
 >
-> - npx --no --: `--no`选项确保不会在当前项目中安装 `commitlint`，`--`分隔`npx`的选项和传递给`commitlint`的参数。
-> - commitlint --edit $1: 打开默认文本编辑器，并编辑正在提交的消息。`$1` 是一个环境变量，代表 Git 提交消息的路径。
+> - `- npx --no`: `--no`选项确保不会在当前项目中安装 `commitlint`。
+> - `--`: 分隔`npx`的选项和传递给`commitlint`的参数。
+> - `- commitlint --edit $1`: 打开默认文本编辑器，并编辑正在提交的消息。`$1` 是一个环境变量，代表 Git 提交消息的路径。
 
 ## commitlint prompt
 
@@ -181,11 +182,11 @@ npx --no -- commitlint --edit $1
 
 ![commitlint-prompt-cli](./assets/commitlint-prompt-cli.jpg)
 
-::: details
+以下两种工具选择一个即可：
 
-- 使用 commitlint prompt
+::: details commitlint prompt
 
-可安装 `@commitlint/prompt-cli` 以支持在命令行中按提示生成规范的提交信息
+安装 `@commitlint/prompt-cli` 以支持在命令行中按提示生成规范的提交信息
 
 添加npm命令：
 
@@ -200,7 +201,9 @@ npx --no -- commitlint --edit $1
 }
 ```
 
-- 使用 commitizen
+:::
+
+::: details commitizen
 
 相比于前者，`commitizen` 提供了一种更现代的互动方式
 
@@ -214,6 +217,8 @@ npx --no -- commitlint --edit $1
 >
 > [Commitizen](https://commitizen.github.io/cz-cli/): Simple commit conventions for internet citizens.
 
+`pnpm add -D @commitlint/cz-commitlint commitizen`
+
 添加npm命令：
 
 ```json
@@ -223,8 +228,7 @@ npx --no -- commitlint --edit $1
   },
   "devDependencies": {
     "@commitlint/cz-commitlint": "^19.5.0",
-    "commitizen": "^4.3.1",
-    "inquirer": "9.3.7",
+    "commitizen": "^4.3.1"
   },
   "config": {
     "commitizen": {
@@ -255,7 +259,7 @@ npm run commit
 
 `node@16` 指定安装以下版本：
 
-`yarn add -D husky@8.0.3 lint-staged@14.0.1 @commitlint/cli@17.8.1 @commitlint/config-conventional@17.8.1`
+`pnpm add -D husky@8.0.3 lint-staged@14.0.1 @commitlint/cli@17.8.1 @commitlint/config-conventional@17.8.1`
 
 husky的安装命令为 `husky install`
 
@@ -291,7 +295,6 @@ npm run lint:lint-staged
     "@commitlint/cz-commitlint": "^19.5.0",
     "commitizen": "^4.3.1",
     "husky": "^9.1.7",
-    "inquirer": "9.3.7",
     "lint-staged": "^15.2.10",
   },
   "config": {
@@ -336,11 +339,11 @@ export default {
         'ci', // 持续集成修改
         'chore', // 构建过程或辅助工具的变动
         'revert', // 回滚到上一个版本
-        // 'workflow', // 工作流改进
-        // 'mod', // 不确定分类的修改
-        // 'wip', // 开发中
-        // 'types', // 类型修改
-        // 'release' // 版本发布
+        'workflow', // 工作流改进
+        'mod', // 不确定分类的修改
+        'wip', // 开发中
+        'types', // 类型修改
+        'release' // 版本发布
       ]
     ],
     'subject-full-stop': [0, 'never'],
@@ -414,6 +417,31 @@ export default {
             description: '撤销之前的提交', // 'Reverts a previous commit'
             title: 'Reverts',
             emoji: '🗑',
+          },
+          workflow: {
+            description: '工作流改进',
+            title: 'Workflow',
+            emoji: '📦',
+          },
+          mod: {
+            description: '不确定分类的修改',
+            title: 'Mod',
+            emoji: '📦',
+          },
+          wip: {
+            description: '开发中',
+            title: 'WIP',
+            emoji: '⚠️',
+          },
+          types: {
+            description: '类型修改',
+            title: 'Types',
+            emoji: '✏️',
+          },
+          release: {
+            description: '版本发布',
+            title: 'Release',
+            emoji: '🚀',
           },
         },
       },

@@ -13,6 +13,10 @@ created: '2025-06-26'
 
 有些使用Vue CLI构建的老项目存在冷启动、热更新、构建上的性能问题，首先想到的就是使用 Webpack 或 Vite 重构，但前者收益不大，后者可能存在更多的兼容性问题。
 
+| Vite v5 | Vite v5          | Vite v7                | Rsbuild < 1.5  | Rsbuild >= 1.5 |
+| ------- | ---------------- | ---------------------- | -------------- | -------------- |
+| Node18+ | Node.js 18+, 20+ | Node.js 20.19+, 22.12+ | Node.js 16.10+ | Node.js 18.12+ |
+
 前段时间偶然看到一篇经验分享，字节开发的 Rsbuild 能快速实现迁移且无太多兼容性问题。
 
 > 参考文档：
@@ -26,11 +30,11 @@ created: '2025-06-26'
 
 ## 迁移
 
-请先查阅并按上面的官方迁移指南一步步进行，指南内提及的不再粘到此处
+请先查阅并按[官方迁移指南](https://rsbuild.dev/zh/guide/migration/vue-cli)一步步进行，**指南内提及的不再粘到此处**
 
 - 安装依赖
 
-删除与 @vue/cli 相关的依赖
+删除与 `@vue/cli` 相关的依赖
 
 除了Vue插件外，根据项目情况可能还需要一些额外的插件支持。
 
@@ -68,15 +72,47 @@ created: '2025-06-26'
 
 :::
 
+vue3 setup语法糖的jsx/tsx支持需要添加`@rsbuild/plugin-babel`插件，详情及配置参考[插件官方说明](https://github.com/rspack-contrib/rsbuild-plugin-vue-jsx)
+
+::: details
+
+```js {8}
+import { defineConfig } from '@rsbuild/core'
+import { pluginBabel } from '@rsbuild/plugin-babel'
+import { pluginVue } from '@rsbuild/plugin-vue'
+import { pluginVueJsx } from '@rsbuild/plugin-vue-jsx'
+
+export default defineConfig({
+  plugins: [
+    pluginBabel({ include: /\.(?:jsx|tsx)$/ }),
+    pluginVue(),
+    pluginVueJsx()
+  ]
+})
+```
+
+:::
+
 - 更新 npm scripts
+
+`--mode`替换为`--env-mode`
+
 - 创建配置文件
 
 完成配置后，可删除 `vue.config.js`, `babel.config.js` 多余的配置文件
 
 - HTML 模板
+- 环境变量
+
+之后在代码里如果想要使用之前的全局变量可直接使用 `process.env` 或 `import.meta.env`
+
+Rsbuild也支持读取env模式，不同于Vue CLI使用的`--mode`，Rsbuild需要使用`--env-mode`
+
 - 配置迁移
 
-参照官方提供的 Vue CLI 配置对应的 Rsbuild 配置进行迁移。例如，在 Vue CLI 中配置(`chainWebpack`)的svg加载器迁移到 Rsbuild 的 `tools.bundlerChain` 中即可：
+参照官方提供的[配置迁移表格](https://rsbuild.rs/zh/guide/migration/vue-cli#%E9%85%8D%E7%BD%AE%E8%BF%81%E7%A7%BB)。例如，Vue CLI 中自定义的插件 `configureWebpack.plugins` 对应 Rsbuild 的配置为 `tools.rspack.plugins`。简单的自定义插件也可考虑按 Rsbuild 的[插件](https://rsbuild.dev/zh/plugins/dev/)语法转换下。
+
+示例1：在 Vue CLI 中配置(`chainWebpack`)的svg加载器直接迁移到 Rsbuild 的 `tools.bundlerChain` 中即可：
 
 ::: details
 
@@ -99,19 +135,55 @@ created: '2025-06-26'
 
 :::
 
-Vue CLI 中自定义的插件 `configureWebpack.plugins` 对应 Rsbuild 的配置为 `tools.rspack.plugins`。
+示例2：添加csv-loader
 
-简单的自定义插件也可考虑按 Rsbuild 的[插件](https://rsbuild.dev/zh/plugins/dev/)语法转换下。
+::: details csv-loader
 
-- 环境变量
+Rsbuild 中使用 `addRules` 添加 CSV 规则
 
-之后在代码里如果想要使用之前的全局变量可直接使用 `process.env` 或 `import.meta.env`
+::: code-group
 
-Rsbuild也支持读取env模式，不同于Vue CLI使用的`--mode`，Rsbuild需要使用`--env-mode`
+```js [vue-cli]
+module.exports = {
+  chainWebpack: config => {
+    config.module
+      .rule('csv')
+      .test(/\.csv$/)
+      .use('csv-loader')
+      .loader('csv-loader')
+      .end()
+  }
+}
+```
+
+```js [rsbuild]
+export default defineConfig({
+  tools: {
+    rspack: (config, { addRules }) => {
+      // 添加 CSV 规则
+      addRules([
+        {
+          test: /\.csv$/,
+          type: 'javascript/auto',
+          use: ['csv-loader'],
+        },
+      ])
+    },
+  }
+})
+```
+
+:::
+
+- 常见配置
+
+[Rsbuild官网](https://rsbuild.dev/)文档挺完善的，`Ctrl+K`输入关键词在线查找。
+
+代码拆分(performance.chunkSplit)、最小化(output.minify)、移除打印(performance.removeConsole)、构建产物分析(webpack-bundle-analyzer/rsdoctor)等配置都有详尽说明。
 
 ## 其他
 
-实际项目中可能还有很多需要迁移的工作，具体参照上面的几篇文章
+上面的几篇文章分享了很多具体案例：
 
 - 生产环境cdn
 - 安装 JSX、Less 和 SCSS 支持及相关css语法调整
@@ -120,6 +192,16 @@ Rsbuild也支持读取env模式，不同于Vue CLI使用的`--mode`，Rsbuild需
 - 删除 console、debugger
 - 编译 node_modules 下的包
 
+实际重构过程中可能还有很多需要迁移的工作。
+
+例如，脚手架/打包工具的差异，Vue CLI基于Webpack4，Rsbuild基于Vite。
+
 ## 总结
 
-总的来说，迁移代价很低，老项目焕新
+项目页面、组件多不是迁移障碍，脑力消耗完全取决于构建工具的配置复杂程度。
+
+已经将两个Node14/16的项目使用Rsbuild重构了，体会到Rsbuild对VueCli/Webpack4的降维打击。
+
+另外，如果项目相关依赖兼容node高版本，可以顺便升级下node版本，一些api语法需更新调整。
+
+总的来说，迁移代价很低，老项目焕然一新。
