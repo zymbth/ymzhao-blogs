@@ -290,11 +290,12 @@ npm run lint:lint-staged
     "commit": "git-cz"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.6.0",
-    "@commitlint/config-conventional": "^19.6.0",
-    "@commitlint/cz-commitlint": "^19.5.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/cz-commitlint": "^19.8.1",
     "commitizen": "^4.3.1",
     "husky": "^9.1.7",
+    "inquirer": "^9.3.8",
     "lint-staged": "^15.2.10",
   },
   "config": {

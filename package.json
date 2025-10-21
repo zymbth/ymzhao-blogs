@@ -2,22 +2,22 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
+    "dev:upd": "cross-env UPD_POST=t vitepress dev",
     "build": "rimraf .\\.vitepress\\cache && vitepress build",
     "build:pure": "vitepress build",
+    "build:upd": "cross-env UPD_POST=t vitepress build",
     "preview": "vitepress preview",
     "lint:eslint-ck": "eslint .",
     "lint:eslint-fix": "eslint . --fix",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
-    "dev:upd": "cross-env UPD_POST=t vitepress dev",
-    "build:upd": "cross-env UPD_POST=t vitepress build",
     "prepare": "husky",
     "commit": "git-cz"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^5.4.1",
-    "@commitlint/cli": "^19.6.0",
-    "@commitlint/config-conventional": "^19.6.0",
-    "@commitlint/cz-commitlint": "^19.5.0",
+    "@antfu/eslint-config": "^6.0.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/cz-commitlint": "^19.8.1",
     "@iconify-json/mdi": "^1.2.3",
     "@unocss/eslint-plugin": "^66.5.1",
     "@vite-pwa/vitepress": "^1.0.0",
@@ -27,7 +27,7 @@
     "cross-env": "^7.0.3",
     "husky": "^9.1.7",
     "inquirer": "9.3.7",
-    "lint-staged": "^15.2.10",
+    "lint-staged": "^15.5.2",
     "qs": "^6.14.0",
     "rimraf": "^6.0.1",
     "sass": "1.93.0",
@@ -43,15 +43,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "@commitlint/cz-commitlint",
-      "skipQuestions": [
-        "isBreaking",
-        "breakingBody",
-        "breaking",
-        "isIssueAffected",
-        "issuesBody",
-        "issues"
-      ]
+      "path": "@commitlint/cz-commitlint"
     }
   }
 }
