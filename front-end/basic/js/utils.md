@@ -418,6 +418,12 @@ const isIOS = () => {
 ### 复制字符串至剪切板
 
 ```js
+/**
+ * 将指定文本复制到系统剪贴板（通过创建临时 input 元素实现）
+ *
+ * @param {string} text - 要复制的文本内容
+ * @returns {boolean} 复制是否成功。成功返回 `true`，失败（如浏览器不支持或权限限制）返回 `false`
+ */
 function copyText(text) {
   const textarea = document.createElement('input') //创建input对象
   const currentFocus = document.activeElement //当前获得焦点的元素
@@ -442,6 +448,14 @@ function copyText(text) {
 ### 动画文字提示
 
 ```js
+/**
+ * 在页面中央显示一个带有淡出动画的醒目提示文字
+ *
+ * @param {string} message - 要显示的文本内容
+ * @param {string} [color] - 文字颜色，支持任意 CSS 颜色值（如 hex、rgb、rgba、颜色关键字等）。
+ * @param {string} [fontSize] - 文字大小，支持任意 CSS font-size 值（如 '24px'、'large'、'xxx-large' 等）。
+ * @returns {void}
+ */
 function shining(message, color = 'rgb(50, 177, 108)', fontSize = 'xxx-large') {
   if (!message) return
   const i = document.createElement('span')
@@ -450,9 +464,11 @@ function shining(message, color = 'rgb(50, 177, 108)', fontSize = 'xxx-large') {
     position: fixed;
     top: 50%;
     left: 50%;
+    width: 90vw;
     color: ${color};
     font-size: ${fontSize};
     font-weight: bold;
+    text-align: center;
     transform: translate(-50%, -50%);
     user-select: none;
     z-index: 2002;
@@ -467,5 +483,97 @@ function shining(message, color = 'rgb(50, 177, 108)', fontSize = 'xxx-large') {
     { duration, fill: 'forwards' }
   )
   setTimeout(() => i.remove(), duration)
+}
+```
+
+### js调用消息提示
+
+```js
+/**
+ * 显示一个自定义样式的消息提示（Toast）
+ *
+ * @param {object} options - 消息配置选项。
+ * @param {string} options.message - 要显示的消息文本内容。
+ * @param {('info'|'primary'|'success'|'warning'|'error')} [options.type] - 消息类型
+ * @param {number} [options.duration] - 消息自动关闭的延迟时间（毫秒）
+ * @param {string} [options.customClass] - 自定义 CSS 类名
+ * @param {boolean} [options.showClose] - 是否显示关闭按钮
+ * @param {number} [options.offset] - 消息距离顶部的偏移量（px）
+ * @param {HTMLElement|string} [options.appendTo] - 消息容器的挂载目标，可以是 DOM 元素或 CSS 选择器字符串
+ * @returns {void}
+ */
+function message(options) {
+  if (!(typeof options === 'object' && !!options && 'message' in options)) return
+  const { message, type = 'info', duration = 3000, customClass, showClose = false, offset = 20, appendTo } = options
+
+  const color = { info: '#909399', primary: '#409EFF', success: '#67C23A', warning: '#E6A23C', error: '#F56C6C' }[type] || '#909399'
+
+  let msgRootEl = document.body
+  if (appendTo instanceof HTMLElement) {
+    msgRootEl = appendTo
+  } else if (typeof appendTo === 'string') {
+    const qryEl = document.querySelector(appendTo)
+    if (qryEl instanceof HTMLElement) msgRootEl = qryEl
+  }
+
+  const wrapEl = document.createElement('div')
+  if (customClass && typeof customClass === 'string') wrapEl.className = customClass
+  wrapEl.style.cssText = `
+    position: fixed;
+    top: ${offset}px;
+    left: 50%;
+    max-width: 80%;
+    padding: 6px 24px 6px 10px;
+    color: ${color};
+    font-size: 14px;
+    line-height: 22px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, .12);
+    opacity: 0;
+    transform: translateX(-50%);
+    z-index: 2002;
+  `
+  const i = document.createElement('span')
+  i.textContent = message
+  wrapEl.appendChild(i)
+  msgRootEl.appendChild(wrapEl)
+  wrapEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 100, fill: 'forwards' })
+
+  const removeFn = () => {
+    wrapEl.animate(
+      [
+        { top: `${offset}px`, opacity: 1 },
+        { top: '-20px', opacity: 0 }
+      ],
+      { duration: 200, fill: 'forwards' }
+    )
+    setTimeout(() => wrapEl.remove(), 200)
+  }
+  let timer = setTimeout(removeFn, duration)
+  wrapEl.onmouseenter = () => clearTimeout(timer)
+  wrapEl.onmouseleave = () => {
+    timer = setTimeout(removeFn, duration)
+  }
+
+  if (showClose) {
+    const closeEl = document.createElement('span')
+    closeEl.textContent = '+'
+    closeEl.style.cssText = `
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      font-size: 22px;
+      line-height: 22px;
+      color: #a8abb2;
+      transform: translateY(-50%) rotate(45deg);
+      cursor: pointer;
+    `
+    closeEl.onclick = () => {
+      clearTimeout(timer)
+      removeFn()
+    }
+    wrapEl.appendChild(closeEl)
+  }
 }
 ```
