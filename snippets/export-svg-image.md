@@ -41,7 +41,13 @@ export default (val, filename, { imageType, quality, fillStyle = 'white' } = {})
   const svgData = new XMLSerializer().serializeToString(svgEl)
   // btoa: deprecated — Use buf.toString('base64') instead.
   // const svgDataBase64 = btoa(unescape(encodeURIComponent(svgData)))
-  const svgDataBase64 = Buffer.from(svgData, 'utf-8').toString('base64')
+  // const svgDataBase64 = Buffer.from(svgData, 'utf-8').toString('base64')
+  const svgDataBase64 = btoa(
+    Array.from(
+      new TextEncoder().encode(svgData),
+      byte => String.fromCharCode(byte)
+    ).join('')
+  )
 
   const svgDataUrl = `data:image/svg+xml;charset=utf-8;base64,${svgDataBase64}`
 
