@@ -26,12 +26,12 @@ function triggerFSVisi(show) {
     >
       <span
         v-show="iconVisi && disabled"
-        class="icon-link i-mdi:fullscreen absolute right-0 top-0 z-1 h-30px w-30px"
+        class="icon-link i-mdi:fullscreen absolute right-1 top-1 z-1 h-30px w-30px"
         @click="disabled = false"
       />
       <span
         v-show="iconVisi && !disabled"
-        class="icon-link i-mdi:fullscreen-exit absolute right-0 top-0 z-1 h-30px w-30px"
+        class="icon-link i-mdi:fullscreen-exit absolute right-1 top-1 z-1 h-30px w-30px"
         @click="disabled = true"
       />
       <slot />
@@ -62,6 +62,8 @@ function triggerFSVisi(show) {
 .icon-link {
   color: v-bind(iconColor);
   animation: shining-out 0.3s ease-in-out 1;
+  transition: display 0.3s ease-in-out;
+  transition-behavior: allow-discrete;
 }
 .fullscreened:deep(iframe) {
   height: 100%;
@@ -69,10 +71,10 @@ function triggerFSVisi(show) {
 
 @keyframes shining-out {
   0% {
-    transform: translate(-10%, 10%) scale(1.2);
+    transform: scale(1.2);
   }
   100% {
-    transform: translate(0, 0) scale(1);
+    transform: scale(1);
   }
 }
 </style>
