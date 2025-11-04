@@ -65,9 +65,6 @@ function triggerFSVisi(show) {
   transition: display 0.3s ease-in-out;
   transition-behavior: allow-discrete;
 }
-.fullscreened:deep(iframe) {
-  height: 100%;
-}
 
 @keyframes shining-out {
   0% {

@@ -2,7 +2,6 @@
 import DefaultTheme from 'vitepress/theme-without-fonts'
 import { TypographyLayout as Layout } from './Layouts'
 import DemoIframe from './Layouts/components/DemoIframe.vue'
-import FullScreen from './Layouts/components/FullScreen.vue'
 import DocTitleMeta from './Layouts/Typography/components/DocTitleMeta.vue'
 import useViewer from './useViewer'
 import './font.css'
@@ -16,7 +15,6 @@ export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     app.component('DemoIframe', DemoIframe)
-    app.component('FullScreen', FullScreen)
     app.component('doc-title-meta', DocTitleMeta)
     useViewer(app)
   },

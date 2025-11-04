@@ -4,14 +4,17 @@ head:
   - - meta
     - name: keywords
       content: vue,异步,懒加载,组件
-created: '2025-10-30'
+created: '2025-11-04'
+isDraft: 't'
 ---
 
 # Vue异步/懒加载组件
 
+## 异步组件
+
 vue允许你定义异步组件，具体查看[官方文档](https://cn.vuejs.org/guide/components/async.html)。
 
-## 准备
+### 准备
 
 - 基础用法
 
@@ -64,7 +67,7 @@ interface AsyncComponentOptions {
 
 :::
 
-## 异步组件示例
+### 示例
 
 假设有需要按照接口响应的数据条件选择对应的模板组件：
 
@@ -81,8 +84,8 @@ const data = ref()
 const TmplComp = defineAsyncComponent({
   loader: async () => {
     data.value = await simulateApi()
-    if(data.value .no === 1) return import('./Tmpl1Comp.vue')
-    if(data.value .no === 2) return import('./Tmpl2Comp.vue')
+    if(data.value.no === 1) return import('./Tmpl1Comp.vue')
+    if(data.value.no === 2) return import('./Tmpl2Comp.vue')
   },
   loadingComponent: () => <div>加载中...</div>,
   errorComponent: () => <span style="color:red">加载失败！</span>,
@@ -135,12 +138,15 @@ defineProps(['data'])
 
 :::
 
-当然，完全可以将异步组件内的“接口请求-条件选择”逻辑抽离出来
+::: warning
 
-```vue{4,5,9,17-26}
-<script setup lang="jsx">
-import { ref, defineAsyncComponent, onMounted } from 'vue'
+如果使用了 `onError` 参数，则loader异常时会调用该函数，此时 `errorComponent` 会被忽略
 
+:::
+
+::: details 抽离异步组件内的“接口请求”逻辑
+
+```js{2,6,19,21}
 const data = ref()
 const { promise: reqPromise, resolve: reqResolve, reject: reqReject } = Promise.withResolvers()
 
@@ -164,35 +170,70 @@ async function show() {
     reqReject(err)
   }
 }
+```
 
-/**
- * 模拟接口
- * @param {boolean} [isResolve] 响应是否成功
- * @param {number} [delay] 延时
- */
-function simulateApi(isResolve = true, delay = 1500) {
-  return new Promise((resolve, reject) => {
-    const data = Math.random() > 0.5
-      ? { no: 1, title: '模板1', description: 'fdshiao fhuiewao geijoig fwehihio grtojijo weuihi' }
-      : { no: 2, title: '模板2', list: ['gjoif hiuoegr wfeih', 'ojoiwf uijiofw hjwejouihi'] }
-    setTimeout(isResolve ? resolve : reject, delay, data)
-  })
-}
+:::
+
+以上示例仅用于展示异步组件的使用，这种根据接口响应数据选择加载组件的需求，规范的做法是将其与异步组件解耦，仅供参考：
+
+::: code-group
+
+```vue [App.vue]
+<script setup>
+import AsyncTmplComp from './AsyncTmplComp.vue'
 </script>
 
 <template>
   <h1>异步组件</h1>
-  <TmplComp :data />
+  <Suspense>
+    <AsyncTmplComp />
+    <template #fallback>
+      <div>加载中...</div>
+    </template>
+  </Suspense>
+</template>
+
+```
+
+```vue{8,15} [AsyncTmplComp.vue]
+<script setup>
+import { ref, shallowRef } from 'vue'
+import Tmpl1Comp from './Tmpl1Comp.vue'
+import Tmpl2Comp from './Tmpl2Comp.vue'
+
+const data = ref()
+
+const comp = shallowRef()
+async function getData() {
+  data.value = await simulateApi()
+  if(data.value.no === 1) comp.value = Tmpl1Comp
+  if(data.value.no === 2) comp.value = Tmpl2Comp
+}
+
+await getData() // <script setup> 中直接使用 await 会使该组件成为一个异步 setup 组件，这正是 <Suspense> 能捕获的
+
+// 模拟接口
+function simulateApi(isResolve = true, delay = 1500) {
+  // ...
+}
+</script>
+
+<template>
+  <component :is="comp" :data />
 </template>
 ```
 
+:::
+
 ## 懒加载组件
 
-<ClientOnly>
-  <FullScreen>
-    <DemoIframe title="懒加载组件" src="https://play.vuejs.org/#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" />
-  </FullScreen>
-</ClientOnly>
+相比于异步组件，有时处于性能方面的考虑，会希望某些组件在可视时再加载。
+
+### 示例
+
+就像原生支持 `loading="lazy"` 的 `img`/`iframe` 标签一样，思路就是使用 [IntersectionObserver](https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver) API 监听组件是否在可视区域，在的话则加载(`v-if`)组件，否则显示骨架屏。把这个逻辑封装一下，具体业务组件放在默认插槽中。
+
+<DemoIframe title="懒加载组件" src="https://play.vuejs.org/#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" />
 
 ::: code-group
 
@@ -253,7 +294,7 @@ function formatTimeWithMs() {
 
 ```vue [LazyLoadWrapper.vue]
 <template>
-  <div ref="target" class="lazy-wrapper">
+  <div ref="targetRef" class="lazy-wrapper">
     <slot v-if="inView" />
     <!-- 可选：在加载前显示骨架屏 -->
     <div v-else class="placeholder" />
@@ -263,7 +304,7 @@ function formatTimeWithMs() {
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 
-const target = ref()
+const targetRef = ref()
 const inView = ref(false) // 状态：是否已进入视口
 
 let observer = null
@@ -275,7 +316,7 @@ onMounted(() => {
       // 当元素与视口交叉时，entry.isIntersecting 将为 true
       if (entry.isIntersecting) {
         inView.value = true // 更新状态，触发组件加载
-        observer.unobserve(target.value) // 停止观察
+        observer.unobserve(targetRef.value) // 停止观察
         observer.disconnect() // 完全断开观察器
       }
     },
@@ -286,8 +327,8 @@ onMounted(() => {
   )
 
   // 开始观察目标元素
-  if (target.value) {
-    observer.observe(target.value)
+  if (targetRef.value) {
+    observer.observe(targetRef.value)
   }
 })
 
