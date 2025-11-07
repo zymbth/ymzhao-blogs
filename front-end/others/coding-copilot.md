@@ -23,7 +23,7 @@ created: '2025-10-21'
 
 ![DeepSeek-V3.2-Exp](./assets/coding-copilot-deepseek.jpg)
 
-### Cursor、GitHub Copilot
+### Cursor/GitHub Copilot/Claude Code/Codex
 
 舍得花钱就能享受最好的AI助手！
 
@@ -31,17 +31,26 @@ created: '2025-10-21'
 
 ### AI IDE
 
-功能：包含IDE集成所有功能并进行​无缝工具整合，原生AI驱动，提供从代码生成、优化到调试和部署全流程覆盖​​。全项目上下文感知、​​多文件编辑
+功能：包含IDE集成所有功能并进行​无缝工具整合，原生AI驱动，提供从代码生成、优化到调试和部署全流程覆盖​​。全项目上下文感知、​​多文件编辑。
 
-- [Cursor](https://www.cursor.com/)：收费，AI IDE 的 No.1
-- [Trae](https://www.trae.com.cn/)：字节出品，免费，但使用体验有待提高，目前有些“**笨重**”
-- [Windsurf](https://codeium.com/pricing)：收费，比Cursor便宜一点点
-- [Zed](https://zed.dev/)：~~暂未正式发布Windows版本，需手动构建，不过可以使用github上别人构建好的包，[源码](https://github.com/deevus/zed-windows-builds)，[参考](https://hafuhafu.com/archives/how-to-install-zed-editor-windows/)。~~Windows版本已发布！使用体验出乎意料的不错，可添加包括硅基流动在内的大模型供应商。最直观的感受就是**轻便快捷**
+- [Cursor](https://www.cursor.com/)：Pro版每月20刀。作为AI IDE的先行者，AI IDE 的 **No.1**，由于Claude模型的不支持，现在地位不保。
+- [Trae](https://www.trae.com.cn/)：字节出品，免费，但使用体验有待提高，目前有些“**笨重**”，还提供海外版。
+- [Windsurf](https://codeium.com/)：Pro版每月15刀。“Cascade”的AI助手维持开发者的“**心流**”状态，首页查看演示。
+- [Qoder](https://qoder.com/)：阿里巴巴出品，含免费订阅计划，Pro版每月20刀，目前半价中。“**Quest Mode**”允许AI像一个初级开发者一样自主执行长周期任务，并能自动生成项目知识库（Repo Wiki）
+- [Augment Code](https://www.augmentcode.com/)：订阅价20刀起步，强大的上下文引擎和AI“代理”，专为处理大型复杂代码库而设计，能完成跨多文件的复杂任务。
+- [Kiro](https://kiro.dev/)：含免费订阅计划，Pro版本每月20刀。由AWS推出，“规范驱动开发”（**spec-driven** development），通过结构化的工作流将需求规格转化为代码实现，首页查看演示。
+- [Zed](https://zed.dev/)：免费，AI功能采用token制收费。极简，基于Rust构建带来的**极致轻便**和启动速度。~~暂未正式发布Windows版本，需手动构建，不过可以使用github上别人构建好的包，[源码](https://github.com/deevus/zed-windows-builds)，[参考](https://hafuhafu.com/archives/how-to-install-zed-editor-windows/)。~~Windows版本已发布！使用体验出乎意料的不错，可添加包括硅基流动在内的大模型供应商。最直观的感受就是**轻便快捷**。
+
+> Trae CN刚出来没多久用的，体验欠佳，过段时间再试试，应该有很大进步。接下来计划体验下Qoder。
+>
+> 对于后端或全栈开发来说，相比于AI IDE或IDE插件集成，CLI工具的适用范围更广，自由度更高（Claude Code/Codex）。
 
 ### IDE集成
 
 功能：代码生成、代码补全、解释代码、优化建议、生成单元测试、调式和错误检测、生成文档和注释
-工具：Github Copilot, 通义灵码, Codeium, Supermaven
+工具：**通义灵码**, **Github Copilot**, Codeium, Supermaven
+
+> 很早就用过通义灵码的VS Code插件了，在代码补全上表现一直不错，也是我一直推荐的。Qwen3惊艳的表现让我重拾通义灵码，“智能问答”、“文档编辑”、“智能体”三种模式，qwen3-coder免费用！在代码能力上比起Claude模型还有些差距，但已经很不错了。
 
 ### 在线使用
 
