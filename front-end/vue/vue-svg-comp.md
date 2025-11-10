@@ -174,6 +174,37 @@ module.exports = {
 }
 ```
 
+### rsbuild配置
+
+```js
+import { defineConfig } from '@rsbuild/core'
+import { resolve } from 'node:path'
+
+const root = process.cwd()
+
+function pathResolve(dir) {
+  return resolve(root, '.', dir)
+}
+
+export default defineConfig({
+  // ...
+  tools: {
+    bundlerChain(config) {
+      config.module.rule('svg').exclude.add(pathResolve('src/icons')).end()
+      config.module
+        .rule('icons')
+        .test(/\.svg$/)
+        .include.add(pathResolve('src/icons'))
+        .end()
+        .use('svg-sprite-loader')
+        .loader('svg-sprite-loader')
+        .options({ symbolId: 'icon-[name]' })
+        .end()
+    },
+  }
+})
+```
+
 ## 四、使用
 
 将 add.svg 拷贝只 src/icons/svg/ 文件夹下

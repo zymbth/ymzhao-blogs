@@ -313,6 +313,80 @@ module.exports = {
 }
 ```
 
+### rsbuild
+
+::: code-group
+
+```json [package.json]
+{
+  "scripts": {
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "build-replace": "cross-env VUE_APP_BUILD_MODE=delete-after-build rsbuild build",
+    "preview": "rsbuild preview",
+  }
+}
+```
+
+```js [rsbuild.config.js]
+const deleteAfterBuild = process.env.VUE_APP_BUILD_MODE === 'delete-after-build'
+const destBuildDir = 'dist'
+const tempBuildDir = 'dist-temp'
+const currBuildDir = deleteAfterBuild ? tempBuildDir : destBuildDir
+
+const renameTempBuildDir = require('./scripts/renameTempBuildDir.js')
+const OptimizeBuildPlugin = () => ({
+  name: 'optimize-build-plugin',
+  setup(api) {
+    api.onAfterBuild(() => {
+      renameTempBuildDir(tempBuildDir, destBuildDir)
+    })
+  },
+})
+
+export default defineConfig({
+  // ...
+  plugins: [
+    // ...
+    ...(deleteAfterBuild ? [OptimizeBuildPlugin()] : []),
+  ],
+  output: {
+    distPath: { root: currBuildDir },
+  },
+})
+```
+
+```js [scripts/renameTempBuildDir.js]
+const path = require('path')
+const rimraf = require('rimraf')
+const fs = require('fs')
+const fse = require('fs-extra')
+
+function resolveBuildDir(dir) {
+  return path.resolve(__dirname, `../${dir}`)
+}
+
+module.exports = (tempBuildDir = 'dist-temp', destBuildDir = 'dist') => {
+  // 删除 dist 文件夹
+  rimraf(resolveBuildDir(destBuildDir))
+    .then(res => {
+      try {
+        // dist-temp 重命名为 dist
+        fs.renameSync(resolveBuildDir(tempBuildDir), resolveBuildDir(destBuildDir))
+      } catch (err) {
+        // 重命名异常
+        console.error('Failed to rename file:', err)
+        console.log('Copying dist-temp to dist...')
+        // 异常处理：复制 dist-temp 到 dist
+        fse.copySync(resolveBuildDir(tempBuildDir), resolveBuildDir(destBuildDir))
+      }
+    })
+    .catch(err => console.error('Failed to delete dist folder:', err))
+}
+```
+
+:::
+
 ### 小结
 
 两种方案其实进行的操作是一样的，区别在于，后者将对文件的操作放在独立的脚本文件中，打包完成后执行
