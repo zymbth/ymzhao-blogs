@@ -315,6 +315,8 @@ module.exports = {
 
 ### rsbuild
 
+ESM 版本
+
 ::: code-group
 
 ```json [package.json]
@@ -322,67 +324,84 @@ module.exports = {
   "scripts": {
     "dev": "rsbuild dev",
     "build": "rsbuild build",
-    "build-replace": "cross-env VUE_APP_BUILD_MODE=delete-after-build rsbuild build",
+    "build-replace": "cross-env VUE_APP_BUILD_STRATEGY=atomic rsbuild build",
     "preview": "rsbuild preview",
+  },
+  "devDependencies": {
+    "@rsbuild/core": "1.4.15",
+    "@rsbuild/plugin-babel": "1.0.6",
+    "@rsbuild/plugin-node-polyfill": "1.3.0",
+    "@rsbuild/plugin-sass": "1.3.2",
+    "@rsbuild/plugin-vue": "1.0.7",
+    "@rsbuild/plugin-vue-jsx": "1.1.0",
+    "cross-env": "7.0.3",
+    "fs-extra": "^11.3.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
 ```
 
 ```js [rsbuild.config.js]
-const deleteAfterBuild = process.env.VUE_APP_BUILD_MODE === 'delete-after-build'
-const destBuildDir = 'dist'
-const tempBuildDir = 'dist-temp'
-const currBuildDir = deleteAfterBuild ? tempBuildDir : destBuildDir
-
-const renameTempBuildDir = require('./scripts/renameTempBuildDir.js')
-const OptimizeBuildPlugin = () => ({
-  name: 'optimize-build-plugin',
-  setup(api) {
-    api.onAfterBuild(() => {
-      renameTempBuildDir(tempBuildDir, destBuildDir)
-    })
-  },
-})
+const isAtomicPublish = process.env.VUE_APP_BUILD_MODE === 'atomic'
 
 export default defineConfig({
   // ...
   plugins: [
     // ...
-    ...(deleteAfterBuild ? [OptimizeBuildPlugin()] : []),
-  ],
+    isAtomicPublish && safePublishPlugin()
+  ].filter(Boolean),
   output: {
-    distPath: { root: currBuildDir },
+    distPath: {
+      root: isAtomicPublish ? 'dist-temp' : 'dist',
+    },
   },
 })
 ```
 
-```js [scripts/renameTempBuildDir.js]
-const path = require('path')
-const rimraf = require('rimraf')
-const fs = require('fs')
-const fse = require('fs-extra')
+```js [safe-publish-plugin.js]
+import fse from 'fs-extra'
+import path from 'node:path'
 
-function resolveBuildDir(dir) {
-  return path.resolve(__dirname, `../${dir}`)
-}
+const pluginName = 'safe-publish-plugin'
 
-module.exports = (tempBuildDir = 'dist-temp', destBuildDir = 'dist') => {
-  // 删除 dist 文件夹
-  rimraf(resolveBuildDir(destBuildDir))
-    .then(res => {
+export const safePublishPlugin = () => ({
+  name: pluginName,
+  setup(api) {
+    // 关键：只有在指定的环境变量存在时，插件的逻辑才会执行
+    if (process.env.VUE_APP_BUILD_STRATEGY !== 'atomic') return
+
+    api.onAfterBuild(async () => {
+      console.log(`[${pluginName}] Build successful, starting safe publish...`)
+
+      const rootPath = api.context.rootPath
+      const distTempPath = path.resolve(rootPath, 'dist-temp')
+      const distPath = path.resolve(rootPath, 'dist')
+
       try {
-        // dist-temp 重命名为 dist
-        fs.renameSync(resolveBuildDir(tempBuildDir), resolveBuildDir(destBuildDir))
+        // 确保临时构建目录存在，防止后续操作出错
+        if (!fse.existsSync(distTempPath)) {
+          console.warn(
+            `[${pluginName}] Temporary build directory not found at ${distTempPath}. Aborting publish.`
+          )
+          return
+        }
+
+        // 1. 使用 fs-extra 移除旧的 dist 目录
+        await fse.remove(distPath)
+        console.log(`[${pluginName}] Successfully removed old dist directory.`)
+
+        // 2. 使用 fs-extra 的 move 方法。
+        // 它会智能地尝试 rename，失败后自动回退到 copy & delete，完美满足需求。
+        await fse.move(distTempPath, distPath)
+        console.log(`[${pluginName}] Successfully published to dist directory.`)
       } catch (err) {
-        // 重命名异常
-        console.error('Failed to rename file:', err)
-        console.log('Copying dist-temp to dist...')
-        // 异常处理：复制 dist-temp 到 dist
-        fse.copySync(resolveBuildDir(tempBuildDir), resolveBuildDir(destBuildDir))
+        console.error(`[${pluginName}] An error occurred during the publish process:`, err)
       }
     })
-    .catch(err => console.error('Failed to delete dist folder:', err))
-}
+  },
+})
 ```
 
 :::
