@@ -13,16 +13,18 @@ created: '2025-06-26'
 
 有些使用Vue CLI构建的老项目存在冷启动、热更新、构建上的性能问题，首先想到的就是使用 Webpack 或 Vite 重构，但前者收益不大，后者可能存在更多的兼容性问题。
 
+前段时间偶然看到一篇经验分享，字节开发的 Rsbuild 能快速实现迁移且无太多兼容性问题。
+
 | Vite v5 | Vite v5          | Vite v7                | Rsbuild < 1.5  | Rsbuild >= 1.5 |
 | ------- | ---------------- | ---------------------- | -------------- | -------------- |
 | Node18+ | Node.js 18+, 20+ | Node.js 20.19+, 22.12+ | Node.js 16.10+ | Node.js 18.12+ |
 
-前段时间偶然看到一篇经验分享，字节开发的 Rsbuild 能快速实现迁移且无太多兼容性问题。
+项目要求Node16的话，使用时注意锁定版本号在1.5以下
 
 > 参考文档：
 >
-> - [Rsbuild 官网](https://rsbuild.dev/)
-> - [Rsbuild - Vue CLI 迁移指南](https://rsbuild.dev/zh/guide/migration/vue-cli): 必读
+> - ⭐[Rsbuild 官网](https://rsbuild.dev/)
+> - ⭐[Rsbuild - Vue CLI 迁移指南](https://rsbuild.dev/zh/guide/migration/vue-cli): 必读
 > - [从 VueCLI 迁移到 Rsbuild](https://juejin.cn/post/7395127149912047635)
 > - [如何评价字节 Web Infra 团队开源的 rspack？ - 卡罗的回答](https://www.zhihu.com/question/588449030/answer/3390521545)
 > - [从@vue/cli项目迁移到Rsbuild](https://zhuanlan.zhihu.com/p/16005373040)
@@ -179,7 +181,11 @@ export default defineConfig({
 
 [Rsbuild官网](https://rsbuild.dev/)文档挺完善的，`Ctrl+K`输入关键词在线查找。
 
-代码拆分(performance.chunkSplit)、最小化(output.minify)、移除打印(performance.removeConsole)、构建产物分析(webpack-bundle-analyzer/rsdoctor)等配置都有详尽说明。
+代码拆分(performance.chunkSplit)、最小化(output.minify)、移除打印(performance.removeConsole)、构建产物分析(webpack-bundle-analyzer/rsdoctor)、source-map(output.sourceMap,tools.rspack.devtools)等配置都有详尽说明。
+
+- 注意
+
+默认会将js/css等文件输出到 `dist/static` 目录下，`static`可能和后端静态资源目录或web服务器配置冲突。如果需要修改，可配置 `output.distPath`
 
 ## 其他
 
@@ -193,8 +199,6 @@ export default defineConfig({
 - 编译 node_modules 下的包
 
 实际重构过程中可能还有很多需要迁移的工作。
-
-例如，脚手架/打包工具的差异，Vue CLI基于Webpack4，Rsbuild基于Vite。
 
 ## 总结
 
