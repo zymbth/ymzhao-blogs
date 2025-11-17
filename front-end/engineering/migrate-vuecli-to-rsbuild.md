@@ -177,15 +177,86 @@ export default defineConfig({
 
 :::
 
-- 常见配置
+## 常见配置
 
 [Rsbuild官网](https://rsbuild.dev/)文档挺完善的，`Ctrl+K`输入关键词在线查找。
 
 代码拆分(performance.chunkSplit)、最小化(output.minify)、移除打印(performance.removeConsole)、构建产物分析(webpack-bundle-analyzer/rsdoctor)、source-map(output.sourceMap,tools.rspack.devtools)等配置都有详尽说明。
 
-- 注意
+## 注意
+
+- 静态资源路径
 
 默认会将js/css等文件输出到 `dist/static` 目录下，`static`可能和后端静态资源目录或web服务器配置冲突。如果需要修改，可配置 `output.distPath`
+
+- 环境变量
+
+参照教程加载环境变量并加入[`define`](https://rsbuild.rs/zh/config/source/define#sourcedefine)中，默认的模式可能会导致加载额外的环境变量，示例如下：
+
+::: code-group
+
+```js{3,7} [rsbuild.config.js]
+import { defineConfig, loadEnv } from '@rsbuild/core'
+
+const { publicVars } = loadEnv({ prefixes: ['VUE_APP_'] })
+
+export default defineConfig({
+  source: {
+    define: publicVars,
+  },
+})
+```
+
+```text [.env.production]
+# 生产环境
+VUE_APP_NODE_ENV = 'production'
+VUE_APP_ENV = 'production'
+VUE_APP_SOME_VAR = 'xxxxx'
+```
+
+```text [.env.test]
+# 测试环境
+VUE_APP_NODE_ENV = 'production'
+VUE_APP_ENV = 'test'
+```
+
+:::
+
+上面的示例中，如果执行命令 `rsbuild build --env-mode dev`, `publicVars`会包含 `VUE_APP_SOME_VAR` 这个变量。
+
+添加测试代码：`const { rawPublicVars } = loadEnv({ prefixes: ['VUE_APP_'] })`
+
+打印结果如下：
+
+```text{4}
+rawPublicVars:  {
+  VUE_APP_ENV: 'test',
+  VUE_APP_NODE_ENV: 'production',
+  VUE_APP_SOME_VAR: 'xxxxx'
+}
+```
+
+参照 [loadEnv](https://rsbuild.rs/zh/api/javascript-api/core#loadenv) API文档，mode默认值为`process.env.NODE_ENV`，这就是为什么 .env.production 内的额外变量被读取了。
+
+两种解决方案，一是指定 loadEnv 的 mode；二是将环境变量定义在每个环境变量文件中，不用担心取到“默认值”。
+
+导出配置函数可指定mode：
+
+```js{6} [rsbuild.config.js]
+import { defineConfig, loadEnv } from '@rsbuild/core'
+
+const { publicVars } = loadEnv({ prefixes: ['VUE_APP_'] })
+
+export default defineConfig(({ envMode }) => {
+  const { publicVars } = loadEnv({ prefixes: ['VUE_APP_'], mode: envMode })
+  return {
+    // 其他配置项
+    source: {
+      define: publicVars,
+    },
+  }
+})
+```
 
 ## 其他
 
