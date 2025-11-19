@@ -37,6 +37,93 @@ Github Pages 从 actions 中执行自动构建部署时，最终的路径中，�
 
 仅供快速拷贝使用，具体应用到项目中时，还需根据实际情况调整配置，node版本、包管理器、路径、具体安装构建等流程等等
 
+### vite7+pnpm10项目
+
+更新到 `actions/checkout@v4`, `pnpm/action-setup@v4`, pnpm@10, `actions/upload-pages-artifact@v4`, `actions/deploy-pages@v4`
+
+::: details
+
+```yml
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy Project to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ['master']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Not needed if lastUpdated is not enabled
+      - uses: pnpm/action-setup@v4 # Uncomment this if you're using pnpm
+        with:
+          version: 10
+      # - uses: oven-sh/setup-bun@v1 # Uncomment this if you're using Bun
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 22
+      #     cache: pnpm # npm or pnpm / yarn
+      #     cache-dependency-path: 'pnpm-lock.yaml'  # Optional: improves cache hit rate
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Install dependencies
+        run: pnpm install # npm ci or pnpm install / yarn install / bun install
+      - name: Build Project
+        run: |
+          pnpm build-github # npm run build or pnpm build / yarn build / bun run build
+          touch dist/.nojekyll
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      # - name: Checkout
+      #   uses: actions/checkout@v3
+      # - name: Setup Pages
+      #   uses: actions/configure-pages@v3
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v1
+      #   with:
+      #     # Upload entire repository
+      #     path: './dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+:::
+
 ### vitepress项目
 
 > [参考](https://vitepress.dev/zh/guide/deploy#github-pages)

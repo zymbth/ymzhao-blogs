@@ -233,7 +233,7 @@ function simulateApi(isResolve = true, delay = 1500) {
 
 就像原生支持 `loading="lazy"` 的 `img`/`iframe` 标签一样，思路就是使用 [IntersectionObserver](https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver) API 监听组件是否在可视区域，在的话则加载(`v-if`)组件，否则显示骨架屏。把这个逻辑封装一下，具体业务组件放在默认插槽中。
 
-<DemoIframe title="懒加载组件" src="https://play.vuejs.org/#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" />
+<DemoIframe title="懒加载组件" src="https://play.vuejs.org/#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" />
 
 ::: code-group
 
@@ -294,7 +294,7 @@ function formatTimeWithMs() {
 
 ```vue [LazyLoadWrapper.vue]
 <template>
-  <div ref="targetRef" class="lazy-wrapper">
+  <div ref="target" class="lazy-wrapper" :class="{ loaded: inView }">
     <slot v-if="inView" />
     <!-- 可选：在加载前显示骨架屏 -->
     <div v-else class="placeholder" />
@@ -304,7 +304,7 @@ function formatTimeWithMs() {
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 
-const targetRef = ref()
+const target = ref()
 const inView = ref(false) // 状态：是否已进入视口
 
 let observer = null
@@ -316,7 +316,7 @@ onMounted(() => {
       // 当元素与视口交叉时，entry.isIntersecting 将为 true
       if (entry.isIntersecting) {
         inView.value = true // 更新状态，触发组件加载
-        observer.unobserve(targetRef.value) // 停止观察
+        observer.unobserve(target.value) // 停止观察
         observer.disconnect() // 完全断开观察器
       }
     },
@@ -327,8 +327,8 @@ onMounted(() => {
   )
 
   // 开始观察目标元素
-  if (targetRef.value) {
-    observer.observe(targetRef.value)
+  if (target.value) {
+    observer.observe(target.value)
   }
 })
 
@@ -344,6 +344,10 @@ onUnmounted(() => {
 .lazy-wrapper {
   /* 可以根据需要设置样式 */
   position: relative;
+}
+.lazy-wrapper.loaded {
+  height: initial;
+  width: initial;
 }
 .placeholder {
   position: absolute;
