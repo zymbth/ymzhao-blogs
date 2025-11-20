@@ -2,10 +2,16 @@
 const props = defineProps({ tag: String, default: () => '' })
 
 const tags = props.tag?.split(',').map(t => t.trim()) || []
+
+const tagMap = {
+  AI: '部分或完全 AI 生成',
+  转载: '部分或完全转载',
+  摘录: '部分或完全摘录',
+}
 </script>
 
 <template>
-  <div v-for="t in tags" :key="t" class="tag-wrap">
+  <div v-for="t in tags" :key="t" class="tag-wrap" :title="tagMap[t] ?? ''">
     <span>{{ t }}</span>
   </div>
 </template>
