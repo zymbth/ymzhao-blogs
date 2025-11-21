@@ -15,13 +15,11 @@ created: '2024-10-23'
 
 需要**注意**的是，相对于自行配置，作者按个人代码风格设置了一些默认的规则。这意味着，对于不喜欢的默认配置，你需要手动关闭或调整。
 
-`@antfu/eslint-config` 汇集了 30 个插件的近 700 条规则，并提供了一个在线查看、搜索规则的工具 [ESLint Config Inspector](https://eslint-config.antfu.me/)。在迁移中，对于不熟知的规则，可以在此对比并查看其对应原文档，感谢大佬！
+`@antfu/eslint-config` 汇集了 30 个插件的近 700 条规则，并提供了一个在线查看、搜索规则的工具 [ESLint Config Inspector](https://eslint-config.antfu.me/)，也可以使用下面的工具安装运行在项目本地。在迁移中，对于不熟知的规则，可以在此对比并查看其对应原文档，感谢大佬！
 
 ![ESLint Config Inspector](./assets/antfu-config-1.jpg)
 
-除此之外，可使用工具[@eslint/config-inspector](https://github.com/eslint/config-inspector)本地查看项目ESLint配置及其来源
-
-执行`npx @eslint/config-inspector@latest`即可，也可以安装到项目中后再使用
+使用工具[@eslint/config-inspector](https://github.com/eslint/config-inspector)本地查看项目ESLint配置及其来源，末尾有示例。
 
 ## 从零开始使用
 
@@ -151,6 +149,8 @@ created: '2024-10-23'
 
 个人使用，仅供参考
 
+### @antfu/eslint-config
+
 ::: code-group
 
 ```json [package.json]
@@ -161,6 +161,7 @@ created: '2024-10-23'
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.13.0",
+    "eslint": "^9.38.0",
   },
 }
 ```
@@ -275,5 +276,46 @@ export default antfu({
   ]
 }
 ```
+
+:::
+
+### @eslint/config-inspector
+
+不使用 `@antfu/eslint-config` 整合也可以使用 `@eslint/config-inspector` 检测项目的 eslint 相关配置情况，工具获得eslint官方[推荐](https://eslint.org/blog/2024/04/eslint-config-inspector/)。
+
+**注意：**`v1.4.1` 存在[异常](https://github.com/eslint/config-inspector/issues/186)，跳过改版本。修复后可安装最新版本，去掉下面代码片段中的固定版本号。
+
+::: details 配置可视化工具(@eslint/config-inspector)
+
+- 安装，通过npx执行：
+
+```json [package.json]
+{
+  "scripts": {
+    "lint-inspect": "npx @eslint/config-inspector@1.3.0",
+    "lint-inspect-build": "npx @eslint/config-inspector@1.3.0 build && npx serve .eslint-config-inspector"
+  }
+}
+```
+
+异常修复后可更改为 `npx @eslint/config-inspector@latest`
+
+- 安装到项目开发依赖中：
+
+```json [package.json]
+{
+  "scripts": {
+    "lint-inspect": "eslint-config-inspector",
+    "lint-inspect-build": "eslint-config-inspector build && npx serve .eslint-config-inspector"
+  },
+  "devDependencies": {
+    "@eslint/config-inspector": "1.3.0"
+  }
+}
+```
+
+- gitignore
+
+build会产生静态文件到 `/.eslint-config-inspector` 中，注意在 `.gitignore` 中添加该目录
 
 :::

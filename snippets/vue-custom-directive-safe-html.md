@@ -51,12 +51,13 @@ npm install --save-dev @types/dompurify
 ```
 
 ```ts [src/directives/safeHtml.ts]
-// src/directives/safeHtml.ts
-import { Directive, DirectiveBinding } from 'vue'
+import type { Config as DOMPurifyConfig } from 'dompurify'
+import type { Directive, DirectiveBinding } from 'vue'
 import DOMPurify from 'dompurify'
 
 // 默认净化配置（可根据项目调整）
-const DEFAULT_CONFIG: DOMPurify.Config = {
+/* eslint-disable antfu/consistent-list-newline */
+const DEFAULT_CONFIG: DOMPurifyConfig = {
   // 基础白名单（保留常用富文本标签）
   ALLOWED_TAGS: [
     'p', 'br', 'b', 'strong', 'i', 'em', 'u', 's', 'span',
@@ -70,20 +71,21 @@ const DEFAULT_CONFIG: DOMPurify.Config = {
   // 禁止危险内容
   FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form'],
   FORBID_ATTR: ['onerror', 'onload', 'onclick', 'on*'],
-  // 允许 data: 图片（如 base64），但禁止 data: script
+  // 允许  图片（如 base64），但禁止  script
   ALLOW_DATA_ATTR: true,
   ADD_ATTR: ['target'],
   ADD_TAGS: [],
   // 防止 rel="noopener" 被删（安全跳转）
   ALLOW_UNKNOWN_PROTOCOLS: false // 严格模式：只允许 http/https/mailto 等
 }
+/* eslint-enable antfu/consistent-list-newline */
 
 // 全局配置（可后续通过插件选项覆盖）
-let globalConfig: DOMPurify.Config = { ...DEFAULT_CONFIG }
+let globalConfig: DOMPurifyConfig = { ...DEFAULT_CONFIG }
 
 /**
  * 安全渲染 HTML 指令：v-safe-html
- * 
+ *
  * 用法：
  *   v-safe-html="htmlString"
  *   v-safe-html:[configName]="htmlString"         // 使用预设配置
@@ -100,13 +102,13 @@ const vSafeHtml: Directive<HTMLElement, string | SafeHtmlOptions> = {
 
 interface SafeHtmlOptions {
   html: string
-  config?: DOMPurify.Config
+  config?: DOMPurifyConfig
 }
 
 function updateContent(el: HTMLElement, binding: DirectiveBinding<string | SafeHtmlOptions>) {
   try {
     let rawHtml = ''
-    let localConfig: DOMPurify.Config | undefined
+    let localConfig: DOMPurifyConfig | undefined
 
     // 解析 binding value
     if (typeof binding.value === 'string') {
@@ -138,15 +140,14 @@ function updateContent(el: HTMLElement, binding: DirectiveBinding<string | SafeH
     el.innerHTML = cleanHtml
 
     // 修复：a 标签自动添加 rel="noopener noreferrer"（防 tabnabbing）
-    if (finalConfig.ADD_ATTR?.includes('target')) {
+    if (Array.isArray(finalConfig.ADD_ATTR) && finalConfig.ADD_ATTR.includes('target')) {
       const links = el.querySelectorAll('a[target="_blank"]')
-      links.forEach(link => {
+      links.forEach((link) => {
         if (!link.hasAttribute('rel')) {
           link.setAttribute('rel', 'noopener noreferrer')
         }
       })
     }
-
   } catch (error) {
     console.error('[v-safe-html] Error rendering safe HTML:', error)
     el.innerHTML = '' // 安全兜底：清空内容
@@ -154,7 +155,7 @@ function updateContent(el: HTMLElement, binding: DirectiveBinding<string | SafeH
 }
 
 // 预设配置（可扩展）
-const PRESET_CONFIGS: Record<string, DOMPurify.Config> = {
+const PRESET_CONFIGS: Record<string, DOMPurifyConfig> = {
   // 仅文本：完全禁用标签
   plain: {
     ALLOWED_TAGS: [],
@@ -168,7 +169,7 @@ const PRESET_CONFIGS: Record<string, DOMPurify.Config> = {
 }
 
 // 插件安装函数（支持配置）
-export function createSafeHtmlDirective(userConfig?: DOMPurify.Config) {
+export function createSafeHtmlDirective(userConfig?: DOMPurifyConfig) {
   if (userConfig) {
     globalConfig = { ...globalConfig, ...userConfig }
   }
