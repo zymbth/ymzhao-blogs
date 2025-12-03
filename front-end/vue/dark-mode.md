@@ -11,17 +11,17 @@ created: '2022-06-29'
 
 ## 前言
 
-`element-plus@2.2.0` 已经开始支持[暗黑模式](https://element-plus.gitee.io/zh-CN/guide/dark-mode.html)了
+`element-plus@2.2.0` 已经开始支持[暗黑模式](https://element-plus.gitee.io/zh-CN/guide/dark-mode.html)了，引入样式文件：
+
+`import 'element-plus/theme-chalk/dark/css-vars.css'`
 
 通过在html标签上添加一个名为 `dark` 的类来启用
 
-基于 vue3 & element-plus 的项目现在可以方便的添加暗黑模式
-
 ## 一、基本使用
 
-因为是通过在html标签上添加 `dark` 类，可以自行实现切换
+因为是通过在html标签上添加 `dark` 类，可以自行实现切换。
 
-但为了方便切换以及进一步的定制化，官方推荐使用 [useDark | VueUse](https://vueuse.org/core/usedark/)
+为了方便切换以及进一步的定制化，官方推荐使用 [useDark | VueUse](https://vueuse.org/core/usedark/)
 
 示例：以下，基于 element-plus switch组件 创建了一个暗黑模式开关组件，将它放入菜单栏，就可以方便地切换模式了
 
@@ -43,6 +43,12 @@ const toggleDark = useToggle(isDark)
 ![在这里插入图片描述](./assets/4f23ead5025b415ebd92aa8f388795ee.jpeg)
 
 进一步定制化可查阅官方文档
+
+> 只是引入样式的话，不会自动自动检测系统模式并切换（系统深色模式，打开网页还是浅色模式）
+>
+> 看起来有点“蠢”，但“不自动切换”可能也是很多项目需要的。自动切换也不难实现，“默认浅色+手动切换”应该也有一定需求在
+>
+> 注意：`useDark()` 引入并使用后，它就会在打开页面时检测系统模式并应用，在系统切换模式时同步模式
 
 ## 二、自定义深色样式
 
@@ -103,6 +109,8 @@ import './styles/demo.scss'
 
 ### 4、scss变量
 
+> 如果只是当作css变量一样使用scss变量，建议直接使用css变量
+
 scss定义变量，并在其它样式中引入使用。结合css变量，也可以轻松实现暗黑模式的适配
 
 src/styles/variables.scss：
@@ -133,8 +141,6 @@ main.js：
 ```javascript
 import './styles/index.scss'
 ```
-
-话说回来，如果只是当作css变量一样使用scss变量，那为何不直接使用css变量呢？况且，css变量还可以使用js更改之
 
 ## 三、暗黑模式下的图片
 
