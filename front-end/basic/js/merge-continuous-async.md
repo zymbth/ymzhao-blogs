@@ -40,7 +40,7 @@ created: '2024-08-14'
  * setTimeout(mergedAsyncRequest, 200, 222)
  */
 export default request => {
-  if (!(request instanceof Function)) throw new Error('request must be a function')
+  if (typeof request !== 'function') throw new Error('request must be a function')
   let promise, resolve, reject
 
   function mergedAsyncRequest(...args) {
@@ -50,6 +50,8 @@ export default request => {
       .then(resolve, reject)
       .finally(() => {
         promise = undefined
+        resolve = undefined
+        reject = undefined
       })
     return promise
   }
@@ -111,15 +113,21 @@ function testApi(...args) {
 
 ```js {7,10}
 export default request => {
-  if (!(request instanceof Function)) throw new Error('request must be a function')
+  if (typeof request !== 'function') throw new Error('request must be a function')
   let promise, resolve, reject
 
   function mergedAsyncRequest(...args) {
-    if (promise) {
+    if (promise && reject) {
       reject(new Error('Cancelled'))
     }
     ;({ promise, resolve, reject } = Promise.withResolvers())
-    request(...args).then(resolve, reject)
+    request(...args)
+      .then(resolve, reject)
+      .finally(() => {
+        promise = undefined
+        resolve = undefined
+        reject = undefined
+      })
     return promise
   }
 
@@ -138,3 +146,94 @@ export default request => {
 ## 方案三：返回最后的未落定期约
 
 如果希望实现的是合并，但以最新请求的落定为准，情况可能会有点复杂，需要将未落定的期约保持与最新的期约一致。可以考虑去弹跳(debounce)处理
+
+## Typescript 代码
+
+```ts
+/**
+ * 定义 Promise.withResolvers 的返回类型
+ * (如果 TS 环境 target 是 ESNext 或包含 ES2024，则不需要此接口，原生自带)
+ */
+interface PromiseWithResolvers<T> {
+  promise: Promise<T>;
+  resolve: (value: T | PromiseLike<T>) => void;
+  reject: (reason?: any) => void;
+}
+
+/**
+ * 合并相同请求（连续调用包装后的请求方法，前一次调用未完成时，后一次调用返回前一次调用的结果）
+ *
+ * @template A - 请求函数的参数类型数组
+ * @template R - 请求函数 Promise 解析后的返回值类型
+ * @param {(...args: A) => Promise<R>} request - 原始异步请求函数
+ * @returns {{ mergedAsyncRequest: (...args: A) => Promise<R> }} { mergedAsyncRequest: 合并后的异步请求方法 }
+ * @example
+ * import useMergeSameAsync from '@/use/merge-same-async.ts'
+ *
+ * const originalRequestFunction = (...args) => axios.get(...args)
+ * const { mergedAsyncRequest } = useMergeSameAsync(originalRequestFunction)
+ * mergedAsyncRequest(111)
+ * setTimeout(mergedAsyncRequest, 200, 222)
+ */
+export default <A extends any[], R>(
+  request: (...args: A) => Promise<R>
+): { mergedAsyncRequest: (...args: A) => Promise<R> } => {
+  if (!(typeof request === 'function')) throw new Error('request must be a function')
+  let promise: Promise<R> | undefined,
+    resolve: ((value: R | PromiseLike<R>) => void) | undefined,
+    reject: ((reason?: any) => void) | undefined
+
+  async function mergedAsyncRequest(...args: A): Promise<R> {
+    if (promise) {
+      return promise
+    }
+    ;({ promise, resolve, reject } = Promise.withResolvers() as PromiseWithResolvers<R>)
+    request(...args)
+      .then(resolve, reject)
+      .finally(() => {
+        promise = undefined
+        resolve = undefined
+        reject = undefined
+      })
+    return promise
+  }
+
+  return { mergedAsyncRequest }
+}
+
+/**
+ * 合并相同请求（连续调用包装后的请求方法，存在未调用未完成时，仅保留最后一次调用，取消之前的）
+ *
+ * @template A - 请求函数的参数类型数组
+ * @template R - 请求函数 Promise 解析后的返回值类型
+ * @param {(...args: A) => Promise<R>} request - 原始异步请求函数
+ * @returns {{ mergedAsyncRequest: (...args: A) => Promise<R> }} { mergedAsyncRequest: 合并后的异步请求方法 }
+ * @example
+ * import { useMergeSameAsync } from '@/use/merge-same-async.ts'
+ */
+export function useMergeSameAsync<A extends any[], R>(
+  request: (...args: A) => Promise<R>
+): { mergedAsyncRequest: (...args: A) => Promise<R> } {
+  if (typeof request !== 'function') throw new Error('request must be a function')
+  let promise: Promise<R> | undefined,
+    resolve: ((value: R | PromiseLike<R>) => void) | undefined,
+    reject: ((reason?: any) => void) | undefined
+
+  function mergedAsyncRequest(...args: A): Promise<R> {
+    if (promise && reject) {
+      reject(new Error('Cancelled'))
+    }
+    ;({ promise, resolve, reject } = Promise.withResolvers() as PromiseWithResolvers<R>)
+    request(...args)
+      .then(resolve, reject)
+      .finally(() => {
+        promise = undefined
+        resolve = undefined
+        reject = undefined
+      })
+    return promise!
+  }
+
+  return { mergedAsyncRequest }
+}
+```
