@@ -1,11 +1,10 @@
 ---
-description: Vue异步组件与懒加载组件在性能优化上的作用
+description: Vue异步组件与懒加载组件使用示例，分析在性能优化上的作用
 head:
   - - meta
     - name: keywords
-      content: vue,异步,懒加载,组件
-created: '2025-11-04'
-isDraft: 't'
+      content: vue,组件,异步,懒加载,动态导入
+created: '2026-01-28'
 ---
 
 # Vue异步/懒加载组件
@@ -38,7 +37,7 @@ const AsyncComp = defineAsyncComponent(() =>
 )
 ```
 
-参数除了定义一个异步加载函数，还可以定义是一个对象，对象中包含加载函数、加载提示组件等，类型定义查看[官方文档](https://cn.vuejs.org/api/general#defineasynccomponent)
+参数类型有两种，一种是异步加载函数，另一种是包含异步加载函数、加载提示组件的属性的对象，类型定义查看[官方文档](https://cn.vuejs.org/api/general#defineasynccomponent)
 
 ::: details 类型
 
@@ -65,17 +64,147 @@ interface AsyncComponentOptions {
 }
 ```
 
+如果使用了 `onError` 参数，则loader异常时会调用该函数，此时 `errorComponent` 会被忽略
+
 :::
 
-### 示例
+### 性能相关
 
-假设有需要按照接口响应的数据条件选择对应的模板组件：
+- 动态导入
 
-[在线示例](https://play.vuejs.org/#eNq9VE+P20QU/ypPvjhZBXsT6MVKUhbUA0hABXtb72EaP8eTjmes8TjeVZQDiAMqAiqBBBdUECziUiEktEJsK75Mk/bWr9A34ySbbNs99pKM35/fe+/3/sy8g6IIphV6kdcvR5oXBko0VQGCyfEg9iblSewNY8nzQmkDM9CYdiDBlEs8KE/l6H1FGonSwBxSrXLwCc2PZSxHSpYGEmYYDKxbq30pPcwLYT1J8yqs1iyWAEKxBHUEzOqg1YbBEJwCHGowZaJCQmA145Q2zyvBDB4U3EayVjxtbRkGUsFgMIBum7IxlZbQFNXyg9Dm07XhLRf+te6917j3dt3nnXUJXI43hUWrMvoJnw4X93559vjxk38fBkHQD63E+aDWSr/sURZMQmlOBVJbRkooHWlMqDkNzOL3v5/9c/b80ef90FpaqLkjPNzbI9Q9WP756/LrB8tvzxbf/eYE7xZMsxxmd5QSyOQcjnj5KZZKTPEYFt9/s/jvh+VPfy3u/7H86v7i3oMdH1nld1CTS4KCnZL5xfnyx3NrEsYyreTIcEXZbrVkg00NM7pCO0TkSl/dG/v77aaxK2Il1nCbZomX2Grpxq1DygmOzPYU7EzYR8xkgWYyUTkxNoT94EZjBXCT5laqCLodMNwIjMC3bPz8f9e3aTRzTwmTPE3KjDMFaVZxrOkxRj5RfAxpjRnPOAm0UROSQY0VCXyYr8NEqzC9q2F6FEbwknp55I8JLYWMVwrHGuoUeUZaX5G4TqHiE67SGrJJjRPl8I/XAWgvD3mOqjJbZN4kWppXtCJoRSz9ES/NKNIvYdBguEJpm+nDIM0s9Ya+APpZd7h49MXy4dnTiy+fXJz3QxI4xWZRI0dzSNJ+uOXrdTxTUh9SPg4mpZJ0R1xz7IjmBReoP3HUlrFH9DSFxB4TQtUfOpmbhbV8lOHo7ivk7gpF9LhN1aKeYuxtdIbpMZpGfeuzj/GE3htlrpJKkPU1SsdkZXNszN6rZEJpb9m5bD9wy067fFjeOjEoy3VRNtHLhY89ugCWsNeVfpnu28E7zo+aQyzuXKCr15iIbs4kbUVRto582wz/mPp6bVN7w9msOZVuHmE+p8b2GmWx0W0tgLOw0a72eOfAvYHsKuH+6SU4TN9Klaaj1+KE0AFO0U7a9Nc428WKPYju4inZOCUdRYK21g5U8AY0dKi7pc1fALKQd5A=)
+由于ES模块的动态导入返回一个promise，可以很好的同defineAsyncComponent结合使用。
+
+在性能优化中，经常会利用动态导入来实现组件的懒加载，动态导入的组件还会**自动分包**，生成一个对应的chunk文件。
+
+SPA的首屏加载、大组件的加载都可以使用动态导入优化。父组件立即渲染，缩短关键路径、减少CPU阻塞；多chunk文件并行下载，减少整体等待时间。但要注意浏览器请求存在并行上限，分包过多可能是个反优化！
+
+> 参考：
+>
+> - [import()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/import)
+> - [vite - 动态导入](https://cn.vite.dev/guide/features#dynamic-import)
+
+- 条件渲染
+
+有另一种容易常见的性能优化：使用 `v-if` **条件渲染**“重”组件，代码其实已经被**下载**下来了（同步引入，打包到当前页面的JS文件中），只是没渲染到页面上，也没有执行该组件内的js逻辑而已。条件渲染优化在于延迟“重”组件的DOM渲染及组件内的逻辑执行。
+
+当然，条件渲染可以同异步组件结合使用，仅在需要时下载该异步组件：
 
 ::: code-group
 
-```vue{1,6-14} [App.vue]
+```vue [同步引用]
+<script setup>
+import HeavyChild from './HeavyChild.vue'
+</script>
+<template>
+  <div>
+    <p>组件内容</p>
+    <HeavyChild />
+  </div>
+</template>
+```
+
+```vue [同步引用+条件渲染]
+<script setup>
+import { ref } from 'vue'
+import HeavyChild from './HeavyChild.vue'
+
+const show = ref(false)
+</script>
+<template>
+  <div>
+    <p>组件内容</p>
+    <HeavyChild v-if="show" />
+  </div>
+</template>
+```
+
+```vue [异步组件+条件渲染]
+<script setup>
+import { defineAsyncComponent, ref } from 'vue'
+
+// 动态导入：只有在需要时才加载
+const HeavyChild = defineAsyncComponent(() => import('./HeavyChild.vue'))
+
+const show = ref(false)
+</script>
+<template>
+  <div>
+    <p>组件内容</p>
+    <HeavyChild v-if="show" />
+  </div>
+</template>
+```
+
+:::
+
+如果是**多组件选择渲染**的话，每个组件都很“重”，如何优化呢？
+
+::: code-group
+
+```vue [同步引入]
+<script setup lang="jsx">
+import { shallowRef } from 'vue'
+import HeavyChild1 from './HeavyChild1.vue'
+import HeavyChild2 from './HeavyChild2.vue'
+import HeavyChild3 from './HeavyChild3.vue'
+
+const TmplComp = shallowRef(null)
+const tmplMap = {
+  1: HeavyChild1,
+  2: HeavyChild2,
+  3: HeavyChild3
+}
+
+const handleClick = no => TmplComp.value = tmplMap[no]
+</script>
+
+<template>
+  <button @click="handleClick(1)">模板1</button>
+  <button @click="handleClick(2)">模板2</button>
+  <button @click="handleClick(3)">模板3</button>
+  <component :is="TmplComp" />
+</template>
+```
+
+```vue [异步组件]
+<script setup>
+import { defineAsyncComponent, shallowRef } from 'vue'
+
+const HeavyChild1 = defineAsyncComponent(() => import('./HeavyChild1.vue'))
+const HeavyChild2 = defineAsyncComponent(() => import('./HeavyChild2.vue'))
+const HeavyChild3 = defineAsyncComponent(() => import('./HeavyChild3.vue'))
+
+const TmplComp = shallowRef(null)
+const tmplMap = {
+  1: HeavyChild1,
+  2: HeavyChild2,
+  3: HeavyChild3
+}
+
+const handleClick = no => TmplComp.value = tmplMap[no]
+</script>
+
+<template>
+  <button @click="handleClick(1)">模板1</button>
+  <button @click="handleClick(2)">模板2</button>
+  <button @click="handleClick(3)">模板3</button>
+  <component :is="TmplComp" />
+</template>
+```
+
+:::
+
+### 实例
+
+假设有需要按照接口响应的数据条件选择对应的模板组件，每个模板组件都很“重”
+
+#### 实现
+
+[在线示例](https://play.vuejs.org/#eNq9VF+LI0UQ/yrFIMzsEieb6L0MSc5V9kFBPXTfdhauL1OT6dxM99Ddk9kl5EXuQe5QDxQUUVfRFREOOZBFXA+/zCV7H8Pqnk02We720Zekp6p+9e9XVVNvtyzDSYVe5PX0UPHSgEZTlZAzMerH3lgfxd4gFrwopTIwBYVpCxJMucBdfSyG70jSCBQGZpAqWYBP3vxYxGIohTaQMMOgb2HB1pV0vyhziyTNy3wF01gA5JIlqCJgVgfBFvQH4BTgvIYTlldIHljNOKXNiypnBndLbiNZK54Ga4ahkNDv96GzRdmYSgloigr8sG3z6djwthf+jfDuK+Dd63CTKVmDwBr2lJIquLv47veLk9OLbx8sfvtp8f2/F0/P5z88iuC16VUUCjK76/Cz1rIFXIxWjYku29BL+GQwf/jji2fPnv/1JAzDXttKHAZttHUECRqQLpkAbY5zJGaHMpcqUpgQv42n+S9PX/x5GsGUAKHzEhaoNRvhrNe2WOt/5lhsb29TqG2wlTw6WXx+Ov/iZyd4q2SKFTC9J2WOTMzggOuPUMt8gocw//Kz+d9fLb75Y/7418Wnj+cPTzYwoiruoSJIgjk7JvPzs8XXZ9akHYu0EkPDJeW/xvPKN02BURXaySQofXVu7exsNdNyyZYl4g4NKNcYBKqBtUg5xqFZH62NsX2fmSxUTCSyoMYPYCe81VgB3KZlEDKCTgsMNzlG4De8dnybRrNMlDDJ00RnnElIs4pjTY8R8rHkI0hrzHjGSaCMHJMMaqxI4MNsGYbocGG618N0KUzONRF84I/IWwoZrySOFNQp8oy0viRxnULFx1ymNWTjGsfS+T9cBqBl3+cFysqsNfM2taV5RZcNumws/VFfmvmkX/JBg+EKpRNBHwZpEYgb+gLoZZ3B/J9PFk9OL84fPD8/67VJ4BSr7Y9cm9sk7bXXsF7LM5p4SPkoHGsp6Dg5cuzQFiXPUX3oWqtjj9rTFBJ7LM9l/Z6TuVlYyocZDu+/RO5OW0SPO1QtqgnG3kpnmBqhadR7H3+AR/ReKQuZVDlZ36B0naxsjo3Z25VIKO01O5ftu+6C0ILv670jg0Ivi7KJXl2B2KOzYhv2qtKv0n0jfNPhiBzq4sZZu37iqdHN7aWtKHVw4Fsy/EPi9UZSu4PptLm/bh5hRseBhE5ZrnRrC+AsbLTrHG9czf8huyp3//TKOUxeT6WiMxhw8tACTtGOtuivAdvFij2I7uMx2TglnUlyba2d05w3TtvO62Zps/8AE7acag==)
+
+::: code-group
+
+```vue{1,6-15} [App.vue]
 <script setup lang="jsx">
 import { ref, defineAsyncComponent } from 'vue'
 
@@ -86,9 +215,10 @@ const TmplComp = defineAsyncComponent({
     data.value = await simulateApi()
     if(data.value.no === 1) return import('./Tmpl1Comp.vue')
     if(data.value.no === 2) return import('./Tmpl2Comp.vue')
+    throw new Error(`未知的模板类型: ${data.value.no}`)
   },
   loadingComponent: () => <div>加载中...</div>,
-  errorComponent: () => <span style="color:red">加载失败！</span>,
+  errorComponent: (err) => <span style="color:red">加载失败: {err.error.message}</span>,
 })
 
 /**
@@ -138,15 +268,15 @@ defineProps(['data'])
 
 :::
 
-::: warning
+#### 手动控制异步组件的加载时机
 
-如果使用了 `onError` 参数，则loader异常时会调用该函数，此时 `errorComponent` 会被忽略
+- `Promise.withResolvers`实现
 
-:::
+这里使用了 `Promise.withResolvers` 来手动控制异步组件的加载时机，能实现但**不推荐**。
 
-::: details 抽离异步组件内的“接口请求”逻辑
+这种写法存在**耦合度过高**的问题（`loader` 的控制权在外部），也不**规范**（`defineAsyncComponent` 的初衷是处理“网络资源加载”）
 
-```js{2,6,19,21}
+```js{2,6,20,22}
 const data = ref()
 const { promise: reqPromise, resolve: reqResolve, reject: reqReject } = Promise.withResolvers()
 
@@ -155,9 +285,10 @@ const TmplComp = defineAsyncComponent({
     const data = await reqPromise
     if(data.no === 1) return import('./Tmpl1Comp.vue')
     if(data.no === 2) return import('./Tmpl2Comp.vue')
+    throw new Error(`未知的模板类型: ${data.value.no}`)
   },
   loadingComponent: () => <div>加载中...</div>,
-  errorComponent: () => <span style="color:red">加载失败!</span>,
+  errorComponent: (err) => <span style="color:red">加载失败: {err.error.message}</span>,
 })
 
 onMounted(() => show())
@@ -172,58 +303,135 @@ async function show() {
 }
 ```
 
-:::
+- 策略模式 + 动态组件
 
-以上示例仅用于展示异步组件的使用，这种根据接口响应数据选择加载组件的需求，规范的做法是将其与异步组件解耦，仅供参考：
+将“数据获取”和“组件加载”解耦，先定义（defineAsyncComponent）好所需异步组件，数据获取后再指向（shallowRef）组件
 
-::: code-group
+但数据获取的loading效果就需要父组件控制显示了
 
-```vue [App.vue]
+> 虽然这种方案更规范，但从个人直观感受上更喜欢前两种方案😂
+
+```vue {6,19-22,30,32,40,41}
+<script setup lang="jsx">
+import { onMounted, ref, shallowRef, defineAsyncComponent } from 'vue'
+
+const data = ref()
+const loading = ref(false)
+const TmplComp = shallowRef(null)
+
+const LoadingComp = () => <div>加载中...</div>
+const ErrorComp = ({ error }) => <span style="color:red">加载失败: {error.message}</span>
+// 工厂函数：统一配置异步组件选项，减少重复代码
+const createAsyncComp = loader => defineAsyncComponent({
+  loader,
+  loadingComponent: LoadingComp,
+  errorComponent: ErrorComp,
+  delay: 200,
+  timeout: 10000
+})
+
+const tmplMap = {
+  1: createAsyncComp(() => import('./Tmpl1Comp.vue')),
+  2: createAsyncComp(() => import('./Tmpl2Comp.vue')),
+}
+
+onMounted(async () => {
+  loading.value = true
+  try {
+    data.value = await simulateApi()
+    const tmpl = tmplMap[data.value.no]
+    if (!tmpl) throw new Error(`未知的模板类型: ${data.value.no}`)
+    TmplComp.value = tmpl
+  } catch (err) {
+    TmplComp.value = () => <ErrorComp error={err} />
+  }
+  loading.value = false
+})
+// ... simulateApi 同上 ...
+</script>
+
+<template>
+  <LoadingComp v-if="loading" />
+  <component v-else :is="TmplComp" :data />
+</template>
+```
+
+::: details 使用 `Suspense` 组件替换 `defineAsyncComponent`
+
+这种方案就更不喜欢了，仅供参考
+
+App.vue:
+
+```vue
 <script setup>
-import AsyncTmplComp from './AsyncTmplComp.vue'
+import TmplLoader from './TmplLoader.vue'
 </script>
 
 <template>
   <h1>异步组件</h1>
   <Suspense>
-    <AsyncTmplComp />
+    <TmplLoader />
     <template #fallback>
       <div>加载中...</div>
     </template>
   </Suspense>
 </template>
-
 ```
 
-```vue{8,15} [AsyncTmplComp.vue]
+TmplLoader.vue:
+
+```vue
 <script setup>
-import { ref, shallowRef } from 'vue'
-import Tmpl1Comp from './Tmpl1Comp.vue'
-import Tmpl2Comp from './Tmpl2Comp.vue'
+// script setup 中直接使用 await 会使该组件成为一个异步 setup 组件，这正是 Suspense 能捕获的
+const data = await simulateApi()
 
-const data = ref()
-
-const comp = shallowRef()
-async function getData() {
-  data.value = await simulateApi()
-  if(data.value.no === 1) comp.value = Tmpl1Comp
-  if(data.value.no === 2) comp.value = Tmpl2Comp
+let compModule
+if (data.no === 1) {
+  compModule = await import('./Tmpl1Comp.vue')
+} else if (data.no === 2) {
+  compModule = await import('./Tmpl2Comp.vue')
+} else {
+  throw new Error(`未知的模板类型: ${data.no}`)
 }
-
-await getData() // <script setup> 中直接使用 await 会使该组件成为一个异步 setup 组件，这正是 <Suspense> 能捕获的
-
-// 模拟接口
-function simulateApi(isResolve = true, delay = 1500) {
-  // ...
-}
+const TmplComp = compModule.default
+// ... simulateApi 同上 ...
 </script>
 
 <template>
-  <component :is="comp" :data />
+  <TmplComp :data />
+</template>
+```
+
+Suspense 组件本身不处理异常。它只有两个插槽：`#default`（成功/加载完）和 `#fallback`（加载中）。
+
+```vue
+<script setup lang="jsx">
+let data, TmplComp
+try {
+  data = await simulateApi()
+  if (data.no === 1) {
+    TmplComp = (await import('./Tmpl1Comp.vue')).default
+  } else if (data.no === 2) {
+    TmplComp = (await import('./Tmpl2Comp.vue')).default
+  } else {
+    TmplComp = (props) => <span style="color:red">未知的模板类型: {props.data?.no}</span>
+  }
+} catch (err) {
+  TmplComp = () => <span style="color:red">加载失败: {err.message}</span>
+}
+// ... simulateApi 同上 ...
+</script>
+
+<template>
+  <TmplComp :data />
 </template>
 ```
 
 :::
+
+#### 小结
+
+vue太灵活了，光vue3的组件就有多种写法，各种API及特殊组件 `defineAsyncComponent`、`Suspense`、`component`...
 
 ## 懒加载组件
 
@@ -370,3 +578,7 @@ onUnmounted(() => {
 ```
 
 :::
+
+## 总结
+
+异步组件及懒加载组件是不错的性能优化、用户体验优化方法，但不是必须的，需要结合具体情况分析选用
