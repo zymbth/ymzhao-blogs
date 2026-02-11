@@ -32,7 +32,7 @@ created: '2026-01-28'
 网络面板复制请求，在打印面板中手动fetch一次数据：
 
 1) 在 Network 面板找到该请求
-2) 右键点击 -> Copy(复制) -> Copy as fetch(以 fetch 格式复制)
+2) 右键点击 -> 复制(Copy) -> 以 fetch 格式复制(Copy as fetch)
 3) 切换到 Console 面板
 4) 粘贴代码，但在最后加上 `.then(r => r.json()).then(console.log)`
 5) 回车执行
