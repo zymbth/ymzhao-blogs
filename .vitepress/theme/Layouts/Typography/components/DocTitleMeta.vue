@@ -45,7 +45,9 @@ onContentUpdated(() => {
 onMounted(async () => {
   watchEffect(() => {
     createdDateTime.value = formateDatetime(createdDate.value)
-    lastUpdatedDateTime.value = formateDatetime(lastUpdatedDate.value)
+    setTimeout(() => {
+      lastUpdatedDateTime.value = formateDatetime(lastUpdatedDate.value)
+    }, 300)
   })
 
   getCount()
