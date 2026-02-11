@@ -1,6 +1,6 @@
 <script setup>
 import { useWindowSize } from '@vueuse/core'
-import { useData } from 'vitepress'
+import { useData, useRouter } from 'vitepress'
 import NotFound from 'vitepress/dist/client/theme-default/NotFound.vue'
 import { computed, provide, ref } from 'vue'
 import CopyrightComp from './components/Copyright.vue'
@@ -12,6 +12,14 @@ import Page from './Page.vue'
 import CustomPage from './pages/index.vue'
 
 const { page, frontmatter } = useData()
+const router = useRouter()
+const mainRef = ref()
+router.onAfterPageLoad = (to) => {
+  const hash = to.split('#')[1]
+  // Page中含hash时不滚动
+  if (!frontmatter.layout && hash) return
+  mainRef.value?.scrollTo({ behavior: 'smooth', top: 0, left: 0 })
+}
 
 /* resize监听 */
 
@@ -30,7 +38,7 @@ const showOutline = ref(true)
     <NavComp v-if="!isLarge" class="m-30px flex flex-col gap-2.5" />
     <div flex="~ items-start justify-center gap-x-20px">
       <!-- Main -->
-      <main class="main max-w-prose w-full of-x-visible px-26px lg:w-prose lg:px-0">
+      <main ref="mainRef" class="main max-w-prose w-full of-x-visible px-26px lg:w-prose lg:px-0">
         <Home v-if="frontmatter.layout === 'home'" />
         <CustomPage v-else-if="frontmatter.layout === 'custom'" />
         <Page v-else />

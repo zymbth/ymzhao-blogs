@@ -3,15 +3,13 @@
     <div v-if="createdDateTime">
       <span>📖发表于 <time :datetime="createdIsoDatetime">{{ createdDateTime }}</time></span>
     </div>
-    <div v-if="lastUpdatedDateTime">
+    <!-- <div v-if="lastUpdatedDateTime">
       <span>✍更新于 <time :datetime="lastUpdatedIsoDatetime">{{ lastUpdatedDateTime }}</time></span>
-    </div>
+    </div> -->
     <div v-if="wordCount">
-      <!-- <i class="weiz-icon weiz-icon-word gray" /> -->
       <span>📄字数 {{ wordCount }}</span>
     </div>
     <div v-if="count || count === 0">
-      <!-- <i class="weiz-icon weiz-icon-user gray"></i> -->
       <span>👀阅读量 {{ count }}</span>
     </div>
   </div>
@@ -22,7 +20,7 @@ import { onContentUpdated, useData } from 'vitepress'
 import { computed, onMounted, ref, watchEffect } from 'vue'
 import { countTransK, countWord, formatMoney/* , formatDate */ } from '../utils/tools.ts'
 
-const { theme, frontmatter, page, lang } = useData()
+const { theme, frontmatter, /* page, */ lang } = useData()
 
 // 字数
 const wordCount = ref('')
@@ -31,9 +29,9 @@ const createdDate = computed(() => new Date(frontmatter.value.created))
 const createdIsoDatetime = computed(() => createdDate.value.toISOString())
 const createdDateTime = ref('')
 // 最后更新时间
-const lastUpdatedDate = computed(() => new Date(page.value.lastUpdated))
-const lastUpdatedIsoDatetime = computed(() => lastUpdatedDate.value.toISOString())
-const lastUpdatedDateTime = ref('')
+// const lastUpdatedDate = computed(() => new Date(page.value.lastUpdated))
+// const lastUpdatedIsoDatetime = computed(() => lastUpdatedDate.value.toISOString())
+// const lastUpdatedDateTime = ref('')
 // 阅读量
 const count = ref('')
 
@@ -45,9 +43,7 @@ onContentUpdated(() => {
 onMounted(async () => {
   watchEffect(() => {
     createdDateTime.value = formateDatetime(createdDate.value)
-    setTimeout(() => {
-      lastUpdatedDateTime.value = formateDatetime(lastUpdatedDate.value)
-    }, 300)
+    // lastUpdatedDateTime.value = formateDatetime(lastUpdatedDate.value)
   })
 
   getCount()

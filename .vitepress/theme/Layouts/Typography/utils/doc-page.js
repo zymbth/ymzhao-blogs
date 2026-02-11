@@ -7,8 +7,5 @@ export function jumpToHash(id) {
   if (!id) id = window.location.hash.split('#')[1]
   const heading = document.getElementById(decodeURIComponent(id))
   if (!heading) return
-  heading.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start',
-  })
+  heading.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
