@@ -91,13 +91,14 @@ export default withPwa(
       config: (md) => {
         // 创建 markdown-it 插件
         md.use((md) => {
-          // 组件插入h1标题下
+          // DocTitleMeta 组件插入h1标题下
           md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
             if (tokens[idx].tag !== 'h1') return slf.renderToken(tokens, idx, options)
-            let htmlResult = slf.renderToken(tokens, idx, options)
+            let htmlResult = '<TitleBadge />' + slf.renderToken(tokens, idx, options)
             htmlResult += `<doc-title-meta />`
             return htmlResult
           }
+          // md.renderer.rules.heading_open
         })
       }
     },

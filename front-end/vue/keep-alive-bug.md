@@ -5,9 +5,10 @@ head:
     - name: keywords
       content: KeepAlive,缓存失效,include,exclude,name
 created: '2024-09-27'
+badge: 'BUG'
 ---
 
-# vue3 KeepAlive 组件缓存失效 bug 分析 <Badge type="danger" text="BUG" />
+# vue3 KeepAlive 组件缓存失效 bug 分析
 
 vue3 组合式 API 风格中，使用 setup 语法糖创建的组件出现缓存失效的 bug
 

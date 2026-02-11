@@ -1,5 +1,8 @@
 <template>
   <div class="doc-title-meta">
+    <div v-if="frontmatter.tag">
+      <PostTag :tag="frontmatter.tag" />
+    </div>
     <div v-if="createdDateTime">
       <span>📖发表于 <time :datetime="createdIsoDatetime">{{ createdDateTime }}</time></span>
     </div>
@@ -28,6 +31,27 @@ import { computed, onMounted, ref, watchEffect } from 'vue'
 import postData from '@/_plugins/post_data.json'
 import { countTransK, countWord, formatMoney/* , formatDate */ } from '../utils/tools.ts'
 import CategoryBreadcrumbs from './CategoryBreadcrumbs.jsx'
+import PostTag from './PostTag.vue'
+
+/**
+ * @description 文章元数据，包括：
+ *
+ * - 标签: frontmatter.tag，手动标记文章的特殊类型信息，例如，AI、转载、摘录
+ * - 创建时间: frontmatter.created，手动标记文章创建时间
+ * - 更新时间: page.value.lastUpdated，自动读取（部署后存在bug，暂时隐藏）
+ * - 字数: 手动计算内容字数
+ * - 阅读量: 自行部署的 serverless 服务，可使用免费的服务，如 “朴算子”
+ * - 分类面包屑导航: 分类面包屑导航，点击可跳转至指定分类页
+ *
+ * - 徽标：需要放置在标题文字后，独立出去
+ *
+ * TODO:
+ * - 专栏: 专栏信息
+ *
+ * frontmatter:
+ *   created: '2024-09-27'
+ *   tag: 'AI'
+ */
 
 const { theme, frontmatter, page, lang } = useData()
 const router = useRouter()

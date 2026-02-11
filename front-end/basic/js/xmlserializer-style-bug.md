@@ -5,9 +5,10 @@ head:
     - name: keywords
       content: XMLSerializer,style,转译,bug,serializeToString
 created: '2024-07-29'
+badge: 'BUG'
 ---
 
-# XMLSerializer序列化style元素时存在转译bug <Badge type="danger" text="BUG" />
+# XMLSerializer序列化style元素时存在转译bug
 
 如题，某个需求需要将document对象装换成blob对象
 

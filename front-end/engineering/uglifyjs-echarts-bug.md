@@ -5,9 +5,10 @@ head:
     - name: keywords
       content: uglifyjs-webpack-plugin,echarts,terser-webpack-plugin,vue-cli,webpack
 created: '2024-07-25'
+badge: 'BUG'
 ---
 
-# uglifyjs压缩代码导致echarts图表UI异常 <Badge type="danger" text="BUG" />
+# uglifyjs压缩代码导致echarts图表UI异常
 
 `vue-cli` 项目中使用 `uglifyjs-webpack-plugin` 压缩代码，导致构建后， `echarts` 图表UI异常，图例文字堆叠在一起。如下图所示：
 
