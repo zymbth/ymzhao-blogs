@@ -60,9 +60,23 @@ const showOutline = ref(true)
             @click="showOutline = false"
           />
         </template>
-        <OutlineComp v-show="isDocLy && showOutline" v-model:visible="showOutline" />
-        <div v-if="!isDocLy || !showOutline" class="h-full" flex="~ col gap-y-8">
-          <NavComp class="flex-1" flex="~ col justify-between items-start gap-2.5" />
+        <div v-show="isDocLy && showOutline">
+          <hgroup
+            flex="~ row gap-2.5 items-center"
+            class="mb-2 cursor-pointer b-b-2px b-b-tg-txt text-left duration-800 ease-in-out"
+          >
+            <a
+              class="primary-link duration-800 ease-in-out !decoration-none"
+              p="r-2 hover:l-2"
+              href="/"
+            >
+              <h1 class="text-6 font-extrabold line-height-normal">Cornor Blog</h1>
+            </a>
+          </hgroup>
+          <OutlineComp v-model:visible="showOutline" />
+        </div>
+        <div v-show="!isDocLy || !showOutline" class="h-full" flex="~ col gap-y-8">
+          <NavComp v-if="isLarge" class="flex-1" flex="~ col justify-between items-start gap-2.5" />
           <CopyrightComp />
         </div>
       </div>
