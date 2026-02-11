@@ -1,9 +1,12 @@
 <script setup>
 import qs from 'qs'
+import { useRouter } from 'vitepress'
 import { computed, onMounted, ref, watch } from 'vue'
 import postData from '@/_plugins/post_data.json'
 import CategoryBreadcrumbs from './components/CategoryBreadcrumbs.jsx'
 import PostTag from './components/PostTag.vue'
+
+const router = useRouter()
 
 const posts = ref(Array.isArray(postData) ? postData : [])
 let search = {}
@@ -55,14 +58,15 @@ const currPosts = computed(() => {
 })
 
 function updSearch() {
-  if (import.meta.env.SSR) return
+  // if (import.meta.env.SSR) return
   const q = {}
   if (currentPage.value !== 1) q.p = currentPage.value
   if (currCats.value.length > 0) q.c = currCats.value.join(',')
   const newSearch = qs.stringify(q)
-  let newUrl = `${window.location.origin}${window.location.pathname}`
+  let newUrl = '/'
   if (newSearch) newUrl += `?${newSearch}`
-  history.replaceState({}, '', newUrl)
+  // history.replaceState({}, '', newUrl)
+  router.go(newUrl, { replace: true })
 }
 onMounted(() => {
   watch([currCats, currentPage], updSearch)

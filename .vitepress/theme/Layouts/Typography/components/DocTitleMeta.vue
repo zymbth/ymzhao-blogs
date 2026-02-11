@@ -12,15 +12,37 @@
     <div v-if="count || count === 0">
       <span>👀阅读量 {{ count }}</span>
     </div>
+    <CategoryBreadcrumbs
+      v-if="currPost"
+      :modelValue="currPost.categories"
+      enableLast="true"
+      @select="handleSelectCat"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onContentUpdated, useData } from 'vitepress'
+import qs from 'qs'
+import { onContentUpdated, useData, useRouter } from 'vitepress'
 import { computed, onMounted, ref, watchEffect } from 'vue'
+import postData from '@/_plugins/post_data.json'
 import { countTransK, countWord, formatMoney/* , formatDate */ } from '../utils/tools.ts'
+import CategoryBreadcrumbs from './CategoryBreadcrumbs.jsx'
 
-const { theme, frontmatter, /* page, */ lang } = useData()
+const { theme, frontmatter, page, lang } = useData()
+const router = useRouter()
+
+/* 分类面包屑导航 */
+
+const posts = Array.isArray(postData) ? postData : []
+const currPostUrl = `/${page.value.filePath?.match(/\/?(.+)\.md/)?.[1] || ''}`
+const currPost = posts.find(p => p.url === currPostUrl)
+function handleSelectCat(cat) {
+  const index = currPost.categories.indexOf(cat)
+  if (index === -1) return
+  const currCats = index > -1 ? currPost.categories.slice(0, index + 1) : []
+  router.go(`/?${qs.stringify({ c: currCats.join(',') })}`)
+}
 
 // 字数
 const wordCount = ref('')
