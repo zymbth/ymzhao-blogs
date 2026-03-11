@@ -4,9 +4,9 @@ const props = defineProps({ tag: String, default: () => '' })
 const tags = props.tag?.split(',').map(t => t.trim()) || []
 
 const tagMap = {
-  AI: '部分或完全 AI 生成',
-  转载: '部分或完全转载',
-  摘录: '部分或完全摘录',
+  AI: '包含AI生成内容',
+  转载: '包含转载内容',
+  摘录: '包含摘录内容',
 }
 </script>
 

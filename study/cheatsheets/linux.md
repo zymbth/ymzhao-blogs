@@ -10,11 +10,7 @@ tag: '转载'
 
 # linux 命令速查表
 
-<ClientOnly>
-  <div class="viewer-wrap" v-viewer>
-    <img src="./assets/linux-command-cheatsheet.jfif" />
-  </div>
-</ClientOnly>
+![linux-command-cheatsheet](./assets/linux-command-cheatsheet.jfif)
 
 更多参考：
 

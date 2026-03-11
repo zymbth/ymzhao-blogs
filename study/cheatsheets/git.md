@@ -12,11 +12,7 @@ tag: '转载'
 
 非常优秀生动的速查表[👉wizard zines](https://wizardzines.com/){[📄PDF](https://wizardzines.com/git-cheat-sheet.pdf)}
 
-<ClientOnly>
-  <div class="viewer-wrap" v-viewer>
-    <img src="./assets/git-cheatsheet.png" alt="git cheatsheet" />
-  </div>
-</ClientOnly>
+![git cheatsheet](./assets/git-cheatsheet.png)
 
 常用的git命令速查表，[👉源](https://gist.github.com/laixintao/81079c85a5e4988f21a918a3af643e47)
 

@@ -98,7 +98,16 @@ export default withPwa(
             htmlResult += `<doc-title-meta />`
             return htmlResult
           }
-          // md.renderer.rules.heading_open
+
+          // 自动为所有图片添加 v-viewer 查看器支持
+          const defaultImageRender = md.renderer.rules.image
+          md.renderer.rules.image = (tokens, idx, options, env, slf) => {
+            const imgHtml = defaultImageRender
+              ? defaultImageRender(tokens, idx, options, env, slf)
+              : slf.renderToken(tokens, idx, options)
+            // 用 ClientOnly 和 v-viewer 容器包装图片
+            return `<ClientOnly><div class="viewer-wrap" v-viewer>${imgHtml}</div></ClientOnly>`
+          }
         })
       }
     },

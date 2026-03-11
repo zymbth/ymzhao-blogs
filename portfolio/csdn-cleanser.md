@@ -26,17 +26,16 @@ CSDN 用的比较久了（仅限博客），最开始的目的就是发博文、
 - 为避免影响正常使用，不隐藏可能有用的内容
 - 取消博文中被csdn不要face插入的牛皮藓链接
 
-<ClientOnly>
-  <div class="viewer-wrap" v-viewer>
-    <p>广告及无用乐色：</p>
-    <img src="./assets/csdn-ad-1.jpg" alt="csdn广告" />
-    <img src="./assets/csdn-ad-2.jpg" alt="csdn广告" />
-    <img src="./assets/csdn-ad-3.png" alt="csdn广告" />
-    <img src="./assets/csdn-ad-4.jpg" alt="csdn广告" />
-    <p>牛皮藓链接：</p>
-    <img src="./assets/csdn-ad-5.jpg" alt="csdn广告" />
-  </div>
-</ClientOnly>
+广告及无用乐色：
+
+![csdn-ad-1](./assets/csdn-ad-1.jpg)
+![csdn-ad-2](./assets/csdn-ad-2.jpg)
+![csdn-ad-3](./assets/csdn-ad-3.png)
+![csdn-ad-4](./assets/csdn-ad-4.jpg)
+
+牛皮藓链接：
+
+![csdn-ad-5](./assets/csdn-ad-5.jpg)
 
 ## 总结
 

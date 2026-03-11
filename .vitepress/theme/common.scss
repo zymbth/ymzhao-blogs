@@ -10,7 +10,7 @@
   cursor: zoom-in;
 }
 
-.viewer-wrap img + img {
+.viewer-wrap + .viewer-wrap {
   margin-top: 8px;
 }
 

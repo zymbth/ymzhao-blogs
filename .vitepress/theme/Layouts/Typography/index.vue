@@ -14,7 +14,10 @@ import CustomPage from './pages/index.vue'
 const { page, frontmatter } = useData()
 const router = useRouter()
 const mainRef = ref()
+
+const prevHandler = router.onAfterPageLoad
 router.onAfterPageLoad = (to) => {
+  prevHandler?.(to)
   const hash = to.split('#')[1]
   // Page中含hash时不滚动
   if (!frontmatter.layout && hash) return

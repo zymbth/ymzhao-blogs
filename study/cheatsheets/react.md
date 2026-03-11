@@ -12,8 +12,4 @@ tag: '转载'
 
 > 来源：[Cheat Sheets](https://www.epicreact.dev/react-19-cheatsheet)
 
-<ClientOnly>
-  <div class="viewer-wrap" v-viewer>
-    <img src="./assets/react-19-cheat-sheet@2x.webp" />
-  </div>
-</ClientOnly>
+![react-19-cheat-sheet@2x](./assets/react-19-cheat-sheet@2x.webp)

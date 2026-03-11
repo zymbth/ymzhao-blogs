@@ -101,11 +101,7 @@ export default {
 
 如下：
 
-<ClientOnly>
-  <div class="viewer-wrap" v-viewer>
-    <img src="./assets/filter-rollup-warn.jpg" />
-  </div>
-</ClientOnly>
+![filter-rollup-warn](./assets/filter-rollup-warn.jpg)
 
 > 参考
 >
