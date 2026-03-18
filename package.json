@@ -11,7 +11,8 @@
     "lint:eslint-fix": "eslint . --fix",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
     "prepare": "husky",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "merge-push": "git switch master && git merge dev && git push"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.2.0",
