@@ -199,10 +199,14 @@ function formatComponentInstance(comp, route) {
 </template>
 ```
 
-### 总结
+### 小结
 
 第一种方案最简单，但对组件命名有要求。
 
 第二种方案更标准，需要一一声明好组件 name 选项，与路由 name 属性区分开来。
 
 第三种方法统一外包一层，根据路由名称声明包裹组件 name 选项。
+
+## 其他
+
+Vue3 中缓存失效还有一种场景，那就是项目中使用了嵌套/多级路由，详见文章 [Vue 进阶：破解嵌套路由 KeepAlive 缓存失效的架构级指南](./keep-alive-nested-routes)
