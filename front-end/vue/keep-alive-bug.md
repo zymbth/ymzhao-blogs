@@ -103,8 +103,6 @@ export default {
 
 ```vue [组件内声明]
 <script setup>
-import { defineOptions } from 'vue'
-
 defineOptions({ name: 'Home' })
 </script>
 <template>
@@ -178,8 +176,10 @@ export default defineComponent({
 
 借助社区插件拓展 `<script setup>` 语法糖，实现 name 选项的快速声明。例如：`<script setup name="Home">`
 
-- [unplugin-vue-setup-extend-plus](https://github.com/chenxch/unplugin-vue-setup-extend-plus)
 - [vite-plugin-vue-setup-extend](https://github.com/vbenjs/vite-plugin-vue-setup-extend)
+- [unplugin-vue-setup-extend-plus](https://github.com/chenxch/unplugin-vue-setup-extend-plus)
+
+> vue@3.3+ 的话，建议还是使用 `defineOptions`，也就是一行代码
 
 ### 3. 外包一层组件声明 name 选项
 
