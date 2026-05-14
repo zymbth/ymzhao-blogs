@@ -4,3 +4,9 @@ node_modules
 # yarn.lock
 
 *-lock.*
+
+# AI
+.claude/
+.agents/
+# AI execution plans (temporary, specs are kept)
+docs/superpowers/plans/
