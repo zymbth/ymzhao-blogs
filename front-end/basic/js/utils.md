@@ -417,31 +417,56 @@ const isIOS = () => {
 
 ### 复制字符串至剪切板
 
-```js
+```ts
 /**
- * 将指定文本复制到系统剪贴板（通过创建临时 input 元素实现）
+ * 将指定文本复制到系统剪贴板（完美兼容版）
  *
- * @param {string} text - 要复制的文本内容
- * @returns {boolean} 复制是否成功。成功返回 `true`，失败（如浏览器不支持或权限限制）返回 `false`
+ * @param {string} text 要复制的文本内容
+ * @returns {Promise<boolean>} 复制是否成功
  */
-function copyText(text) {
-  const textarea = document.createElement('input') //创建input对象
-  const currentFocus = document.activeElement //当前获得焦点的元素
-  document.body.appendChild(textarea) //添加元素
-  textarea.value = text
-  textarea.focus()
-  if (textarea.setSelectionRange)
-    textarea.setSelectionRange(0, textarea.value.length) //获取光标起始位置到结束位置
-  else textarea.select()
-  let flag
-  try {
-    flag = document.execCommand('copy') //执行复制
-  } catch (err) {
-    flag = false
+function copyToClipboard(text: string): Promise<boolean> {
+  if (!text) return false
+
+  // 优先使用现代原生 API (要求处于安全上下文 HTTPS 或 Localhost)
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch (error) {
+      console.warn('navigator.clipboard failed, falling back to legacy method.');
+    }
   }
-  document.body.removeChild(textarea) //删除元素
-  currentFocus.focus()
-  return flag
+
+  // 降级方案：使用 document.execCommand
+  let success = false
+  // 记录当前获得焦点的元素，以便后续恢复
+  const activeElement = document.activeElement as HTMLElement | null
+  const textarea = document.createElement('textarea') // 必须使用 textarea，否则多行文本的换行符会被抹除（input不支持换行）
+  textarea.value = text
+  // 防抖防闪烁样式设置
+  textarea.style.position = 'fixed'
+  textarea.style.left = '-9999px'
+  textarea.style.top = '0'
+  textarea.style.opacity = '0'
+  textarea.setAttribute('readonly', '') // 防止在 iOS/Android 上唤起虚拟键盘
+  document.body.appendChild(textarea)
+  // 兼容移动端的文本选中
+  textarea.focus()
+  if (textarea.setSelectionRange) {
+    textarea.setSelectionRange(0, textarea.value.length) // 获取光标起始位置到结束位置
+  } else {
+    textarea.select()
+  }
+  // 执行复制
+  try {
+    success = document.execCommand('copy')
+  } catch (err) {
+    success = false
+  }
+  document.body.removeChild(textarea) // 清理垃圾并恢复状态
+  // 恢复之前的焦点，提升无障碍体验（Accessibility）
+  if (activeElement) activeElement.focus()
+  return success
 }
 ```
 
