@@ -17,15 +17,17 @@ created: '2025-10-21'
 
 到2026年5月，AI的发展已经到了让码农心慌的程度了。你还局限在同AI对话上吗？
 
-### AI Agents
+今年的AI大调查结果已经出来了，有兴趣的可以看看[State of AI 2026](https://2026.stateofai.dev/zh-Hans/)
+
+### Coding Agents
 
 ::: details Agentic coding
 
-常见的 AI Agents: Claude Code, Codex, Cursor, Gemini CLI, Cline, GitHub Copilot 等等
+常见的 Coding Agents: Claude Code, Codex, Cursor, Gemini CLI, Cline, GitHub Copilot 等等
 
 传统AI助手基本是**提建议**，建议代码，需手动复制、粘贴、运行、调试
 
-AI Agent 是真正**干活**的，能记忆上下文、感知项目环境；自主调用工具、规划并执行复杂的多步骤任务、自动修复 Bug、运行测试并迭代修正；甚至能理解非文本输入、生成图片、联动外部服务
+Coding Agents 是真正**干活**的，能记忆上下文、感知项目环境；自主调用工具、规划并执行复杂的多步骤任务、自动修复 Bug、运行测试并迭代修正；甚至能理解非文本输入、生成图片、联动外部服务
 
 以 Claude Code 为例：
 
@@ -35,17 +37,17 @@ AI Agent 是真正**干活**的，能记忆上下文、感知项目环境；自�
 
 `MCP`: 联通外部工具与数据源
 
-此外，`Commands`, `Hooks`, `Agents`, `Subagents`, `Rules`, `Memory` 等扩展组件进一步释放潜能，让 AI Agents 更加高效智能
+此外，`Commands`, `Hooks`, `Agents`, `Subagents`, `Rules`, `Memory` 等扩展组件进一步释放潜能，让 Coding Agents 更加高效智能
 
 :::
 
-对程序员日常开发来讲，现在最优的就两个 AI Agents：**Claude Code**、**Codex**，都支持第三方大模型供应商。
+对程序员日常开发来讲，现在最优的就两个 Coding Agents：**Claude Code**、**Codex**，都支持第三方大模型供应商。
 
-顶尖的 AI 智能体 + 国产大模型，这是性价比最高的选择。花点小钱就能享受最好的 AI Agent！
+顶尖的 AI 智能体 + 国产大模型，这是性价比最高的选择。花点小钱就能享受最好的 Coding Agent！
 
 个人使用的话，也可以购买中转站提供的 Claude 等大模型，即便这样，国产大模型也可以作备选或托底
 
-AI Agent 的使用场景大多都不局限于一两种，可运行在终端、IDE 插件、IDE本身等
+Coding Agents 的使用场景大多都不局限于一两种，可运行在终端、IDE 插件、IDE本身等
 
 ### 国产大模型
 
@@ -71,13 +73,13 @@ AI Agent 的使用场景大多都不局限于一两种，可运行在终端、ID
 
 Github Copilot 的代码补全功能一如既往的丝滑好用，Agent模式也早就开放了。提供包括 claude, gpt, gemini, grok, codex 模型，还支持自定义模型。
 
-Github Copilot 早就不是单纯的编程助手了，它是 vscode 官方支持的 AI Agent，这几年一直在频繁迭代更新中，最新推出了 [Agents window](https://code.visualstudio.com/docs/copilot/agents/agents-window)，在独立窗口中专注 AI Agent 任务管理。
+Github Copilot 早就不是单纯的编程助手了，它是 vscode 官方支持的 Coding Agent，这几年一直在频繁迭代更新中，最新推出了 [Agents window](https://code.visualstudio.com/docs/copilot/agents/agents-window)，在独立窗口中专注 Agent 任务管理。
 
 它完全可以同 Claude Code 一同使用，很多配置可通用。非常适合一般企业采购
 
 ## 常见使用场景
 
-AI Agent 不再赘述
+Coding Agents 不再赘述
 
 ### AI IDE
 
