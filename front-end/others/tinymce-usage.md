@@ -55,7 +55,7 @@ const config = {
   plugins: 'anchor lists advlist autolink charmap code media help',
   toolbar: 'undo redo | styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
   height: 500,
-  language: 'zh-CN',
+  language: 'zh_CN',
   language_url: '/tinymce/langs/zh-CN.js',
 }
 </script>
@@ -212,7 +212,7 @@ const config = {
   statusbar: false,
   toolbar,
   height: 500,
-  language: 'zh-CN',
+  language: 'zh_CN',
   // language_url: '/tinymce/langs/zh-CN.js',
   content_style: contentStyle,
   setup: (editor) => {
@@ -374,4 +374,50 @@ function getFileAndBase64(file) {
 
 去除 TinyMCE Vue组件外壳，直接引入js包，使用全局变量 `tinymce` 即可：
 
-使用[init](https://www.tiny.cloud/docs/tinymce/latest/apis/tinymce.root/#init)方法携带config参数（需指定`selector`作为实例的css选择器）创建RTF实例
+- 参照上面的方式一将库文件整个拷贝到项目中
+- 引入js文件(/tinymce/tinymce.min.js)
+- 使用[init](https://www.tiny.cloud/docs/tinymce/latest/apis/tinymce.root/#init)方法携带config参数（需指定`selector`作为实例的css选择器）创建RTF实例
+- 必要时手动销毁RTF实例
+
+::: details demo
+
+在vue中示范，其他框架或原生JS中，通过 script 引入js包即可。
+
+```js {10}
+import { onMounted, onUnmounted } from 'vue'
+
+let editorInstance = null
+
+onMounted(() => {
+  const script = document.createElement('script')
+  script.src = '/tinymce/tinymce.min.js'
+  script.onload = () => {
+    tinymce.init({
+      selector: '#mytextarea',
+      license_key: 'gpl',
+      language: 'zh_CN',
+      language_url: '/tinymce/langs/zh-CN.js',
+      skin_url: '/tinymce/skins/ui/oxide',
+      content_css: '/tinymce/skins/content/default/content.min.css',
+      plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table codesample wordcount',
+      toolbar: 'undo redo | blocks | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media table codesample | code fullscreen',
+      height: 500,
+      branding: false,
+      promotion: false,
+      setup(editor) {
+        editorInstance = editor
+      }
+    })
+  }
+  document.head.appendChild(script)
+})
+
+onUnmounted(() => {
+  if (editorInstance) {
+    editorInstance.destroy()
+    editorInstance = null
+  }
+})
+```
+
+:::
