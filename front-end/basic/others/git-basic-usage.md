@@ -19,7 +19,45 @@ created: '2020-11-18'
 
 作为一名程序员，Git最基本的操作与概念必须掌握。
 
-## 基本概念
+## 一、仓库连接问题
+
+由于众所周知的原因，国内访问github是需要点技巧的。连接不上仓库，啥都白搭
+
+- 方案一：使用gitee替换github
+
+虽然码云行事有点难以形容，但仅作远程仓库来管理个人项目或小公司小项目的话是没什么问题的，注重私密性的都会公司内网搭建(如gitlab)代码仓库，也不存在连接问题。
+
+- 方案二：使用ssh连接而不是https
+
+ssh连接不会被墙，而后者会。参阅官方文档[通过 SSH 连接到 GitHub](https://docs.github.com/zh/authentication/connecting-to-github-with-ssh)，另外说一句，码云的ssh连接方式与github完全相同😄
+
+具体参阅官网或自行关键字搜索。总的来说就是，本地生成ssh密钥，公钥+私钥。将公钥添加到仓库上对应 setting 中，本地启动 `ssh-agent` 并将私钥添加到 `ssh-agent`。
+
+别人开源的项目fork到自己的仓库中，就可以使用ssh连接了。
+
+- 方案三：本地hosts更新
+
+此方案不总能生效，允许的话，建议选择前两种方案。
+
+参考：[GitHub 访问不了？教你几招轻松解决](https://zhuanlan.zhihu.com/p/358183268)
+
+[GitHub520](https://github.com/521xueweihan/GitHub520): 自动方式更新host，下载 [SwitchHosts](https://github.com/oldj/SwitchHosts/releases/tag/v4.1.2)，例如: SwitchHosts_windows_installer_x64_4.1.2.6086.exe
+
+> 添加配置：
+>
+> Title: 随意
+>
+> Type: Remote
+>
+> URL: `https://raw.hellogithub.com/hosts`
+>
+> Auto Refresh: 最好选 1 hour
+
+问题：[github可以ping通，但是无法正常访问](https://zhuanlan.zhihu.com/p/356817630)
+
+解决方案：使用命令 `ipconfig /flushdns`，刷新dns即可
+
+## 二、基本概念
 
 对git很熟练的可以跳过本节
 
@@ -200,45 +238,7 @@ git rebase --continue | --skip | --abort | --quit | --edit-todo
 
 虽然都能实现，但从理解难易程度以及使用习惯上来讲，个人更常用的是后者
 
-## 仓库连接问题
-
-由于众所周知的原因，国内访问github是需要点技巧的。连接不上仓库，啥都白搭
-
-- 方案一：使用gitee替换github
-
-虽然码云行事有点难以形容，但仅作远程仓库来管理个人项目或小公司小项目的话是没什么问题的，注重私密性的都会公司内网搭建(如gitlab)代码仓库，也不存在连接问题。
-
-- 方案二：使用ssh连接而不是https
-
-ssh连接不会被墙，而后者会。参阅官方文档[通过 SSH 连接到 GitHub](https://docs.github.com/zh/authentication/connecting-to-github-with-ssh)，另外说一句，码云的ssh连接方式与github完全相同😄
-
-具体参阅官网或自行关键字搜索。总的来说就是，本地生成ssh密钥，公钥+私钥。将公钥添加到仓库上对应 setting 中，本地启动 `ssh-agent` 并将私钥添加到 `ssh-agent`。
-
-别人开源的项目fork到自己的仓库中，就可以使用ssh连接了。
-
-- 方案三：本地hosts更新
-
-此方案不总能生效，允许的话，建议选择前两种方案。
-
-参考：[GitHub 访问不了？教你几招轻松解决](https://zhuanlan.zhihu.com/p/358183268)
-
-[GitHub520](https://github.com/521xueweihan/GitHub520): 自动方式更新host，下载 [SwitchHosts](https://github.com/oldj/SwitchHosts/releases/tag/v4.1.2)，例如: SwitchHosts_windows_installer_x64_4.1.2.6086.exe
-
-> 添加配置：
->
-> Title: 随意
->
-> Type: Remote
->
-> URL: `https://raw.hellogithub.com/hosts`
->
-> Auto Refresh: 最好选 1 hour
-
-问题：[github可以ping通，但是无法正常访问](https://zhuanlan.zhihu.com/p/356817630)
-
-解决方案：使用命令 `ipconfig /flushdns`，刷新dns即可
-
-## 案例分析
+## 三、案例分析
 
 ### 1. 初始提交
 
@@ -261,7 +261,7 @@ git push -u origin master
 
 如果远程仓库**不为空**，需要**合并**处理。
 
-如果只是不小心在创建远程代码仓库时添加了 readme/lisence/.gitignore 等文件，可重新建一个空项目，再按上面的初始提交步骤操作最简单。
+> 如果只是不小心在创建远程代码仓库时添加了 readme/lisence/.gitignore 等文件，可重新建一个空项目，再按上面的初始提交步骤操作最简单。
 
 ```bash {4,13}
 git init
