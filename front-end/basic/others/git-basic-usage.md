@@ -9,6 +9,8 @@ created: '2020-11-18'
 
 # Git基本使用
 
+## 一、前言
+
 > 参考链接:
 >
 > [Git Book](https://git-scm.com/book/zh/v2)：有时间建议重点学习此书
@@ -19,7 +21,13 @@ created: '2020-11-18'
 
 作为一名程序员，Git最基本的操作与概念必须掌握。
 
-## 一、仓库连接问题
+### GUI
+
+VSCode 自带源代码管理功能，额外推荐安装 Git Graph 插件
+
+其它独立 Git GUI 应用推荐 SourceTree
+
+### 仓库连接问题
 
 由于众所周知的原因，国内访问github是需要点技巧的。连接不上仓库，啥都白搭
 
@@ -33,7 +41,7 @@ ssh连接不会被墙，而后者会。参阅官方文档[通过 SSH 连接到 G
 
 具体参阅官网或自行关键字搜索。总的来说就是，本地生成ssh密钥，公钥+私钥。将公钥添加到仓库上对应 setting 中，本地启动 `ssh-agent` 并将私钥添加到 `ssh-agent`。
 
-别人开源的项目fork到自己的仓库中，就可以使用ssh连接了。
+别人开源的项目fork一份到自己的仓库中，就可以使用ssh连接了。
 
 - 方案三：本地hosts更新
 
@@ -79,50 +87,32 @@ Git 的**分支**，其实本质上仅仅是指向提交对象的可变指针，
 
 #### 1.2 基本命令
 
-查看分支
+```sh
+# 查看分支
+git branch
+git branch -a
+# 创建本地分支
+git branch my-branch
+# 切换分支
+git checkout my-branch
+# 创建并切换到本地分支
+git checkout -b my-branch
 
-`git branch`
+# 创建远程分支:
+# 1. 创建本地分支、推送到远程
+git checkout -b my-branch
+git push origin my-branch:my-branch
+# 2. 远程先开好分支然后拉到本地
+git checkout -b my-branch origin/my-branch
 
-`git branch -a`
-
-创建本地分支：
-
-`git branch my-branch`
-
-- 切换分支：
-
-`git checkout my-branch`
-
-- 创建并切换到本地分支：
-`git checkout -b my-branch`
-
-创建远程分支：
-
-两种：
-
-- 创建本地分支、推送到远程：
-
-`git checkout -b my-branch`
-
-`git push origin my-branch:my-branch`
-
-- 远程先开好分支然后拉到本地：
-
-`git checkout -b my-branch origin/my-branch`
-
-合并分支到当前分支
-
-`git merge <name>`
-
-删除分支
-
-`git branch -d <name>`
-
-删除远程分支（不会删除本地分支）
-
-`git branch -r -d origin/<name>`
-
-`git push origin :<name>`
+# 合并分支到当前分支
+git merge <name>
+# 删除分支
+git branch -d <name>
+# 删除远程分支（不会删除本地分支）
+git branch -r -d origin/<name>
+git push origin :<name>
+```
 
 ### 2. 标签
 
@@ -132,29 +122,20 @@ Git 的**分支**，其实本质上仅仅是指向提交对象的可变指针，
 
 #### 2.2 基本命令
 
-查看标签：
-
-`git tag`
-
-创建标签：
-
-`git tag v0.1`
-
-创建附注标签：
-
-`git tag -a v0.1 -m "my version 0.1"`
-
-推送标签：
-
-`git push origin v0.1`
-
-删除本地标签：
-
-`git tag -d v0.1`
-
-删除远程标签：
-
-`git push origin :v0.1`
+```sh
+# 查看标签
+git tag
+# 创建标签
+git tag v0.1
+# 创建附注标签
+git tag -a v0.1 -m "my version 0.1"
+# 推送标签
+git push origin v0.1
+# 删除本地标签
+git tag -d v0.1
+# 删除远程标签
+git push origin :v0.1
+```
 
 ### 3. 变基
 
@@ -180,7 +161,7 @@ git rebase --continue | --skip | --abort | --quit | --edit-todo
 
 #### 3.2 应用
 
-##### rebase vs merge
+##### > rebase vs merge
 
 >*“在 Git 中整合来自不同分支的修改主要有两种方法：merge 以及 rebase。”* —— [Git - 变基](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA)
 
@@ -214,7 +195,7 @@ git rebase --continue | --skip | --abort | --quit | --edit-todo
 > 这两种整合方法的最终结果没有任何区别，但是变基使得提交历史更加整洁。 你在查看一个经过变基的分支的历史记录时会发现，尽管实际的开发工作是并行的， 但它们看上去就像是串行的一样，提交历史是一条直线没有分叉。<br/>
 > 一般我们这样做的目的是为了确保在向远程分支推送时能保持提交历史的整洁——例如向某个其他人维护的项目贡献代码时。 在这种情况下，你首先在自己的分支里进行开发，当开发完成时你需要先将你的代码变基到 origin/master 上，然后再向主项目提交修改。 这样的话，该项目的维护者就不再需要进行整合工作，只需要快进合并便可。”*
 
-##### 拷贝部分改动
+##### > 拷贝部分改动
 
 示例：取出 client 分支，找出它从 server 分支分歧之后的补丁， 然后把这些补丁在 master 分支上重放一遍，让 client 看起来像直接基于 master 修改一样
 
@@ -361,11 +342,42 @@ git push
 
 `git reset --mixed commit_id`
 
-### 5. 修改commit
+### 5. 后悔药
+
+有些操作下会导致 commit 在 git 提交历史中不可见了。
+
+::: details 示例
+
+两次提交：
+
+`commit1 <- commit2`
+
+想要撤销（`reset`）上一次提交（commit2），不小心点成了回滚（`revert`）：
+
+`commit1 <- commit2 <- revert commit2`
+
+发现错误，又撤销（`reset`）两步：
+
+`commit1`
+
+结果发现提交和回滚都不见了，commit2 既不在提交历史中，其内容也没有打回到暂存区！
+
+这个操作自然是不规范导致的错误，但日常开发中也难免会犯错。那么，上例中如何找回 commit2？
+
+可以通过查看 Git 操作日志并重置指针来找回遗失的 commit，主要步骤包括：使用 git reflog 查找历史记录、通过 git reset 恢复指针。
+
+输入 `git reflog` 后，能看到本地仓库的所有 HEAD 指针移动历史，其中就包括被 reset 丢弃的 commit。找到 commit2 的哈希值（一串长字符或前七位短字符）后，可通过两种方式恢复：
+
+- 恢复分支指针：输入 `git reset --hard <commit-hash>` 让本地代码和指针直接回到丢失前的状态
+- 创建安全分支：基于 commit2 创建一个分支 `git checkout -b recover-branch <commit-hash>`，验证完后再 merge/cherry-pick/rebase 到原分支
+
+:::
+
+### 6. 修改commit
 
 > [GIT 修改commit message](https://blog.csdn.net/weixin_39709292/article/details/124467997)
 
-### 6. 合并多条commit
+### 7. 合并多条commit
 
 > [Git 合并多个 commit，保持历史简洁](https://cloud.tencent.com/developer/article/1690638)
 >
