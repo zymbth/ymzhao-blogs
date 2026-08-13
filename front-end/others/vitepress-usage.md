@@ -145,7 +145,17 @@ export default {
 
 :::
 
-#### 4. 其它配置
+#### 4. 写作
+
+- [Markdown 扩展](https://vitepress.dev/zh/guide/markdown)
+
+vitepress 内置了丰富的 Markdown 扩展，例如代码块、代码组、容器、代码高亮等等。你甚至可以在 markdown 文件中导入其它文件内容、包含其它 markdown 文件。
+
+- [在 Markdown 中使用 Vue](https://vitepress.dev/zh/guide/using-vue)
+
+除了上面的 markdown 扩展，vitepress 允许你在 markdown 中直接使用任何 Vue 功能，包括动态模板、使用 Vue 组件或通过添加 `<script>` 标签为页面的 Vue 组件添加逻辑。
+
+#### 5. 其它配置
 
 其它的还有社交链接、深色模式等等，选配方便
 
@@ -370,7 +380,7 @@ function updUtteranceTheme(isDark) {
 
 <div class="code-JetBrains" />
 
-```text
+```text {3-4}
 .vitepress
 ├─ theme
 │  ├─ Comment.vue # 评论组件
@@ -430,3 +440,55 @@ export default defineConfig({
   }
 })
 ```
+
+### Markdown 中使用 Vue 组件
+
+<div class="code-JetBrains" />
+
+```text {3-4}
+.vitepress
+├─ theme
+│  ├─ components
+│  │   └─ DemoIframe.vue  # Demo 组件
+│  └─ index.js
+└─ config.js
+```
+
+创建 DemoIframe 组件全局声明
+
+```js {2,7-9}
+import DefaultTheme from 'vitepress/theme'
+import DemoIframe from './components/DemoIframe.vue'
+
+export default {
+  ...DefaultTheme,
+  Layout,
+  enhanceApp({ app }) {
+    app.component('DemoIframe', DemoIframe)
+  },
+}
+```
+
+::: details DemoIframe.vue
+
+<<< @/.vitepress/theme/Layouts/components/DemoIframe.vue
+
+:::
+
+xxx
+
+:::: xx
+
+::: details test
+
+yyyy
+
+:::
+
+::: info xx
+
+fjidfs
+
+:::
+
+::::
