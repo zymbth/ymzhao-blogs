@@ -475,20 +475,22 @@ export default {
 
 :::
 
-xxx
+本文 markdown 在下面插入了该组件：
 
-:::: xx
+`<DemoIframe title="Demo Title" src="https://play.vuejs.org/" />`
 
-::: details test
+效果如下:
 
-yyyy
+<DemoIframe title="Demo Title" src="https://play.vuejs.org/" />
 
-:::
+### Markdown 内容替换
 
-::: info xx
+Vitepress 提供的 Markdown 扩展会解析指定格式的 md 内容
 
-fjidfs
+Vitepress 在解析 markdown 文件时，文件内使用的 Vue 组件也会被它编译
 
-:::
+除了这两者外，有时，我们希望批量得对 Markdown 的内容做些自定义，例如：
 
-::::
+- 文章页标题默认为 markdown 的一级标题，如何在标题前添加自定义的标签呢？
+- 如何在标题后批量插入一行文章元数据信息呢？（发布时间、字数、点击数等等）
+
