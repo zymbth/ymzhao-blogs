@@ -1,6 +1,6 @@
 <script setup>
-import postData from '@/_plugins/post_data.json'
 import { ref } from 'vue'
+import postData from '@/_plugins/post_data.json'
 
 const posts = ref(Array.isArray(postData) ? postData : [])
 

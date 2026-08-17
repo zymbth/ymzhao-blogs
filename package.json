@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "vitepress dev",
     "dev:upd": "cross-env UPD_POST=t vitepress dev",
-    "build": "rimraf .\\.vitepress\\cache && vitepress build",
+    "build": "rimraf .\\.vitepress\\cache && git fetch --unshallow && vitepress build",
     "build:pure": "vitepress build",
     "build:upd": "cross-env UPD_POST=t vitepress build",
     "preview": "vitepress preview",
@@ -26,6 +26,7 @@
     "@vueuse/core": "^14.4.0",
     "commitizen": "^4.3.2",
     "cross-env": "^10.1.0",
+    "eslint": "^10.8.1",
     "husky": "^9.1.7",
     "inquirer": "9.3.7",
     "lint-staged": "^15.5.2",

@@ -6,13 +6,13 @@
     <div v-if="createdDateTime">
       <span>📖发表于 <time :datetime="createdIsoDatetime">{{ createdDateTime }}</time></span>
     </div>
-    <!-- <div v-if="lastUpdatedDateTime">
+    <div v-if="lastUpdatedDateTime">
       <span>✍更新于 <time :datetime="lastUpdatedIsoDatetime">{{ lastUpdatedDateTime }}</time></span>
-    </div> -->
+    </div>
     <div v-if="wordCount">
       <span>📄字数 {{ wordCount }}</span>
     </div>
-    <div v-if="count || count === 0">
+    <div v-if="count || count == 0">
       <span>👀阅读量 {{ count }}</span>
     </div>
     <CategoryBreadcrumbs
@@ -75,9 +75,9 @@ const createdDate = computed(() => new Date(frontmatter.value.created))
 const createdIsoDatetime = computed(() => createdDate.value.toISOString())
 const createdDateTime = ref('')
 // 最后更新时间
-// const lastUpdatedDate = computed(() => new Date(page.value.lastUpdated))
-// const lastUpdatedIsoDatetime = computed(() => lastUpdatedDate.value.toISOString())
-// const lastUpdatedDateTime = ref('')
+const lastUpdatedDate = computed(() => new Date(page.value.lastUpdated))
+const lastUpdatedIsoDatetime = computed(() => lastUpdatedDate.value.toISOString())
+const lastUpdatedDateTime = ref('')
 // 阅读量
 const count = ref('')
 
@@ -89,7 +89,7 @@ onContentUpdated(() => {
 onMounted(async () => {
   watchEffect(() => {
     createdDateTime.value = formateDatetime(createdDate.value)
-    // lastUpdatedDateTime.value = formateDatetime(lastUpdatedDate.value)
+    lastUpdatedDateTime.value = formateDatetime(lastUpdatedDate.value)
   })
 
   getCount()

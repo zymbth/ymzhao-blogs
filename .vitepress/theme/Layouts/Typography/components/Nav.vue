@@ -1,5 +1,5 @@
 <script setup>
-import NavBarSearch from './NavBarSearch.vue'
+// import NavBarSearch from './NavBarSearch.vue'
 
 const siteLinks = [
   { text: 'github', icon: 'i-mdi-github', href: 'https://github.com/zymbth' },
@@ -33,7 +33,8 @@ const siteLinks = [
     <nav class="text-center font-bold" flex="~ col items-center lg:items-start gap-y-4">
       <!-- Navs -->
       <ul flex="~ lg:col items-start gap-x-4 gap-y-2" class="text-16px">
-        <li><a class="primary-link" href="/">文章</a> <NavBarSearch /></li>
+        <!-- <li><a class="primary-link" href="/">文章</a> <NavBarSearch /></li> -->
+        <li><a class="primary-link" href="/">文章</a></li>
         <li><a class="primary-link" href="/pages/achive">归档</a></li>
         <li><a class="primary-link" href="/pages/category">分类</a></li>
       </ul>
@@ -41,7 +42,7 @@ const siteLinks = [
       <ul flex="~ gap-x-1">
         <li v-for="site in siteLinks" :key="site.text">
           <a :href="site.href" target="_blank" :title="site.text" class="inline-flex items-center">
-            <span :class="`${site.icon} w-6 h-6 icon-link`">{{ site.text }}</span>
+            <span class="icon-link h-6 w-6" :class="site.icon ? site.icon : ''">{{ site.text }}</span>
           </a>
         </li>
       </ul>

@@ -1,7 +1,7 @@
 <script setup lang="jsx">
+import { ref } from 'vue'
 import postData from '@/_plugins/post_data.json'
 import { categoryTree } from '@/_plugins/util.js'
-import { ref } from 'vue'
 
 const posts = ref(Array.isArray(postData) ? postData : [])
 

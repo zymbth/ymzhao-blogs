@@ -68,9 +68,12 @@ export default withPwa(
       search: {
         provider: 'local',
       },
+      lastUpdated: {
+        text: '最后更新于'
+      },
     },
     lastUpdated: true,
-    lastUpdatedText: '最后更新于',
+    // lastUpdatedText: '最后更新于',
     markdown: {
       lineNumbers: true,
       /**
@@ -85,16 +88,18 @@ export default withPwa(
        */
       theme: { light: 'min-light', dark: 'min-dark' },
       image: {
-        lazyLoading: true,
+        lazyLoad: true,
       },
       // 对markdown中的内容进行替换或者批量处理
       config: (md) => {
         // 创建 markdown-it 插件
         md.use((md) => {
-          // DocTitleMeta 组件插入h1标题下
+          // 重写标题关闭标签的渲染规则
           md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
             if (tokens[idx].tag !== 'h1') return slf.renderToken(tokens, idx, options)
-            let htmlResult = '<TitleBadge />' + slf.renderToken(tokens, idx, options)
+            // 标题内追加标签组件（TitleBadge）
+            let htmlResult = `<TitleBadge />${slf.renderToken(tokens, idx, options)}`
+            // 标题下添加文章元数据组件（DocTitleMeta）
             htmlResult += `<doc-title-meta />`
             return htmlResult
           }
@@ -131,7 +136,7 @@ export default withPwa(
       },
     },
     /* Vite PWA Options */
-    pwa,
+    ...pwa,
     sitemap: {
       hostname: 'https://blog.ymzhao.work',
     },
