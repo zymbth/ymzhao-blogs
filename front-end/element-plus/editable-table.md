@@ -39,11 +39,7 @@ created: '2020-03-07'
 ::: details 在线演示
 
 <ClientOnly>
-  <iframe height="500" style="width: 100%;" scrolling="no" title="Editable Table V1 (vue3 &amp; Element Plus)" src="https://codepen.io/zymbth/embed/preview/BaJpvoO?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-    See the Pen <a href="https://codepen.io/zymbth/pen/BaJpvoO">
-    Editable Table V1 (vue3 &amp; Element Plus)</a> by zymbth (<a href="https://codepen.io/zymbth">@zymbth</a>)
-    on <a href="https://codepen.io">CodePen</a>.
-  </iframe>
+  <DemoIframe height="500" title="Editable Table V1 (vue3 &amp; Element Plus)" src="https://codepen.io/zymbth/embed/preview/BaJpvoO?default-tab=result&editable=true" />
 </ClientOnly>
 
 :::
@@ -292,11 +288,7 @@ addColumn(idx) { // 新增列
 ::: details 在线演示
 
 <ClientOnly>
-  <iframe height="500" style="width: 100%;" scrolling="no" title="Editable Table V2 (vue3 &amp; Element Plus)" src="https://codepen.io/zymbth/embed/preview/gOogZMK?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-    See the Pen <a href="https://codepen.io/zymbth/pen/gOogZMK">
-    Editable Table V2 (vue3 &amp; Element Plus)</a> by zymbth (<a href="https://codepen.io/zymbth">@zymbth</a>)
-    on <a href="https://codepen.io">CodePen</a>.
-  </iframe>
+  <DemoIframe height="500" title="Editable Table V2 (vue3 &amp; Element Plus)" src="https://codepen.io/zymbth/embed/preview/gOogZMK?default-tab=result&editable=true" />
 </ClientOnly>
 
 :::

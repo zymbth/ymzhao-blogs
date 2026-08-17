@@ -26,11 +26,7 @@ vitepress 使用 [Markdown-it](https://github.com/markdown-it/markdown-it) 作�
 比方说，在文章中，你可以写着写着，突然插入一个demo:
 
 <ClientOnly>
-  <iframe height="300" style="width: 100%;" scrolling="no" title="CSS-only Custom range slider with motion" src="https://codepen.io/t_afif/embed/preview/MWdmZPL?default-tab=html%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-    See the Pen <a href="https://codepen.io/t_afif/pen/MWdmZPL">
-    CSS-only Custom range slider with motion</a> by Temani Afif (<a href="https://codepen.io/t_afif">@t_afif</a>)
-    on <a href="https://codepen.io">CodePen</a>.
-  </iframe>
+  <DemoIframe height="300" title="CSS-only Custom range slider with motion" src="https://codepen.io/t_afif/embed/preview/MWdmZPL?default-tab=html%2Cresult&editable=true" />
 </ClientOnly>
 
 ## 学习路线
@@ -163,7 +159,125 @@ vitepress 内置了丰富的 Markdown 扩展，例如代码块、代码组、容
 
 记录一些实践中遇到的功能场景
 
-### 字体更换
+### 1. Markdown 中使用 Vue 组件
+
+<div class="code-JetBrains" />
+
+```text {3-4}
+.vitepress
+├─ theme
+│  ├─ components
+│  │   └─ DemoIframe.vue  # Demo 组件
+│  └─ index.js
+└─ config.js
+```
+
+创建 DemoIframe 组件并全局声明
+
+```js {2,6-8}
+import DefaultTheme from 'vitepress/theme'
+import DemoIframe from './components/DemoIframe.vue'
+
+export default {
+  ...DefaultTheme,
+  enhanceApp({ app }) {
+    app.component('DemoIframe', DemoIframe)
+  },
+}
+```
+
+::: details DemoIframe.vue
+
+> 这里使用 vitepress 提供的引入语法引入代码
+>
+> `<<< @/.vitepress/theme/components/DemoIframe.vue`
+
+<<< @/.vitepress/theme/Layouts/components/DemoIframe.vue
+
+:::
+
+正文在此处下插入了组件`DemoIframe`：
+
+`<DemoIframe title="Demo Title" src="https://play.vuejs.org/" />`
+
+效果如下:
+
+<DemoIframe title="Demo Title" src="https://play.vuejs.org/" />
+
+### 2. Markdown 内容替换
+
+> markdown扩展 VS markdown内组件 VS markdown内容替换
+>
+> - Vitepress 提供的 Markdown 扩展会解析指定格式的 md 内容
+> - Vitepress 在解析 markdown 文件时，文件内使用的 Vue 组件也会被它编译
+> - 在 markdown 渲染器中更改 markdown 内容
+
+有时，我们希望批量得对 Markdown (渲染后的)内容做些自定义更改或替换，例如：
+
+1. 文章页标题默认为 markdown 的一级标题，如何在标题后添加自定义的标签呢？
+2. 如何在标题下批量插入一行文章元数据信息呢？（发布时间、字数、点击数等等）
+3. 如何统一为文章内的图片添加图片查看器？
+
+这类自定义需求下，如果还通过前两种方式：
+
+一方面书写繁琐，只能是通过手动添加 Vue 组件，添加在每个需要的 markdown 文件中。
+
+另一方面，只能是“插入”，无法“更改”、“替换”，且无法插入到 markdown 渲染单元内部。
+
+::: code-group
+
+```js [.vitepress/config.js]{11,13,18}
+export default {
+  // ...
+  markdown: {
+    // 对markdown中的内容进行替换或者批量处理
+    config: (md) => {
+      // 创建 markdown-it 插件
+      md.use((md) => {
+        // 重写标题关闭标签的渲染规则
+        md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
+          if (tokens[idx].tag !== 'h1') return slf.renderToken(tokens, idx, options)
+          // REQ1：标题内追加标签组件（TitleBadge）
+          let htmlResult = '<TitleBadge />' + slf.renderToken(tokens, idx, options)
+          // REQ2：标题下添加文章元数据组件（DocTitleMeta）
+          htmlResult += `<doc-title-meta />`
+          return htmlResult
+        }
+
+        // REQ3：自动为所有图片添加 v-viewer 查看器支持
+        const defaultImageRender = md.renderer.rules.image
+        md.renderer.rules.image = (tokens, idx, options, env, slf) => {
+          const imgHtml = defaultImageRender
+            ? defaultImageRender(tokens, idx, options, env, slf)
+            : slf.renderToken(tokens, idx, options)
+          // 用 ClientOnly 和 v-viewer 容器包装图片
+          return `<ClientOnly><div v-viewer>${imgHtml}</div></ClientOnly>`
+        }
+      })
+    }
+  }
+}
+```
+
+```js [.vitepress/theme/index.js]
+import DefaultTheme from 'vitepress/theme'
+import DocTitleMeta from './components/DocTitleMeta.vue'
+import TitleBadge from './components/TitleBadge.vue'
+import useViewer from './useViewer'
+
+export default {
+  ...DefaultTheme,
+  enhanceApp({ app }) {
+    app.component('DocTitleMeta', DocTitleMeta)
+    app.component('TitleBadge', TitleBadge)
+    useViewer(app)
+  },
+}
+```
+
+:::
+
+### 3. 字体更换
 
 > [扩展默认主题 - 使用自定义字体](https://vitepress.dev/zh/guide/extending-default-theme#using-different-fonts)
 
@@ -196,7 +310,7 @@ export default DefaultTheme
 
 其实也就是简单的样式更改，关键在于规范引入样式
 
-### 深色主题样式补充
+### 4. 深色主题样式补充
 
 基于上一小节，添加样式及深色样式。以滚动条样式为例：
 
@@ -284,7 +398,7 @@ export default {
 
 常见适配方案均可
 
-### 接入评论
+### 5. 接入评论
 
 > [utterances](https://utteranc.es/)：A lightweight comments widget built on GitHub issues. Use GitHub issues for blog comments, wiki pages and more!
 
@@ -389,7 +503,7 @@ function updUtteranceTheme(isDark) {
 └─ config.js      # 配置文件
 ```
 
-### PWA
+### 6. PWA
 
 > 相关链接：
 >
@@ -440,57 +554,3 @@ export default defineConfig({
   }
 })
 ```
-
-### Markdown 中使用 Vue 组件
-
-<div class="code-JetBrains" />
-
-```text {3-4}
-.vitepress
-├─ theme
-│  ├─ components
-│  │   └─ DemoIframe.vue  # Demo 组件
-│  └─ index.js
-└─ config.js
-```
-
-创建 DemoIframe 组件全局声明
-
-```js {2,7-9}
-import DefaultTheme from 'vitepress/theme'
-import DemoIframe from './components/DemoIframe.vue'
-
-export default {
-  ...DefaultTheme,
-  Layout,
-  enhanceApp({ app }) {
-    app.component('DemoIframe', DemoIframe)
-  },
-}
-```
-
-::: details DemoIframe.vue
-
-<<< @/.vitepress/theme/Layouts/components/DemoIframe.vue
-
-:::
-
-本文 markdown 在下面插入了该组件：
-
-`<DemoIframe title="Demo Title" src="https://play.vuejs.org/" />`
-
-效果如下:
-
-<DemoIframe title="Demo Title" src="https://play.vuejs.org/" />
-
-### Markdown 内容替换
-
-Vitepress 提供的 Markdown 扩展会解析指定格式的 md 内容
-
-Vitepress 在解析 markdown 文件时，文件内使用的 Vue 组件也会被它编译
-
-除了这两者外，有时，我们希望批量得对 Markdown 的内容做些自定义，例如：
-
-- 文章页标题默认为 markdown 的一级标题，如何在标题前添加自定义的标签呢？
-- 如何在标题后批量插入一行文章元数据信息呢？（发布时间、字数、点击数等等）
-

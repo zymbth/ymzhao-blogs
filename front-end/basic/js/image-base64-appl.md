@@ -16,11 +16,7 @@ created: '2024-06-20'
 > [一文掌握：图片转Base64编码的原理、实践（自定义图片本地缓存等）以及优化事项](https://blog.csdn.net/u012347650/article/details/139339767)
 
 <ClientOnly>
-  <iframe height="500" style="width: 100%;" scrolling="no" title="image-base64-and-download" src="https://codepen.io/zymbth/embed/preview/mdYXWbq?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-    See the Pen <a href="https://codepen.io/zymbth/pen/mdYXWbq">
-    image-base64-and-download</a> by zymbth (<a href="https://codepen.io/zymbth">@zymbth</a>)
-    on <a href="https://codepen.io">CodePen</a>.
-  </iframe>
+  <DemoIframe height="500" title="image-base64-and-download" src="https://codepen.io/zymbth/embed/preview/mdYXWbq?default-tab=result&editable=true" />
 </ClientOnly>
 
 ## base64 编码

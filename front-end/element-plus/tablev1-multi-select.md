@@ -20,11 +20,7 @@ element-plus表格提供了多选功能，可单击勾选一条数据，可全�
 [在线演示](https://codepen.io/zymbth/pen/YzOzVxw) （示例基于 element-plus@2.2.9, vue@3.2.37）
 
 <ClientOnly>
-  <iframe height="500" style="width: 100%;" scrolling="no" title="[Demo] el-table shift 连选功能" src="https://codepen.io/zymbth/embed/preview/YzOzVxw?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-    See the Pen <a href="https://codepen.io/zymbth/pen/YzOzVxw">
-    [Demo] el-table shift 连选功能</a> by zymbth (<a href="https://codepen.io/zymbth">@zymbth</a>)
-    on <a href="https://codepen.io">CodePen</a>.
-  </iframe>
+  <DemoIframe height="500" title="[Demo] el-table shift 连选功能" src="https://codepen.io/zymbth/embed/preview/YzOzVxw?default-tab=result&editable=true" />
 </ClientOnly>
 
 :::
