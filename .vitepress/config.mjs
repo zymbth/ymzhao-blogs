@@ -129,7 +129,7 @@ export default withPwa(
       plugins: [vueJsx(), UnoCSS(), scanPostPlugin({ flag: process.env.UPD_POST })],
       server: {
         port: 5200,
-        host: '0.0.0.0',
+        // host: '0.0.0.0',
       },
       build: {
         target: 'esnext',
