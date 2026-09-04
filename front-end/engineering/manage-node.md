@@ -21,21 +21,39 @@ created: '2024-07-17'
 
 yarn / pnpm 都是很优秀的包管理器，它们的优缺点及性能对比这里不提。目前来看，个人更推荐pnpm。
 
-pnpm 有多种安装方法，也可以实现切换 node 版本。
-
 ## npm镜像
 
-可通过npm命令手动设置镜像地址
+可通过npm命令手动设置镜像地址，提高在国内网络下的下载速度
+
+```bash
+> npm config get registry
+https://registry.npmjs.org/
+> npm config set registry https://registry.npmmirror.com/
+```
 
 也可借助 `nrm` 查看、切换npm镜像地址
+
+```bash
+> npm install -g nrm
+> nrm ls
+* npm ---------- https://registry.npmjs.org/
+  yarn --------- https://registry.yarnpkg.com/
+  tencent ------ https://mirrors.tencent.com/npm/
+  cnpm --------- https://r.cnpmjs.org/
+  taobao ------- https://registry.npmmirror.com/
+  npmMirror ---- https://skimdb.npmjs.com/registry/
+  huawei ------- https://repo.huaweicloud.com/repository/npm/
+> nrm use taobao
+ SUCCESS  The registry has been changed to 'taobao'.
+```
 
 ## node版本管理
 
 ### nvm
 
-window系统中，可使用 `nvm` 安装、切换使用不同版本的 node。
+一个简洁、古老的 Node.js 版本管理工具，支持 unix, macOS。Windows系统可安装[NVM for Windows](https://github.com/nvm-windows/nvm)。
 
-切换工作项目时，可以根据项目所需切换对应版本的 node。
+使用 `nvm` 命令自行安装、切换本地 Node.js 版本。
 
 ### volta
 
@@ -48,7 +66,7 @@ window系统中，可使用 `nvm` 安装、切换使用不同版本的 node。
 - pnpm 的全局安装目前不被允许，但可以通过 `volta run --pnpm <version> <COMMAND>...` 执行（例如：`volta run --pnpm 10.15.0 pnpm create vite test-pm --template vue`）
 - 指定版本(pin)时，pnpm需要在node之后，即，先 pin node，再 pin pnpm
 
-打印 Volta 工具链：
+打印 Volta 管理的工具链：
 
 ```pwsh
 volta list
@@ -106,12 +124,17 @@ volta list
 
 :::
 
+### mise
+
 Volta 已经不再维护了，官方建议当发现 volta 已经跟不上变化时，迁移到 [`mise`](https://mise.jdx.dev/)。
 
 > [!IMPORTANT]
 > **Volta is unmaintained.** Everything that works today should continue to do so for the foreseeable future, so if it is working for you, there is no particular *urgency* to migrate to another tool, but we will not be able to address breakages from new OS releases or other changes in the ecosystem, so you should put it on your maintenance roadmap at some point. We recommend migrating to [`mise`](https://mise.jdx.dev/). See [issue #2080](https://github.com/volta-cli/volta/issues/2080).
 
-Volta 目前足够使用，暂未体验，感兴趣的可以先看看。
+Volta 目前足够使用，暂未体验。mise 是 volta 的超集，在工具版本管理上的区别：
+
+- mise 可以管理 node, pnpm, deno, bun, java, python, uv 等等
+- mise 会创建额外的配置文件，而不是将配置放在 package.json 中
 
 ### pnpm
 
@@ -140,7 +163,7 @@ pnpm 自带 node 运行时管理功能，在项目指定使用 pnpm 作为包管
 }
 ```
 
-相关配置项：
+这些也都是 npm 标准配置项：
 
 - [engines](https://docs.npmjs.com/cli/v12/configuring-npm/package-json#engines): 指定适用的 node/npm 版本
 - [devEngines](https://docs.npmjs.com/cli/v12/configuring-npm/package-json#devengines): 指定开发环境下适用的工具，包括 `cpu`, `os`, `libc`, `runtime`, `packageManager`
@@ -159,7 +182,7 @@ Node 默认分发的一个工具，自 v25 后不再内置。作用在于根据 
 ### 对比
 
 | 工具 | 主要功能 | 缺陷 |
-|---|---|---|
+| --- | --- | --- |
 | nvm | 全局 node 版本管理 | 跨项目需手动切换node版本；不管理包管理器版本 |
 | volta | 全局 & 项目级 node 版本、包管理器及其它工具链管理 | 不支持全局安装 pnpm |
 | pnpm | 项目级 node 版本、pnpm 版本管理 | 适用于 pnpm 项目；不管理全局 node 版本 |
