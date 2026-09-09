@@ -195,44 +195,11 @@ pnpm runtime set node 26      # 默认 -D，写入 devEngines.runtime；-P 写�
 
 核心配置项：
 
-| 配置项                                                                               | npm                                                                                                                                                                                                                 | pnpm                                                                                                                     |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| [engines](https://docs.npmjs.com/cli/v12/configuring-npm/package-json#engines)       | 指定适用的 node/npm 版本                                                                                                                                                                                            | 除 `engines.node` 外还会处理 `engines.pnpm`，且两者严格程度不同（见下）                                                  |
-| [devEngines](https://docs.npmjs.com/cli/v12/configuring-npm/package-json#devengines) | 指定开发环境下适用的工具，包括 `cpu`, `os`, `libc`, `runtime`, `packageManager`。每个属性可以是对象或对象数组。对象必须包含 `name`，可选地可以指定 `version` 和 `onFail`。`onFail` 可以是 `error(默认)/warn/ignore` | 各字段被解析的起始版本不同（见下）。`onFail` 可以设置为 `download`，表示自动下载并使用；且无需 `engineStrict` 即自带强制 |
-| packageManager                                                                       | 声明项目期望使用的包管理器及版本，由 Corepack 使用                                                                                                                                                                  | pnpm 读到后的默认行为是**下载并切换**到该版本（`pmOnFail` 默认为 `download`）；与 `devEngines.packageManager` 不能并存   |
-
-pnpm 对 `engines` 的两档行为差异（pnpm 11.25 实测）：
-
-- `engines.pnpm`：任何 pnpm 版本都会硬失败（`ERR_PNPM_UNSUPPORTED_ENGINE`），不受 `engineStrict` 影响，也没有配置项可以关闭。这是唯一能拦住 pnpm ≤10 的手段。
-- `engines.node`：未开启 `engineStrict` 时只输出 `[WARN] Unsupported engine`；在 `pnpm-workspace.yaml` 中写入 `engineStrict: true` 后升级为硬失败。官方文档措辞是“项目自身不兼容一律失败”，与实测存在出入，建议显式开启 `engineStrict`。
-- `devEngines.runtime` / `devEngines.packageManager`：pnpm 11 自带强制，不需要 `engineStrict`，报错时会提示可用 `--runtime-on-fail=ignore` / `--pm-on-fail=ignore` 绕过。
-
-`packageManager` 与 `devEngines.packageManager` 同时存在时，pnpm 会警告并**忽略前者**：`[WARN] Cannot use both "packageManager" and "devEngines.packageManager" in package.json. "packageManager" will be ignored`。所以“用 `packageManager` 为老版本兜底”在两者并存时并不成立，真正的兜底是 `engines.pnpm`。
-
-npm 自定义设置使用 [.npmrc](https://docs.npmjs.com/cli/v12/configuring-npm/npmrc) 文件，与版本约束相关的是 `engine-strict`（`package-manager-strict`、`package-manager-strict-version` 并非 npm 配置项，而是 pnpm 的旧设置，且已在 pnpm 12 中移除）
-
-pnpm 自定义设置使用 [pnpm-workspace.yaml](https://pnpm.io/zh/settings) 文件，例如 `engineStrict`、`pmOnFail`、`runtimeOnFail`、`nodeDownloadMirrors`。pnpm 仅从 `.npmrc` 中读取 auth/registry 设置，且自 v11 起也不再读取 `package.json` 中的 `pnpm` 字段
-
-pnpm 12 的设置迁移对照：
-
-| 旧设置                                | 新设置                       |
-| ------------------------------------- | ---------------------------- |
-| `managePackageManagerVersions: true`  | `pmOnFail: download`（默认） |
-| `managePackageManagerVersions: false` | `pmOnFail: ignore`           |
-| `packageManagerStrict: false`         | `pmOnFail: warn`             |
-| `packageManagerStrictVersion: true`   | `pmOnFail: error`            |
-| `COREPACK_ENABLE_STRICT=0`            | `pmOnFail: warn`             |
-
-#### devEngines
-
-无论是使用 npm 还是 pnpm，`devEngines` 都是更现代的管理包管理器的方式。
-
-devEngines 每个属性可以是对象或对象数组。数组的判定逻辑见 [npm-install-checks/lib/dev-engines.js](https://github.com/npm/npm-install-checks/blob/main/lib/dev-engines.js)：
-
-- `const invalid = depErrors.length === dependencies.length` —— **全部不匹配才算失败**，即数组是“或”关系，可以实现 name 的“放宽”（`version` 里的 `||` 只能放宽版本，放宽不了 name）；
-- 失败时采用的 `onFail` 取自 `dependencies[dependencies.length - 1].onFail`，即**数组最后一个元素**，而不是逐项各用各的。
-
-但 pnpm 的处理有些差异，onFail=download 时，官方示例中，对 runtime 数组的用法是“都装”。
+| 配置项 | npm | pnpm |
+| --- | --- | --- |
+| [engines](https://docs.npmjs.com/cli/v12/configuring-npm/package-json#engines) | 指定适用的 node/npm 版本 | 除 `engines.node` 外还会处理 `engines.pnpm` |
+| [devEngines](https://docs.npmjs.com/cli/v12/configuring-npm/package-json#devengines) | 指定开发环境下适用的工具，包括 `cpu`, `os`, `libc`, `runtime`, `packageManager`。每个属性可以是对象或对象数组。对象必须包含 `name`，可选地可以指定 `version` 和 `onFail`。`onFail` 可以是 `error(默认)/warn/ignore` | `onFail` 可以设置为 `download`，表示自动下载并使用 |
+| packageManager | 声明项目期望使用的包管理器及版本，由 Corepack 使用 | pnpm 读到后的默认行为是**下载并切换**到该版本（`pmOnFail` 默认为 `download`）；与 `devEngines.packageManager` 不能并存 |
 
 各字段被 pnpm 解析的起始版本并不相同：
 
@@ -242,7 +209,13 @@ devEngines 每个属性可以是对象或对象数组。数组的判定逻辑见
 | `engines.runtime`           | v10.21        |
 | `devEngines.packageManager` | v11.0.0       |
 
-实测：pnpm 10.34.5 在只声明了 `devEngines.packageManager` 的项目里安装成功、完全忽略该字段；pnpm 9.15.9 同样忽略，并改写了 lockfile。能拦住 pnpm ≤10 的只有 `engines.pnpm`。
+npm 自定义设置使用 [.npmrc](https://docs.npmjs.com/cli/v12/configuring-npm/npmrc) 文件，与版本约束相关的是 `engine-strict`。
+
+pnpm 自定义设置使用 [pnpm-workspace.yaml](https://pnpm.io/zh/settings) 文件，例如 `engineStrict`、`pmOnFail`、`runtimeOnFail`、`nodeDownloadMirrors`。pnpm 仅从 `.npmrc` 中读取 auth/registry 设置，且自 v11 起也不再读取 `package.json` 中的 `pnpm` 字段。
+
+### devEngines
+
+无论是使用 npm 还是 pnpm，`devEngines` 都是更现代的管理包管理器的方式。
 
 示例：
 
@@ -263,12 +236,6 @@ devEngines 每个属性可以是对象或对象数组。数组的判定逻辑见
 }
 ```
 
-onFail=download 在源码中是规范内的值，但 npm 把它降级为 error，文档中也暂未提及。download 语义由包管理器自行实现，pnpm 真正实现了（runtime / packageManager），而 os / cpu / libc 无从下载，仍等同于 error。
-
-pnpm 自 v12.0.0-rc.6 起支持安装其他包管理器，包括 npm、Yarn Classic、Yarn Berry、Yarn 6 (yarnpkg/zpm) 和 Bun。registry 发布的那几个走与 pnpm 自身引擎相同的解析-验签-安装管线（按 npm 签名校验确切版本），Yarn 6 与 Bun 则是各自项目的平台归档、以发布者校验和锁定；**每个包管理器解析进 pnpm home 下各自独立的 environment lockfile**，非 pnpm 的版本不会写进项目的 `pnpm-lock.yaml`（只有 pnpm 自己的 pin 记在 `packageManagerDependencies`），因此不会影响项目外。详见 [pnpm 12 - 命名软件包管理器](https://pnpm.io/zh/blog/whats-different-in-pnpm-12)
-
-上例中，当 packageManager.name=pnpm 时，指定的 pnpm 版本与项目当前生效的 pnpm 版本不符合时，会下载合适的版本并启用，无论是升级还是降级。假设当前为 11.25，声明 ^12，下载 pnpm 12 并交由它执行；声明 ~10.34，下载 pnpm 10.34.x 并交由它执行。只是，升降级后 lockfile 可能会被重写，workspace配置也存在差异。
-
 `devEngines.runtime` 配合 `onFail: download` 的实测效果（pnpm 11.25 + volta 提供的系统 node 26.7.0）：
 
 ```bash
@@ -282,7 +249,22 @@ v26.8.1   # pnpm 管理的运行时
 v26.7.0   # volta 提供的系统 node
 ```
 
-lockfile 中写入的是 `specifier: runtime:^26.0.0` / `version: runtime:26.8.1`，并按 `cpu`/`os` 列出各平台的下载地址与 sha256 校验值，所以同一份 lock 可跨平台使用。
+上例中，当 packageManager.name=pnpm 时，指定的 pnpm 版本与项目当前生效的 pnpm 版本不符合时，会下载合适的版本并启用，无论是升级还是降级。假设当前为 `11.25`，声明 `^12`，下载 pnpm 12 并交由它执行；声明 `~10.34`，下载 pnpm 10.34.x 并交由它执行。只是，升降级后 lockfile 可能会被重写，workspace配置也存在差异。
+
+pnpm 自 v12.0.0-rc.6 起支持安装其他包管理器，包括 npm、Yarn Classic、Yarn Berry、Yarn 6 (yarnpkg/zpm) 和 Bun。详见 [pnpm 12 - 命名软件包管理器](https://pnpm.io/zh/blog/whats-different-in-pnpm-12)
+
+devEngines 每个属性可以是对象或对象数组。
+
+::: details devEngines对象数组
+
+数组的判定逻辑见 [npm-install-checks/lib/dev-engines.js](https://github.com/npm/npm-install-checks/blob/main/lib/dev-engines.js)：
+
+- `const invalid = depErrors.length === dependencies.length` —— **全部不匹配才算失败**，即数组是“或”关系，可以实现 name 的“放宽”（`version` 里的 `||` 只能放宽版本，放宽不了 name）；
+- 失败时采用的 `onFail` 取自 `dependencies[dependencies.length - 1].onFail`，即**数组最后一个元素**，而不是逐项各用各的。
+
+但 pnpm 的处理有些差异，onFail=download 时，官方示例中，对 runtime 数组的用法是“都装”。
+
+:::
 
 ::: warning 组合建议
 
