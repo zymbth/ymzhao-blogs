@@ -1,7 +1,2 @@
-shellEmulator: true
-
-trustPolicy: no-downgrade
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
+allowBuilds:
+  '@parcel/watcher': true
