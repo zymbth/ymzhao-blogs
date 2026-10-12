@@ -13,16 +13,19 @@
 @font-face {
   font-family: 'ComicShannsMono Regular';
   src: url(/font/ComicShannsMono-Regular.woff2) format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'JetBrains Mono';
   src: url(/font/JetBrainsMono-Regular.woff2) format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'LXGWWenKai';
   src: url(/font/LXGW/LXGWWenKaiLite-Bold-v1.245.1.woff2) format('woff2');
+  font-display: swap;
   font-weight: normal;
   font-style: normal;
 }
@@ -30,6 +33,7 @@
 @font-face {
   font-family: 'LXGWWenKai';
   src: url(/font/LXGW/LXGWZhenKai-v0.600.woff2) format('woff2');
+  font-display: swap;
   font-weight: bold;
   font-style: normal;
 }
