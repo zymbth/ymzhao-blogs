@@ -126,7 +126,7 @@ const onScroll = throttleAndDebounce(() => {
   border-left: 1px solid var(--vp-c-divider);
   padding-left: 8px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .outline-marker {

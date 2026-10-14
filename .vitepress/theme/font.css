@@ -5,6 +5,12 @@
   @see https://github.com/lxgw/LxgwWenKai 霞鹜文楷
   @see https://github.com/lxgw/LxgwZhenKai 霞鹜臻楷
 
+    注意：臻楷文件内部字重为 Regular(400)。若声明为 font-weight: bold(700)，
+    浏览器会认定其已是粗体而跳过合成加粗(faux bold)，导致加粗不可见。
+    故将其声明为中间字重 500：字重 >=600 的请求(如 strong/b/标题)会匹配臻楷，
+    且因声明字重(500)低于请求字重，浏览器会执行合成加粗；
+    400/500 的正常文本仍匹配文楷（500 处已改用 400 以避免落入臻楷）。
+
   英文字体：JetBrainsMono, ComicShannsMono
   @see https://github.com/JetBrains/JetBrainsMono JetBrainsMono
   @see https://github.com/jesusmgg/comic-shanns-mono ComicShannsMono
@@ -34,6 +40,6 @@
   font-family: 'LXGWWenKai';
   src: url(/font/LXGW/LXGWZhenKai-v0.600.woff2) format('woff2');
   font-display: swap;
-  font-weight: bold;
+  font-weight: 500; /* 故意声明为中间字重而非 bold，以触发合成加粗，见文件头注释 */
   font-style: normal;
 }
